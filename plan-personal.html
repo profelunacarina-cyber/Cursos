@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan personal · Estructura de costos · EPJA 753</title>
+<meta name="description" content="Armá tu propio plan de precios paso a paso. Descarga tu estructura de costos completa para tu emprendimiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+.plan-intro {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-2) 100%);
+  color: #fff;
+  border-radius: var(--r-xl);
+  padding: 40px;
+  margin: 30px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.plan-intro::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.plan-intro .label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.plan-intro h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 32px;
+  margin: 0 0 14px;
+  letter-spacing: -0.5px;
+  position: relative;
+  color: #fff;
+}
+.plan-intro p {
+  opacity: 0.92;
+  font-size: 15px;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.65;
+  position: relative;
+}
+
+.plan-step {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: var(--sombra-suave);
+}
+.plan-step-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.plan-step-num {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.plan-step h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.plan-step-desc {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.plan-step input[type="text"],
+.plan-step input[type="number"],
+.plan-step textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.plan-step input[type="number"] {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.plan-step input:focus,
+.plan-step textarea:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,131,46,0.1);
+}
+.plan-step textarea {
+  resize: vertical;
+  min-height: 70px;
+  font-family: var(--sans);
+}
+.plan-field {
+  margin-bottom: 14px;
+}
+.plan-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.plan-field small {
+  display: block;
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+}
+.plan-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 600px) { .plan-grid-2 { grid-template-columns: 1fr; } }
+
+.plan-resumen {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+}
+.plan-resumen-item {
+  display: flex;
+  flex-direction: column;
+}
+.plan-resumen-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.plan-resumen-val {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--azul);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+.plan-resumen-val.destacado { color: var(--verde); }
+
+/* Encuesta */
+.encuesta {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 30px;
+  margin: 24px 0;
+}
+.encuesta-pregunta {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--gris-2);
+}
+.encuesta-pregunta:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.encuesta-pregunta-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--azul);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.encuesta-escala {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.encuesta-opt {
+  flex: 1;
+  min-width: 50px;
+  padding: 11px 8px;
+  background: var(--gris-1);
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--sans);
+  color: var(--gris-4);
+  font-weight: 500;
+}
+.encuesta-opt:hover { border-color: var(--verde); }
+.encuesta-opt.selected {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: #fff;
+}
+.encuesta-escala-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 6px;
+}
+
+/* Botón final */
+.descarga-final {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  color: #fff;
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 30px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.descarga-final::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.descarga-final h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 26px;
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+  position: relative;
+}
+.descarga-final p {
+  opacity: 0.9;
+  font-size: 14px;
+  max-width: 540px;
+  margin: 0 auto 22px;
+  line-height: 1.6;
+  position: relative;
+}
+.descarga-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.descarga-btns button, .descarga-btns a {
+  padding: 14px 26px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  border: none;
+  transition: all 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.descarga-btns .primary {
+  background: var(--verde);
+  color: #fff;
+}
+.descarga-btns .primary:hover { background: var(--verde-2); }
+.descarga-btns .outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+}
+.descarga-btns .outline:hover { background: rgba(255,255,255,0.1); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Costos y Precios · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Costos y Precios</strong>
+        <span>Estructura de costos</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="costos-gastos.html">Conceptos</a>
+      <a href="punto-equilibrio.html">Equilibrio</a>
+      <a href="estrategias.html">Estrategias</a>
+      <a href="caso-integrador.html">Caso</a>
+      <a href="plan-personal.html" class="nav-cta active">Mi plan</a>
+    </nav>
+    <button class="nav-toggle" onclick="EPJA.toggleNav()" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Estructura de costos</a>
+      <span>›</span>
+      <span>Plan personal</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Cierre del recorrido
+    </span>
+    <h1>Tu propio plan de <em>estructura de costos</em></h1>
+    <p>Llegó el momento de aplicar todo lo aprendido a tu emprendimiento real. Completá los pasos con tus datos y al final vas a poder descargar un documento A4 con tu estructura completa y la constancia de cursado y aprobación.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <div class="plan-intro">
+      <span class="label">Tu hoja de ruta</span>
+      <h2>Cinco pasos para armar tu plan</h2>
+      <p>Lo completás de una sentada o en varias. Los datos se guardan automáticamente en tu navegador, así que podés volver cuando quieras a terminarlo.</p>
+    </div>
+
+    <div class="plan-step">
+      <div class="plan-step-header">
+        <div class="plan-step-num">1</div>
+        <h3>Datos del emprendedor y del proyecto</h3>
+      </div>
+      <p class="plan-step-desc">Para personalizar la constancia y la estructura de costos que vas a descargar.</p>
+
+      <div class="plan-grid-2">
+        <div class="plan-field">
+          <label for="p-nombre">Nombre y apellido</label>
+          <input type="text" id="p-nombre" placeholder="María González" maxlength="60">
+        </div>
+        <div class="plan-field">
+          <label for="p-emprendimiento">Nombre del emprendimiento</label>
+          <input type="text" id="p-emprendimiento" placeholder="Tortas de Mary" maxlength="60">
+        </div>
+      </div>
+      <div class="plan-field">
+        <label for="p-rubro">Rubro o actividad</label>
+        <input type="text" id="p-rubro" placeholder="Pastelería artesanal a pedido" maxlength="80">
+      </div>
+      <div class="plan-field">
+        <label for="p-descripcion">Descripción breve del producto o servicio principal</label>
+        <textarea id="p-descripcion" placeholder="Ej: tortas decoradas para cumpleaños, en sabores varios, a pedido con 48 hs de anticipación."></textarea>
+      </div>
+    </div>
+
+    <div class="plan-step">
+      <div class="plan-step-header">
+        <div class="plan-step-num">2</div>
+        <h3>Tus costos fijos del mes</h3>
+      </div>
+      <p class="plan-step-desc">Lo que pagás cada mes aunque no vendas nada. Si ya cargaste el inventario en el módulo 1, podés traer esos datos directamente.</p>
+
+      <button class="usar-datos-btn" id="btn-importar" style="background: var(--azul); color:#fff; border:none; padding:10px 18px; border-radius: var(--r-sm); font-size:13px; font-weight:500; cursor:pointer; font-family: var(--sans); margin-bottom:16px; display:inline-flex; align-items:center; gap:8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Importar desde mi inventario del módulo 1
+      </button>
+
+      <div class="plan-field">
+        <label for="p-cf">Total de costos fijos del mes</label>
+        <input type="number" id="p-cf" value="0" min="0" step="500">
+        <small>Suma de alquiler, servicios, monotributo y todo lo que pagás aunque no vendas.</small>
+      </div>
+      <div class="plan-field">
+        <label for="p-cf-detalle">Detalle (opcional)</label>
+        <textarea id="p-cf-detalle" placeholder="Ej: alquiler $50.000, servicios $20.000, monotributo $35.000, internet $15.000."></textarea>
+      </div>
+    </div>
+
+    <div class="plan-step">
+      <div class="plan-step-header">
+        <div class="plan-step-num">3</div>
+        <h3>Tu producto principal: costo y precio</h3>
+      </div>
+      <p class="plan-step-desc">Para hacer el cálculo nos enfocamos en tu producto o servicio más representativo.</p>
+
+      <div class="plan-grid-2">
+        <div class="plan-field">
+          <label for="p-cv">Costo variable por unidad</label>
+          <input type="number" id="p-cv" value="0" min="0" step="50">
+          <small>Materia prima, insumos, lo que cambia con cada unidad.</small>
+        </div>
+        <div class="plan-field">
+          <label for="p-precio">Precio de venta unitario</label>
+          <input type="number" id="p-precio" value="0" min="0" step="50">
+          <small>El precio al que pensás venderlo (o lo vendés).</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-step">
+      <div class="plan-step-header">
+        <div class="plan-step-num">4</div>
+        <h3>Estrategia y proyección</h3>
+      </div>
+      <p class="plan-step-desc">Definí brevemente la estrategia de precio que vas a aplicar y cuántas unidades estimás vender realmente.</p>
+
+      <div class="plan-grid-2">
+        <div class="plan-field">
+          <label for="p-estrategia">Estrategia elegida</label>
+          <select id="p-estrategia" style="width:100%; padding:11px 14px; border:1.5px solid var(--gris-2); border-radius: var(--r-sm); font-size:14px; font-family: var(--sans); background:#fff;">
+            <option value="">Elegir...</option>
+            <option value="Costo + markup">Costo + markup (precio basado en el costo)</option>
+            <option value="Precio de penetración">Precio de penetración (entrar al mercado)</option>
+            <option value="Precio de descremado">Precio de descremado (premium)</option>
+            <option value="Precio psicológico">Precio psicológico (terminaciones)</option>
+            <option value="Precio por paquete">Precio por paquete (combos)</option>
+            <option value="Precio diferenciado">Precio diferenciado (por segmento)</option>
+          </select>
+        </div>
+        <div class="plan-field">
+          <label for="p-ventas-est">Estimación realista de unidades / mes</label>
+          <input type="number" id="p-ventas-est" value="0" min="0" step="1">
+          <small>Cuánto pensás vender en un mes promedio.</small>
+        </div>
+      </div>
+      <div class="plan-field">
+        <label for="p-justif">Por qué elegiste esta estrategia (opcional)</label>
+        <textarea id="p-justif" placeholder="Ej: arranco con precio de penetración porque todavía no me conoce nadie en el barrio."></textarea>
+      </div>
+    </div>
+
+    <div class="plan-step">
+      <div class="plan-step-header">
+        <div class="plan-step-num">5</div>
+        <h3>Resumen de tus números</h3>
+      </div>
+      <p class="plan-step-desc">Estos son los indicadores clave que vas a manejar a partir de ahora para tomar decisiones sobre tu emprendimiento.</p>
+
+      <div class="plan-resumen">
+        <div class="plan-resumen-item">
+          <span class="plan-resumen-label">Margen unitario</span>
+          <span class="plan-resumen-val" id="r-margen">$ 0</span>
+        </div>
+        <div class="plan-resumen-item">
+          <span class="plan-resumen-label">Margen %</span>
+          <span class="plan-resumen-val" id="r-margen-pct">0 %</span>
+        </div>
+        <div class="plan-resumen-item">
+          <span class="plan-resumen-label">Punto de equilibrio</span>
+          <span class="plan-resumen-val destacado" id="r-pe">— u.</span>
+        </div>
+        <div class="plan-resumen-item">
+          <span class="plan-resumen-label">Margen de seguridad</span>
+          <span class="plan-resumen-val" id="r-ms">— %</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-step">
+      <div class="plan-step-header">
+        <div class="plan-step-num">6</div>
+        <h3>Encuesta de satisfacción</h3>
+      </div>
+      <p class="plan-step-desc">Tus respuestas nos ayudan a mejorar el material y a pensar nuevas capacitaciones para emprendedores de la zona. Se guardan junto a tu plan.</p>
+
+      <div class="encuesta">
+
+        <div class="encuesta-pregunta">
+          <div class="encuesta-pregunta-text">¿Qué tan claro te resultó el material en general?</div>
+          <div class="encuesta-escala" data-pregunta="claridad">
+            <button class="encuesta-opt" data-val="1">1</button>
+            <button class="encuesta-opt" data-val="2">2</button>
+            <button class="encuesta-opt" data-val="3">3</button>
+            <button class="encuesta-opt" data-val="4">4</button>
+            <button class="encuesta-opt" data-val="5">5</button>
+          </div>
+          <div class="encuesta-escala-labels"><span>Poco claro</span><span>Muy claro</span></div>
+        </div>
+
+        <div class="encuesta-pregunta">
+          <div class="encuesta-pregunta-text">¿Qué tan útil te resultó para tu emprendimiento?</div>
+          <div class="encuesta-escala" data-pregunta="utilidad">
+            <button class="encuesta-opt" data-val="1">1</button>
+            <button class="encuesta-opt" data-val="2">2</button>
+            <button class="encuesta-opt" data-val="3">3</button>
+            <button class="encuesta-opt" data-val="4">4</button>
+            <button class="encuesta-opt" data-val="5">5</button>
+          </div>
+          <div class="encuesta-escala-labels"><span>Poco útil</span><span>Muy útil</span></div>
+        </div>
+
+        <div class="encuesta-pregunta">
+          <div class="encuesta-pregunta-text">¿Qué te parecieron las herramientas interactivas (calculadoras, simulador, clasificador)?</div>
+          <div class="encuesta-escala" data-pregunta="herramientas">
+            <button class="encuesta-opt" data-val="1">1</button>
+            <button class="encuesta-opt" data-val="2">2</button>
+            <button class="encuesta-opt" data-val="3">3</button>
+            <button class="encuesta-opt" data-val="4">4</button>
+            <button class="encuesta-opt" data-val="5">5</button>
+          </div>
+          <div class="encuesta-escala-labels"><span>No ayudaron</span><span>Muy útiles</span></div>
+        </div>
+
+        <div class="encuesta-pregunta">
+          <div class="encuesta-pregunta-text">¿Qué otra capacitación te interesaría hacer? (opcional)</div>
+          <textarea id="enc-sugerencia" placeholder="Ej: marketing en redes para emprendedores, finanzas personales, ventas..." style="width:100%; padding:11px 14px; border:1.5px solid var(--gris-2); border-radius: var(--r-sm); font-size:14px; font-family: var(--sans); min-height: 60px;"></textarea>
+        </div>
+
+        <div class="encuesta-pregunta">
+          <div class="encuesta-pregunta-text">¿Algo que mejorarías de este curso? (opcional)</div>
+          <textarea id="enc-comentario" placeholder="Tu sugerencia o comentario..." style="width:100%; padding:11px 14px; border:1.5px solid var(--gris-2); border-radius: var(--r-sm); font-size:14px; font-family: var(--sans); min-height: 60px;"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="descarga-final">
+      <h3>Tu plan está listo</h3>
+      <p>Descargá tu estructura de costos completa en formato A4 (incluye datos del emprendimiento, costos, números clave y constancia de cursado y aprobación firmada por la Prof. Carina Luna).</p>
+      <div class="descarga-btns">
+        <button class="primary" onclick="descargarPlan()">↓ Descargar mi plan + constancia</button>
+        <a href="index.html" class="outline">Volver al inicio</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Administración y Liquidación de Sueldos · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Recorrido</h5>
+        <ul>
+          <li><a href="costos-gastos.html">01 · Costos y gastos</a></li>
+          <li><a href="fijos-variables.html">02 · Fijos y variables</a></li>
+          <li><a href="margen-contribucion.html">03 · Margen</a></li>
+          <li><a href="punto-equilibrio.html">04 · Equilibrio</a></li>
+          <li><a href="estrategias.html">05 · Estrategias</a></li>
+          <li><a href="monotributo.html">06 · Monotributo</a></li>
+          <li><a href="caso-integrador.html">07 · Caso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="plan-personal.html">Plan personal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var PLAN_KEY = 'epja753_plan';
+var encuestaValores = {};
+
+function leerPlan() {
+  try { return JSON.parse(localStorage.getItem(PLAN_KEY)) || {}; } catch(e) { return {}; }
+}
+function guardarPlan(p) {
+  try { localStorage.setItem(PLAN_KEY, JSON.stringify(p)); } catch(e) {}
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('es-AR'); }
+
+function recalcular() {
+  var cf = parseFloat(document.getElementById('p-cf').value) || 0;
+  var cv = parseFloat(document.getElementById('p-cv').value) || 0;
+  var precio = parseFloat(document.getElementById('p-precio').value) || 0;
+  var ventas = parseFloat(document.getElementById('p-ventas-est').value) || 0;
+
+  var margen = precio - cv;
+  var margenPct = precio > 0 ? (margen / precio) * 100 : 0;
+  var pe = margen > 0 ? Math.ceil(cf / margen) : 0;
+  var ms = (ventas > 0 && pe > 0 && ventas > pe) ? ((ventas - pe) / ventas) * 100 : 0;
+
+  document.getElementById('r-margen').textContent = '$ ' + fmt(margen);
+  document.getElementById('r-margen-pct').textContent = margenPct.toFixed(1).replace('.', ',') + ' %';
+  document.getElementById('r-pe').textContent = pe > 0 ? fmt(pe) + ' u.' : '— u.';
+  document.getElementById('r-ms').textContent = ms > 0 ? ms.toFixed(0) + ' %' : (ventas > 0 && pe > 0 ? 'Bajo PE' : '— %');
+}
+
+function guardarFormulario() {
+  var datos = {
+    nombre: document.getElementById('p-nombre').value,
+    emprendimiento: document.getElementById('p-emprendimiento').value,
+    rubro: document.getElementById('p-rubro').value,
+    descripcion: document.getElementById('p-descripcion').value,
+    cf: document.getElementById('p-cf').value,
+    cfDetalle: document.getElementById('p-cf-detalle').value,
+    cv: document.getElementById('p-cv').value,
+    precio: document.getElementById('p-precio').value,
+    estrategia: document.getElementById('p-estrategia').value,
+    ventas: document.getElementById('p-ventas-est').value,
+    justif: document.getElementById('p-justif').value,
+    encuesta: encuestaValores,
+    sugerencia: document.getElementById('enc-sugerencia').value,
+    comentario: document.getElementById('enc-comentario').value
+  };
+  guardarPlan(datos);
+  recalcular();
+}
+
+function cargarFormulario() {
+  var p = leerPlan();
+  if (!p) return;
+  if (p.nombre) document.getElementById('p-nombre').value = p.nombre;
+  if (p.emprendimiento) document.getElementById('p-emprendimiento').value = p.emprendimiento;
+  if (p.rubro) document.getElementById('p-rubro').value = p.rubro;
+  if (p.descripcion) document.getElementById('p-descripcion').value = p.descripcion;
+  if (p.cf) document.getElementById('p-cf').value = p.cf;
+  if (p.cfDetalle) document.getElementById('p-cf-detalle').value = p.cfDetalle;
+  if (p.cv) document.getElementById('p-cv').value = p.cv;
+  if (p.precio) document.getElementById('p-precio').value = p.precio;
+  if (p.estrategia) document.getElementById('p-estrategia').value = p.estrategia;
+  if (p.ventas) document.getElementById('p-ventas-est').value = p.ventas;
+  if (p.justif) document.getElementById('p-justif').value = p.justif;
+  if (p.sugerencia) document.getElementById('enc-sugerencia').value = p.sugerencia;
+  if (p.comentario) document.getElementById('enc-comentario').value = p.comentario;
+  if (p.encuesta) {
+    encuestaValores = p.encuesta;
+    Object.keys(encuestaValores).forEach(function(k) {
+      var escala = document.querySelector('[data-pregunta="' + k + '"]');
+      if (escala) {
+        var opt = escala.querySelector('[data-val="' + encuestaValores[k] + '"]');
+        if (opt) opt.classList.add('selected');
+      }
+    });
+  }
+  recalcular();
+}
+
+['p-nombre','p-emprendimiento','p-rubro','p-descripcion','p-cf','p-cf-detalle','p-cv','p-precio','p-estrategia','p-ventas-est','p-justif','enc-sugerencia','enc-comentario'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardarFormulario);
+  if (el && el.tagName === 'SELECT') el.addEventListener('change', guardarFormulario);
+});
+
+document.querySelectorAll('.encuesta-escala').forEach(function(escala) {
+  var pregunta = escala.dataset.pregunta;
+  escala.querySelectorAll('.encuesta-opt').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      escala.querySelectorAll('.encuesta-opt').forEach(function(o) { o.classList.remove('selected'); });
+      btn.classList.add('selected');
+      encuestaValores[pregunta] = parseInt(btn.dataset.val, 10);
+      guardarFormulario();
+    });
+  });
+});
+
+document.getElementById('btn-importar').addEventListener('click', function() {
+  try {
+    var data = localStorage.getItem('epja753_inventario');
+    if (!data) {
+      alert('Todavía no cargaste tu inventario en el módulo 1. Andá a Costos y gastos y completá tus datos.');
+      return;
+    }
+    var inv = JSON.parse(data);
+    var totalGastos = (inv.gasto || []).reduce(function(s, it) { return s + (parseFloat(it.monto) || 0); }, 0);
+    if (totalGastos === 0) {
+      alert('Tu inventario no tiene gastos con monto cargado. Revisá el módulo 1.');
+      return;
+    }
+    document.getElementById('p-cf').value = totalGastos;
+    var detalle = (inv.gasto || []).map(function(it) {
+      return it.nombre + (it.monto > 0 ? ' $' + fmt(it.monto) : '');
+    }).join(', ');
+    document.getElementById('p-cf-detalle').value = detalle;
+    guardarFormulario();
+    alert('Importado: $ ' + fmt(totalGastos) + ' desde tu inventario del módulo 1.');
+  } catch (e) {
+    alert('No se pudieron leer los datos del inventario.');
+  }
+});
+
+var SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyhtkkoDh06LZcWaigzRjI1KL3gNDZBKNXx6j3s6-Ab6xaEDw_j4m8-mYstVzkBx4sh/exec';
+
+function registrarPlanEnSheet(p, calculos) {
+  try {
+    var payload = {
+      tipo: 'plan',
+      nombre: p.nombre || '',
+      emprendimiento: p.emprendimiento || '',
+      rubro: p.rubro || '',
+      descripcion: p.descripcion || '',
+      cf: parseFloat(p.cf) || 0,
+      cfDetalle: p.cfDetalle || '',
+      cv: parseFloat(p.cv) || 0,
+      precio: parseFloat(p.precio) || 0,
+      estrategia: p.estrategia || '',
+      ventas: parseFloat(p.ventas) || 0,
+      justif: p.justif || '',
+      margen: calculos.margen,
+      margenPct: calculos.margenPct,
+      pe: calculos.pe,
+      ms: calculos.ms,
+      encClaridad: (p.encuesta && p.encuesta.claridad) || '',
+      encUtilidad: (p.encuesta && p.encuesta.utilidad) || '',
+      encHerramientas: (p.encuesta && p.encuesta.herramientas) || '',
+      sugerencia: p.sugerencia || '',
+      comentario: p.comentario || ''
+    };
+    fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).catch(function(err) {
+      console.log('Registro no enviado:', err);
+    });
+  } catch (e) {
+    console.log('Error en registro:', e);
+  }
+}
+
+function generarSvgPE(CF, CV, P, PE, ventasEst) {
+  // Lienzo SVG
+  var W = 680, H = 320;
+  var ML = 70, MR = 20, MT = 20, MB = 50;
+  var X_MIN = ML, X_MAX = W - MR;
+  var Y_MIN = MT, Y_MAX = H - MB;
+  
+  // Rango de cantidad: hasta el doble del PE o las ventas estimadas, lo mayor
+  var qMax = Math.max(Math.ceil(PE * 2), ventasEst > 0 ? Math.ceil(ventasEst * 1.4) : 0, 10);
+  // Costo máximo proyectado para el rango
+  var costoMax = CF + CV * qMax;
+  var ingresoMax = P * qMax;
+  var yMax = Math.max(ingresoMax * 1.1, costoMax * 1.1, CF * 2, 1000);
+  
+  function xPos(q) { return X_MIN + (q / qMax) * (X_MAX - X_MIN); }
+  function yPos(v) {
+    if (v < 0) v = 0;
+    var r = v / yMax;
+    if (r > 1) r = 1;
+    return Y_MAX - r * (Y_MAX - Y_MIN);
+  }
+  
+  var xPE = xPos(PE);
+  var yPE = yPos(P * PE);
+  
+  // Comenzar SVG
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
+  
+  // Áreas: pérdida (de 0 a PE) y ganancia (de PE en adelante)
+  // Área de pérdida: triángulo entre costos fijos (línea horizontal) e ingresos, hasta el cruce
+  s += '<path d="M ' + X_MIN + ' ' + yPos(CF) + ' L ' + xPE + ' ' + yPE + ' L ' + X_MIN + ' ' + yPos(0) + ' Z" fill="#fee" opacity="0.5"/>';
+  // Área de ganancia: entre ingresos y costos totales, de PE a derecha
+  s += '<path d="M ' + xPE + ' ' + yPE + ' L ' + X_MAX + ' ' + yPos(P * qMax) + ' L ' + X_MAX + ' ' + yPos(CF + CV * qMax) + ' Z" fill="#e8f5ec" opacity="0.5"/>';
+  
+  // Grid horizontal
+  for (var i = 0; i <= 4; i++) {
+    var y = Y_MAX - (i / 4) * (Y_MAX - Y_MIN);
+    s += '<line x1="' + X_MIN + '" y1="' + y + '" x2="' + X_MAX + '" y2="' + y + '" stroke="#e6e8ec" stroke-width="0.5"/>';
+    var val = yMax * i / 4;
+    var lbl = val >= 1000000 ? Math.round(val/1000000) + 'M' : (val >= 1000 ? Math.round(val/1000) + 'k' : Math.round(val));
+    s += '<text x="' + (X_MIN - 6) + '" y="' + (y + 3) + '" text-anchor="end" font-family="Georgia" font-size="9" fill="#9aa0a8">$ ' + lbl + '</text>';
+  }
+  
+  // Etiquetas eje X
+  for (var j = 0; j <= 5; j++) {
+    var x = X_MIN + (j / 5) * (X_MAX - X_MIN);
+    var qval = Math.round(j / 5 * qMax);
+    s += '<text x="' + x + '" y="' + (Y_MAX + 16) + '" text-anchor="middle" font-family="Georgia" font-size="9" fill="#9aa0a8">' + qval + '</text>';
+  }
+  
+  // Ejes
+  s += '<line x1="' + X_MIN + '" y1="' + Y_MAX + '" x2="' + X_MAX + '" y2="' + Y_MAX + '" stroke="#9aa0a8" stroke-width="1"/>';
+  s += '<line x1="' + X_MIN + '" y1="' + Y_MIN + '" x2="' + X_MIN + '" y2="' + Y_MAX + '" stroke="#9aa0a8" stroke-width="1"/>';
+  
+  // Línea de costos fijos (horizontal)
+  s += '<line x1="' + X_MIN + '" y1="' + yPos(CF) + '" x2="' + X_MAX + '" y2="' + yPos(CF) + '" stroke="#003050" stroke-width="2"/>';
+  
+  // Línea de costos totales
+  s += '<line x1="' + X_MIN + '" y1="' + yPos(CF) + '" x2="' + X_MAX + '" y2="' + yPos(CF + CV * qMax) + '" stroke="#c2410c" stroke-width="2"/>';
+  
+  // Línea de ingresos
+  s += '<line x1="' + X_MIN + '" y1="' + yPos(0) + '" x2="' + X_MAX + '" y2="' + yPos(P * qMax) + '" stroke="#006020" stroke-width="2"/>';
+  
+  // Línea vertical en PE
+  s += '<line x1="' + xPE + '" y1="' + Y_MIN + '" x2="' + xPE + '" y2="' + yPE + '" stroke="#006020" stroke-width="1" stroke-dasharray="4 3"/>';
+  
+  // Punto de PE
+  s += '<circle cx="' + xPE + '" cy="' + yPE + '" r="6" fill="#006020" stroke="#fff" stroke-width="2"/>';
+  s += '<text x="' + (xPE + 10) + '" y="' + (yPE - 6) + '" font-family="Georgia" font-size="10" font-weight="600" fill="#006020">PE: ' + PE + ' u.</text>';
+  
+  // Etiqueta zonas
+  if (xPE > X_MIN + 80) {
+    s += '<text x="' + ((X_MIN + xPE) / 2) + '" y="' + (Y_MIN + 25) + '" text-anchor="middle" font-family="Georgia" font-size="9" font-weight="600" fill="#c2410c">Zona de pérdida</text>';
+  }
+  if (xPE < X_MAX - 100) {
+    s += '<text x="' + ((xPE + X_MAX) / 2) + '" y="' + (Y_MIN + 25) + '" text-anchor="middle" font-family="Georgia" font-size="9" font-weight="600" fill="#006020">Zona de ganancia</text>';
+  }
+  
+  // Etiquetas de ejes
+  s += '<text x="' + ((X_MIN + X_MAX) / 2) + '" y="' + (H - 8) + '" text-anchor="middle" font-family="Georgia" font-size="9" fill="#4a5058">Unidades vendidas en el mes</text>';
+  s += '<text x="20" y="' + ((Y_MIN + Y_MAX) / 2) + '" text-anchor="middle" font-family="Georgia" font-size="9" fill="#4a5058" transform="rotate(-90 20 ' + ((Y_MIN + Y_MAX) / 2) + ')">Pesos ($)</text>';
+  
+  // Si tiene ventas estimadas y es mayor al PE, marcar punto de ventas estimadas
+  if (ventasEst > 0 && ventasEst <= qMax && ventasEst > PE) {
+    var xVE = xPos(ventasEst);
+    var yVE = yPos(P * ventasEst);
+    s += '<circle cx="' + xVE + '" cy="' + yVE + '" r="4" fill="#003050" stroke="#fff" stroke-width="2"/>';
+    s += '<text x="' + (xVE + 8) + '" y="' + (yVE - 6) + '" font-family="Georgia" font-size="9" fill="#003050">Tus ventas: ' + ventasEst + '</text>';
+  }
+  
+  s += '</svg>';
+  return s;
+}
+
+function descargarPlan() {
+  var p = leerPlan();
+  if (!p.nombre || !p.emprendimiento) {
+    alert('Por favor completá al menos tu nombre y el nombre del emprendimiento.');
+    document.getElementById('p-nombre').focus();
+    return;
+  }
+  var fecha = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' });
+  var cf = parseFloat(p.cf) || 0;
+  var cv = parseFloat(p.cv) || 0;
+  var precio = parseFloat(p.precio) || 0;
+  var ventas = parseFloat(p.ventas) || 0;
+  var margen = precio - cv;
+  var margenPct = precio > 0 ? (margen / precio) * 100 : 0;
+  var pe = margen > 0 ? Math.ceil(cf / margen) : 0;
+  var ms = (ventas > 0 && pe > 0 && ventas > pe) ? ((ventas - pe) / ventas) * 100 : 0;
+
+  // Envío a Google Sheets en segundo plano
+  registrarPlanEnSheet(p, { margen: margen, margenPct: margenPct, pe: pe, ms: ms });
+
+  var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Plan - ' + p.nombre + '</title>';
+  html += '<style>';
+  html += '@page { size: A4; margin: 0; }';
+  html += 'body { font-family: Georgia, serif; margin:0; padding:0; background:#fff; color:#1a1f26; font-size:11pt; }';
+  html += '.page { width:21cm; min-height:29.7cm; padding:1.5cm 2cm; box-sizing:border-box; page-break-after:always; position:relative; }';
+  html += '.page:last-child { page-break-after:auto; }';
+  html += '.hdr { display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #003050; padding-bottom:8px; margin-bottom:16px; }';
+  html += '.hdr-l { font-family:Georgia; font-weight:700; color:#003050; font-size:13px; letter-spacing:3px; }';
+  html += '.hdr-r { font-size:10px; color:#4a5058; }';
+  html += 'h1 { text-align:center; font-size:24px; color:#003050; margin:1cm 0 8px; font-weight:500; font-style:italic; }';
+  html += 'h1.titulo { font-size:30px; }';
+  html += '.subtitulo { text-align:center; color:#4a5058; font-size:14px; margin-bottom:1cm; font-style:italic; }';
+  html += 'h2 { font-size:15px; color:#003050; border-bottom:1px solid #006020; padding-bottom:4px; margin-top:18px; margin-bottom:10px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; }';
+  html += '.kv { display:flex; padding:6px 0; border-bottom:1px dotted #e6e8ec; font-size:11pt; }';
+  html += '.kv .k { font-weight:600; color:#003050; min-width:5.5cm; }';
+  html += '.kv .v { color:#1a1f26; flex:1; }';
+  html += '.box-num { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:12px 0; }';
+  html += '.num-card { background:#f4faf9; padding:10px 14px; border-left:3px solid #006020; }';
+  html += '.num-card .lbl { font-size:9px; color:#4a5058; text-transform:uppercase; letter-spacing:0.8px; font-weight:600; }';
+  html += '.num-card .val { font-size:18px; font-weight:700; color:#006020; font-family:Georgia; margin-top:2px; }';
+  html += '.num-card.azul { border-left-color:#003050; }';
+  html += '.num-card.azul .val { color:#003050; }';
+  html += '.grafico-pe { margin: 16px 0; padding: 14px; background: #fbfaf7; border-radius: 6px; border: 1px solid #e6e8ec; page-break-inside: avoid; }';
+  html += '.grafico-pe-titulo { font-size: 11pt; color: #003050; font-weight: 600; margin-bottom: 8px; }';
+  html += '.grafico-pe-sub { font-size: 9pt; color: #4a5058; margin-bottom: 10px; line-height: 1.4; }';
+  html += '.grafico-pe svg { width: 100%; height: auto; max-height: 8cm; display: block; }';
+  html += '.grafico-leyenda { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 8px; font-size: 8pt; color: #4a5058; }';
+  html += '.grafico-leyenda span { display: inline-flex; align-items: center; gap: 4px; }';
+  html += '.grafico-leyenda i { display: inline-block; width: 14px; height: 2px; border-radius: 1px; }';
+  html += '.grafico-vacio { text-align: center; padding: 20px; color: #9aa0a8; font-style: italic; font-size: 10pt; }';
+  html += '.principio { background:#e8f1f7; padding:10px 14px; border-left:3px solid #003050; margin:10px 0; font-style:italic; font-size:10.5pt; color:#003050; line-height:1.4; }';
+  html += '.firma { margin-top:1.5cm; text-align:center; }';
+  html += '.firma .ln { width:8cm; border-bottom:1px solid #003050; margin:1.5cm auto 6px; }';
+  html += '.firma .nm { font-size:11pt; font-weight:600; color:#003050; }';
+  html += '.firma .cg { font-size:9pt; color:#4a5058; margin-top:2px; }';
+  html += '.pie { position:absolute; bottom:1cm; left:2cm; right:2cm; text-align:center; font-size:8pt; color:#9aa0a8; letter-spacing:1px; }';
+  html += '.sello { position:absolute; top:1cm; right:2cm; width:70px; height:70px; border:2px solid #003050; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:Georgia; font-weight:700; color:#003050; font-size:12px; text-align:center; line-height:1.1; }';
+  html += '.cierre { text-align:center; padding:1cm; margin-top:1cm; background:#e8f5ec; border-radius:8px; font-style:italic; color:#006020; font-size:11pt; line-height:1.5; }';
+  html += '@media print { body { print-color-adjust:exact; -webkit-print-color-adjust:exact; } }';
+  html += '</style></head><body>';
+
+  html += '<div class="page">';
+  html += '<div class="hdr"><div class="hdr-l">E P J A · N° 753 · RAWSON</div><div class="hdr-r">' + fecha + '</div></div>';
+  html += '<h1 class="titulo">Estructura de Costos</h1>';
+  html += '<div class="subtitulo">Plan completo · ' + (p.emprendimiento || '') + '</div>';
+  html += '<h2>Datos del emprendedor</h2>';
+  html += '<div class="kv"><div class="k">Emprendedor/a</div><div class="v">' + (p.nombre || '') + '</div></div>';
+  html += '<div class="kv"><div class="k">Emprendimiento</div><div class="v">' + (p.emprendimiento || '') + '</div></div>';
+  html += '<div class="kv"><div class="k">Rubro</div><div class="v">' + (p.rubro || '—') + '</div></div>';
+  if (p.descripcion) html += '<div class="kv"><div class="k">Descripción</div><div class="v">' + p.descripcion + '</div></div>';
+
+  html += '<h2>Estructura de costos</h2>';
+  html += '<div class="kv"><div class="k">Costos fijos del mes</div><div class="v">$ ' + fmt(cf) + '</div></div>';
+  if (p.cfDetalle) html += '<div class="kv"><div class="k">Detalle</div><div class="v">' + p.cfDetalle + '</div></div>';
+  html += '<div class="kv"><div class="k">Costo variable por unidad</div><div class="v">$ ' + fmt(cv) + '</div></div>';
+  html += '<div class="kv"><div class="k">Precio de venta</div><div class="v">$ ' + fmt(precio) + '</div></div>';
+
+  html += '<h2>Indicadores clave</h2>';
+  html += '<div class="box-num">';
+  html += '<div class="num-card azul"><div class="lbl">Margen de contribución</div><div class="val">$ ' + fmt(margen) + '</div></div>';
+  html += '<div class="num-card azul"><div class="lbl">Margen porcentual</div><div class="val">' + margenPct.toFixed(1).replace('.',',') + ' %</div></div>';
+  html += '<div class="num-card"><div class="lbl">Punto de equilibrio</div><div class="val">' + (pe > 0 ? fmt(pe) + ' u.' : '—') + '</div></div>';
+  html += '<div class="num-card"><div class="lbl">Margen de seguridad</div><div class="val">' + (ms > 0 ? ms.toFixed(0) + ' %' : '—') + '</div></div>';
+  html += '</div>';
+
+  // Gráfico de Punto de Equilibrio
+  html += '<div class="grafico-pe">';
+  html += '<div class="grafico-pe-titulo">Gráfico del Punto de Equilibrio</div>';
+  if (pe > 0 && margen > 0) {
+    var svg = generarSvgPE(cf, cv, precio, pe, ventas);
+    html += '<div class="grafico-pe-sub">El punto de equilibrio se encuentra en la intersección de la línea de ingresos con la línea de costos totales. Antes de ese punto, el negocio está en zona de pérdida; después, en zona de ganancia.</div>';
+    html += svg;
+    html += '<div class="grafico-leyenda">';
+    html += '<span><i style="background:#006020"></i>Ingresos por ventas</span>';
+    html += '<span><i style="background:#c2410c"></i>Costos totales</span>';
+    html += '<span><i style="background:#003050"></i>Costos fijos</span>';
+    html += '</div>';
+  } else {
+    html += '<div class="grafico-vacio">No es posible graficar el punto de equilibrio con los datos actuales. Revisá que el precio sea mayor al costo variable.</div>';
+  }
+  html += '</div>';
+
+  html += '<h2>Estrategia de precio</h2>';
+  html += '<div class="kv"><div class="k">Estrategia elegida</div><div class="v">' + (p.estrategia || 'Sin definir') + '</div></div>';
+  html += '<div class="kv"><div class="k">Ventas estimadas / mes</div><div class="v">' + (p.ventas || '—') + ' unidades</div></div>';
+  if (p.justif) html += '<div class="kv"><div class="k">Justificación</div><div class="v">' + p.justif + '</div></div>';
+
+  html += '<div class="principio">Este plan refleja el estado actual del emprendimiento. Conviene revisar los números cada tres meses o cuando cambien los costos significativamente.</div>';
+
+  html += '<div class="pie">PÁGINA 1 DE 2 · ESTRUCTURA DE COSTOS · EPJA N° 753</div>';
+  html += '</div>';
+
+  html += '<div class="page">';
+  html += '<div class="hdr"><div class="hdr-l">E P J A · N° 753 · RAWSON</div><div class="hdr-r">' + fecha + '</div></div>';
+  html += '<div class="sello">EPJA<br>N° 753</div>';
+  html += '<h1>Constancia de Cursado</h1>';
+  html += '<div class="subtitulo">Curso para emprendedores · Estructura de Costos</div>';
+  html += '<div style="margin:2cm 0 1cm; text-align:center;">Por la presente se deja constancia que</div>';
+  html += '<div style="text-align:center; font-size:22px; font-weight:700; color:#006020; margin:0.5cm 0; letter-spacing:1px;">' + p.nombre + '</div>';
+  html += '<div style="text-align:center; margin-bottom:0.5cm;">completó satisfactoriamente el curso</div>';
+  html += '<div style="text-align:center; font-size:18px; color:#003050; font-style:italic; margin:0.5cm 0;">Estructura de Costos para Emprendedores</div>';
+  html += '<div style="text-align:center; max-width:14cm; margin:0 auto; line-height:1.8;">aplicando los conceptos teóricos al desarrollo de un plan completo para su emprendimiento <em>' + p.emprendimiento + '</em>.</div>';
+  html += '<div class="cierre">El emprendedor / la emprendedora ha desarrollado su estructura de costos completa, calculado su punto de equilibrio y definido su estrategia de precio. Queda en condiciones de aplicar la metodología a otros productos o servicios del emprendimiento.</div>';
+  html += '<div style="text-align:center; margin-top:1.5cm; font-size:11pt;">Rawson, ' + fecha + '</div>';
+  html += '<div class="firma"><div class="ln"></div><div class="nm">Prof. Carina Luna</div><div class="cg">Docente · EPJA N° 753</div></div>';
+  html += '<div class="pie">PÁGINA 2 DE 2 · CONSTANCIA · EPJA N° 753</div>';
+  html += '</div>';
+
+  html += '<script>window.onload=function(){window.print();}<' + '/script>';
+  html += '</body></html>';
+
+  var ventana = window.open('', '_blank');
+  ventana.document.write(html);
+  ventana.document.close();
+}
+
+cargarFormulario();
+</script>
+
+</body>
+</html>

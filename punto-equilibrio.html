@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Punto de equilibrio · Estructura de costos · EPJA 753</title>
+<meta name="description" content="Cómo calcular cuánto necesitás vender para cubrir todos los costos. Con calculadora interactiva y gráfico. Módulo 4 de la unidad Estructura de Costos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+.formula-box {
+  background: #fff;
+  border: 1.5px solid var(--azul);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+  text-align: center;
+}
+.formula-box-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.formula-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 6px;
+}
+.formula-fraction .num {
+  border-bottom: 2px solid var(--azul);
+  padding: 0 10px 6px;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--azul);
+  font-weight: 500;
+}
+.formula-fraction .den {
+  padding: 6px 10px 0;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--verde);
+  font-style: italic;
+  font-weight: 500;
+}
+.formula-line {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.5vw, 22px);
+  color: var(--azul);
+  font-weight: 500;
+  margin: 14px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.formula-line em {
+  font-style: italic;
+  color: var(--verde);
+  font-weight: 600;
+}
+.formula-box small {
+  display: block;
+  font-size: 13px;
+  color: var(--gris-4);
+  margin-top: 16px;
+  line-height: 1.55;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tres formas */
+.formas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+@media (max-width: 720px) { .formas-grid { grid-template-columns: 1fr; } }
+.forma {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  position: relative;
+}
+.forma::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--verde);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.forma-num {
+  font-family: var(--serif);
+  font-size: 12px;
+  color: var(--gris-3);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.forma h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+}
+.forma p {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+.forma-formula {
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--azul);
+  margin-top: 10px;
+  display: inline-block;
+}
+
+/* Ejemplo */
+.ejemplo {
+  background: linear-gradient(135deg, #fff 0%, var(--hueso-2) 100%);
+  border: 1px solid var(--hueso);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+}
+.ejemplo-label {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.ejemplo h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+.ejemplo > p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.ejemplo-datos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) { .ejemplo-datos { grid-template-columns: 1fr; } }
+.ejemplo-dato {
+  background: #fff;
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  border: 1px solid var(--gris-2);
+}
+.ejemplo-dato-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.ejemplo-dato-val {
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--azul);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.ejemplo-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ejemplo-paso {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  border: 1px solid var(--gris-2);
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .ejemplo-paso { grid-template-columns: 28px 1fr; }
+  .ejemplo-paso-val { grid-column: 1 / -1; padding-left: 42px; }
+}
+.ejemplo-paso-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 13px;
+}
+.ejemplo-paso-text {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.5;
+}
+.ejemplo-paso-text strong { color: var(--azul); font-weight: 600; }
+.ejemplo-paso-text .calc {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--gris-4);
+  margin-top: 4px;
+  display: block;
+}
+.ejemplo-paso-val {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--verde);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+.ejemplo-paso-val.destacado {
+  background: var(--verde);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: var(--r-sm);
+  font-size: 17px;
+}
+.ejemplo-conclusion {
+  background: var(--verde-3);
+  border-left: 4px solid var(--verde);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 16px 20px;
+  margin-top: 18px;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--verde);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+/* Tool: calculadora */
+.tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tool-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tool-icon svg { width: 22px; height: 22px; }
+.tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Boton mis datos */
+.usar-datos {
+  background: var(--azul-3);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  border: 1px solid var(--azul-3);
+}
+.usar-datos-text {
+  font-size: 13px;
+  color: var(--azul);
+  line-height: 1.5;
+  flex: 1;
+  min-width: 200px;
+}
+.usar-datos-text strong { font-weight: 600; }
+.usar-datos-btn {
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  white-space: nowrap;
+  transition: background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.usar-datos-btn:hover { background: var(--azul-2); }
+.usar-datos-btn:disabled {
+  background: var(--gris-2);
+  color: var(--gris-3);
+  cursor: not-allowed;
+}
+
+.calc-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+@media (max-width: 720px) { .calc-inputs { grid-template-columns: 1fr; } }
+.calc-input {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+}
+.calc-input label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+.calc-input-wrap {
+  position: relative;
+}
+.calc-input-wrap .prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gris-3);
+  font-size: 13px;
+  pointer-events: none;
+}
+.calc-input input {
+  width: 100%;
+  padding: 11px 14px 11px 26px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 15px;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  background: #fff;
+  color: var(--tinta);
+}
+.calc-input input:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,131,46,0.1);
+}
+.calc-input small {
+  display: block;
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 6px;
+}
+
+/* Resultados destacados */
+.calc-resultado-principal {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-2) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 24px 0;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.calc-resultado-principal::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.calc-resultado-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.calc-resultado-val {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 64px);
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+}
+.calc-resultado-val small {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-left: 6px;
+  letter-spacing: 0;
+}
+.calc-resultado-sub {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-top: 10px;
+  position: relative;
+}
+.calc-resultado-sub strong { font-weight: 600; }
+
+.calc-detalles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+@media (max-width: 680px) { .calc-detalles { grid-template-columns: 1fr; } }
+.calc-detalle {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  border: 1px solid var(--gris-2);
+}
+.calc-detalle-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.calc-detalle-val {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--azul);
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+/* Gráfico */
+.calc-grafico {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin: 24px 0;
+}
+.calc-grafico svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.calc-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+  justify-content: center;
+  font-size: 12px;
+}
+.calc-leyenda-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gris-4);
+}
+.calc-leyenda-item .swatch {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+}
+.calc-leyenda-item.ingresos .swatch { background: var(--verde); }
+.calc-leyenda-item.cf .swatch { background: var(--azul); }
+.calc-leyenda-item.ct .swatch { background: var(--rojo); }
+
+/* Interpretación */
+.calc-interpretacion {
+  background: var(--azul-3);
+  border-left: 4px solid var(--azul);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 18px 22px;
+  margin-top: 18px;
+}
+.calc-interpretacion-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.calc-interpretacion p {
+  font-size: 14px;
+  color: var(--azul);
+  line-height: 1.6;
+  margin: 0;
+}
+.calc-interpretacion p strong { font-weight: 600; }
+
+.calc-interpretacion.problema {
+  background: #fee;
+  border-left-color: var(--rojo);
+}
+.calc-interpretacion.problema .calc-interpretacion-label,
+.calc-interpretacion.problema p { color: var(--rojo); }
+
+/* Concepto: margen de seguridad */
+.concepto-clave {
+  background: #fff;
+  border: 1.5px solid var(--verde);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 32px 0;
+}
+.concepto-clave-label {
+  display: inline-block;
+  background: var(--verde);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.concepto-clave h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.concepto-clave p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.concepto-clave p:last-child { margin-bottom: 0; }
+.concepto-clave .formula-inline {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--azul);
+  margin: 16px 0;
+  display: inline-block;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Costos y Precios · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Costos y Precios</strong>
+        <span>Estructura de costos</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="costos-gastos.html">Conceptos</a>
+      <a href="margen-contribucion.html">Margen</a>
+      <a href="punto-equilibrio.html" class="active">Equilibrio</a>
+      <a href="estrategias.html">Estrategias</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="EPJA.toggleNav()" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Estructura de costos</a>
+      <span>›</span>
+      <a href="margen-contribucion.html">Módulo 03</a>
+      <span>›</span>
+      <span>Módulo 04</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 4 de 7
+    </span>
+    <h1>¿Cuánto hay que vender para <em>no perder dinero?</em></h1>
+    <p>Es la pregunta más concreta que se hace cualquier persona que empieza un emprendimiento. La respuesta tiene un nombre técnico (punto de equilibrio) pero una idea muy simple: es el momento exacto en que lo que entra al negocio iguala a lo que sale.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 56%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 04 / 07</span>
+      <span>56% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">En el módulo anterior dejamos una pregunta abierta: si cada pan deja $ 1.000 de margen, ¿cuántos hay que vender para cubrir $ 100.000 de costos fijos? Ahora la respondemos con precisión. El punto de equilibrio es la cantidad exacta de unidades (o pesos facturados) en la que el negocio no gana ni pierde. Es la línea de salida real del emprendimiento.</p>
+
+    <h2>La fórmula central</h2>
+
+    <div class="formula-box">
+      <span class="formula-box-label">Punto de equilibrio en unidades</span>
+      <div class="formula-line">
+        <span>Punto de equilibrio</span>
+        <span style="color:var(--gris-3); margin: 0 6px;">=</span>
+        <span class="formula-fraction">
+          <span class="num">Costos fijos totales</span>
+          <span class="den">Margen de contribución unitario</span>
+        </span>
+      </div>
+      <small>Es la cantidad de unidades que tenemos que vender para que el margen total acumulado iguale exactamente a los costos fijos. Una unidad más vendida ya es ganancia. Una unidad menos vendida es pérdida.</small>
+    </div>
+
+    <p>La lógica es sencilla: cada unidad vendida aporta su margen de contribución para cubrir los costos fijos. Si los costos fijos son de $ 100.000 y cada unidad aporta $ 1.000, hacen falta 100 unidades para cubrirlos. La unidad número 101 ya genera ganancia neta para el negocio.</p>
+
+    <h2>Tres maneras de expresar el mismo número</h2>
+
+    <div class="formas-grid">
+      <div class="forma">
+        <span class="forma-num">FORMA 01</span>
+        <h4>En unidades</h4>
+        <p>Cantidad de panes, de cortes de pelo, de prendas. Es la versión más concreta y la que mejor se imagina.</p>
+        <span class="forma-formula">CF ÷ margen unitario</span>
+      </div>
+      <div class="forma">
+        <span class="forma-num">FORMA 02</span>
+        <h4>En pesos</h4>
+        <p>Monto total facturado por mes. Es útil cuando se venden productos o servicios distintos entre sí.</p>
+        <span class="forma-formula">CF ÷ margen porcentual</span>
+      </div>
+      <div class="forma">
+        <span class="forma-num">FORMA 03</span>
+        <h4>En tiempo</h4>
+        <p>Días o semanas del mes que se necesitan vender al ritmo habitual. Es muy útil para planificar.</p>
+        <span class="forma-formula">PE en pesos ÷ venta diaria</span>
+      </div>
+    </div>
+
+    <h2>El ejemplo completo de la panadería</h2>
+
+    <div class="ejemplo">
+      <span class="ejemplo-label">CASO · CONTINUACIÓN DEL MÓDULO 3</span>
+      <h3>De los datos al número que importa</h3>
+      <p>Seguimos con el caso del módulo anterior. Ya tenemos los tres datos necesarios. Ahora aplicamos la fórmula.</p>
+
+      <div class="ejemplo-datos">
+        <div class="ejemplo-dato">
+          <div class="ejemplo-dato-label">Costos fijos del mes</div>
+          <div class="ejemplo-dato-val">$ 100.000</div>
+        </div>
+        <div class="ejemplo-dato">
+          <div class="ejemplo-dato-label">Precio de cada pan</div>
+          <div class="ejemplo-dato-val">$ 1.500</div>
+        </div>
+        <div class="ejemplo-dato">
+          <div class="ejemplo-dato-label">Costo variable unitario</div>
+          <div class="ejemplo-dato-val">$ 500</div>
+        </div>
+      </div>
+
+      <div class="ejemplo-pasos">
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">1</div>
+          <div class="ejemplo-paso-text">
+            <strong>Margen de contribución unitario</strong>
+            <span class="calc">1.500 − 500</span>
+          </div>
+          <div class="ejemplo-paso-val">$ 1.000</div>
+        </div>
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">2</div>
+          <div class="ejemplo-paso-text">
+            <strong>Punto de equilibrio en unidades</strong>
+            <span class="calc">100.000 ÷ 1.000</span>
+          </div>
+          <div class="ejemplo-paso-val destacado">100 panes</div>
+        </div>
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">3</div>
+          <div class="ejemplo-paso-text">
+            <strong>Punto de equilibrio en pesos</strong>
+            <span class="calc">100 × 1.500</span>
+          </div>
+          <div class="ejemplo-paso-val">$ 150.000</div>
+        </div>
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">4</div>
+          <div class="ejemplo-paso-text">
+            <strong>Punto de equilibrio en días</strong>
+            <span class="calc">Si vendo 10 panes por día, son 10 días de venta</span>
+          </div>
+          <div class="ejemplo-paso-val">10 días</div>
+        </div>
+      </div>
+
+      <div class="ejemplo-conclusion">
+        Si la panadería vende 100 panes en el mes, no gana ni pierde. Si vende 150, gana $ 50.000. Si vende 80, pierde $ 20.000. Ese es el sentido práctico del número.
+      </div>
+    </div>
+
+    <div class="tool" id="calculadora">
+      <div class="tool-header">
+        <div class="tool-title">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="18" x2="16" y2="18"/></svg>
+          </div>
+          <h3>Calculadora de punto de equilibrio</h3>
+        </div>
+        <span class="tool-tag">Herramienta 4 de 4</span>
+      </div>
+      <p class="tool-desc">A continuación vamos a usar la calculadora. Ingresamos los tres datos del emprendimiento y obtenemos el punto de equilibrio en unidades, en pesos, y un gráfico que muestra de dónde sale ese número. Si ya cargaste tus costos en el módulo 1, podés traer esos datos directamente.</p>
+
+      <div class="usar-datos" id="usar-datos-box">
+        <div class="usar-datos-text">
+          <strong>¿Cargaste tu inventario en el módulo 1?</strong> Es posible usar el total de costos fijos que cargaste allí (basado en lo que clasificaste como gastos en tu inventario personal).
+        </div>
+        <button class="usar-datos-btn" id="btn-usar-datos">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Usar mis datos
+        </button>
+      </div>
+
+      <div class="calc-inputs">
+        <div class="calc-input">
+          <label for="calc-cf">Costos fijos del mes</label>
+          <div class="calc-input-wrap">
+            <span class="prefix">$</span>
+            <input type="number" id="calc-cf" value="100000" min="0" step="1000">
+          </div>
+          <small>Alquiler, sueldos fijos, servicios</small>
+        </div>
+        <div class="calc-input">
+          <label for="calc-p">Precio de venta unitario</label>
+          <div class="calc-input-wrap">
+            <span class="prefix">$</span>
+            <input type="number" id="calc-p" value="1500" min="0" step="50">
+          </div>
+          <small>Lo que cobrás por cada unidad</small>
+        </div>
+        <div class="calc-input">
+          <label for="calc-cv">Costo variable unitario</label>
+          <div class="calc-input-wrap">
+            <span class="prefix">$</span>
+            <input type="number" id="calc-cv" value="500" min="0" step="50">
+          </div>
+          <small>Materia prima e insumos por unidad</small>
+        </div>
+      </div>
+
+      <div class="calc-resultado-principal">
+        <div class="calc-resultado-label">Punto de equilibrio</div>
+        <div class="calc-resultado-val"><span id="calc-pe-unid">100</span><small>unidades</small></div>
+        <div class="calc-resultado-sub" id="calc-pe-sub">Vendiendo <strong>100 unidades</strong> en el mes, los ingresos cubren exactamente todos los costos.</div>
+      </div>
+
+      <div class="calc-detalles">
+        <div class="calc-detalle">
+          <div class="calc-detalle-label">Punto de equilibrio en pesos</div>
+          <div class="calc-detalle-val" id="calc-pe-pesos">$ 150.000</div>
+        </div>
+        <div class="calc-detalle">
+          <div class="calc-detalle-label">Margen unitario</div>
+          <div class="calc-detalle-val" id="calc-margen">$ 1.000</div>
+        </div>
+        <div class="calc-detalle">
+          <div class="calc-detalle-label">Margen porcentual</div>
+          <div class="calc-detalle-val" id="calc-margen-pct">66,7 %</div>
+        </div>
+      </div>
+
+      <div class="calc-grafico">
+        <svg viewBox="0 0 680 360" id="calc-svg" role="img" aria-label="Gráfico del punto de equilibrio">
+          <line x1="70" y1="320" x2="660" y2="320" stroke="#9aa0a8" stroke-width="1"/>
+          <line x1="70" y1="20" x2="70" y2="320" stroke="#9aa0a8" stroke-width="1"/>
+          <g id="calc-grid"></g>
+          <g id="calc-yticks"></g>
+          <g id="calc-xticks"></g>
+          <path id="calc-linea-cf" d="" fill="none" stroke="#003050" stroke-width="2.5"/>
+          <path id="calc-linea-ct" d="" fill="none" stroke="#c2410c" stroke-width="2.5"/>
+          <path id="calc-linea-ing" d="" fill="none" stroke="#006020" stroke-width="2.5"/>
+          <path id="calc-rel-perdida" d="" fill="#fee" opacity="0.5"/>
+          <path id="calc-rel-ganancia" d="" fill="#e8f5ec" opacity="0.5"/>
+          <line id="calc-pe-vline" x1="70" y1="20" x2="70" y2="320" stroke="#006020" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <circle id="calc-pe-punto" cx="70" cy="320" r="7" fill="#006020" stroke="#fff" stroke-width="3"/>
+          <text id="calc-pe-label" x="70" y="320" font-family="Inter" font-size="11" font-weight="600" fill="#006020"></text>
+          <text x="365" y="350" text-anchor="middle" font-family="Inter" font-size="11" fill="#4a5058">Unidades vendidas</text>
+          <text x="22" y="170" text-anchor="middle" font-family="Inter" font-size="11" fill="#4a5058" transform="rotate(-90 22 170)">Pesos ($)</text>
+          <text id="calc-zona-perdida" x="150" y="55" font-family="Inter" font-size="11" font-weight="600" fill="#c2410c">Zona de pérdida</text>
+          <text id="calc-zona-ganancia" x="500" y="55" font-family="Inter" font-size="11" font-weight="600" fill="#006020">Zona de ganancia</text>
+        </svg>
+        <div class="calc-leyenda">
+          <span class="calc-leyenda-item ingresos"><span class="swatch"></span>Ingresos por ventas</span>
+          <span class="calc-leyenda-item ct"><span class="swatch"></span>Costos totales</span>
+          <span class="calc-leyenda-item cf"><span class="swatch"></span>Costos fijos</span>
+        </div>
+      </div>
+
+      <div class="calc-interpretacion" id="calc-interpretacion">
+        <div class="calc-interpretacion-label">Lectura del resultado</div>
+        <p id="calc-interpretacion-text">Con estos números, necesitás vender <strong>100 unidades</strong> en el mes para cubrir todos tus costos. A partir de la unidad 101, cada venta empieza a generar ganancia.</p>
+      </div>
+    </div>
+
+    <div class="concepto-clave">
+      <span class="concepto-clave-label">Concepto complementario</span>
+      <h3>El margen de seguridad: cuánto se puede bajar antes de entrar en pérdida</h3>
+      <p>Una vez conocido el punto de equilibrio, surge una pregunta práctica: si normalmente se venden X unidades, ¿cuánto pueden caer las ventas antes de empezar a perder dinero? Esa diferencia se llama margen de seguridad y se expresa en porcentaje.</p>
+      <div class="formula-inline">Margen de seguridad = (Ventas reales − PE) ÷ Ventas reales × 100</div>
+      <p>Si la panadería del ejemplo vende habitualmente 150 panes y su PE es de 100, su margen de seguridad es del 33 %. Esto significa que las ventas pueden caer hasta un tercio antes de entrar en zona de pérdida. Cuanto mayor sea el margen de seguridad, más estable es el negocio frente a temporadas bajas o imprevistos.</p>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Un número que ordena las decisiones</h3>
+      <p>El punto de equilibrio no es solo una fórmula contable. Es una herramienta de decisión. Conocerlo cambia las preguntas que uno se hace al frente del emprendimiento: ya no se trata de saber si <em>"este negocio conviene"</em>, sino de responder <em>"¿es realista vender más que el punto de equilibrio en mi zona y con mis clientes?"</em>. Es una pregunta más honesta, y mucho más fácil de responder con datos concretos del territorio (cuánta gente pasa por la cuadra, cuántos clientes habituales hay, qué consumo existe en el barrio). Esa es la diferencia entre emprender a la suerte y emprender con un plan.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="margen-contribucion.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">03 · Margen de contribución</span>
+    </a>
+    <a href="estrategias.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">05 · Estrategias de precio</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Administración y Liquidación de Sueldos · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Recorrido</h5>
+        <ul>
+          <li><a href="costos-gastos.html">01 · Costos y gastos</a></li>
+          <li><a href="fijos-variables.html">02 · Fijos y variables</a></li>
+          <li><a href="margen-contribucion.html">03 · Margen</a></li>
+          <li><a href="punto-equilibrio.html">04 · Equilibrio</a></li>
+          <li><a href="estrategias.html">05 · Estrategias</a></li>
+          <li><a href="monotributo.html">06 · Monotributo</a></li>
+          <li><a href="caso-integrador.html">07 · Caso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="plan-personal.html">Plan personal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+(function() {
+  var inputCF = document.getElementById('calc-cf');
+  var inputP = document.getElementById('calc-p');
+  var inputCV = document.getElementById('calc-cv');
+  var peUnid = document.getElementById('calc-pe-unid');
+  var pePesos = document.getElementById('calc-pe-pesos');
+  var margen = document.getElementById('calc-margen');
+  var margenPct = document.getElementById('calc-margen-pct');
+  var peSub = document.getElementById('calc-pe-sub');
+  var interpretacion = document.getElementById('calc-interpretacion');
+  var interpretacionText = document.getElementById('calc-interpretacion-text');
+  var btnUsarDatos = document.getElementById('btn-usar-datos');
+
+  var lineaCF = document.getElementById('calc-linea-cf');
+  var lineaCT = document.getElementById('calc-linea-ct');
+  var lineaIng = document.getElementById('calc-linea-ing');
+  var relPerdida = document.getElementById('calc-rel-perdida');
+  var relGanancia = document.getElementById('calc-rel-ganancia');
+  var peVline = document.getElementById('calc-pe-vline');
+  var pePunto = document.getElementById('calc-pe-punto');
+  var peLabel = document.getElementById('calc-pe-label');
+  var gridG = document.getElementById('calc-grid');
+  var yticksG = document.getElementById('calc-yticks');
+  var xticksG = document.getElementById('calc-xticks');
+  var zonaPerdida = document.getElementById('calc-zona-perdida');
+  var zonaGanancia = document.getElementById('calc-zona-ganancia');
+
+  var X_MIN = 70, X_MAX = 660, Y_MIN = 20, Y_MAX = 320;
+
+  function fmt(n) {
+    return Math.round(n).toLocaleString('es-AR');
+  }
+  function fmtPesos(n) {
+    return '$ ' + fmt(n);
+  }
+
+  function dibujarGrid(yMax, qMax) {
+    gridG.innerHTML = '';
+    yticksG.innerHTML = '';
+    xticksG.innerHTML = '';
+    for (var i = 0; i <= 4; i++) {
+      var y = Y_MAX - (i / 4) * (Y_MAX - Y_MIN);
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', X_MIN);
+      line.setAttribute('y1', y);
+      line.setAttribute('x2', X_MAX);
+      line.setAttribute('y2', y);
+      line.setAttribute('stroke', '#e6e8ec');
+      line.setAttribute('stroke-width', '0.5');
+      gridG.appendChild(line);
+      var val = yMax * i / 4;
+      var label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', X_MIN - 6);
+      label.setAttribute('y', y + 3);
+      label.setAttribute('text-anchor', 'end');
+      label.setAttribute('font-family', 'JetBrains Mono');
+      label.setAttribute('font-size', '10');
+      label.setAttribute('fill', '#9aa0a8');
+      var lblTxt = val >= 1000000 ? Math.round(val/1000000) + 'M' : (val >= 1000 ? Math.round(val/1000) + 'k' : Math.round(val));
+      label.textContent = '$ ' + lblTxt;
+      yticksG.appendChild(label);
+    }
+    for (var j = 0; j <= 5; j++) {
+      var x = X_MIN + (j / 5) * (X_MAX - X_MIN);
+      var qval = Math.round(j / 5 * qMax);
+      var label2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label2.setAttribute('x', x);
+      label2.setAttribute('y', Y_MAX + 16);
+      label2.setAttribute('text-anchor', 'middle');
+      label2.setAttribute('font-family', 'JetBrains Mono');
+      label2.setAttribute('font-size', '10');
+      label2.setAttribute('fill', '#9aa0a8');
+      label2.textContent = qval;
+      xticksG.appendChild(label2);
+    }
+  }
+
+  function calcular() {
+    var CF = parseFloat(inputCF.value) || 0;
+    var P = parseFloat(inputP.value) || 0;
+    var CV = parseFloat(inputCV.value) || 0;
+    var mc = P - CV;
+    var pctM = P > 0 ? (mc / P) * 100 : 0;
+
+    var pe = mc > 0 ? CF / mc : 0;
+    var pePesosVal = pe * P;
+
+    margen.textContent = fmtPesos(mc);
+    margenPct.textContent = pctM.toFixed(1).replace('.', ',') + ' %';
+
+    interpretacion.classList.remove('problema');
+
+    if (mc <= 0 || P === 0) {
+      peUnid.textContent = '—';
+      pePesos.textContent = '—';
+      peSub.innerHTML = 'Con estos datos no se puede calcular el punto de equilibrio.';
+      interpretacion.classList.add('problema');
+      interpretacionText.innerHTML = '<strong>Atención.</strong> El margen de contribución es cero o negativo. El negocio nunca cubriría sus costos fijos en estas condiciones. Subí el precio o bajá el costo variable.';
+      dibujarVacio();
+      return;
+    }
+
+    peUnid.textContent = Math.ceil(pe).toLocaleString('es-AR');
+    pePesos.textContent = fmtPesos(pePesosVal);
+    var peRedondeado = Math.ceil(pe);
+    peSub.innerHTML = 'Vendiendo <strong>' + peRedondeado.toLocaleString('es-AR') + ' unidades</strong> en el mes, los ingresos cubren exactamente todos los costos.';
+    interpretacionText.innerHTML = 'Con estos números, necesitás vender <strong>' + peRedondeado.toLocaleString('es-AR') + ' unidades</strong> en el mes (equivalente a <strong>' + fmtPesos(pePesosVal) + '</strong> de facturación) para cubrir todos tus costos. A partir de la unidad ' + (peRedondeado + 1).toLocaleString('es-AR') + ', cada venta empieza a generar ganancia.';
+
+    var qMax = Math.max(Math.ceil(pe * 2), 10);
+    var yMax = Math.max(P * qMax * 1.1, CF * 2.5, 1000);
+
+    dibujarGrid(yMax, qMax);
+
+    function xPos(q) { return X_MIN + (q / qMax) * (X_MAX - X_MIN); }
+    function yPos(v) {
+      if (v < 0) v = 0;
+      var r = v / yMax;
+      if (r > 1) r = 1;
+      return Y_MAX - r * (Y_MAX - Y_MIN);
+    }
+
+    lineaCF.setAttribute('d', 'M ' + X_MIN + ' ' + yPos(CF) + ' L ' + X_MAX + ' ' + yPos(CF));
+    lineaCT.setAttribute('d', 'M ' + X_MIN + ' ' + yPos(CF) + ' L ' + X_MAX + ' ' + yPos(CF + CV * qMax));
+    lineaIng.setAttribute('d', 'M ' + X_MIN + ' ' + yPos(0) + ' L ' + X_MAX + ' ' + yPos(P * qMax));
+
+    var xPE = xPos(pe);
+    var yPE = yPos(P * pe);
+
+    var perd = 'M ' + X_MIN + ' ' + yPos(CF) + ' L ' + xPE + ' ' + yPE + ' L ' + X_MIN + ' ' + yPos(0) + ' Z';
+    relPerdida.setAttribute('d', perd);
+
+    var gan = 'M ' + xPE + ' ' + yPE + ' L ' + X_MAX + ' ' + yPos(P * qMax) + ' L ' + X_MAX + ' ' + yPos(CF + CV * qMax) + ' Z';
+    relGanancia.setAttribute('d', gan);
+
+    peVline.setAttribute('x1', xPE);
+    peVline.setAttribute('x2', xPE);
+    peVline.setAttribute('y2', yPE);
+    pePunto.setAttribute('cx', xPE);
+    pePunto.setAttribute('cy', yPE);
+    peLabel.setAttribute('x', xPE + 12);
+    peLabel.setAttribute('y', yPE - 8);
+    peLabel.textContent = 'PE: ' + peRedondeado + ' u.';
+
+    zonaPerdida.style.display = '';
+    zonaGanancia.style.display = '';
+    if (xPE > 250) {
+      zonaPerdida.setAttribute('x', (X_MIN + xPE) / 2);
+      zonaPerdida.setAttribute('text-anchor', 'middle');
+    }
+    if (xPE < X_MAX - 200) {
+      zonaGanancia.setAttribute('x', (xPE + X_MAX) / 2);
+      zonaGanancia.setAttribute('text-anchor', 'middle');
+    }
+  }
+
+  function dibujarVacio() {
+    lineaCF.setAttribute('d', '');
+    lineaCT.setAttribute('d', '');
+    lineaIng.setAttribute('d', '');
+    relPerdida.setAttribute('d', '');
+    relGanancia.setAttribute('d', '');
+    peLabel.textContent = '';
+    pePunto.setAttribute('r', '0');
+  }
+
+  inputCF.addEventListener('input', calcular);
+  inputP.addEventListener('input', calcular);
+  inputCV.addEventListener('input', calcular);
+
+  btnUsarDatos.addEventListener('click', function() {
+    try {
+      var data = localStorage.getItem('epja753_inventario');
+      if (!data) {
+        alert('Todavía no cargaste tu inventario en el módulo 1. Andá a Costos y gastos, completá tus datos y volvé acá.');
+        return;
+      }
+      var inv = JSON.parse(data);
+      var totalGastos = (inv.gasto || []).reduce(function(s, it) { return s + (parseFloat(it.monto) || 0); }, 0);
+      var totalCostos = (inv.costo || []).reduce(function(s, it) { return s + (parseFloat(it.monto) || 0); }, 0);
+      if (totalGastos === 0 && totalCostos === 0) {
+        alert('Tu inventario está vacío o no tiene montos cargados. Volvé al módulo 1 y completá los datos.');
+        return;
+      }
+      if (totalGastos === 0) {
+        alert('Tu inventario tiene costos pero no gastos con monto. Recordá que los costos fijos suelen ir clasificados como "gastos" en el módulo 1 (alquiler, servicios, etc).');
+        return;
+      }
+      inputCF.value = totalGastos;
+      calcular();
+      var mensaje = 'Cargados $ ' + fmt(totalGastos) + ' como costos fijos, desde tu inventario.';
+      if (totalCostos > 0) {
+        mensaje += ' Recordá que el costo variable unitario y el precio dependen del producto específico que estés analizando.';
+      }
+      alert(mensaje);
+    } catch (e) {
+      alert('No se pudieron leer los datos del inventario.');
+    }
+  });
+
+  calcular();
+})();
+</script>
+
+</body>
+</html>

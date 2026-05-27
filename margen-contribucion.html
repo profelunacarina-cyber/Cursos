@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Margen de contribución · Estructura de costos · EPJA 753</title>
+<meta name="description" content="El margen de contribución, el puente entre los costos y el precio. Con un descomponedor visual de cada venta. Módulo 3 de la unidad Estructura de Costos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+.formula-box {
+  background: #fff;
+  border: 1.5px solid var(--azul);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+  text-align: center;
+}
+.formula-box-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.formula-box .formula {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 500;
+  color: var(--azul);
+  letter-spacing: -0.5px;
+  line-height: 1.4;
+  margin: 12px 0;
+}
+.formula-box .formula em {
+  color: var(--verde);
+  font-style: italic;
+  font-weight: 600;
+}
+.formula-box .formula .menos {
+  color: var(--gris-3);
+  margin: 0 8px;
+  font-weight: 400;
+}
+.formula-box .formula .igual {
+  color: var(--gris-3);
+  margin: 0 8px;
+  font-weight: 400;
+}
+.formula-box small {
+  display: block;
+  font-size: 13px;
+  color: var(--gris-4);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* Ejemplo guiado */
+.ejemplo {
+  background: linear-gradient(135deg, #fff 0%, var(--hueso-2) 100%);
+  border: 1px solid var(--hueso);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+}
+.ejemplo-label {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.ejemplo h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+.ejemplo > p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.ejemplo-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ejemplo-paso {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid var(--gris-2);
+}
+@media (max-width: 600px) {
+  .ejemplo-paso { grid-template-columns: 32px 1fr; }
+  .ejemplo-paso-val { grid-column: 1 / -1; padding-left: 48px; }
+}
+.ejemplo-paso-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 14px;
+}
+.ejemplo-paso-text {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.5;
+}
+.ejemplo-paso-text strong {
+  color: var(--azul);
+  font-weight: 600;
+}
+.ejemplo-paso-val {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--verde);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+.ejemplo-pregunta {
+  background: var(--azul-3);
+  border-left: 4px solid var(--azul);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 18px 22px;
+  margin-top: 16px;
+}
+.ejemplo-pregunta strong {
+  color: var(--azul);
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 4px;
+}
+.ejemplo-pregunta p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--azul);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Tool: descomponedor de venta */
+.tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tool-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tool-icon svg { width: 22px; height: 22px; }
+.tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.desc-controles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+@media (max-width: 600px) { .desc-controles { grid-template-columns: 1fr; } }
+.desc-control {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+}
+.desc-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.desc-control-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.desc-control-value {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.desc-control.precio .desc-control-label { color: var(--azul); }
+.desc-control.precio .desc-control-value { color: var(--azul); }
+.desc-control.costo .desc-control-label { color: var(--rojo); }
+.desc-control.costo .desc-control-value { color: var(--rojo); }
+input[type="range"].desc-range {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #fff;
+  border-radius: 3px;
+  outline: none;
+  margin: 0;
+}
+input[type="range"].desc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--verde);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,131,46,0.3);
+}
+input[type="range"].desc-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--verde);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.barra-venta-wrap {
+  margin: 24px 0;
+}
+.barra-venta-titulo {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.barra-venta {
+  display: flex;
+  height: 80px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--gris-2);
+  background: var(--gris-1);
+  position: relative;
+}
+.barra-segmento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  transition: width 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+.barra-segmento.costo-var {
+  background: linear-gradient(135deg, #fee 0%, #fce0d8 100%);
+  color: var(--rojo);
+  border-right: 1px solid rgba(0,0,0,0.05);
+}
+.barra-segmento.margen {
+  background: linear-gradient(135deg, var(--verde-3) 0%, #d1ebd9 100%);
+  color: var(--verde);
+}
+.barra-segmento.margen.alerta {
+  background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
+  color: #92400e;
+}
+.barra-segmento-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.barra-segmento-val {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.barra-segmento-pct {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+.barra-precio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+.barra-precio span {
+  font-size: 11px;
+  color: var(--gris-3);
+  letter-spacing: 0.3px;
+}
+.barra-precio strong {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--azul);
+  font-weight: 600;
+}
+
+.desc-resultado {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+@media (max-width: 600px) { .desc-resultado { grid-template-columns: 1fr; } }
+.desc-result {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  border: 1px solid var(--gris-2);
+}
+.desc-result-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.desc-result-val {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.desc-result-val.margen { color: var(--verde); }
+.desc-result-val.margen.alerta { color: #d97706; }
+.desc-result-val.pct { color: var(--azul); }
+.desc-result-val.precio { color: var(--azul); }
+.desc-result-sub {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+}
+
+.desc-mensaje {
+  background: var(--azul-3);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--azul);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.desc-mensaje.exito {
+  background: var(--verde-3);
+  color: var(--verde);
+}
+.desc-mensaje.alerta {
+  background: #fef3c7;
+  color: #92400e;
+}
+.desc-mensaje.problema {
+  background: #fee;
+  color: var(--rojo);
+}
+.desc-mensaje-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  background: currentColor;
+}
+.desc-mensaje-icon::after {
+  color: var(--azul-3);
+  content: "i";
+}
+.desc-mensaje.exito .desc-mensaje-icon::after { color: var(--verde-3); content: "✓"; }
+.desc-mensaje.alerta .desc-mensaje-icon::after { color: #fef3c7; content: "!"; }
+.desc-mensaje.problema .desc-mensaje-icon::after { color: #fee; content: "✕"; }
+.desc-mensaje-text { flex: 1; }
+
+/* Concepto secundario: margen total */
+.concepto-clave {
+  background: #fff;
+  border: 1.5px solid var(--verde);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 32px 0;
+}
+.concepto-clave-label {
+  display: inline-block;
+  background: var(--verde);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.concepto-clave h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.concepto-clave p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.concepto-clave p:last-child { margin-bottom: 0; }
+.concepto-clave .formula-inline {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--azul);
+  margin: 16px 0;
+  display: inline-block;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Costos y Precios · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Costos y Precios</strong>
+        <span>Estructura de costos</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="costos-gastos.html">Conceptos</a>
+      <a href="margen-contribucion.html" class="active">Margen</a>
+      <a href="punto-equilibrio.html">Equilibrio</a>
+      <a href="estrategias.html">Estrategias</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="EPJA.toggleNav()" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Estructura de costos</a>
+      <span>›</span>
+      <a href="fijos-variables.html">Módulo 02</a>
+      <span>›</span>
+      <span>Módulo 03</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 3 de 7
+    </span>
+    <h1>De cada venta, <em>¿qué queda para el negocio?</em></h1>
+    <p>Hasta acá vimos lo que cuesta producir. Ahora aparece el precio. Y con el precio aparece una pregunta clave para todo emprendimiento: descontando lo que cuesta producir cada unidad, ¿cuánto queda para pagar todo lo demás y para generar ganancia?</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 42%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 03 / 07</span>
+      <span>42% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">El margen de contribución es el puente entre los costos y el precio. Mide cuánto aporta cada venta para cubrir los costos fijos del negocio y, una vez cubiertos, para generar ganancia. Es el concepto que conecta todo lo visto en los módulos anteriores con el cálculo del punto de equilibrio que viene a continuación.</p>
+
+    <h2>La <em>fórmula</em> central</h2>
+
+    <div class="formula-box">
+      <span class="formula-box-label">Margen de contribución unitario</span>
+      <div class="formula">
+        <em>Precio de venta</em>
+        <span class="menos">−</span>
+        <em>Costo variable unitario</em>
+      </div>
+      <div class="formula">
+        <span class="igual">=</span>
+        <em>Margen de contribución</em>
+      </div>
+      <small>Es lo que aporta cada unidad vendida para cubrir los costos fijos y generar ganancia.</small>
+    </div>
+
+    <p>Es importante notar lo que esta fórmula <strong>no incluye</strong>: los costos fijos. Esa ausencia es justamente lo importante. El margen de contribución se calcula solo sobre los costos variables, porque los fijos se cubren con el margen acumulado de muchas ventas, no con cada venta individual.</p>
+
+    <h2>Un ejemplo paso a paso</h2>
+
+    <div class="ejemplo">
+      <span class="ejemplo-label">CASO · PANADERÍA</span>
+      <h3>Pan casero artesanal</h3>
+      <p>Una panadería vende un pan casero a $ 1.500. Cada pan le cuesta $ 500 en materia prima (harina, levadura, sal, envoltorio). Los costos fijos del mes son $ 100.000 (alquiler, monotributo, energía base).</p>
+      <div class="ejemplo-pasos">
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">1</div>
+          <div class="ejemplo-paso-text"><strong>Precio de venta</strong> de cada pan</div>
+          <div class="ejemplo-paso-val">$ 1.500</div>
+        </div>
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">2</div>
+          <div class="ejemplo-paso-text"><strong>Costo variable unitario</strong> (lo que cuesta hacer un pan)</div>
+          <div class="ejemplo-paso-val">− $ 500</div>
+        </div>
+        <div class="ejemplo-paso">
+          <div class="ejemplo-paso-num">3</div>
+          <div class="ejemplo-paso-text"><strong>Margen de contribución unitario</strong></div>
+          <div class="ejemplo-paso-val">= $ 1.000</div>
+        </div>
+      </div>
+      <div class="ejemplo-pregunta">
+        <strong>La pregunta que sigue</strong>
+        <p>Si cada pan deja $ 1.000 de margen, ¿cuántos panes hay que vender para cubrir los $ 100.000 de costos fijos del mes? Esa pregunta es la que vamos a responder con precisión en el próximo módulo.</p>
+      </div>
+    </div>
+
+    <h2>El margen también se mide en <em>porcentaje</em></h2>
+
+    <p>Además del margen expresado en pesos, existe el <strong>margen de contribución porcentual</strong>. Indica qué proporción del precio queda como margen. Es útil para comparar productos de distinto precio dentro de un mismo emprendimiento. Si una panadería vende pan casero y pan dulce, el porcentaje permite saber cuál de los dos productos aporta proporcionalmente más al negocio.</p>
+
+    <div class="formula-box" style="border-color: var(--verde);">
+      <span class="formula-box-label" style="background: var(--verde);">Margen porcentual</span>
+      <div class="formula">
+        <em>Margen de contribución</em>
+        <span class="igual">÷</span>
+        <em>Precio de venta</em>
+        <span class="igual">×</span>
+        100
+      </div>
+      <small>En el ejemplo del pan: $ 1.000 ÷ $ 1.500 × 100 = 66,7 %. De cada peso vendido, 67 centavos quedan como aporte para cubrir fijos y generar ganancia.</small>
+    </div>
+
+    <div class="tool" id="descomponedor">
+      <div class="tool-header">
+        <div class="tool-title">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          </div>
+          <h3>Descomponedor: ¿qué hay dentro del precio?</h3>
+        </div>
+        <span class="tool-tag">Herramienta 3 de 4</span>
+      </div>
+      <p class="tool-desc">Cada venta tiene un precio, y ese precio se reparte en dos partes: una parte cubre el costo variable; la otra queda como margen de contribución. La siguiente herramienta permite ver esa proporción en una barra visual. Moviendo los deslizadores se puede explorar cómo varía la composición.</p>
+
+      <div class="desc-controles">
+        <div class="desc-control precio">
+          <div class="desc-control-header">
+            <span class="desc-control-label">Precio de venta</span>
+            <span class="desc-control-value">$ <span id="desc-p-val">1.500</span></span>
+          </div>
+          <input type="range" id="desc-p" class="desc-range" min="100" max="5000" value="1500" step="50">
+        </div>
+        <div class="desc-control costo">
+          <div class="desc-control-header">
+            <span class="desc-control-label">Costo variable unitario</span>
+            <span class="desc-control-value">$ <span id="desc-c-val">500</span></span>
+          </div>
+          <input type="range" id="desc-c" class="desc-range" min="0" max="5000" value="500" step="50">
+        </div>
+      </div>
+
+      <div class="barra-venta-wrap">
+        <div class="barra-venta-titulo">Composición de una venta</div>
+        <div class="barra-venta" id="desc-barra">
+          <div class="barra-segmento costo-var" id="desc-seg-costo" style="width: 33.3%;">
+            <span class="barra-segmento-label">Costo variable</span>
+            <span class="barra-segmento-val">$ 500</span>
+            <span class="barra-segmento-pct">33%</span>
+          </div>
+          <div class="barra-segmento margen" id="desc-seg-margen" style="width: 66.7%;">
+            <span class="barra-segmento-label">Margen de contribución</span>
+            <span class="barra-segmento-val">$ 1.000</span>
+            <span class="barra-segmento-pct">67%</span>
+          </div>
+        </div>
+        <div class="barra-precio">
+          <span>$ 0</span>
+          <strong>Precio: $ <span id="desc-precio-fin">1.500</span></strong>
+        </div>
+      </div>
+
+      <div class="desc-resultado">
+        <div class="desc-result">
+          <div class="desc-result-label">Precio de venta</div>
+          <div class="desc-result-val precio" id="desc-r-precio">$ 1.500</div>
+        </div>
+        <div class="desc-result">
+          <div class="desc-result-label">Margen unitario</div>
+          <div class="desc-result-val margen" id="desc-r-margen">$ 1.000</div>
+          <div class="desc-result-sub">Por cada unidad vendida</div>
+        </div>
+        <div class="desc-result">
+          <div class="desc-result-label">Margen porcentual</div>
+          <div class="desc-result-val pct" id="desc-r-pct">66,7 %</div>
+          <div class="desc-result-sub">Sobre el precio de venta</div>
+        </div>
+      </div>
+
+      <div class="desc-mensaje" id="desc-mensaje">
+        <span class="desc-mensaje-icon"></span>
+        <span class="desc-mensaje-text" id="desc-mensaje-text">Buen margen. Cada unidad aporta significativamente para cubrir tus costos fijos.</span>
+      </div>
+    </div>
+
+    <div class="concepto-clave">
+      <span class="concepto-clave-label">Y la pregunta que sigue</span>
+      <h3>Del margen unitario al margen total</h3>
+      <p>El margen unitario es lo que aporta cada venta. Pero para entender si el negocio cierra, hay que sumar muchos márgenes hasta cubrir todos los costos fijos del mes.</p>
+      <div class="formula-inline">Margen total = Margen unitario × Cantidad vendida</div>
+      <p>Volvamos al ejemplo. Si vendemos 200 panes en el mes, con $ 1.000 de margen cada uno, el margen total es de $ 200.000. Como los costos fijos son de $ 100.000, quedan $ 100.000 de ganancia. Si en cambio vendiéramos solo 80 panes, el margen total sería $ 80.000: no alcanzaría siquiera para cubrir los costos fijos. En el próximo módulo vamos a calcular con precisión el punto exacto en el que el margen total iguala a los costos fijos.</p>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>El margen no es lo mismo que la ganancia</h3>
+      <p>Una confusión muy frecuente entre quienes recién comienzan un emprendimiento es creer que el margen es la ganancia. Por ejemplo: "compré a $ 500 y vendí a $ 1.500, gané $ 1.000". <em>No es así.</em> Esos $ 1.000 son el margen de contribución, no la ganancia. La ganancia real aparece recién cuando, sumando muchos márgenes, ya se cubrieron todos los costos fijos del mes. De ahí en adelante, sí, cada peso de margen se transforma en ganancia. Pero hasta ese momento, todavía estamos pagando el alquiler y los demás gastos fijos.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="fijos-variables.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">02 · Fijos y variables</span>
+    </a>
+    <a href="punto-equilibrio.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">04 · Punto de equilibrio</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Administración y Liquidación de Sueldos · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Recorrido</h5>
+        <ul>
+          <li><a href="costos-gastos.html">01 · Costos y gastos</a></li>
+          <li><a href="fijos-variables.html">02 · Fijos y variables</a></li>
+          <li><a href="margen-contribucion.html">03 · Margen</a></li>
+          <li><a href="punto-equilibrio.html">04 · Equilibrio</a></li>
+          <li><a href="estrategias.html">05 · Estrategias</a></li>
+          <li><a href="monotributo.html">06 · Monotributo</a></li>
+          <li><a href="caso-integrador.html">07 · Caso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="plan-personal.html">Plan personal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+(function() {
+  var inputP = document.getElementById('desc-p');
+  var inputC = document.getElementById('desc-c');
+  var pVal = document.getElementById('desc-p-val');
+  var cVal = document.getElementById('desc-c-val');
+  var precioFin = document.getElementById('desc-precio-fin');
+  var segCosto = document.getElementById('desc-seg-costo');
+  var segMargen = document.getElementById('desc-seg-margen');
+  var rPrecio = document.getElementById('desc-r-precio');
+  var rMargen = document.getElementById('desc-r-margen');
+  var rPct = document.getElementById('desc-r-pct');
+  var mensaje = document.getElementById('desc-mensaje');
+  var mensajeText = document.getElementById('desc-mensaje-text');
+
+  function fmt(n) {
+    return Math.round(n).toLocaleString('es-AR');
+  }
+
+  function calcular() {
+    var P = parseFloat(inputP.value) || 0;
+    var C = parseFloat(inputC.value) || 0;
+    if (C > P) {
+      inputC.value = P;
+      C = P;
+    }
+    var margen = P - C;
+    var pct = P > 0 ? (margen / P) * 100 : 0;
+    var pctCosto = P > 0 ? (C / P) * 100 : 0;
+
+    pVal.textContent = fmt(P);
+    cVal.textContent = fmt(C);
+    precioFin.textContent = fmt(P);
+    rPrecio.textContent = '$ ' + fmt(P);
+    rMargen.textContent = '$ ' + fmt(margen);
+    rPct.textContent = pct.toFixed(1).replace('.', ',') + ' %';
+
+    segCosto.style.width = pctCosto + '%';
+    segMargen.style.width = pct + '%';
+    segCosto.querySelector('.barra-segmento-val').textContent = '$ ' + fmt(C);
+    segCosto.querySelector('.barra-segmento-pct').textContent = pctCosto.toFixed(0) + '%';
+    segMargen.querySelector('.barra-segmento-val').textContent = '$ ' + fmt(margen);
+    segMargen.querySelector('.barra-segmento-pct').textContent = pct.toFixed(0) + '%';
+
+    segMargen.classList.remove('alerta');
+    rMargen.classList.remove('alerta');
+    mensaje.classList.remove('exito', 'alerta', 'problema');
+
+    if (margen <= 0) {
+      mensaje.classList.add('problema');
+      mensajeText.innerHTML = '<strong>Problema serio.</strong> El costo variable es igual o mayor al precio. Cada venta no aporta nada (o pierde plata). Necesitás subir el precio o bajar el costo unitario.';
+      segMargen.classList.add('alerta');
+      rMargen.classList.add('alerta');
+    } else if (pct < 20) {
+      mensaje.classList.add('alerta');
+      mensajeText.innerHTML = '<strong>Margen ajustado.</strong> Solo un ' + pct.toFixed(0) + '% del precio queda como margen. Vas a necesitar vender muchas unidades para cubrir tus costos fijos.';
+      segMargen.classList.add('alerta');
+      rMargen.classList.add('alerta');
+    } else if (pct >= 20 && pct < 50) {
+      mensaje.classList.add('exito');
+      mensajeText.innerHTML = '<strong>Margen razonable.</strong> El ' + pct.toFixed(0) + '% del precio aporta para cubrir tus costos fijos. Es el rango típico de muchos rubros.';
+    } else {
+      mensaje.classList.add('exito');
+      mensajeText.innerHTML = '<strong>Buen margen.</strong> El ' + pct.toFixed(0) + '% del precio queda como margen. Pocas unidades vendidas ya cubren bastantes costos fijos.';
+    }
+  }
+
+  inputP.addEventListener('input', calcular);
+  inputC.addEventListener('input', calcular);
+  calcular();
+})();
+</script>
+
+</body>
+</html>
