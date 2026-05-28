@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Habilidades e idiomas · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo 6 del curso Armando tu CV: cómo presentar habilidades técnicas, blandas, idiomas y otros datos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Dos tipos de habilidades */
+.hab-tipos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .hab-tipos { grid-template-columns: 1fr; } }
+.hab-tipo {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.hab-tipo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.hab-tipo.tecnica::before { background: var(--azul); }
+.hab-tipo.blanda::before { background: var(--verde); }
+.hab-tipo-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.hab-tipo.tecnica .hab-tipo-icon { background: var(--azul-3); color: var(--azul); }
+.hab-tipo.blanda .hab-tipo-icon { background: var(--verde-3); color: var(--verde); }
+.hab-tipo-icon svg { width: 22px; height: 22px; }
+.hab-tipo h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+}
+.hab-tipo > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.hab-ej {
+  font-size: 12.5px;
+  color: var(--azul);
+  background: var(--gris-1);
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Niveles de idioma */
+.niveles {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.niveles h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+}
+.niveles > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.niveles-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.niveles-tabla th, .niveles-tabla td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--gris-2);
+}
+.niveles-tabla th {
+  background: var(--azul);
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.niveles-tabla td:first-child {
+  font-weight: 600;
+  color: var(--azul);
+}
+.niveles-tabla tr:last-child td { border-bottom: none; }
+
+/* Cuidados con habilidades blandas */
+.cuidados {
+  background: #fff;
+  border: 1.5px solid var(--azul);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.cuidados-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.cuidados h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+}
+.cuidados p {
+  font-size: 14.5px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.cuidados strong { color: var(--azul); font-weight: 600; }
+
+/* Editor */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editor-tool-icon svg { width: 22px; height: 22px; }
+.editor-tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Secciones del editor */
+.editor-seccion {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--gris-2);
+}
+.editor-seccion:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.editor-seccion-titulo {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.editor-seccion-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+/* Chips inputs */
+.chip-input-wrap {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.chip-input-wrap input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+}
+.chip-input-wrap input:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 2px rgba(0,131,46,0.1);
+}
+.chip-input-wrap button {
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  white-space: nowrap;
+}
+.chip-input-wrap button:hover { background: var(--verde-2); }
+
+.chips-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 40px;
+  padding: 12px;
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  border: 1.5px dashed var(--gris-2);
+}
+.chips-area.empty {
+  align-items: center;
+  justify-content: center;
+  color: var(--gris-3);
+  font-style: italic;
+  font-size: 13px;
+}
+.chip {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: var(--azul);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.chip button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--gris-3);
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+}
+.chip button:hover { color: var(--rojo); }
+
+/* Sugerencias quick-add */
+.quick-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+.quick-add-label {
+  font-size: 11px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+  align-self: center;
+}
+.quick-chip {
+  background: var(--azul-3);
+  border: 1px solid var(--azul-3);
+  color: var(--azul);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.quick-chip:hover {
+  background: var(--azul);
+  color: #fff;
+}
+
+/* Idiomas con nivel */
+.idioma-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 10px;
+}
+@media (max-width: 600px) { .idioma-row { grid-template-columns: 1fr; } }
+.idioma-row label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 5px;
+}
+.idioma-row input,
+.idioma-row select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+}
+.idioma-row button {
+  background: transparent;
+  border: 1px solid var(--gris-2);
+  color: var(--gris-4);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-size: 12px;
+  align-self: end;
+  height: 38px;
+}
+.idioma-row button:hover { border-color: var(--rojo); color: var(--rojo); }
+.idiomas-add {
+  background: var(--azul-3);
+  color: var(--azul);
+  border: 1.5px dashed var(--azul);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.idiomas-add:hover { background: var(--azul); color: #fff; }
+
+/* Otros datos */
+.otros-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 600px) { .otros-grid { grid-template-columns: 1fr; } }
+.otros-grid .full { grid-column: 1 / -1; }
+.otros-field {
+  display: flex;
+  flex-direction: column;
+}
+.otros-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.otros-field input {
+  padding: 10px 12px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+}
+.otros-field input:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 2px rgba(0,131,46,0.1);
+}
+.otros-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html" class="active">06</a>
+      <a href="modulo-07.html">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 06</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 6 de 7
+    </span>
+    <h1>Habilidades, idiomas y <em>otros datos</em></h1>
+    <p>Es la última sección del CV antes del cierre. Acá sumamos las capacidades específicas, los idiomas y los datos que pueden inclinar la decisión a favor (licencia de conducir, disponibilidad, manejo de software). Es una sección breve pero estratégica.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 85%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 06 / 07</span>
+      <span>85% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Las habilidades son aquellas capacidades concretas que distinguen a un candidato. Se dividen en dos grandes grupos: las <strong>habilidades técnicas</strong> (lo que sabés hacer con herramientas, programas o procesos específicos) y las <strong>habilidades blandas</strong> (cómo te manejás en el trabajo y con otras personas). Las dos importan, pero se presentan de forma diferente.</p>
+
+    <h2>Dos tipos de habilidades</h2>
+
+    <div class="hab-tipos">
+      <div class="hab-tipo tecnica">
+        <div class="hab-tipo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h4>Técnicas (qué sabés hacer)</h4>
+        <p>Conocimientos concretos y verificables: manejo de programas, máquinas, procesos, técnicas. Son específicas y muy buscadas por los reclutadores porque son demostrables.</p>
+        <div class="hab-ej">Office, facturación electrónica, máquinas industriales, manejo de caja, primeros auxilios, manipulación de alimentos.</div>
+      </div>
+      <div class="hab-tipo blanda">
+        <div class="hab-tipo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h4>Blandas (cómo trabajás)</h4>
+        <p>Características personales que afectan el trabajo: capacidad de organización, trabajo en equipo, comunicación. Conviene <strong>respaldarlas con un dato</strong>: dónde las pusiste en práctica.</p>
+        <div class="hab-ej">Trabajo en equipo, comunicación, atención al detalle, capacidad de organización, manejo del estrés.</div>
+      </div>
+    </div>
+
+    <div class="cuidados">
+      <span class="cuidados-label">Cuidado</span>
+      <h3>Las habilidades blandas no se "anuncian": se demuestran</h3>
+      <p>Escribir "soy responsable, proactivo y con buena comunicación" no convence. Lo dicen todos. Lo que sí convence es mostrar dónde se ejercieron esas habilidades. Por ejemplo, en lugar de poner "Trabajo en equipo", se podría decir: <strong>"Trabajo en equipo: coordinación con un equipo de 5 personas en producción"</strong>.</p>
+      <p>Por eso, conviene que las habilidades blandas vayan acompañadas de un contexto, o que estén ya implícitas en las descripciones del módulo 04. <strong>Si elegís listarlas, elegí tres o cuatro como máximo</strong> y asegurate de que se reflejen en tu experiencia.</p>
+    </div>
+
+    <h2>Niveles de idioma</h2>
+
+    <div class="niveles">
+      <h3>Cuatro niveles estándar para no inventar</h3>
+      <p>Para los idiomas, conviene usar una escala estándar para evitar exagerar o quedarse cortos. Estos cuatro niveles son los más usados en CV de Argentina y, en general, todos los reclutadores los entienden:</p>
+      <table class="niveles-tabla">
+        <thead>
+          <tr>
+            <th>Nivel</th>
+            <th>¿Qué significa en la práctica?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Básico</td><td>Entiendo y digo frases simples. Puedo presentarme y responder preguntas básicas.</td></tr>
+          <tr><td>Intermedio</td><td>Mantengo conversaciones sobre temas conocidos. Leo y escribo con dificultades.</td></tr>
+          <tr><td>Avanzado</td><td>Me comunico fluidamente en la mayoría de situaciones, también laborales.</td></tr>
+          <tr><td>Bilingüe</td><td>Domino el idioma como el español. Suele requerir certificación o haber vivido en el país.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>No exageres con los idiomas. Si el reclutador te llama y pretendés "Avanzado" pero apenas saludás, perdiste credibilidad para todo el CV. <strong>Es mejor poner el nivel real</strong>.</p>
+    </div>
+
+    <h2>Otros datos que pueden sumar</h2>
+
+    <p>Al final del CV pueden incluirse algunos datos prácticos que pueden ser decisivos según el puesto:</p>
+
+    <ul>
+      <li><strong>Licencia de conducir</strong> y categoría (especialmente para trabajos con desplazamiento).</li>
+      <li><strong>Disponibilidad</strong> (jornada completa, parcial, fin de semana, turnos rotativos).</li>
+      <li><strong>Movilidad propia</strong> (auto, moto, bicicleta) si aplica al puesto.</li>
+      <li><strong>Disponibilidad para viajar</strong> o relocalizarse, si fuera relevante.</li>
+    </ul>
+
+    <p>No es necesario que aparezcan todos. Conviene incluir solo aquellos que sumen al perfil que se está presentando.</p>
+
+    <div class="editor-tool" id="editor-habilidades">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>Cargá tus habilidades y datos</h3>
+        </div>
+        <span class="editor-tool-tag">Tu CV · Paso 5</span>
+      </div>
+      <p class="editor-tool-desc">Esta es la última carga de datos del curso. Completá habilidades técnicas, idiomas y datos relevantes. Después, en el módulo 07, vamos a ver el CV completo y elegir el estilo de descarga.</p>
+
+      <div class="editor-seccion">
+        <h4 class="editor-seccion-titulo">Habilidades técnicas</h4>
+        <p class="editor-seccion-desc">Las cosas concretas que sabés hacer. Una a una, escribilas y tocá Agregar (o presioná Enter).</p>
+        <div class="chip-input-wrap">
+          <input type="text" id="input-tecnica" placeholder="Ej: Excel, facturación electrónica, atención telefónica..." maxlength="50">
+          <button onclick="agregarHabilidad('tecnicas')">+ Agregar</button>
+        </div>
+        <div class="chips-area empty" id="chips-tecnicas">Tus habilidades técnicas van a aparecer acá</div>
+        <div class="quick-add">
+          <span class="quick-add-label">Sugerencias:</span>
+          <button class="quick-chip" onclick="addQuick('tecnicas', 'Office (Word, Excel)')">Office (Word, Excel)</button>
+          <button class="quick-chip" onclick="addQuick('tecnicas', 'Atención al cliente')">Atención al cliente</button>
+          <button class="quick-chip" onclick="addQuick('tecnicas', 'Manejo de caja')">Manejo de caja</button>
+          <button class="quick-chip" onclick="addQuick('tecnicas', 'Facturación')">Facturación</button>
+          <button class="quick-chip" onclick="addQuick('tecnicas', 'Redes sociales')">Redes sociales</button>
+          <button class="quick-chip" onclick="addQuick('tecnicas', 'Manipulación de alimentos')">Manipulación de alimentos</button>
+        </div>
+      </div>
+
+      <div class="editor-seccion">
+        <h4 class="editor-seccion-titulo">Habilidades blandas</h4>
+        <p class="editor-seccion-desc">Tres o cuatro, no más. Que se reflejen en tu experiencia (módulo 4).</p>
+        <div class="chip-input-wrap">
+          <input type="text" id="input-blanda" placeholder="Ej: Trabajo en equipo, atención al detalle..." maxlength="50">
+          <button onclick="agregarHabilidad('blandas')">+ Agregar</button>
+        </div>
+        <div class="chips-area empty" id="chips-blandas">Tus habilidades blandas van a aparecer acá</div>
+        <div class="quick-add">
+          <span class="quick-add-label">Sugerencias:</span>
+          <button class="quick-chip" onclick="addQuick('blandas', 'Trabajo en equipo')">Trabajo en equipo</button>
+          <button class="quick-chip" onclick="addQuick('blandas', 'Atención al detalle')">Atención al detalle</button>
+          <button class="quick-chip" onclick="addQuick('blandas', 'Resolución de problemas')">Resolución de problemas</button>
+          <button class="quick-chip" onclick="addQuick('blandas', 'Capacidad de organización')">Capacidad de organización</button>
+          <button class="quick-chip" onclick="addQuick('blandas', 'Comunicación')">Comunicación</button>
+        </div>
+      </div>
+
+      <div class="editor-seccion">
+        <h4 class="editor-seccion-titulo">Idiomas</h4>
+        <p class="editor-seccion-desc">Agregá los idiomas que manejás con su nivel real.</p>
+        <div id="idiomas-lista"></div>
+        <button class="idiomas-add" onclick="agregarIdioma()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Agregar un idioma
+        </button>
+      </div>
+
+      <div class="editor-seccion">
+        <h4 class="editor-seccion-titulo">Otros datos relevantes</h4>
+        <p class="editor-seccion-desc">Datos prácticos que pueden sumar según el puesto. Dejá en blanco los que no apliquen.</p>
+        <div class="otros-grid">
+          <div class="otros-field">
+            <label>Licencia de conducir</label>
+            <input type="text" id="lic-conducir" maxlength="40" placeholder="B1 vigente">
+            <small>Indicar categoría y vigencia</small>
+          </div>
+          <div class="otros-field">
+            <label>Disponibilidad</label>
+            <input type="text" id="disponibilidad" maxlength="60" placeholder="Jornada completa">
+            <small>Completa, parcial, fines de semana...</small>
+          </div>
+          <div class="otros-field">
+            <label>Movilidad propia</label>
+            <input type="text" id="movilidad" maxlength="40" placeholder="Auto / Moto / Bicicleta">
+          </div>
+          <div class="otros-field">
+            <label>Otros</label>
+            <input type="text" id="otros-extra" maxlength="80" placeholder="Disponibilidad para viajar, mudanza, etc.">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Esta sección complementa, no reemplaza</h3>
+      <p>Las habilidades, idiomas y otros datos son el cierre del CV. Ayudan a que el reclutador se forme un panorama completo, pero no pueden suplir lo que falta en el perfil profesional ni en la experiencia. Lo importante es que sean veraces y específicas. En el próximo y último módulo vamos a juntar todo y vamos a generar tu CV en formato PDF, listo para enviar.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-05.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">05 · Formación académica</span>
+    </a>
+    <a href="modulo-07.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">07 · Revisión y descarga</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var CV_KEY = 'epja753_cv_datos';
+
+function leerCV() {
+  try { return JSON.parse(localStorage.getItem(CV_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarCV(d) {
+  try { localStorage.setItem(CV_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function getDatos() {
+  var d = leerCV();
+  return {
+    tecnicas: Array.isArray(d.tecnicas) ? d.tecnicas : [],
+    blandas: Array.isArray(d.blandas) ? d.blandas : [],
+    idiomas: Array.isArray(d.idiomas) ? d.idiomas : []
+  };
+}
+
+function setHabilidad(tipo, lista) {
+  var d = leerCV();
+  d[tipo] = lista;
+  guardarCV(d);
+  renderizarChips(tipo);
+}
+
+function agregarHabilidad(tipo) {
+  var inp = document.getElementById('input-' + (tipo === 'tecnicas' ? 'tecnica' : 'blanda'));
+  var val = inp.value.trim();
+  if (!val) return;
+  var d = getDatos();
+  if (d[tipo].indexOf(val) === -1) {
+    d[tipo].push(val);
+    setHabilidad(tipo, d[tipo]);
+  }
+  inp.value = '';
+  inp.focus();
+}
+
+function eliminarHabilidad(tipo, idx) {
+  var d = getDatos();
+  d[tipo].splice(idx, 1);
+  setHabilidad(tipo, d[tipo]);
+}
+
+function addQuick(tipo, valor) {
+  var d = getDatos();
+  if (d[tipo].indexOf(valor) === -1) {
+    d[tipo].push(valor);
+    setHabilidad(tipo, d[tipo]);
+  }
+}
+
+function renderizarChips(tipo) {
+  var d = getDatos();
+  var cont = document.getElementById('chips-' + tipo);
+  if (d[tipo].length === 0) {
+    cont.className = 'chips-area empty';
+    cont.innerHTML = 'Tus habilidades ' + (tipo === 'tecnicas' ? 'técnicas' : 'blandas') + ' van a aparecer acá';
+    return;
+  }
+  cont.className = 'chips-area';
+  cont.innerHTML = '';
+  d[tipo].forEach(function(hab, idx) {
+    var chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.innerHTML = hab + ' <button onclick="eliminarHabilidad(\'' + tipo + '\', ' + idx + ')" title="Eliminar">✕</button>';
+    cont.appendChild(chip);
+  });
+}
+
+// Idiomas
+function renderizarIdiomas() {
+  var d = getDatos();
+  var lista = document.getElementById('idiomas-lista');
+  lista.innerHTML = '';
+  d.idiomas.forEach(function(idioma, idx) {
+    var row = document.createElement('div');
+    row.className = 'idioma-row';
+    row.innerHTML = 
+      '<div><label>Idioma</label><input type="text" maxlength="30" value="' + (idioma.nombre || '') + '" data-idx="' + idx + '" data-campo="nombre" placeholder="Inglés"></div>' +
+      '<div><label>Nivel</label><select data-idx="' + idx + '" data-campo="nivel">' +
+        '<option value="">Elegir...</option>' +
+        ['Básico', 'Intermedio', 'Avanzado', 'Bilingüe'].map(function(n) {
+          return '<option value="' + n + '"' + (idioma.nivel === n ? ' selected' : '') + '>' + n + '</option>';
+        }).join('') +
+      '</select></div>' +
+      '<button onclick="eliminarIdioma(' + idx + ')">Eliminar</button>';
+    lista.appendChild(row);
+    row.querySelectorAll('[data-campo]').forEach(function(el) {
+      el.addEventListener('change', function(e) {
+        var d2 = getDatos();
+        d2.idiomas[idx][e.target.dataset.campo] = e.target.value;
+        var data = leerCV();
+        data.idiomas = d2.idiomas;
+        guardarCV(data);
+      });
+      el.addEventListener('input', function(e) {
+        var d2 = getDatos();
+        d2.idiomas[idx][e.target.dataset.campo] = e.target.value;
+        var data = leerCV();
+        data.idiomas = d2.idiomas;
+        guardarCV(data);
+      });
+    });
+  });
+}
+
+function agregarIdioma() {
+  var d = getDatos();
+  d.idiomas.push({ nombre: '', nivel: '' });
+  var data = leerCV();
+  data.idiomas = d.idiomas;
+  guardarCV(data);
+  renderizarIdiomas();
+}
+
+function eliminarIdioma(idx) {
+  var d = getDatos();
+  d.idiomas.splice(idx, 1);
+  var data = leerCV();
+  data.idiomas = d.idiomas;
+  guardarCV(data);
+  renderizarIdiomas();
+}
+
+// Otros datos
+function guardarOtros() {
+  var d = leerCV();
+  d.licConducir = document.getElementById('lic-conducir').value.trim();
+  d.disponibilidad = document.getElementById('disponibilidad').value.trim();
+  d.movilidad = document.getElementById('movilidad').value.trim();
+  d.otrosExtra = document.getElementById('otros-extra').value.trim();
+  guardarCV(d);
+}
+
+['lic-conducir', 'disponibilidad', 'movilidad', 'otros-extra'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardarOtros);
+});
+
+// Enter en inputs de habilidad
+document.getElementById('input-tecnica').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); agregarHabilidad('tecnicas'); }
+});
+document.getElementById('input-blanda').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); agregarHabilidad('blandas'); }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderizarChips('tecnicas');
+  renderizarChips('blandas');
+  renderizarIdiomas();
+  var d = leerCV();
+  if (d.licConducir) document.getElementById('lic-conducir').value = d.licConducir;
+  if (d.disponibilidad) document.getElementById('disponibilidad').value = d.disponibilidad;
+  if (d.movilidad) document.getElementById('movilidad').value = d.movilidad;
+  if (d.otrosExtra) document.getElementById('otros-extra').value = d.otrosExtra;
+
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

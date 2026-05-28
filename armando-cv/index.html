@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armando tu CV · Capacitaciones EPJA 753</title>
+<meta name="description" content="Curso gratuito para construir tu CV profesional paso a paso. EPJA 753, Rawson, Chubut.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+.hero-cv {
+  padding: 80px 24px 60px;
+  background:
+    radial-gradient(ellipse at 90% 20%, rgba(0,131,46,0.08), transparent 50%),
+    radial-gradient(ellipse at 0% 80%, rgba(0,48,80,0.07), transparent 50%),
+    var(--crema);
+  position: relative;
+  overflow: hidden;
+}
+.hero-cv-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.hero-cv-frase {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--azul);
+  line-height: 1.5;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.hero-cv-content {
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto 48px;
+}
+.hero-cv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--verde-3);
+  color: var(--verde);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.hero-cv-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.hero-cv-content h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(36px, 5.5vw, 56px);
+  color: var(--azul);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+.hero-cv-content h1 em {
+  font-style: italic;
+  color: var(--verde);
+  font-weight: 500;
+}
+.hero-cv-content > p {
+  font-size: 18px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  max-width: 600px;
+  margin: 0 auto 28px;
+}
+.hero-cv-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  background: #fff;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--gris-2);
+  font-size: 13px;
+  color: var(--gris-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-cv-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-cv-meta span::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.hero-cv-meta span:first-child::before { display: none; }
+
+/* Dos puertas */
+.puertas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+@media (max-width: 760px) { .puertas { grid-template-columns: 1fr; } }
+.puerta {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.puerta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.puerta.primer::before { background: var(--verde); }
+.puerta.actualizar::before { background: var(--azul); }
+.puerta:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-media);
+}
+.puerta.primer:hover { border-color: var(--verde); }
+.puerta.actualizar:hover { border-color: var(--azul); }
+.puerta-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.puerta.primer .puerta-icon { background: var(--verde-3); color: var(--verde); }
+.puerta.actualizar .puerta-icon { background: var(--azul-3); color: var(--azul); }
+.puerta-icon svg { width: 28px; height: 28px; }
+.puerta-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--gris-3);
+  margin-bottom: 4px;
+}
+.puerta h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 26px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+.puerta > p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+.puerta ul {
+  list-style: none;
+  padding: 14px 0;
+  margin: 0;
+  border-top: 1px solid var(--gris-2);
+}
+.puerta li {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  padding: 5px 0 5px 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.puerta li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  color: inherit;
+  font-weight: 600;
+}
+.puerta.primer li::before { color: var(--verde); }
+.puerta.actualizar li::before { color: var(--azul); }
+.puerta-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  transition: all 0.15s;
+}
+.puerta.primer .puerta-cta { background: var(--verde); }
+.puerta.actualizar .puerta-cta { background: var(--azul); }
+.puerta:hover .puerta-cta { transform: translateX(2px); }
+
+/* Qué vas a aprender */
+.recorrido {
+  padding: 80px 24px;
+  background: #fff;
+  border-top: 1px solid var(--gris-2);
+}
+.recorrido-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.recorrido-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.recorrido-header span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.recorrido-header h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--azul);
+  letter-spacing: -0.5px;
+  margin-top: 8px;
+}
+.recorrido-header p {
+  font-size: 16px;
+  color: var(--gris-4);
+  margin-top: 12px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.modulos-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.mod-card {
+  background: var(--crema);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  border: 1px solid var(--gris-2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mod-card-num {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--verde);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.mod-card h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--azul);
+  margin: 0 0 4px;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+.mod-card p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Qué se obtiene al final */
+.entregables {
+  padding: 80px 24px;
+  background: var(--crema);
+}
+.entregables-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.entregables-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.entregables-header span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.entregables-header h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 36px);
+  color: var(--azul);
+  letter-spacing: -0.5px;
+  margin-top: 8px;
+}
+.entregables-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 760px) { .entregables-grid { grid-template-columns: 1fr; } }
+.entregable {
+  background: #fff;
+  border-radius: var(--r-lg);
+  padding: 26px 22px;
+  border: 1px solid var(--gris-2);
+  text-align: center;
+}
+.entregable-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.entregable-icon svg { width: 24px; height: 24px; }
+.entregable h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--azul);
+  margin: 0 0 6px;
+  letter-spacing: -0.2px;
+}
+.entregable p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div style="background:#fff; padding: 14px 24px; border-bottom: 1px solid var(--gris-2);">
+  <div style="max-width: 1180px; margin: 0 auto;">
+    <a href="../index.html" style="font-size: 13px; color: var(--gris-4); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+      <span>←</span> Volver al portal de capacitaciones
+    </a>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Capacitaciones EPJA 753</strong>
+        <span>Armando tu CV</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#recorrido">Recorrido</a>
+      <a href="#entregables">¿Qué obtenés?</a>
+      <a href="modulo-01.html" class="nav-cta">Empezar curso</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="hero-cv">
+  <div class="hero-cv-inner">
+
+    <div class="hero-cv-content">
+      <span class="hero-cv-eyebrow">Curso práctico en línea</span>
+      <h1>Armá tu <em>CV profesional</em>, paso a paso</h1>
+      <p>Un curso pensado para que aprendas a construir tu currículum mientras lo escribís. Al terminar, descargás tu CV en PDF en el estilo que elijas y la constancia de aprobación.</p>
+      <div class="hero-cv-meta">
+        <span>7 módulos</span>
+        <span>3 estilos de CV</span>
+        <span>Constancia incluida</span>
+        <span>100% gratuito</span>
+      </div>
+    </div>
+
+    <div class="puertas">
+      <a href="modulo-01.html?modo=primer" class="puerta primer">
+        <div class="puerta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div>
+          <div class="puerta-eyebrow">Opción 01</div>
+          <h3>Es mi primer CV</h3>
+        </div>
+        <p>Nunca armé un CV antes, o lo hice pero quiero aprender a hacerlo bien. El curso te acompaña con ejemplos pensados para quien recién empieza a buscar empleo formal.</p>
+        <ul>
+          <li>Ejemplos para perfiles sin experiencia laboral formal</li>
+          <li>Cómo aprovechar trabajos informales o de cuidado</li>
+          <li>Consejos para el primer empleo</li>
+        </ul>
+        <span class="puerta-cta">Empezar mi primer CV <span>→</span></span>
+      </a>
+      <a href="modulo-01.html?modo=actualizar" class="puerta actualizar">
+        <div class="puerta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </div>
+        <div>
+          <div class="puerta-eyebrow">Opción 02</div>
+          <h3>Quiero actualizar mi CV</h3>
+        </div>
+        <p>Ya tengo un CV armado pero quiero mejorarlo, modernizarlo o adaptarlo a una nueva búsqueda. El curso revisa cada parte del CV y te ayuda a hacerla más efectiva.</p>
+        <ul>
+          <li>Cómo describir varios años de experiencia</li>
+          <li>Adaptar tu CV a distintas búsquedas</li>
+          <li>Errores que conviene corregir</li>
+        </ul>
+        <span class="puerta-cta">Actualizar mi CV <span>→</span></span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section class="recorrido" id="recorrido">
+  <div class="recorrido-inner">
+    <div class="recorrido-header">
+      <span>El recorrido</span>
+      <h2>Siete módulos para tu CV completo</h2>
+      <p>Cada módulo enseña una parte del CV y, al mismo tiempo, te invita a cargar tus datos. Al final, todo lo cargado se convierte en tu CV listo para descargar.</p>
+    </div>
+    <div class="modulos-list">
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 01</span>
+        <h4>¿Qué es un CV y para qué sirve?</h4>
+        <p>Cómo lo lee el reclutador y qué se espera encontrar en pocos segundos.</p>
+      </div>
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 02</span>
+        <h4>Datos personales y contacto</h4>
+        <p>Qué información incluir, qué dejar afuera, cuándo poner foto.</p>
+      </div>
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 03</span>
+        <h4>Tu perfil profesional</h4>
+        <p>La frase de presentación: rol, experiencia, diferencial.</p>
+      </div>
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 04</span>
+        <h4>Experiencia laboral</h4>
+        <p>Cómo describir cada trabajo y resaltar logros con verbos de acción.</p>
+      </div>
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 05</span>
+        <h4>Formación académica</h4>
+        <p>Estudios formales, cursos cortos, capacitaciones, formación en curso.</p>
+      </div>
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 06</span>
+        <h4>Habilidades e idiomas</h4>
+        <p>Habilidades técnicas y blandas, niveles de idiomas, otros datos relevantes.</p>
+      </div>
+      <div class="mod-card">
+        <span class="mod-card-num">MÓDULO 07</span>
+        <h4>Revisión y descarga</h4>
+        <p>Vista previa del CV en tres estilos y descarga en PDF.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="entregables" id="entregables">
+  <div class="entregables-inner">
+    <div class="entregables-header">
+      <span>Al finalizar</span>
+      <h2>Te llevás tres cosas</h2>
+    </div>
+    <div class="entregables-grid">
+      <div class="entregable">
+        <div class="entregable-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h4>Tu CV en PDF</h4>
+        <p>En el estilo que elijas: clásico, moderno o creativo. Listo para enviar.</p>
+      </div>
+      <div class="entregable">
+        <div class="entregable-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l8.385-8.415a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3z"/><path d="M16 5l3 3"/><path d="M9 7H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg>
+        </div>
+        <h4>Sugerencias con IA</h4>
+        <p>Botones de ayuda para mejorar tus textos con asistente de inteligencia artificial.</p>
+      </div>
+      <div class="entregable">
+        <div class="entregable-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <h4>Constancia de aprobación</h4>
+        <p>Documento descargable firmado por la docente al completar la autoevaluación final.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+// Guardar modo seleccionado
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var modo = params.get('modo');
+  if (modo) {
+    try { localStorage.setItem('epja753_cv_modo', modo); } catch (e) {}
+  }
+})();
+</script>
+
+</body>
+</html>

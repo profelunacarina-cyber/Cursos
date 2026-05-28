@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>07 · Revisión y descarga · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo final: revisá tu CV completo, elegí entre 3 estilos y descargalo en PDF A4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Checklist final */
+.checklist {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.checklist h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+}
+.checklist > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 13.5px;
+  color: var(--tinta);
+  line-height: 1.55;
+  border-bottom: 1px dashed var(--gris-2);
+}
+.check-item:last-child { border-bottom: none; }
+.check-icon {
+  width: 22px;
+  height: 22px;
+  background: var(--verde);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.check-icon svg { width: 12px; height: 12px; }
+.check-item.alerta .check-icon { background: var(--amarillo); }
+.check-item strong { color: var(--azul); font-weight: 600; }
+
+/* Estado de avance */
+.estado-cv {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  color: #fff;
+  border-radius: var(--r-xl);
+  padding: 28px;
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+.estado-cv::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.estado-cv-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.estado-cv h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin: 0 0 16px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  position: relative;
+  color: #fff;
+}
+.estado-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  position: relative;
+}
+.estado-item {
+  background: rgba(255,255,255,0.1);
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+}
+.estado-item-label {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.estado-item-valor {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+}
+.estado-item.ok { background: rgba(0, 131, 46, 0.3); }
+.estado-item.warn { background: rgba(245, 158, 11, 0.25); }
+
+/* Selector de estilo */
+.estilo-selector {
+  margin: 32px 0 28px;
+}
+.estilo-selector h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.estilo-selector > p {
+  text-align: center;
+  font-size: 14px;
+  color: var(--gris-4);
+  margin-bottom: 24px;
+}
+.estilos-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) { .estilos-tabs { grid-template-columns: 1fr; } }
+.estilo-tab {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  font-family: var(--sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.estilo-tab:hover { border-color: var(--verde); }
+.estilo-tab.active {
+  border-color: var(--verde);
+  background: var(--verde-3);
+}
+.estilo-tab-nombre {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--azul);
+}
+.estilo-tab-desc {
+  font-size: 11px;
+  color: var(--gris-4);
+}
+
+/* Vista previa del CV */
+.preview-wrapper {
+  background: var(--gris-1);
+  border-radius: var(--r-lg);
+  padding: 30px 20px;
+  margin: 0 0 24px;
+  overflow-x: auto;
+}
+.preview-cv-final {
+  background: #fff;
+  max-width: 21cm;
+  margin: 0 auto;
+  min-height: 29cm;
+  padding: 1.8cm 1.8cm;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border: 1px solid var(--gris-2);
+  font-size: 11pt;
+  line-height: 1.5;
+  color: #1a1f26;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+/* ESTILO CLÁSICO */
+.cv-clasico {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.cv-clasico .cv-header {
+  text-align: center;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #003050;
+}
+.cv-clasico .cv-nombre {
+  font-size: 24pt;
+  font-weight: 700;
+  color: #003050;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.cv-clasico .cv-ubicacion {
+  font-size: 11pt;
+  color: #4a5058;
+  margin-bottom: 6px;
+}
+.cv-clasico .cv-contacto {
+  font-size: 10.5pt;
+  color: #4a5058;
+}
+.cv-clasico .cv-seccion-titulo {
+  font-family: Georgia, serif;
+  font-size: 13pt;
+  font-weight: 700;
+  color: #003050;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #003050;
+  padding-bottom: 3px;
+  margin: 18px 0 10px;
+}
+.cv-clasico .cv-perfil {
+  font-size: 11pt;
+  line-height: 1.6;
+  text-align: justify;
+  margin-bottom: 4px;
+  font-family: Georgia, serif;
+}
+.cv-clasico .cv-item {
+  margin-bottom: 12px;
+}
+.cv-clasico .cv-item-titulo {
+  font-weight: 700;
+  font-size: 11pt;
+  color: #1a1f26;
+}
+.cv-clasico .cv-item-sub {
+  font-size: 10pt;
+  font-style: italic;
+  color: #4a5058;
+  margin-bottom: 4px;
+}
+.cv-clasico .cv-item-desc {
+  font-size: 10.5pt;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+.cv-clasico .cv-tags {
+  font-size: 10.5pt;
+}
+
+/* ESTILO MODERNO */
+.cv-moderno {
+  font-family: 'Inter', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.2cm;
+  padding: 0 !important;
+  background: #fff;
+}
+.cv-moderno .cv-sidebar {
+  background: #003050;
+  color: #fff;
+  padding: 1.5cm 1cm;
+}
+.cv-moderno .cv-main {
+  padding: 1.5cm 1cm 1.5cm 0;
+}
+.cv-moderno .cv-nombre {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22pt;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.cv-moderno .cv-ubicacion {
+  font-size: 10pt;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 24px;
+}
+.cv-moderno .cv-sidebar h3 {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin: 18px 0 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.cv-moderno .cv-sidebar p,
+.cv-moderno .cv-sidebar div {
+  font-size: 10pt;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 4px;
+}
+.cv-moderno .cv-sidebar .cv-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 9pt;
+  margin: 2px 3px 2px 0;
+}
+.cv-moderno .cv-sidebar a {
+  color: rgba(255,255,255,0.9);
+  word-break: break-all;
+  font-size: 9pt;
+}
+.cv-moderno .cv-main h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 13pt;
+  font-weight: 600;
+  color: #003050;
+  margin: 18px 0 8px;
+}
+.cv-moderno .cv-main h3:first-child { margin-top: 0; }
+.cv-moderno .cv-perfil {
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: #1a1f26;
+  margin-bottom: 8px;
+}
+.cv-moderno .cv-item {
+  margin-bottom: 12px;
+  padding-left: 14px;
+  position: relative;
+  border-left: 2px solid #e6e8ec;
+}
+.cv-moderno .cv-item::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background: #006020;
+  border-radius: 50%;
+}
+.cv-moderno .cv-item-titulo {
+  font-weight: 600;
+  font-size: 10.5pt;
+  color: #003050;
+}
+.cv-moderno .cv-item-sub {
+  font-size: 9.5pt;
+  color: #4a5058;
+  margin-bottom: 4px;
+}
+.cv-moderno .cv-item-desc {
+  font-size: 10pt;
+  line-height: 1.5;
+  white-space: pre-line;
+  color: #1a1f26;
+}
+
+/* ESTILO CREATIVO */
+.cv-creativo {
+  font-family: 'Inter', sans-serif;
+}
+.cv-creativo .cv-header {
+  background: linear-gradient(135deg, #006020 0%, #00832e 100%);
+  color: #fff;
+  padding: 30px 30px 24px;
+  margin: -1.8cm -1.8cm 24px;
+  border-radius: 0 0 24px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cv-creativo .cv-header::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+.cv-creativo .cv-nombre {
+  font-family: 'Fraunces', serif;
+  font-size: 26pt;
+  font-weight: 500;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  margin-bottom: 6px;
+  position: relative;
+}
+.cv-creativo .cv-ubicacion {
+  font-size: 11pt;
+  opacity: 0.85;
+  margin-bottom: 12px;
+  position: relative;
+}
+.cv-creativo .cv-contacto {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 10pt;
+  position: relative;
+}
+.cv-creativo .cv-seccion-titulo {
+  font-family: 'Fraunces', serif;
+  font-size: 14pt;
+  font-weight: 600;
+  color: #006020;
+  margin: 20px 0 10px;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cv-creativo .cv-seccion-titulo::before {
+  content: "";
+  width: 24px;
+  height: 3px;
+  background: #006020;
+  border-radius: 2px;
+}
+.cv-creativo .cv-perfil {
+  font-size: 11pt;
+  line-height: 1.6;
+  background: #fbfaf7;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-left: 3px solid #006020;
+  margin-bottom: 4px;
+}
+.cv-creativo .cv-item {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  background: #fbfaf7;
+  border-radius: 8px;
+}
+.cv-creativo .cv-item-titulo {
+  font-weight: 700;
+  font-size: 11pt;
+  color: #003050;
+  margin-bottom: 2px;
+}
+.cv-creativo .cv-item-sub {
+  font-size: 9.5pt;
+  color: #006020;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.cv-creativo .cv-item-desc {
+  font-size: 10pt;
+  line-height: 1.5;
+  white-space: pre-line;
+  color: #1a1f26;
+}
+.cv-creativo .cv-tags-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cv-creativo .cv-tag-chip {
+  background: #e8f5ec;
+  color: #006020;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10pt;
+  font-weight: 500;
+}
+
+/* Botón descarga */
+.descarga-zona {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  color: #fff;
+  margin: 32px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.descarga-zona::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+.descarga-zona h3 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+  position: relative;
+  color: #fff;
+}
+.descarga-zona > p {
+  opacity: 0.92;
+  font-size: 14px;
+  margin-bottom: 22px;
+  position: relative;
+}
+.descarga-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.descarga-btn {
+  padding: 14px 26px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  border: none;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.descarga-btn.primary {
+  background: #fff;
+  color: var(--verde);
+}
+.descarga-btn.primary:hover { transform: translateY(-1px); }
+.descarga-btn.outline {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  color: #fff;
+}
+.descarga-btn.outline:hover { background: rgba(255,255,255,0.1); }
+
+/* Mensaje validación */
+.mensaje-validacion {
+  background: #fff;
+  border: 1.5px solid var(--amarillo);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin: 16px 0;
+  display: flex;
+  gap: 14px;
+}
+.mensaje-validacion .icon {
+  width: 28px;
+  height: 28px;
+  background: var(--amarillo);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.mensaje-validacion-text {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+}
+.mensaje-validacion-text strong { color: #92400e; }
+.mensaje-validacion-text ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="modulo-07.html" class="active">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 07</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 7 de 7
+    </span>
+    <h1>Revisión final y <em>descarga del CV</em></h1>
+    <p>Llegamos al último paso. Vamos a revisar el CV completo, elegir el estilo que mejor se adapte al puesto, y descargarlo en formato PDF A4 listo para enviar. También vas a poder descargar la constancia del curso al completar la autoevaluación.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 100%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 07 / 07</span>
+      <span>Recorrido completo</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Antes de descargar, conviene mirar el CV completo y revisarlo con calma. Acá vas a ver el estado de cada sección, las recomendaciones finales y la posibilidad de elegir entre tres estilos visuales según el puesto al que postules.</p>
+
+    <div class="estado-cv">
+      <div class="estado-cv-label">Estado de tu CV</div>
+      <h3>¿Cómo va tu currículum?</h3>
+      <div class="estado-grid" id="estado-grid">
+        <!-- se completa por JS -->
+      </div>
+    </div>
+
+    <div id="mensajes-validacion"></div>
+
+    <h2>Recomendaciones <em>antes de enviar</em></h2>
+
+    <div class="checklist">
+      <h3>Checklist para revisar tu CV</h3>
+      <p>Antes de descargar, repasá estos puntos. Cada uno suma o resta segundos de atención del reclutador.</p>
+
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><strong>Sin faltas de ortografía.</strong> Es lo primero que se nota. Conviene leer el CV en voz alta o pedirle a alguien que lo revise.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><strong>Fechas coherentes y verificables.</strong> Si trabajaste en un lugar de 2020 a 2024, todos esos años están cubiertos. No hay períodos sin explicar.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><strong>El email anda.</strong> Verificá que recibís correos en esa casilla. Si no, el reclutador no puede contactarte.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><strong>El perfil coincide con la búsqueda.</strong> Si el aviso pide alguien con experiencia en X, tu perfil tiene que mencionar X. No alcanza con que esté en la experiencia.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><strong>Una página, máximo dos.</strong> Si tu CV ocupa tres páginas o más, hay algo para sacar. Conviene priorizar lo más reciente y relevante.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><strong>Guardalo en PDF.</strong> Nunca enviar el CV en Word: puede verse distinto en otra computadora. El PDF mantiene el diseño.</div>
+      </div>
+    </div>
+
+    <div class="estilo-selector">
+      <h2>Elegí el <em>estilo</em> de tu CV</h2>
+      <p>Tres opciones disponibles. Cambiá entre ellas para ver cuál se adapta mejor al puesto al que vas a postular.</p>
+
+      <div class="estilos-tabs">
+        <div class="estilo-tab active" data-estilo="clasico" onclick="cambiarEstilo('clasico')">
+          <span class="estilo-tab-nombre">Clásico</span>
+          <span class="estilo-tab-desc">Formal, sobrio, ideal para administración pública y oficinas.</span>
+        </div>
+        <div class="estilo-tab" data-estilo="moderno" onclick="cambiarEstilo('moderno')">
+          <span class="estilo-tab-nombre">Moderno</span>
+          <span class="estilo-tab-desc">Dos columnas con color. Ideal para empresas y áreas dinámicas.</span>
+        </div>
+        <div class="estilo-tab" data-estilo="creativo" onclick="cambiarEstilo('creativo')">
+          <span class="estilo-tab-nombre">Creativo</span>
+          <span class="estilo-tab-desc">Más vivo, con detalles de color. Ideal para diseño, redes, gastronomía.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-wrapper">
+      <div class="preview-cv-final cv-clasico" id="cv-preview">
+        <!-- Contenido del CV generado por JS -->
+      </div>
+    </div>
+
+    <div class="descarga-zona">
+      <h3>Tu CV está listo para descargar</h3>
+      <p>Se va a abrir una ventana de impresión. En "Destino" elegí "Guardar como PDF" y guardá el archivo en tu computadora.</p>
+      <div class="descarga-btns">
+        <button class="descarga-btn primary" onclick="descargarCV()">↓ Descargar mi CV en PDF</button>
+        <a href="evaluacion.html" class="descarga-btn outline">Ir a la autoevaluación →</a>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el curso</span>
+      <h3>El CV es una herramienta viva</h3>
+      <p>Un CV no se hace una vez y queda para siempre. Conviene <strong>revisarlo cada 6 meses</strong>, sumando capacitaciones nuevas, mejorando descripciones o adaptándolo a la búsqueda concreta. Los datos cargados en este curso quedan guardados en tu navegador: cuando quieras actualizar tu CV, volvé acá y vas a encontrar todo como lo dejaste. Para certificar la finalización del curso, completá la autoevaluación final.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-06.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">06 · Habilidades</span>
+    </a>
+    <a href="evaluacion.html" class="next">
+      <span class="label">Cierre →</span>
+      <span class="title">Autoevaluación final</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var CV_KEY = 'epja753_cv_datos';
+var estiloActual = 'clasico';
+
+function leerCV() {
+  try { return JSON.parse(localStorage.getItem(CV_KEY)) || {}; } catch (e) { return {}; }
+}
+
+function tipoFormacionTexto(tipo) {
+  var map = {
+    'primario': 'Educación primaria',
+    'secundario': 'Educación secundaria',
+    'terciario': 'Terciario',
+    'universitario': 'Universitario',
+    'posgrado': 'Posgrado',
+    'curso': 'Curso',
+    'certificacion': 'Certificación'
+  };
+  return map[tipo] || tipo;
+}
+
+function renderEstado() {
+  var d = leerCV();
+  var items = [];
+
+  // Datos personales
+  var datosOk = d.nombre && d.apellido && d.email;
+  items.push({ label: 'Datos personales', valor: datosOk ? 'Completo' : 'Incompleto', ok: datosOk });
+
+  // Perfil
+  var perfilOk = d.perfil && d.perfil.trim().length > 30;
+  items.push({ label: 'Perfil profesional', valor: perfilOk ? 'Completo' : (d.perfil ? 'Muy corto' : 'Sin cargar'), ok: perfilOk });
+
+  // Experiencia
+  var nExp = (d.experiencias || []).length;
+  items.push({ label: 'Experiencias', valor: nExp + ' cargada' + (nExp === 1 ? '' : 's'), ok: nExp > 0 });
+
+  // Formación
+  var nForm = (d.formaciones || []).length;
+  items.push({ label: 'Formación', valor: nForm + ' cargada' + (nForm === 1 ? '' : 's'), ok: nForm > 0 });
+
+  // Habilidades
+  var nHab = (d.tecnicas || []).length + (d.blandas || []).length;
+  items.push({ label: 'Habilidades', valor: nHab + ' cargada' + (nHab === 1 ? '' : 's'), ok: nHab > 0 });
+
+  // Idiomas
+  var nIdiomas = (d.idiomas || []).filter(function(i) { return i.nombre; }).length;
+  items.push({ label: 'Idiomas', valor: nIdiomas > 0 ? nIdiomas + ' cargado' + (nIdiomas === 1 ? '' : 's') : 'Ninguno', ok: true });
+
+  var grid = document.getElementById('estado-grid');
+  grid.innerHTML = items.map(function(it) {
+    return '<div class="estado-item ' + (it.ok ? 'ok' : 'warn') + '">' +
+           '<div class="estado-item-label">' + it.label + '</div>' +
+           '<div class="estado-item-valor">' + it.valor + '</div>' +
+           '</div>';
+  }).join('');
+
+  // Mensajes de validación
+  var faltantes = [];
+  if (!datosOk) faltantes.push('Cargá tu nombre, apellido y correo electrónico (módulo 02)');
+  if (!perfilOk) faltantes.push('Completá tu perfil profesional (módulo 03)');
+  if (nExp === 0) faltantes.push('Agregá al menos una experiencia o trabajo (módulo 04)');
+  if (nForm === 0) faltantes.push('Agregá al menos una formación (módulo 05)');
+
+  var mensajes = document.getElementById('mensajes-validacion');
+  if (faltantes.length > 0) {
+    mensajes.innerHTML = '<div class="mensaje-validacion">' +
+      '<div class="icon">!</div>' +
+      '<div class="mensaje-validacion-text"><strong>Antes de descargar, conviene completar:</strong>' +
+      '<ul>' + faltantes.map(function(f) { return '<li>' + f + '</li>'; }).join('') + '</ul></div>' +
+      '</div>';
+  } else {
+    mensajes.innerHTML = '';
+  }
+}
+
+function generarHTMLCV(estilo) {
+  var d = leerCV();
+  var nombreCompleto = ((d.nombre || '') + ' ' + (d.apellido || '')).trim() || 'Tu Nombre y Apellido';
+  var ubicacion = '';
+  if (d.ciudad && d.provincia) ubicacion = d.ciudad + ', ' + d.provincia;
+  else if (d.ciudad) ubicacion = d.ciudad;
+  else if (d.provincia) ubicacion = d.provincia;
+
+  var html = '';
+
+  if (estilo === 'clasico') {
+    html += '<div class="cv-header">';
+    html += '<div class="cv-nombre">' + nombreCompleto + '</div>';
+    if (ubicacion) html += '<div class="cv-ubicacion">' + ubicacion + '</div>';
+    var contactos = [];
+    if (d.email) contactos.push(d.email);
+    if (d.linkedin) contactos.push(d.linkedin);
+    if (d.portfolio) contactos.push(d.portfolio);
+    if (contactos.length) html += '<div class="cv-contacto">' + contactos.join(' · ') + '</div>';
+    html += '</div>';
+
+    if (d.perfil) {
+      html += '<div class="cv-seccion-titulo">Perfil profesional</div>';
+      html += '<div class="cv-perfil">' + d.perfil + '</div>';
+    }
+
+    if ((d.experiencias || []).length) {
+      html += '<div class="cv-seccion-titulo">Experiencia laboral</div>';
+      d.experiencias.forEach(function(e) {
+        html += '<div class="cv-item">';
+        html += '<div class="cv-item-titulo">' + (e.puesto || '') + (e.empresa ? ' · ' + e.empresa : '') + '</div>';
+        var fechas = e.desde + (e.actual ? ' — Actualidad' : (e.hasta ? ' — ' + e.hasta : ''));
+        html += '<div class="cv-item-sub">' + fechas + '</div>';
+        if (e.descripcion) html += '<div class="cv-item-desc">' + e.descripcion + '</div>';
+        html += '</div>';
+      });
+    }
+
+    if ((d.formaciones || []).length) {
+      html += '<div class="cv-seccion-titulo">Formación</div>';
+      d.formaciones.forEach(function(f) {
+        html += '<div class="cv-item">';
+        html += '<div class="cv-item-titulo">' + (f.titulo || '') + '</div>';
+        var sub = f.institucion;
+        var fechas = (f.desde || '') + (f.enCurso ? ' — En curso' : (f.hasta ? ' — ' + f.hasta : ''));
+        if (fechas.trim()) sub += (sub ? ' · ' : '') + fechas;
+        if (sub) html += '<div class="cv-item-sub">' + sub + '</div>';
+        html += '</div>';
+      });
+    }
+
+    if ((d.tecnicas || []).length || (d.blandas || []).length) {
+      html += '<div class="cv-seccion-titulo">Habilidades</div>';
+      if ((d.tecnicas || []).length) html += '<div class="cv-tags"><strong>Técnicas:</strong> ' + d.tecnicas.join(', ') + '</div>';
+      if ((d.blandas || []).length) html += '<div class="cv-tags"><strong>Personales:</strong> ' + d.blandas.join(', ') + '</div>';
+    }
+
+    var idiomasFiltered = (d.idiomas || []).filter(function(i) { return i.nombre; });
+    if (idiomasFiltered.length) {
+      html += '<div class="cv-seccion-titulo">Idiomas</div>';
+      html += '<div class="cv-tags">' + idiomasFiltered.map(function(i) { return i.nombre + (i.nivel ? ' (' + i.nivel + ')' : ''); }).join(' · ') + '</div>';
+    }
+
+    var otros = [];
+    if (d.licConducir) otros.push('Licencia de conducir: ' + d.licConducir);
+    if (d.disponibilidad) otros.push('Disponibilidad: ' + d.disponibilidad);
+    if (d.movilidad) otros.push('Movilidad: ' + d.movilidad);
+    if (d.otrosExtra) otros.push(d.otrosExtra);
+    if (otros.length) {
+      html += '<div class="cv-seccion-titulo">Otros datos</div>';
+      html += '<div class="cv-tags">' + otros.join(' · ') + '</div>';
+    }
+  }
+
+  else if (estilo === 'moderno') {
+    html += '<div class="cv-sidebar">';
+    html += '<div class="cv-nombre">' + nombreCompleto + '</div>';
+    if (ubicacion) html += '<div class="cv-ubicacion">' + ubicacion + '</div>';
+
+    if (d.email || d.linkedin || d.portfolio) {
+      html += '<h3>Contacto</h3>';
+      if (d.email) html += '<div>' + d.email + '</div>';
+      if (d.linkedin) html += '<div>' + d.linkedin + '</div>';
+      if (d.portfolio) html += '<div>' + d.portfolio + '</div>';
+    }
+
+    if ((d.tecnicas || []).length || (d.blandas || []).length) {
+      html += '<h3>Habilidades</h3>';
+      var todasHab = (d.tecnicas || []).concat(d.blandas || []);
+      todasHab.forEach(function(h) {
+        html += '<span class="cv-tag">' + h + '</span>';
+      });
+    }
+
+    var idiomasFiltered = (d.idiomas || []).filter(function(i) { return i.nombre; });
+    if (idiomasFiltered.length) {
+      html += '<h3>Idiomas</h3>';
+      idiomasFiltered.forEach(function(i) {
+        html += '<div><strong>' + i.nombre + '</strong>' + (i.nivel ? ' · ' + i.nivel : '') + '</div>';
+      });
+    }
+
+    var otros = [];
+    if (d.licConducir) otros.push('Licencia ' + d.licConducir);
+    if (d.disponibilidad) otros.push(d.disponibilidad);
+    if (d.movilidad) otros.push(d.movilidad);
+    if (otros.length) {
+      html += '<h3>Otros datos</h3>';
+      otros.forEach(function(o) { html += '<div>' + o + '</div>'; });
+    }
+    html += '</div>';
+
+    html += '<div class="cv-main">';
+    if (d.perfil) {
+      html += '<h3>Perfil profesional</h3>';
+      html += '<div class="cv-perfil">' + d.perfil + '</div>';
+    }
+    if ((d.experiencias || []).length) {
+      html += '<h3>Experiencia</h3>';
+      d.experiencias.forEach(function(e) {
+        html += '<div class="cv-item">';
+        html += '<div class="cv-item-titulo">' + (e.puesto || '') + (e.empresa ? ' · ' + e.empresa : '') + '</div>';
+        var fechas = (e.desde || '') + (e.actual ? ' — Actualidad' : (e.hasta ? ' — ' + e.hasta : ''));
+        if (fechas.trim()) html += '<div class="cv-item-sub">' + fechas + '</div>';
+        if (e.descripcion) html += '<div class="cv-item-desc">' + e.descripcion + '</div>';
+        html += '</div>';
+      });
+    }
+    if ((d.formaciones || []).length) {
+      html += '<h3>Formación</h3>';
+      d.formaciones.forEach(function(f) {
+        html += '<div class="cv-item">';
+        html += '<div class="cv-item-titulo">' + (f.titulo || '') + '</div>';
+        var sub = f.institucion || '';
+        var fechas = (f.desde || '') + (f.enCurso ? ' — En curso' : (f.hasta ? ' — ' + f.hasta : ''));
+        if (fechas.trim()) sub += (sub ? ' · ' : '') + fechas;
+        if (sub) html += '<div class="cv-item-sub">' + sub + '</div>';
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+  }
+
+  else if (estilo === 'creativo') {
+    html += '<div class="cv-header">';
+    html += '<div class="cv-nombre">' + nombreCompleto + '</div>';
+    if (ubicacion) html += '<div class="cv-ubicacion">' + ubicacion + '</div>';
+    var contactos = [];
+    if (d.email) contactos.push(d.email);
+    if (d.linkedin) contactos.push(d.linkedin);
+    if (d.portfolio) contactos.push(d.portfolio);
+    if (contactos.length) html += '<div class="cv-contacto">' + contactos.map(function(c) { return '<span>' + c + '</span>'; }).join('') + '</div>';
+    html += '</div>';
+
+    if (d.perfil) {
+      html += '<div class="cv-seccion-titulo">Perfil profesional</div>';
+      html += '<div class="cv-perfil">' + d.perfil + '</div>';
+    }
+    if ((d.experiencias || []).length) {
+      html += '<div class="cv-seccion-titulo">Experiencia</div>';
+      d.experiencias.forEach(function(e) {
+        html += '<div class="cv-item">';
+        html += '<div class="cv-item-titulo">' + (e.puesto || '') + '</div>';
+        var sub = e.empresa || '';
+        var fechas = (e.desde || '') + (e.actual ? ' — Actualidad' : (e.hasta ? ' — ' + e.hasta : ''));
+        if (fechas.trim()) sub += (sub ? ' · ' : '') + fechas;
+        if (sub) html += '<div class="cv-item-sub">' + sub + '</div>';
+        if (e.descripcion) html += '<div class="cv-item-desc">' + e.descripcion + '</div>';
+        html += '</div>';
+      });
+    }
+    if ((d.formaciones || []).length) {
+      html += '<div class="cv-seccion-titulo">Formación</div>';
+      d.formaciones.forEach(function(f) {
+        html += '<div class="cv-item">';
+        html += '<div class="cv-item-titulo">' + (f.titulo || '') + '</div>';
+        var sub = f.institucion || '';
+        var fechas = (f.desde || '') + (f.enCurso ? ' — En curso' : (f.hasta ? ' — ' + f.hasta : ''));
+        if (fechas.trim()) sub += (sub ? ' · ' : '') + fechas;
+        if (sub) html += '<div class="cv-item-sub">' + sub + '</div>';
+        html += '</div>';
+      });
+    }
+    if ((d.tecnicas || []).length) {
+      html += '<div class="cv-seccion-titulo">Habilidades técnicas</div>';
+      html += '<div class="cv-tags-area">';
+      d.tecnicas.forEach(function(h) { html += '<span class="cv-tag-chip">' + h + '</span>'; });
+      html += '</div>';
+    }
+    if ((d.blandas || []).length) {
+      html += '<div class="cv-seccion-titulo">Habilidades personales</div>';
+      html += '<div class="cv-tags-area">';
+      d.blandas.forEach(function(h) { html += '<span class="cv-tag-chip">' + h + '</span>'; });
+      html += '</div>';
+    }
+    var idiomasFiltered = (d.idiomas || []).filter(function(i) { return i.nombre; });
+    if (idiomasFiltered.length) {
+      html += '<div class="cv-seccion-titulo">Idiomas</div>';
+      html += '<div class="cv-tags-area">';
+      idiomasFiltered.forEach(function(i) {
+        html += '<span class="cv-tag-chip">' + i.nombre + (i.nivel ? ' · ' + i.nivel : '') + '</span>';
+      });
+      html += '</div>';
+    }
+    var otros = [];
+    if (d.licConducir) otros.push('Licencia de conducir ' + d.licConducir);
+    if (d.disponibilidad) otros.push(d.disponibilidad);
+    if (d.movilidad) otros.push('Movilidad: ' + d.movilidad);
+    if (d.otrosExtra) otros.push(d.otrosExtra);
+    if (otros.length) {
+      html += '<div class="cv-seccion-titulo">Otros datos</div>';
+      html += '<div class="cv-tags-area">';
+      otros.forEach(function(o) { html += '<span class="cv-tag-chip">' + o + '</span>'; });
+      html += '</div>';
+    }
+  }
+
+  return html;
+}
+
+function actualizarPreview() {
+  var preview = document.getElementById('cv-preview');
+  preview.className = 'preview-cv-final cv-' + estiloActual;
+  preview.innerHTML = generarHTMLCV(estiloActual);
+}
+
+function cambiarEstilo(estilo) {
+  estiloActual = estilo;
+  document.querySelectorAll('.estilo-tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.estilo === estilo);
+  });
+  actualizarPreview();
+}
+
+function descargarCV() {
+  var d = leerCV();
+  if (!d.nombre || !d.apellido || !d.email) {
+    alert('Para descargar el CV, completá al menos tu nombre, apellido y correo electrónico (módulo 02).');
+    return;
+  }
+
+  var contenidoCV = generarHTMLCV(estiloActual);
+  var nombreCompleto = (d.nombre + ' ' + d.apellido).trim();
+
+  // Estilos completos para el PDF (copiados de los estilos del preview)
+  var estilosCSS = document.querySelector('style').innerHTML;
+
+  var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>CV - ' + nombreCompleto + '</title>';
+  html += '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+  html += '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">';
+  html += '<style>';
+  html += '@page { size: A4 portrait; margin: 0; }';
+  html += '* { box-sizing: border-box; margin: 0; padding: 0; }';
+  html += 'body { font-family: "Inter", sans-serif; background: #fff; color: #1a1f26; }';
+  html += '.cv-page { width: 21cm; min-height: 29.7cm; padding: 1.8cm; background: #fff; font-size: 11pt; line-height: 1.5; }';
+  html += estilosCSS;
+  html += '.cv-page.cv-moderno { padding: 0; }';
+  html += '@media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } .cv-page { box-shadow: none !important; border: none !important; } }';
+  html += '</style></head><body>';
+  html += '<div class="cv-page cv-' + estiloActual + '">' + contenidoCV + '</div>';
+  html += '<script>window.onload=function(){setTimeout(function(){window.print();},300);}<' + '/script>';
+  html += '</body></html>';
+
+  var ventana = window.open('', '_blank');
+  ventana.document.write(html);
+  ventana.document.close();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderEstado();
+  actualizarPreview();
+
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

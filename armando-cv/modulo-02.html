@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Datos de contacto · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo 2 del curso Armando tu CV: qué datos personales incluir y qué dejar afuera para proteger tu información.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Dos columnas: lo que va vs lo que no va */
+.va-noVa {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .va-noVa { grid-template-columns: 1fr; } }
+.lista-datos {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.lista-datos::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.lista-datos.va::before { background: var(--verde); }
+.lista-datos.no-va::before { background: var(--rojo); }
+.lista-datos-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.lista-datos.va .lista-datos-icon { background: var(--verde-3); color: var(--verde); }
+.lista-datos.no-va .lista-datos-icon { background: #fee; color: var(--rojo); }
+.lista-datos-icon svg { width: 22px; height: 22px; }
+.lista-datos-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.lista-datos.va .lista-datos-eyebrow { color: var(--verde); }
+.lista-datos.no-va .lista-datos-eyebrow { color: var(--rojo); }
+.lista-datos h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--azul);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.lista-datos ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+}
+.lista-datos li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.55;
+  border-bottom: 1px dashed var(--gris-2);
+}
+.lista-datos li:last-child { border-bottom: none; }
+.lista-datos li::before {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.lista-datos.va li::before { content: "✓"; color: var(--verde); }
+.lista-datos.no-va li::before { content: "✗"; color: var(--rojo); }
+.lista-datos li strong { font-weight: 600; color: var(--azul); }
+.lista-datos li span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--gris-4);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+/* Aviso sobre privacidad */
+.aviso-privacidad {
+  background: #fff;
+  border: 1.5px solid var(--azul);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 32px 0;
+}
+.aviso-privacidad-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.aviso-privacidad h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.aviso-privacidad p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.aviso-privacidad p:last-child { margin-bottom: 0; }
+.aviso-privacidad strong { color: var(--azul); font-weight: 600; }
+
+/* Email: bueno vs malo */
+.email-comp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 22px 0;
+}
+@media (max-width: 600px) { .email-comp { grid-template-columns: 1fr; } }
+.email-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  border-left: 4px solid;
+}
+.email-card.bueno { border-left-color: var(--verde); background: var(--verde-3); }
+.email-card.malo { border-left-color: var(--rojo); background: #fee; }
+.email-card-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.email-card.bueno .email-card-label { color: var(--verde); }
+.email-card.malo .email-card-label { color: var(--rojo); }
+.email-card-direccion {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--azul);
+  font-weight: 500;
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+.email-card-nota {
+  font-size: 12px;
+  color: var(--gris-4);
+  line-height: 1.4;
+}
+
+/* Tool: formulario de carga */
+.form-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .form-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.form-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.form-tool-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.form-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-tool-icon svg { width: 22px; height: 22px; }
+.form-tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.form-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.form-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.cv-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 600px) { .cv-form { grid-template-columns: 1fr; } }
+.cv-form-field {
+  display: flex;
+  flex-direction: column;
+}
+.cv-form-field.full { grid-column: 1 / -1; }
+.cv-form-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cv-form-field label .req { color: var(--rojo); margin-left: 3px; }
+.cv-form-field label .opt {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gris-3);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+  font-style: italic;
+}
+.cv-form-field input {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.cv-form-field input:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,131,46,0.1);
+}
+.cv-form-field input.error {
+  border-color: var(--rojo);
+}
+.cv-form-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.cv-form-field .validacion {
+  font-size: 11.5px;
+  margin-top: 6px;
+  padding: 5px 10px;
+  border-radius: var(--r-sm);
+  display: none;
+  line-height: 1.4;
+}
+.cv-form-field .validacion.show { display: block; }
+.cv-form-field .validacion.ok { background: var(--verde-3); color: var(--verde); }
+.cv-form-field .validacion.warn { background: #fef3c7; color: #92400e; }
+.cv-form-field .validacion.err { background: #fee; color: var(--rojo); }
+
+/* Preview encabezado */
+.preview-box {
+  background: linear-gradient(135deg, var(--crema) 0%, var(--hueso-2) 100%);
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  margin-top: 24px;
+}
+.preview-box-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.preview-cv {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 26px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--gris-2);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.preview-cv-nombre {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0 0 4px;
+  letter-spacing: -0.3px;
+}
+.preview-cv-ciudad {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin-bottom: 12px;
+}
+.preview-cv-contacto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--gris-4);
+  padding-top: 12px;
+  border-top: 1px solid var(--gris-2);
+}
+.preview-cv-contacto a, .preview-cv-contacto span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: inherit;
+  text-decoration: none;
+}
+.preview-cv-contacto svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+.preview-cv.vacio {
+  text-align: center;
+  color: var(--gris-3);
+  font-style: italic;
+  padding: 36px 20px;
+  font-size: 14px;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html" class="active">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="modulo-07.html">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 02</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 2 de 7
+    </span>
+    <h1>Datos personales: <em>menos es más</em></h1>
+    <p>El encabezado del CV es lo primero que ve el reclutador. Tiene que ser claro, profesional y, sobre todo, cuidadoso con tu información personal. Vamos a ver qué incluir y qué dejar afuera, siguiendo las recomendaciones actuales de recursos humanos.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 28%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 02 / 07</span>
+      <span>28% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Hace algunos años, los CV incluían DNI, fecha de nacimiento, dirección completa, estado civil y hasta cantidad de hijos. Eso cambió. Las normativas actuales de protección de datos personales, y las buenas prácticas de recursos humanos, recomiendan exponer la <strong>mínima información necesaria</strong> para que el reclutador pueda evaluar el perfil y contactarte. El resto se intercambia más adelante en el proceso de selección, cuando hay interés concreto y un canal seguro.</p>
+
+    <h2>Qué incluir, qué dejar afuera</h2>
+
+    <div class="va-noVa">
+      <div class="lista-datos va">
+        <div class="lista-datos-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="lista-datos-eyebrow">Sí va en el CV</div>
+        <h3>Lo que el reclutador necesita</h3>
+        <ul>
+          <li><strong>Nombre y apellido</strong><span>Tal como figura en tu DNI. Sin apodos.</span></li>
+          <li><strong>Ciudad y provincia</strong><span>Sin dirección detallada ni código postal.</span></li>
+          <li><strong>Correo electrónico</strong><span>Profesional, con tu nombre. Es el canal principal de contacto.</span></li>
+          <li><strong>LinkedIn</strong><span>Opcional. Si tenés perfil actualizado, suma.</span></li>
+          <li><strong>Portfolio / web</strong><span>Opcional. Solo si aplica a tu rubro (diseño, comunicación, oficios).</span></li>
+        </ul>
+      </div>
+
+      <div class="lista-datos no-va">
+        <div class="lista-datos-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="lista-datos-eyebrow">No va en el CV</div>
+        <h3>Datos que conviene resguardar</h3>
+        <ul>
+          <li><strong>Teléfono</strong><span>El primer contacto es por mail. Se intercambia cuando hay interés concreto.</span></li>
+          <li><strong>DNI</strong><span>Es dato sensible. Se entrega al firmar contrato, no antes.</span></li>
+          <li><strong>Dirección completa</strong><span>Con ciudad y provincia alcanza para el reclutador.</span></li>
+          <li><strong>Fecha de nacimiento</strong><span>No aporta al perfil profesional y puede generar sesgos.</span></li>
+          <li><strong>Estado civil e hijos</strong><span>No es información laboral. Es vida privada.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="aviso-privacidad">
+      <span class="aviso-privacidad-label">¿Por qué cambió?</span>
+      <h3>La protección de datos personales hoy es prioridad</h3>
+      <p>El CV puede pasar por <strong>muchas manos desconocidas</strong>: sistemas automáticos, agencias de selección, distintas personas en la empresa que postula. Cada uno de esos pasos es una oportunidad para que tus datos se filtren o se usen mal. Por eso conviene exponer lo mínimo necesario.</p>
+      <p>Esta es la recomendación oficial del modelo Europass (el formato europeo de CV) y la práctica habitual de los departamentos de recursos humanos en Argentina. <strong>El teléfono se intercambia recién cuando hay interés concreto</strong>, generalmente por correo o por mensaje vía la plataforma de empleo. El DNI y el resto, recién al avanzar en el proceso de selección.</p>
+    </div>
+
+    <h2>El correo electrónico: <em>tu cara digital</em></h2>
+
+    <p>El correo electrónico es probablemente el dato más importante del encabezado: es el canal por el que el reclutador va a comunicarse. Conviene que cumpla tres condiciones: que sea <strong>profesional</strong>, que sea <strong>identificable</strong> (que se vea quién es la persona) y que lo <strong>revises seguido</strong> (no sirve un correo que no abrís nunca).</p>
+
+    <div class="email-comp">
+      <div class="email-card bueno">
+        <div class="email-card-label">Buen ejemplo</div>
+        <div class="email-card-direccion">maria.gonzalez@gmail.com</div>
+        <div class="email-card-nota">Nombre, apellido, dominio confiable. Profesional y claro.</div>
+      </div>
+      <div class="email-card malo">
+        <div class="email-card-label">Mejor evitar</div>
+        <div class="email-card-direccion">gatitalinda82@hotmail.com</div>
+        <div class="email-card-nota">Apodo, números, dominio antiguo. No transmite profesionalismo.</div>
+      </div>
+    </div>
+
+    <p>Si el correo actual no es ideal, crear uno nuevo en Gmail toma cinco minutos y es gratuito. El formato más recomendable es <strong>nombre.apellido@gmail.com</strong>. Si está ocupado, se puede agregar un número (no de fecha) o usar un punto distinto. El correo nuevo puede usarse solo para búsquedas laborales: así se mantiene separado del personal y se revisa con foco.</p>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>El encabezado tiene que ser breve, profesional y proteger tus datos. Solo lo necesario para que el reclutador pueda identificarte y contactarte por correo.</p>
+    </div>
+
+    <h2>¿Y la foto? <em>Casi siempre, no</em></h2>
+
+    <p>La tendencia actual en recursos humanos es <strong>no incluir foto</strong> en el CV. La razón es simple: para evitar sesgos inconscientes en la selección (por edad, género, apariencia). El currículum debe ser evaluado por las competencias, no por la imagen.</p>
+
+    <p>Hay algunas excepciones donde sí puede sumar incluir foto profesional: puestos de atención al público presencial (recepción, ventas en local, gastronomía con contacto directo), modelaje, comunicación audiovisual. Fuera de esos casos, conviene no incluirla. Si decidís incluirla, debe ser <strong>foto profesional</strong>: fondo neutro, vestimenta acorde al rubro, expresión seria pero amable. Una foto de WhatsApp o de una salida nunca va en un CV.</p>
+
+    <div class="form-tool" id="form-datos">
+      <div class="form-tool-header">
+        <div class="form-tool-title">
+          <div class="form-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>Cargá tus datos de contacto</h3>
+        </div>
+        <span class="form-tool-tag">Tu CV · Paso 1</span>
+      </div>
+      <p class="form-tool-desc">Ahora vamos a cargar los datos que van a aparecer en el encabezado de tu CV. Mientras escribís, vas a ver una vista previa de cómo queda. Los datos se guardan en tu navegador y se completan a medida que avancés en los módulos.</p>
+
+      <div class="cv-form">
+        <div class="cv-form-field">
+          <label for="cv-nombre">Nombre <span class="req">*</span></label>
+          <input type="text" id="cv-nombre" maxlength="40" placeholder="María Soledad">
+          <small>Tal como figura en tu DNI</small>
+        </div>
+        <div class="cv-form-field">
+          <label for="cv-apellido">Apellido <span class="req">*</span></label>
+          <input type="text" id="cv-apellido" maxlength="40" placeholder="González Pérez">
+          <small>Apellidos completos</small>
+        </div>
+        <div class="cv-form-field">
+          <label for="cv-ciudad">Ciudad <span class="req">*</span></label>
+          <input type="text" id="cv-ciudad" maxlength="40" placeholder="Rawson">
+        </div>
+        <div class="cv-form-field">
+          <label for="cv-provincia">Provincia <span class="req">*</span></label>
+          <input type="text" id="cv-provincia" maxlength="40" placeholder="Chubut">
+        </div>
+        <div class="cv-form-field full">
+          <label for="cv-email">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="cv-email" maxlength="80" placeholder="maria.gonzalez@gmail.com">
+          <div class="validacion" id="val-email"></div>
+        </div>
+        <div class="cv-form-field full">
+          <label for="cv-linkedin">LinkedIn <span class="opt">opcional</span></label>
+          <input type="text" id="cv-linkedin" maxlength="120" placeholder="linkedin.com/in/maria-gonzalez">
+          <small>Si tenés perfil, pegá el link completo</small>
+        </div>
+        <div class="cv-form-field full">
+          <label for="cv-portfolio">Portfolio o sitio web <span class="opt">opcional, según el rubro</span></label>
+          <input type="text" id="cv-portfolio" maxlength="120" placeholder="mi-portafolio.com">
+          <small>Útil para diseño, comunicación, oficios o servicios con muestras de trabajo</small>
+        </div>
+      </div>
+
+      <div class="preview-box">
+        <div class="preview-box-label">Vista previa del encabezado</div>
+        <div class="preview-cv" id="preview-cv">
+          <div class="preview-cv vacio">Tus datos van a aparecer acá a medida que los completés.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Cuidar tus datos también es profesionalismo</h3>
+      <p>Un CV con datos justos transmite criterio y conciencia de la propia información. Quien recibe el currículum nota que la persona <em>sabe lo que comparte y lo que no</em>, y eso suma. En cambio, un CV con DNI, teléfono y dirección completa en el encabezado suena a una época anterior y, sobre todo, expone innecesariamente. Ya completaste la primera parte de tu CV. En el próximo módulo vamos a ver cómo escribir tu perfil profesional: esa frase de presentación que aparece justo debajo del encabezado.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-01.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">01 · ¿Qué es un CV?</span>
+    </a>
+    <a href="modulo-03.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">03 · Perfil profesional</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var CV_KEY = 'epja753_cv_datos';
+
+function leerCV() {
+  try { return JSON.parse(localStorage.getItem(CV_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarCV(d) {
+  try { localStorage.setItem(CV_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function getFormDatos() {
+  return {
+    nombre: document.getElementById('cv-nombre').value.trim(),
+    apellido: document.getElementById('cv-apellido').value.trim(),
+    ciudad: document.getElementById('cv-ciudad').value.trim(),
+    provincia: document.getElementById('cv-provincia').value.trim(),
+    email: document.getElementById('cv-email').value.trim(),
+    linkedin: document.getElementById('cv-linkedin').value.trim(),
+    portfolio: document.getElementById('cv-portfolio').value.trim()
+  };
+}
+
+function setFormDatos(d) {
+  if (d.nombre) document.getElementById('cv-nombre').value = d.nombre;
+  if (d.apellido) document.getElementById('cv-apellido').value = d.apellido;
+  if (d.ciudad) document.getElementById('cv-ciudad').value = d.ciudad;
+  if (d.provincia) document.getElementById('cv-provincia').value = d.provincia;
+  if (d.email) document.getElementById('cv-email').value = d.email;
+  if (d.linkedin) document.getElementById('cv-linkedin').value = d.linkedin;
+  if (d.portfolio) document.getElementById('cv-portfolio').value = d.portfolio;
+}
+
+function validarEmail(email) {
+  var val = document.getElementById('val-email');
+  val.className = 'validacion';
+  if (!email) { val.classList.remove('show'); return; }
+  var formatoOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!formatoOk) {
+    val.classList.add('show', 'err');
+    val.textContent = 'El formato del correo no es válido. Debe tener formato nombre@dominio.com';
+    return false;
+  }
+  var dominiosOk = ['gmail.com', 'outlook.com', 'hotmail.com', 'yahoo.com', 'icloud.com', 'protonmail.com', 'live.com'];
+  var dominio = email.split('@')[1].toLowerCase();
+  var profesional = /^[a-z]+[.\-_]?[a-z]+[0-9]{0,4}@/i.test(email);
+  if (dominiosOk.indexOf(dominio) === -1 && !email.match(/\.com|\.com\.ar|\.org|\.edu/)) {
+    val.classList.add('show', 'warn');
+    val.textContent = 'Verificá el dominio del correo. Lo más común es gmail.com, outlook.com o hotmail.com.';
+    return true;
+  }
+  if (!profesional) {
+    val.classList.add('show', 'warn');
+    val.textContent = 'Conviene que el correo tenga formato nombre.apellido para resultar más profesional.';
+    return true;
+  }
+  val.classList.add('show', 'ok');
+  val.textContent = 'Correo válido y con formato profesional.';
+  return true;
+}
+
+function actualizarPreview() {
+  var d = getFormDatos();
+  var preview = document.getElementById('preview-cv');
+  if (!d.nombre && !d.apellido && !d.email) {
+    preview.innerHTML = '<div class="preview-cv vacio">Tus datos van a aparecer acá a medida que los completés.</div>';
+    return;
+  }
+  var html = '';
+  html += '<div class="preview-cv-nombre">' + (d.nombre || '') + ' ' + (d.apellido || '') + '</div>';
+  if (d.ciudad || d.provincia) {
+    html += '<div class="preview-cv-ciudad">' + d.ciudad + (d.ciudad && d.provincia ? ', ' : '') + d.provincia + '</div>';
+  }
+  html += '<div class="preview-cv-contacto">';
+  if (d.email) {
+    html += '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' + d.email + '</span>';
+  }
+  if (d.linkedin) {
+    html += '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>' + d.linkedin + '</span>';
+  }
+  if (d.portfolio) {
+    html += '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' + d.portfolio + '</span>';
+  }
+  html += '</div>';
+  preview.innerHTML = html;
+}
+
+function guardarFormulario() {
+  var datos = leerCV();
+  Object.assign(datos, getFormDatos());
+  guardarCV(datos);
+  actualizarPreview();
+}
+
+['cv-nombre','cv-apellido','cv-ciudad','cv-provincia','cv-email','cv-linkedin','cv-portfolio'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardarFormulario);
+});
+
+document.getElementById('cv-email').addEventListener('blur', function() {
+  validarEmail(this.value.trim());
+});
+
+// Cargar al inicio
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerCV();
+  setFormDatos(datos);
+  actualizarPreview();
+
+  // Banner de modo
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

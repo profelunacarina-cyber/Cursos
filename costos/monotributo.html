@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Monotributo y precio · Estructura de costos · EPJA 753</title>
+<meta name="description" content="Cómo afecta el monotributo al precio de un emprendimiento. Módulo 6 de la unidad Estructura de Costos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+.que-es {
+  background: var(--azul-3);
+  border-radius: var(--r-lg);
+  padding: 26px 28px;
+  margin: 28px 0;
+}
+.que-es-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.que-es h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.que-es p {
+  font-size: 15px;
+  color: var(--azul);
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+.que-es p:last-child { margin-bottom: 0; }
+.que-es strong { font-weight: 600; }
+
+/* Tres componentes */
+.comp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0 36px;
+}
+@media (max-width: 720px) { .comp-grid { grid-template-columns: 1fr; } }
+.comp {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-md);
+  padding: 22px;
+  text-align: center;
+}
+.comp-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.comp-icon svg { width: 22px; height: 22px; }
+.comp h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--azul);
+  margin: 0 0 6px;
+}
+.comp p {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Aviso de actualización */
+.aviso-vigencia {
+  background: #fff;
+  border: 1px solid var(--amarillo);
+  border-left: 4px solid var(--amarillo);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin: 24px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.aviso-vigencia-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--amarillo);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+.aviso-vigencia-text {
+  flex: 1;
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.6;
+}
+.aviso-vigencia-text strong { color: #92400e; font-weight: 600; }
+
+/* Tabla de categorías */
+.tabla-cat {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background: #fff;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--gris-2);
+  font-size: 14px;
+}
+.tabla-cat th, .tabla-cat td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--gris-2);
+  font-variant-numeric: tabular-nums;
+}
+.tabla-cat th {
+  background: var(--azul);
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.tabla-cat td:first-child {
+  font-weight: 600;
+  color: var(--azul);
+  font-family: var(--serif);
+  font-size: 15px;
+}
+.tabla-cat tr:last-child td { border-bottom: none; }
+.tabla-cat tr:hover td { background: var(--hueso-2); }
+@media (max-width: 600px) {
+  .tabla-cat th, .tabla-cat td { padding: 9px 10px; font-size: 12px; }
+}
+
+/* Tool calculadora monotributo en precio */
+.tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tool-title { display: flex; align-items: center; gap: 14px; }
+.tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tool-icon svg { width: 22px; height: 22px; }
+.tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.mt-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) { .mt-inputs { grid-template-columns: 1fr; } }
+.mt-input {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+}
+.mt-input label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+.mt-input-wrap {
+  position: relative;
+}
+.mt-input-wrap .pre {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gris-3);
+  font-size: 13px;
+}
+.mt-input input {
+  width: 100%;
+  padding: 11px 14px 11px 26px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 15px;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  background: #fff;
+  color: var(--tinta);
+}
+.mt-input input:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,131,46,0.1);
+}
+.mt-input small {
+  display: block;
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 6px;
+}
+
+.mt-destaque {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-2) 100%);
+  border-radius: var(--r-lg);
+  padding: 26px 28px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.mt-destaque::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.mt-destaque-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 6px;
+  position: relative;
+}
+.mt-destaque-val {
+  font-family: var(--serif);
+  font-size: clamp(34px, 5vw, 48px);
+  font-weight: 600;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+}
+.mt-destaque-sub {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 10px;
+  position: relative;
+}
+
+.mt-detalles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 680px) { .mt-detalles { grid-template-columns: 1fr; } }
+.mt-detalle {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  border: 1px solid var(--gris-2);
+}
+.mt-detalle-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.mt-detalle-val {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--azul);
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.mt-interp {
+  background: var(--azul-3);
+  border-left: 4px solid var(--azul);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 16px 20px;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--azul);
+  line-height: 1.6;
+}
+.mt-interp strong { font-weight: 600; }
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Costos y Precios · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Costos y Precios</strong>
+        <span>Estructura de costos</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="costos-gastos.html">Conceptos</a>
+      <a href="punto-equilibrio.html">Equilibrio</a>
+      <a href="estrategias.html">Estrategias</a>
+      <a href="monotributo.html" class="active">Monotributo</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="EPJA.toggleNav()" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Estructura de costos</a>
+      <span>›</span>
+      <a href="estrategias.html">Módulo 05</a>
+      <span>›</span>
+      <span>Módulo 06</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 6 de 7
+    </span>
+    <h1>El <em>monotributo</em>: un costo más que entra en el precio</h1>
+    <p>Muchos emprendedores comienzan facturando como monotributistas. Lo que se paga todos los meses por monotributo es un costo fijo del emprendimiento y, como tal, también debe estar contemplado dentro del precio. Veamos cómo.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 85%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 06 / 07</span>
+      <span>85% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Hasta acá vimos costos productivos, costos fijos de operación, márgenes y estrategias de precio. Ahora aterrizamos en algo muy concreto de la realidad argentina: para emitir factura legalmente, el emprendedor está casi siempre inscripto en el monotributo. Y ese aporte mensual, que va creciendo según lo que se factura, debe estar contemplado dentro del precio.</p>
+
+    <div class="que-es">
+      <span class="que-es-label">Qué es el monotributo</span>
+      <h3>Un régimen simplificado de impuestos</h3>
+      <p>El <strong>monotributo</strong> es un régimen tributario simplificado: el emprendedor o trabajador independiente paga un único monto mensual fijo que reemplaza tres aportes distintos: el impuesto a las ganancias, el aporte al sistema previsional y la obra social. La ventaja principal es que no es necesario llevar contabilidad compleja ni hacer presentaciones de IVA. Se paga una cuota mensual y queda todo cubierto.</p>
+      <p>El monto de esa cuota mensual depende de la <strong>categoría</strong> en la que está inscripto el emprendedor. La categoría se determina principalmente por la facturación anual estimada, aunque también influyen otros factores como el lugar físico utilizado y el consumo eléctrico.</p>
+    </div>
+
+    <h2>Tres componentes que se pagan en <em>una sola cuota</em></h2>
+
+    <div class="comp-grid">
+      <div class="comp">
+        <div class="comp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h4>Impuesto integrado</h4>
+        <p>Reemplaza al impuesto a las ganancias y al IVA que pagaría un responsable inscripto.</p>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h4>Aporte jubilatorio</h4>
+        <p>Va al SIPA. Mientras se aporta, se suman años para la jubilación futura.</p>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h4>Obra social</h4>
+        <p>Permite acceder a cobertura médica para el titular y su grupo familiar primario.</p>
+      </div>
+    </div>
+
+    <div class="aviso-vigencia">
+      <div class="aviso-vigencia-icon">!</div>
+      <div class="aviso-vigencia-text"><strong>Importante.</strong> Los valores del monotributo se actualizan periódicamente por AFIP. Los números utilizados en este módulo son referenciales: sirven para entender la lógica del cálculo. Para conocer los valores vigentes, conviene siempre consultar el sitio oficial de AFIP o asesorarse con un contador.</div>
+    </div>
+
+    <h2>Las primeras categorías y sus topes</h2>
+
+    <p>El monotributo tiene categorías que van de la A en adelante. La mayoría de los pequeños emprendedores se ubican en las primeras (A, B, C, D). A continuación se presenta una tabla orientativa con los topes de facturación anual y las cuotas mensuales aproximadas para 2025-2026, solo a fines pedagógicos.</p>
+
+    <table class="tabla-cat">
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Facturación anual hasta</th>
+          <th>Cuota mensual aprox.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td>$ 7.800.000</td><td>$ 35.000</td></tr>
+        <tr><td>B</td><td>$ 11.500.000</td><td>$ 42.000</td></tr>
+        <tr><td>C</td><td>$ 16.000.000</td><td>$ 50.000</td></tr>
+        <tr><td>D</td><td>$ 19.500.000</td><td>$ 65.000</td></tr>
+        <tr><td>E</td><td>$ 23.000.000</td><td>$ 85.000</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:13px; color: var(--gris-3); margin-top:-8px;"><em>Valores referenciales aproximados. Consultar valores actualizados en AFIP antes de aplicar.</em></p>
+
+    <div class="principio">
+      <div class="principio-label">Idea para recordar</div>
+      <p>La cuota del monotributo es un costo fijo del emprendimiento: se paga aunque no se venda nada. Por eso entra en los costos fijos al calcular el punto de equilibrio.</p>
+    </div>
+
+    <h2>¿Cuánto pesa el monotributo en cada venta?</h2>
+
+    <p>Una pregunta práctica que ayuda a dimensionar el impacto del monotributo es la siguiente: <em>de cada unidad que se vende, ¿cuánto del precio se va en cubrir la cuota?</em> Si la cuota es de $ 35.000 y se venden 100 unidades al mes, cada una carga $ 350 de monotributo. Si se venden 500, cada una carga solo $ 70. Cuanto más se vende, menos pesa la cuota por unidad.</p>
+
+    <div class="tool" id="calc-mt">
+      <div class="tool-header">
+        <div class="tool-title">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3>Calculadora: cuánto pesa la cuota por unidad</h3>
+        </div>
+        <span class="tool-tag">Herramienta práctica</span>
+      </div>
+      <p class="tool-desc">A continuación vamos a calcular cuánto pesa la cuota del monotributo por unidad vendida. Se ingresa el monto de la cuota y la cantidad de unidades vendidas (o estimadas) en un mes. La calculadora muestra qué proporción del precio de cada venta se destina a cubrir el impuesto.</p>
+
+      <div class="mt-inputs">
+        <div class="mt-input">
+          <label for="mt-cuota">Cuota mensual de monotributo</label>
+          <div class="mt-input-wrap">
+            <span class="pre">$</span>
+            <input type="number" id="mt-cuota" value="35000" min="0" step="500">
+          </div>
+          <small>Según tu categoría actual</small>
+        </div>
+        <div class="mt-input">
+          <label for="mt-unidades">Unidades vendidas por mes</label>
+          <div class="mt-input-wrap" style="padding-left:0;">
+            <input type="number" id="mt-unidades" value="100" min="1" step="1" style="padding-left:14px;">
+          </div>
+          <small>Tu estimación realista mensual</small>
+        </div>
+      </div>
+
+      <div class="mt-destaque">
+        <div class="mt-destaque-label">Monotributo por unidad vendida</div>
+        <div class="mt-destaque-val">$ <span id="mt-r-unidad">350</span></div>
+        <div class="mt-destaque-sub" id="mt-r-sub">De cada unidad vendida, eso se va a cubrir el monotributo del mes.</div>
+      </div>
+
+      <div class="mt-detalles">
+        <div class="mt-detalle">
+          <div class="mt-detalle-label">Cuota mensual</div>
+          <div class="mt-detalle-val">$ <span id="mt-d-cuota">35.000</span></div>
+        </div>
+        <div class="mt-detalle">
+          <div class="mt-detalle-label">Cuota anual estimada</div>
+          <div class="mt-detalle-val">$ <span id="mt-d-anual">420.000</span></div>
+        </div>
+        <div class="mt-detalle">
+          <div class="mt-detalle-label">Costo diario equivalente</div>
+          <div class="mt-detalle-val">$ <span id="mt-d-diario">1.167</span></div>
+        </div>
+      </div>
+
+      <div class="mt-interp" id="mt-interp">Con estos datos, el monotributo representa <strong>$ 350 por unidad vendida</strong>. Si tu precio actual es $ 1.500, son aproximadamente un 23 % del precio que se va en cubrir el impuesto.</div>
+    </div>
+
+    <h2>Pasos para <em>integrar</em> el monotributo al precio</h2>
+
+    <ol>
+      <li><strong>Sumar la cuota mensual al total de los costos fijos.</strong> Si el alquiler es de $ 80.000 y la cuota del monotributo de $ 35.000, los costos fijos del mes pasan a ser $ 115.000.</li>
+      <li><strong>Recalcular el punto de equilibrio</strong> con ese nuevo total de fijos. La cantidad necesaria a vender va a ser un poco mayor.</li>
+      <li><strong>Revisar el precio</strong> a la luz del nuevo número. Si el punto de equilibrio se vuelve difícil de alcanzar, conviene considerar subir el precio (aplicando las estrategias del módulo anterior) o evaluar el paso a una categoría más baja, si la facturación lo permite.</li>
+    </ol>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Estar en regla no es opcional: es un costo del negocio</h3>
+      <p>Muchos emprendedores comienzan sin facturar y luego se preguntan cómo hacen para crecer. La factura no es un trámite: es la herramienta que permite venderle a empresas, a otros monotributistas y al Estado, y permite construir un historial comercial. La cuota mensual del monotributo, aunque pueda parecer cara al principio, suele ser muy inferior al costo de no poder facturar. La recomendación es integrarla al precio desde el primer día. Esto evita sorpresas a fin de mes y permite tomar decisiones con todos los números a la vista.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="estrategias.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">05 · Estrategias de precio</span>
+    </a>
+    <a href="caso-integrador.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">07 · Caso integrador</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Administración y Liquidación de Sueldos · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Recorrido</h5>
+        <ul>
+          <li><a href="costos-gastos.html">01 · Costos y gastos</a></li>
+          <li><a href="fijos-variables.html">02 · Fijos y variables</a></li>
+          <li><a href="margen-contribucion.html">03 · Margen</a></li>
+          <li><a href="punto-equilibrio.html">04 · Equilibrio</a></li>
+          <li><a href="estrategias.html">05 · Estrategias</a></li>
+          <li><a href="monotributo.html">06 · Monotributo</a></li>
+          <li><a href="caso-integrador.html">07 · Caso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="plan-personal.html">Plan personal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+(function() {
+  var inputCuota = document.getElementById('mt-cuota');
+  var inputUnid = document.getElementById('mt-unidades');
+  var rUnidad = document.getElementById('mt-r-unidad');
+  var rSub = document.getElementById('mt-r-sub');
+  var dCuota = document.getElementById('mt-d-cuota');
+  var dAnual = document.getElementById('mt-d-anual');
+  var dDiario = document.getElementById('mt-d-diario');
+  var interp = document.getElementById('mt-interp');
+
+  function fmt(n) { return Math.round(n).toLocaleString('es-AR'); }
+
+  function calcular() {
+    var cuota = parseFloat(inputCuota.value) || 0;
+    var unid = parseInt(inputUnid.value, 10) || 1;
+    if (unid < 1) unid = 1;
+
+    var porUnidad = cuota / unid;
+    var anual = cuota * 12;
+    var diario = cuota / 30;
+
+    rUnidad.textContent = fmt(porUnidad);
+    dCuota.textContent = fmt(cuota);
+    dAnual.textContent = fmt(anual);
+    dDiario.textContent = fmt(diario);
+
+    if (porUnidad < 50) {
+      rSub.textContent = 'Vendiendo muchas unidades, el monotributo se diluye y representa poco por venta.';
+    } else if (porUnidad < 500) {
+      rSub.textContent = 'De cada unidad vendida, eso se va a cubrir el monotributo del mes.';
+    } else {
+      rSub.textContent = 'El monotributo pesa bastante por unidad. Conviene revisar volumen o precio.';
+    }
+
+    interp.innerHTML = 'Con estos datos, el monotributo representa <strong>$ ' + fmt(porUnidad) + ' por unidad vendida</strong>. Cuanto más vendas, menos pesa la cuota por venta. Recordá sumar esta cuota a tus costos fijos cuando calcules el punto de equilibrio.';
+  }
+
+  inputCuota.addEventListener('input', calcular);
+  inputUnid.addEventListener('input', calcular);
+  calcular();
+})();
+</script>
+
+</body>
+</html>

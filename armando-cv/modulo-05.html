@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Formación académica · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo 5 del curso Armando tu CV: cómo presentar la formación académica formal y los cursos cortos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Tipos de formación */
+.tipos-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .tipos-form { grid-template-columns: 1fr; } }
+.tipo-form {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.tipo-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--verde);
+}
+.tipo-form-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.tipo-form-icon svg { width: 22px; height: 22px; }
+.tipo-form h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+}
+.tipo-form p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+.tipo-form-ej {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--azul);
+  background: var(--gris-1);
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+  display: inline-block;
+}
+
+/* Casos especiales */
+.casos {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.casos h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 16px;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+}
+.caso-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gris-2);
+}
+.caso-item:last-child { border-bottom: none; }
+.caso-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--azul-3);
+  color: var(--azul);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.caso-icon svg { width: 16px; height: 16px; }
+.caso-content h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.caso-content p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+.caso-content strong { color: var(--azul); font-weight: 600; }
+
+/* Editor tool */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editor-tool-icon svg { width: 22px; height: 22px; }
+.editor-tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Tarjeta de formación */
+.form-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 14px;
+  border: 1px solid var(--gris-2);
+}
+.form-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gris-2);
+}
+.form-card-num {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul);
+}
+.form-card-acciones {
+  display: flex;
+  gap: 6px;
+}
+.form-card-btn {
+  background: transparent;
+  border: 1px solid var(--gris-2);
+  padding: 5px 8px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--gris-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+.form-card-btn:hover { border-color: var(--azul); color: var(--azul); }
+.form-card-btn.eliminar:hover { border-color: var(--rojo); color: var(--rojo); }
+.form-card-btn svg { width: 12px; height: 12px; }
+.form-card-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.form-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .form-fields { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.form-field input,
+.form-field select {
+  padding: 10px 12px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+}
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 2px rgba(0,131,46,0.1);
+}
+.form-field .en-curso-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--gris-4);
+  margin-top: 6px;
+  cursor: pointer;
+}
+.form-field .en-curso-check input { width: 14px; height: 14px; }
+
+.agregar-form {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-2) 100%);
+  color: #fff;
+  border: none;
+  padding: 14px 22px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+.agregar-form:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sombra-suave);
+}
+
+.estado-formaciones {
+  font-size: 12px;
+  color: var(--gris-4);
+  margin: 12px 0 16px;
+  text-align: center;
+}
+.estado-formaciones strong { color: var(--azul); }
+
+.form-vacio {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gris-3);
+  font-style: italic;
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  border: 2px dashed var(--gris-2);
+  margin-bottom: 14px;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html" class="active">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="modulo-07.html">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 05</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 5 de 7
+    </span>
+    <h1>Formación académica: <em>todo lo que estudiaste</em></h1>
+    <p>La sección de formación es la que muestra el camino educativo. No incluye solo estudios universitarios: cursos cortos, capacitaciones, formación profesional y estudios en curso también suman. Vamos a ver cómo presentarlos para que comuniquen tu preparación.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 71%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 05 / 07</span>
+      <span>71% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">La sección de formación va después de la experiencia laboral (o antes, si recién comenzamos a trabajar). El criterio para ordenarla es siempre el mismo: de lo más reciente a lo más antiguo. Conviene incluir todo lo que aporte al perfil que estamos presentando, sin importar si fue formación corta o larga, formal o no formal.</p>
+
+    <h2>Tres tipos de formación que <em>cuentan en el CV</em></h2>
+
+    <div class="tipos-form">
+      <div class="tipo-form">
+        <div class="tipo-form-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <h4>Educación formal</h4>
+        <p>Secundario, terciario, universitario. Es la base del trayecto educativo. Se incluye con el título obtenido, la institución y el año.</p>
+        <div class="tipo-form-ej">Técnico en Administración · EPJA 753 · 2024</div>
+      </div>
+      <div class="tipo-form">
+        <div class="tipo-form-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h4>Cursos cortos y capacitaciones</h4>
+        <p>Cursos de oficios, capacitaciones laborales, certificaciones cortas. Suman especialmente cuando se alinean al puesto buscado.</p>
+        <div class="tipo-form-ej">Manipulación de alimentos · 2025</div>
+      </div>
+      <div class="tipo-form">
+        <div class="tipo-form-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h4>Formación en curso</h4>
+        <p>Lo que estás estudiando actualmente también va. Muestra continuidad formativa y compromiso con el desarrollo profesional.</p>
+        <div class="tipo-form-ej">Secundario en curso · EPJA 753 · 4° año</div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Todo lo que estudiaste cuenta, siempre que aporte al perfil que estás presentando. No es necesario incluir cursos viejos que no aporten, como tampoco hace falta esperar a tener un título completo para incluirlo.</p>
+    </div>
+
+    <h2>Casos especiales</h2>
+
+    <div class="casos">
+      <h3>Situaciones frecuentes que conviene considerar</h3>
+
+      <div class="caso-item">
+        <div class="caso-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="caso-content">
+          <h5>Estudios en curso o incompletos</h5>
+          <p>Si <strong>seguís estudiando</strong>, indicalo: "en curso" o "actualmente cursando". Si <strong>abandonaste</strong>, podés poner "Cursado hasta segundo año" si querés mostrar el avance. Si pasó mucho tiempo y no terminaste, conviene no incluirlo.</p>
+        </div>
+      </div>
+
+      <div class="caso-item">
+        <div class="caso-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="caso-content">
+          <h5>Formación autodidacta</h5>
+          <p>Si aprendiste por tu cuenta (videos, manuales, práctica) algo que sí aporta al perfil, podés incluirlo en una sección de <strong>"Otros conocimientos"</strong> o en habilidades. No conviene mezclarlo con la educación formal.</p>
+        </div>
+      </div>
+
+      <div class="caso-item">
+        <div class="caso-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="caso-content">
+          <h5>EPJA y educación de adultos</h5>
+          <p>El secundario obtenido en la EPJA tiene <strong>el mismo valor formal</strong> que el de cualquier otra escuela secundaria. Va en el CV con el nombre completo de la escuela y el año de finalización.</p>
+        </div>
+      </div>
+
+      <div class="caso-item">
+        <div class="caso-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        </div>
+        <div class="caso-content">
+          <h5>Idiomas y certificaciones internacionales</h5>
+          <p>Los idiomas con certificación oficial (TOEFL, First, DELE) pueden ir acá o en la sección de habilidades del próximo módulo. Si no tenés certificación, no inventes nivel: <strong>poné el nivel real</strong> (básico, intermedio, avanzado).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-formacion">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <h3>Cargá tu formación</h3>
+        </div>
+        <span class="editor-tool-tag">Tu CV · Paso 4</span>
+      </div>
+      <p class="editor-tool-desc">Agregá tus estudios y capacitaciones, empezando por las más recientes. Podés combinar educación formal con cursos cortos y formación en curso. Si estás cursando algo, marcá "En curso" para que aparezca correctamente en el CV.</p>
+
+      <div id="form-vacio" class="form-vacio" style="display:none;">Todavía no agregaste ninguna formación. Tocá el botón de abajo para empezar.</div>
+
+      <div id="form-lista"></div>
+
+      <div class="estado-formaciones">
+        <strong id="form-count">0</strong> formación<span id="form-plural">es</span> cargada<span id="form-plural2">s</span>
+      </div>
+
+      <button class="agregar-form" onclick="agregarFormacion()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Agregar una formación
+      </button>
+
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>La formación muestra continuidad</h3>
+      <p>Una persona que muestra varias capacitaciones a lo largo de los años transmite una idea importante al reclutador: que sigue aprendiendo. No importa si los cursos fueron cortos o largos, presenciales o virtuales, pagos o gratuitos. Lo que importa es que esa persona invierte tiempo en formarse. En el próximo módulo vamos a sumar las habilidades, los idiomas y otros datos relevantes que completan el CV.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-04.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">04 · Experiencia laboral</span>
+    </a>
+    <a href="modulo-06.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">06 · Habilidades e idiomas</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var CV_KEY = 'epja753_cv_datos';
+
+function leerCV() {
+  try { return JSON.parse(localStorage.getItem(CV_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarCV(d) {
+  try { localStorage.setItem(CV_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+var formaciones = [];
+
+function inicializarFormaciones() {
+  var d = leerCV();
+  formaciones = Array.isArray(d.formaciones) ? d.formaciones : [];
+  renderizar();
+}
+
+function guardarFormaciones() {
+  var d = leerCV();
+  d.formaciones = formaciones;
+  guardarCV(d);
+}
+
+function agregarFormacion() {
+  formaciones.push({
+    id: Date.now() + '-' + Math.floor(Math.random() * 1000),
+    tipo: '',
+    titulo: '',
+    institucion: '',
+    desde: '',
+    hasta: '',
+    enCurso: false
+  });
+  guardarFormaciones();
+  renderizar();
+  setTimeout(function() {
+    var cards = document.querySelectorAll('.form-card');
+    if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+function eliminarFormacion(id) {
+  if (!confirm('¿Eliminar esta formación?')) return;
+  formaciones = formaciones.filter(function(f) { return f.id !== id; });
+  guardarFormaciones();
+  renderizar();
+}
+
+function moverFormacion(id, direccion) {
+  var idx = formaciones.findIndex(function(f) { return f.id === id; });
+  if (idx < 0) return;
+  var nuevoIdx = idx + direccion;
+  if (nuevoIdx < 0 || nuevoIdx >= formaciones.length) return;
+  var tmp = formaciones[idx];
+  formaciones[idx] = formaciones[nuevoIdx];
+  formaciones[nuevoIdx] = tmp;
+  guardarFormaciones();
+  renderizar();
+}
+
+function actualizarFormacion(id, campo, valor) {
+  var f = formaciones.find(function(x) { return x.id === id; });
+  if (!f) return;
+  f[campo] = valor;
+  if (campo === 'enCurso' && valor) f.hasta = '';
+  guardarFormaciones();
+  if (campo === 'enCurso') renderizar();
+}
+
+function renderizar() {
+  var lista = document.getElementById('form-lista');
+  var vacio = document.getElementById('form-vacio');
+  var count = document.getElementById('form-count');
+  var plural = document.getElementById('form-plural');
+  var plural2 = document.getElementById('form-plural2');
+
+  count.textContent = formaciones.length;
+  plural.textContent = formaciones.length === 1 ? '' : 'es';
+  plural2.textContent = formaciones.length === 1 ? '' : 's';
+
+  if (formaciones.length === 0) {
+    lista.innerHTML = '';
+    vacio.style.display = 'block';
+    return;
+  }
+  vacio.style.display = 'none';
+
+  lista.innerHTML = '';
+  formaciones.forEach(function(f, idx) {
+    var card = document.createElement('div');
+    card.className = 'form-card';
+    card.innerHTML = '<div class="form-card-header">' +
+      '<div class="form-card-num">Formación ' + (idx + 1) + '</div>' +
+      '<div class="form-card-acciones">' +
+        '<button class="form-card-btn" onclick="moverFormacion(\'' + f.id + '\', -1)" title="Subir" ' + (idx === 0 ? 'disabled' : '') + '>↑</button>' +
+        '<button class="form-card-btn" onclick="moverFormacion(\'' + f.id + '\', 1)" title="Bajar" ' + (idx === formaciones.length - 1 ? 'disabled' : '') + '>↓</button>' +
+        '<button class="form-card-btn eliminar" onclick="eliminarFormacion(\'' + f.id + '\')" title="Eliminar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg> Eliminar</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="form-fields">' +
+      '<div class="form-field">' +
+        '<label>Tipo de formación</label>' +
+        '<select id="tipo-' + f.id + '">' +
+          '<option value="">Elegir...</option>' +
+          '<option value="primario"' + (f.tipo === 'primario' ? ' selected' : '') + '>Educación primaria</option>' +
+          '<option value="secundario"' + (f.tipo === 'secundario' ? ' selected' : '') + '>Educación secundaria</option>' +
+          '<option value="terciario"' + (f.tipo === 'terciario' ? ' selected' : '') + '>Terciario / Técnico</option>' +
+          '<option value="universitario"' + (f.tipo === 'universitario' ? ' selected' : '') + '>Universitario</option>' +
+          '<option value="posgrado"' + (f.tipo === 'posgrado' ? ' selected' : '') + '>Posgrado / Especialización</option>' +
+          '<option value="curso"' + (f.tipo === 'curso' ? ' selected' : '') + '>Curso o capacitación</option>' +
+          '<option value="certificacion"' + (f.tipo === 'certificacion' ? ' selected' : '') + '>Certificación</option>' +
+        '</select>' +
+      '</div>' +
+      '<div class="form-field">' +
+        '<label>Título o nombre del curso</label>' +
+        '<input type="text" id="titulo-' + f.id + '" maxlength="80" placeholder="Técnico en Administración" value="' + (f.titulo || '') + '">' +
+      '</div>' +
+      '<div class="form-field full">' +
+        '<label>Institución</label>' +
+        '<input type="text" id="institucion-' + f.id + '" maxlength="100" placeholder="EPJA N° 753 - Rawson, Chubut" value="' + (f.institucion || '') + '">' +
+      '</div>' +
+      '<div class="form-field">' +
+        '<label>Año de inicio</label>' +
+        '<input type="text" id="desde-' + f.id + '" maxlength="10" placeholder="2022" value="' + (f.desde || '') + '">' +
+      '</div>' +
+      '<div class="form-field">' +
+        '<label>Año de finalización</label>' +
+        '<input type="text" id="hasta-' + f.id + '" maxlength="10" placeholder="2024" value="' + (f.hasta || '') + '" ' + (f.enCurso ? 'disabled' : '') + '>' +
+        '<label class="en-curso-check"><input type="checkbox" id="encurso-' + f.id + '" ' + (f.enCurso ? 'checked' : '') + '> Está en curso actualmente</label>' +
+      '</div>' +
+    '</div>';
+    lista.appendChild(card);
+
+    document.getElementById('tipo-' + f.id).addEventListener('change', function(e) { actualizarFormacion(f.id, 'tipo', e.target.value); });
+    document.getElementById('titulo-' + f.id).addEventListener('input', function(e) { actualizarFormacion(f.id, 'titulo', e.target.value); });
+    document.getElementById('institucion-' + f.id).addEventListener('input', function(e) { actualizarFormacion(f.id, 'institucion', e.target.value); });
+    document.getElementById('desde-' + f.id).addEventListener('input', function(e) { actualizarFormacion(f.id, 'desde', e.target.value); });
+    document.getElementById('hasta-' + f.id).addEventListener('input', function(e) { actualizarFormacion(f.id, 'hasta', e.target.value); });
+    document.getElementById('encurso-' + f.id).addEventListener('change', function(e) { actualizarFormacion(f.id, 'enCurso', e.target.checked); });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  inicializarFormaciones();
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

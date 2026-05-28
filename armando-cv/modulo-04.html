@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Experiencia laboral · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo 4 del curso Armando tu CV: cómo describir tu experiencia laboral con verbos de acción y logros concretos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Estructura de una experiencia */
+.estructura {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.estructura::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.estructura-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.estructura h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin: 0 0 18px;
+  font-weight: 500;
+  position: relative;
+  color: #fff;
+}
+.estructura-lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  position: relative;
+}
+@media (max-width: 600px) { .estructura-lista { grid-template-columns: 1fr; } }
+.estructura-item {
+  background: rgba(255,255,255,0.1);
+  padding: 12px 16px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+}
+.estructura-item-num {
+  font-size: 10px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 3px;
+}
+.estructura-item-titulo {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.estructura-item-desc {
+  font-size: 12px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+/* Verbos de acción */
+.verbos {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.verbos-label {
+  display: inline-block;
+  background: var(--verde);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.verbos h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+.verbos > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.verbos-categorias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 760px) { .verbos-categorias { grid-template-columns: 1fr; } }
+.verbo-cat h5 {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.verbo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.verbo-chip {
+  background: var(--verde-3);
+  color: var(--verde);
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+/* Comparación buena/mala descripción */
+.comp-desc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0;
+}
+@media (max-width: 760px) { .comp-desc { grid-template-columns: 1fr; } }
+.desc-card {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  border-left: 4px solid;
+}
+.desc-card.malo { border-left-color: var(--rojo); }
+.desc-card.bueno { border-left-color: var(--verde); }
+.desc-card-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.desc-card.malo .desc-card-eyebrow { color: var(--rojo); }
+.desc-card.bueno .desc-card-eyebrow { color: var(--verde); }
+.desc-card-puesto {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--azul);
+  margin-bottom: 4px;
+}
+.desc-card-empresa {
+  font-size: 12px;
+  color: var(--gris-4);
+  margin-bottom: 10px;
+}
+.desc-card-bullets {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: 13px;
+  color: var(--tinta);
+  line-height: 1.6;
+}
+.desc-card-bullets li {
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+.desc-card-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 6px;
+  color: var(--gris-3);
+}
+.desc-card-analisis {
+  font-size: 12.5px;
+  color: var(--gris-4);
+  line-height: 1.5;
+  padding-top: 10px;
+  border-top: 1px solid var(--gris-2);
+}
+.desc-card-analisis strong { color: var(--azul); font-weight: 600; }
+
+/* Si no hay experiencia formal */
+.sin-exp {
+  background: #fff;
+  border: 1.5px solid var(--verde);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.sin-exp-label {
+  display: inline-block;
+  background: var(--verde);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.sin-exp h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.sin-exp > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.sin-exp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 600px) { .sin-exp-grid { grid-template-columns: 1fr; } }
+.sin-exp-item {
+  background: var(--verde-3);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+}
+.sin-exp-item-titulo {
+  font-size: 13px;
+  color: var(--verde);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.sin-exp-item p {
+  font-size: 12.5px;
+  color: var(--tinta);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Editor tool */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editor-tool-icon svg { width: 22px; height: 22px; }
+.editor-tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Tarjeta de experiencia */
+.exp-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 14px;
+  border: 1px solid var(--gris-2);
+  position: relative;
+}
+.exp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gris-2);
+}
+.exp-card-num {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul);
+  letter-spacing: 0.3px;
+}
+.exp-card-acciones {
+  display: flex;
+  gap: 6px;
+}
+.exp-card-btn {
+  background: transparent;
+  border: 1px solid var(--gris-2);
+  padding: 5px 8px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--gris-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+.exp-card-btn:hover { border-color: var(--azul); color: var(--azul); }
+.exp-card-btn.eliminar:hover { border-color: var(--rojo); color: var(--rojo); }
+.exp-card-btn svg { width: 12px; height: 12px; }
+.exp-card-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.exp-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .exp-fields { grid-template-columns: 1fr; } }
+.exp-field {
+  display: flex;
+  flex-direction: column;
+}
+.exp-field.full { grid-column: 1 / -1; }
+.exp-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.exp-field input,
+.exp-field textarea {
+  padding: 10px 12px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+}
+.exp-field textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.55;
+}
+.exp-field input:focus,
+.exp-field textarea:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 2px rgba(0,131,46,0.1);
+}
+.exp-field .actual-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--gris-4);
+  margin-top: 6px;
+  cursor: pointer;
+}
+.exp-field .actual-check input {
+  width: 14px;
+  height: 14px;
+}
+
+/* Botones de ayuda dentro de cada experiencia */
+.exp-ayudas {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.exp-ayuda-btn {
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.exp-ayuda-btn svg { width: 13px; height: 13px; }
+.exp-ayuda-btn.sugerir {
+  border-color: var(--verde);
+  color: var(--verde);
+}
+.exp-ayuda-btn.sugerir:hover { background: var(--verde-3); }
+.exp-ayuda-btn.ia {
+  border-color: var(--azul);
+  color: var(--azul);
+  background: linear-gradient(135deg, #fff 0%, #f0f6ff 100%);
+}
+.exp-ayuda-btn.ia:disabled {
+  border-color: var(--gris-2);
+  color: var(--gris-3);
+  cursor: not-allowed;
+  background: var(--gris-1);
+}
+.exp-ayuda-btn .badge-prox {
+  font-size: 8px;
+  background: var(--gris-3);
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.exp-sugerencias {
+  display: none;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--verde-3);
+  border-radius: var(--r-sm);
+  border-left: 3px solid var(--verde);
+}
+.exp-sugerencias.show { display: block; }
+.exp-sugerencias-titulo {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--verde);
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.exp-sug-card {
+  background: #fff;
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  border: 1px solid var(--verde-3);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 12.5px;
+  color: var(--tinta);
+  line-height: 1.5;
+}
+.exp-sug-card:hover { border-color: var(--verde); background: var(--verde-3); }
+.exp-sug-card:last-child { margin-bottom: 0; }
+
+/* Agregar experiencia */
+.agregar-exp {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-2) 100%);
+  color: #fff;
+  border: none;
+  padding: 14px 22px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+.agregar-exp:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sombra-suave);
+}
+
+.estado-experiencias {
+  font-size: 12px;
+  color: var(--gris-4);
+  margin: 12px 0 16px;
+  text-align: center;
+}
+.estado-experiencias strong { color: var(--azul); }
+
+/* Sin experiencias aún */
+.exp-vacio {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gris-3);
+  font-style: italic;
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  border: 2px dashed var(--gris-2);
+  margin-bottom: 14px;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html" class="active">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="modulo-07.html">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 04</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 4 de 7
+    </span>
+    <h1>Experiencia laboral: <em>de las tareas a los logros</em></h1>
+    <p>Esta es probablemente la sección más leída del CV. El reclutador busca acá la prueba de que el perfil profesional es real. Vamos a ver cómo describir cada trabajo para que se note el aporte de cada experiencia, y no solo el cargo ocupado.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 56%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 04 / 07</span>
+      <span>56% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">La experiencia laboral no es una lista de trabajos: es una lista de <strong>aportes</strong>. Si en cada experiencia solo aparece el cargo y las fechas, el CV pierde fuerza. Si en cada experiencia aparece qué hizo la persona, con qué herramientas, y qué resultados generó, el CV cobra vida. Veamos cómo lograrlo.</p>
+
+    <h2>La estructura básica de una experiencia</h2>
+
+    <div class="estructura">
+      <div class="estructura-label">Cinco elementos a incluir</div>
+      <h3>Lo que no puede faltar en cada experiencia</h3>
+      <div class="estructura-lista">
+        <div class="estructura-item">
+          <span class="estructura-item-num">Elemento 01</span>
+          <div class="estructura-item-titulo">Puesto ocupado</div>
+          <div class="estructura-item-desc">El nombre concreto del cargo, sin invenciones ni adornos.</div>
+        </div>
+        <div class="estructura-item">
+          <span class="estructura-item-num">Elemento 02</span>
+          <div class="estructura-item-titulo">Empresa o lugar</div>
+          <div class="estructura-item-desc">Nombre completo. Si es muy pequeña, aclarar el rubro entre paréntesis.</div>
+        </div>
+        <div class="estructura-item">
+          <span class="estructura-item-num">Elemento 03</span>
+          <div class="estructura-item-titulo">Período</div>
+          <div class="estructura-item-desc">Mes y año de inicio y fin. Si es actual: "desde mes/año".</div>
+        </div>
+        <div class="estructura-item">
+          <span class="estructura-item-num">Elemento 04</span>
+          <div class="estructura-item-titulo">Funciones principales</div>
+          <div class="estructura-item-desc">Dos o tres frases breves con lo que hacía la persona en el día a día.</div>
+        </div>
+        <div class="estructura-item" style="grid-column: 1 / -1;">
+          <span class="estructura-item-num">Elemento 05 — opcional pero recomendado</span>
+          <div class="estructura-item-titulo">Logro o aporte concreto</div>
+          <div class="estructura-item-desc">Un resultado medible o una mejora que dejaste. Es lo que diferencia un CV bueno de uno excelente.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Verbos de acción: <em>arrancá cada función con uno</em></h2>
+
+    <div class="verbos">
+      <span class="verbos-label">Recurso clave</span>
+      <h3>Cada función debería empezar con un verbo en pasado</h3>
+      <p>Los verbos de acción transmiten iniciativa y resultados. En lugar de escribir "encargada de la atención al cliente", quedando más fuerte: "atendí a clientes en mostrador" o "gestioné reclamos y consultas". Te dejo algunos verbos útiles según el tipo de tarea.</p>
+
+      <div class="verbos-categorias">
+        <div class="verbo-cat">
+          <h5>Verbos de gestión</h5>
+          <div class="verbo-chips">
+            <span class="verbo-chip">Organicé</span>
+            <span class="verbo-chip">Coordiné</span>
+            <span class="verbo-chip">Lideré</span>
+            <span class="verbo-chip">Planifiqué</span>
+            <span class="verbo-chip">Gestioné</span>
+            <span class="verbo-chip">Supervisé</span>
+            <span class="verbo-chip">Administré</span>
+          </div>
+        </div>
+        <div class="verbo-cat">
+          <h5>Verbos operativos</h5>
+          <div class="verbo-chips">
+            <span class="verbo-chip">Operé</span>
+            <span class="verbo-chip">Atendí</span>
+            <span class="verbo-chip">Produje</span>
+            <span class="verbo-chip">Elaboré</span>
+            <span class="verbo-chip">Preparé</span>
+            <span class="verbo-chip">Realicé</span>
+            <span class="verbo-chip">Implementé</span>
+          </div>
+        </div>
+        <div class="verbo-cat">
+          <h5>Verbos de mejora</h5>
+          <div class="verbo-chips">
+            <span class="verbo-chip">Mejoré</span>
+            <span class="verbo-chip">Reduje</span>
+            <span class="verbo-chip">Aumenté</span>
+            <span class="verbo-chip">Optimicé</span>
+            <span class="verbo-chip">Resolví</span>
+            <span class="verbo-chip">Capacité</span>
+            <span class="verbo-chip">Desarrollé</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Comparación: la misma experiencia, dos descripciones</h2>
+
+    <div class="comp-desc">
+      <div class="desc-card malo">
+        <div class="desc-card-eyebrow">Descripción débil</div>
+        <div class="desc-card-puesto">Vendedora</div>
+        <div class="desc-card-empresa">Comercio · 2021-2024</div>
+        <ul class="desc-card-bullets">
+          <li>Encargada de la atención al cliente</li>
+          <li>Trabajo de caja y cobranza</li>
+          <li>Manejo de productos</li>
+        </ul>
+        <div class="desc-card-analisis">
+          <strong>¿Qué falla?</strong> Funciones genéricas, sin verbos de acción ni resultados. "Trabajo de caja" no dice nada concreto. "Manejo de productos" es vago. Cualquier vendedor podría escribir lo mismo.
+        </div>
+      </div>
+      <div class="desc-card bueno">
+        <div class="desc-card-eyebrow">Descripción efectiva</div>
+        <div class="desc-card-puesto">Vendedora</div>
+        <div class="desc-card-empresa">Indumentaria El Refugio · 03/2021 — 12/2024</div>
+        <ul class="desc-card-bullets">
+          <li>Atendí entre 40 y 60 clientes diarios en mostrador.</li>
+          <li>Manejé caja y arqueo de turno (mañana y tarde).</li>
+          <li>Implementé un sistema de etiquetado por talles que redujo los reclamos un 30%.</li>
+        </ul>
+        <div class="desc-card-analisis">
+          <strong>¿Por qué funciona?</strong> Verbos de acción al inicio de cada función. Datos concretos (números, períodos exactos). Un logro medible al final. La persona se diferencia de otros vendedores con perfil similar.
+        </div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Cada función empieza con un verbo de acción en pasado. Cuando se puede, conviene agregar números o resultados: cantidad de clientes, monto facturado, tiempo de reducción, etc. Los números le dan peso a la experiencia.</p>
+    </div>
+
+    <h2>¿Y si no tengo <em>experiencia formal</em>?</h2>
+
+    <div class="sin-exp">
+      <span class="sin-exp-label">Para quien arranca</span>
+      <h3>Todo trabajo cuenta, aunque no haya recibo de sueldo</h3>
+      <p>Si nunca tuviste un empleo formal con recibo de sueldo, el CV puede incluir igual experiencias que demuestren capacidad de trabajo, responsabilidad y aprendizaje. Lo importante es que sean reales y verificables. Estos son ejemplos válidos para incluir en la sección de experiencia:</p>
+
+      <div class="sin-exp-grid">
+        <div class="sin-exp-item">
+          <div class="sin-exp-item-titulo">Trabajos informales</div>
+          <p>Ayudante en negocio familiar, niñera, cuidado de adultos mayores, pintura o construcción para vecinos, peluquería a domicilio, repostería por encargo.</p>
+        </div>
+        <div class="sin-exp-item">
+          <div class="sin-exp-item-titulo">Pasantías y prácticas</div>
+          <p>Pasantías escolares, prácticas profesionalizantes, prácticas en oficios. Aunque no hayan sido remuneradas, son experiencia formativa.</p>
+        </div>
+        <div class="sin-exp-item">
+          <div class="sin-exp-item-titulo">Voluntariados</div>
+          <p>Trabajo en comedor barrial, club, parroquia, ONG, cooperadora escolar. Sumá las tareas concretas que realizabas.</p>
+        </div>
+        <div class="sin-exp-item">
+          <div class="sin-exp-item-titulo">Emprendimientos propios</div>
+          <p>Si tuviste un emprendimiento propio (venta por redes, oficios, servicios), también cuenta. Describí qué hacías y los resultados.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-experiencias">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Cargá tu experiencia laboral</h3>
+        </div>
+        <span class="editor-tool-tag">Tu CV · Paso 3</span>
+      </div>
+      <p class="editor-tool-desc">Agregá una experiencia por cada trabajo o actividad relevante, empezando por la más reciente. Podés agregar tantas como quieras, eliminarlas o reordenarlas. En cada una, el botón "Sugerir descripción" arma una propuesta usando verbos de acción según el puesto.</p>
+
+      <div id="exp-vacio" class="exp-vacio" style="display:none;">Todavía no agregaste ninguna experiencia. Tocá el botón de abajo para empezar.</div>
+
+      <div id="exp-lista"></div>
+
+      <div class="estado-experiencias">
+        <strong id="exp-count">0</strong> experiencia<span id="exp-plural">s</span> cargada<span id="exp-plural2">s</span>
+      </div>
+
+      <button class="agregar-exp" onclick="agregarExperiencia()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Agregar una experiencia
+      </button>
+
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Lo que hiciste vale más que dónde lo hiciste</h3>
+      <p>Un trabajo en un comercio chico, descrito con verbos de acción y un logro concreto, le gana a un trabajo en una empresa conocida descrito con frases vagas. El reclutador no busca el nombre de la empresa: busca qué hiciste ahí adentro. Por eso, dedicarle tiempo a esta sección vale tanto la pena. En el próximo módulo vamos a trabajar con la formación académica, que complementa lo que viste en este.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-03.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">03 · Perfil profesional</span>
+    </a>
+    <a href="modulo-05.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">05 · Formación académica</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var CV_KEY = 'epja753_cv_datos';
+
+function leerCV() {
+  try { return JSON.parse(localStorage.getItem(CV_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarCV(d) {
+  try { localStorage.setItem(CV_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+var experiencias = [];
+
+function inicializarExperiencias() {
+  var d = leerCV();
+  if (Array.isArray(d.experiencias) && d.experiencias.length > 0) {
+    experiencias = d.experiencias;
+  } else {
+    experiencias = [];
+  }
+  renderizar();
+}
+
+function guardarExperiencias() {
+  var d = leerCV();
+  d.experiencias = experiencias;
+  guardarCV(d);
+}
+
+function agregarExperiencia() {
+  experiencias.push({
+    id: Date.now() + '-' + Math.floor(Math.random() * 1000),
+    puesto: '',
+    empresa: '',
+    desde: '',
+    hasta: '',
+    actual: false,
+    descripcion: ''
+  });
+  guardarExperiencias();
+  renderizar();
+  // Scroll hacia la última experiencia
+  setTimeout(function() {
+    var cards = document.querySelectorAll('.exp-card');
+    if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+function eliminarExperiencia(id) {
+  if (!confirm('¿Eliminar esta experiencia? Esta acción no se puede deshacer.')) return;
+  experiencias = experiencias.filter(function(e) { return e.id !== id; });
+  guardarExperiencias();
+  renderizar();
+}
+
+function moverExperiencia(id, direccion) {
+  var idx = experiencias.findIndex(function(e) { return e.id === id; });
+  if (idx < 0) return;
+  var nuevoIdx = idx + direccion;
+  if (nuevoIdx < 0 || nuevoIdx >= experiencias.length) return;
+  var tmp = experiencias[idx];
+  experiencias[idx] = experiencias[nuevoIdx];
+  experiencias[nuevoIdx] = tmp;
+  guardarExperiencias();
+  renderizar();
+}
+
+function actualizarExperiencia(id, campo, valor) {
+  var exp = experiencias.find(function(e) { return e.id === id; });
+  if (!exp) return;
+  exp[campo] = valor;
+  if (campo === 'actual' && valor) exp.hasta = '';
+  guardarExperiencias();
+  if (campo === 'actual') renderizar();
+}
+
+function sugerirDescripcion(id) {
+  var exp = experiencias.find(function(e) { return e.id === id; });
+  if (!exp) return;
+  if (!exp.puesto) {
+    alert('Cargá primero el puesto para que las sugerencias sean adecuadas.');
+    return;
+  }
+
+  var puesto = exp.puesto.toLowerCase();
+  var sugerencias = [];
+
+  // Plantillas según el tipo de puesto
+  if (puesto.match(/vendedor|cajero|comercial|atenci/)) {
+    sugerencias = [
+      '• Atendí a clientes en mostrador y los asesoré en la elección de productos.\n• Manejé caja y realicé arqueos diarios.\n• Resolví consultas y reclamos manteniendo la satisfacción del cliente.',
+      '• Realicé ventas presenciales y por teléfono.\n• Organicé la reposición de mercadería y el control de stock.\n• Capacité a personal nuevo en los procesos de atención.',
+      '• Gestioné cobros en efectivo, tarjeta y transferencias.\n• Mantuve el orden y la presentación del local.\n• Cumplí con los objetivos de venta mensuales del equipo.'
+    ];
+  } else if (puesto.match(/administrat|asistente|secret/)) {
+    sugerencias = [
+      '• Gestioné la agenda y coordiné reuniones del área.\n• Atendí llamadas y derivé consultas a los responsables.\n• Elaboré informes y presentaciones para la dirección.',
+      '• Realicé tareas de facturación electrónica y registro contable básico.\n• Organicé el archivo digital y físico de la documentación.\n• Manejé correspondencia y trámites administrativos diarios.',
+      '• Coordiné agendas y viajes del equipo directivo.\n• Atendí a proveedores y clientes en presencia y por correo.\n• Implementé un sistema de seguimiento de tareas que mejoró el control del equipo.'
+    ];
+  } else if (puesto.match(/cocin|gastronom|repost|chef|panad/)) {
+    sugerencias = [
+      '• Elaboré platos según el menú y los pedidos del salón.\n• Supervisé la limpieza y el orden de la cocina.\n• Controlé el stock de insumos y realicé pedidos a proveedores.',
+      '• Preparé recetas siguiendo los estándares de calidad del local.\n• Atendí entre 50 y 80 cubiertos por turno.\n• Capacité a ayudantes nuevos en técnicas de cocina.',
+      '• Diseñé menús estacionales adaptados a los productos disponibles.\n• Realicé costeo de platos y ajusté las recetas para mejorar la rentabilidad.\n• Coordiné el trabajo de un equipo de tres personas en cocina.'
+    ];
+  } else if (puesto.match(/oper|producci|f[áa]brica|planta/)) {
+    sugerencias = [
+      '• Operé máquinas industriales del área de producción.\n• Realicé el control de calidad de los productos en línea.\n• Cumplí con los estándares de seguridad e higiene del puesto.',
+      '• Manejé maquinaria de producción cumpliendo los protocolos.\n• Realicé el mantenimiento básico y reporté fallas al supervisor.\n• Trabajé en turnos rotativos cumpliendo con la producción esperada.',
+      '• Optimicé el proceso de armado, reduciendo los tiempos de ciclo.\n• Capacité a operarios nuevos en el uso seguro de las máquinas.\n• Detecté y reporté mejoras que se implementaron en la línea.'
+    ];
+  } else if (puesto.match(/limp|maestranza/)) {
+    sugerencias = [
+      '• Realicé tareas de limpieza diaria en oficinas, baños y áreas comunes.\n• Mantuve el orden y la higiene de los espacios asignados.\n• Cumplí con los protocolos de uso de productos y elementos de protección.',
+      '• Organicé los turnos de limpieza profunda semanal.\n• Gestioné el stock de productos y solicité reposición cuando fue necesario.\n• Detecté y reporté desperfectos o necesidades de mantenimiento.'
+    ];
+  } else if (puesto.match(/cuidad|ni[ñn]era|geri[áa]tr|enferm/)) {
+    sugerencias = [
+      '• Acompañé y asistí a personas en sus actividades cotidianas.\n• Apoyé en alimentación, higiene y administración de medicación.\n• Mantuve registro de la evolución diaria y comuniqué a la familia.',
+      '• Cuidé a niños/as durante jornadas escolares y de juego.\n• Apoyé en tareas escolares y actividades recreativas.\n• Brindé alimentación y atención básica de salud.'
+    ];
+  } else if (puesto.match(/dise[ñn]|programador|desarroll|web/)) {
+    sugerencias = [
+      '• Desarrollé proyectos a medida según necesidades de cada cliente.\n• Gestioné el ciclo completo: cotización, diseño, implementación y entrega.\n• Mantuve la comunicación con clientes durante todo el proceso.',
+      '• Diseñé piezas gráficas para redes sociales, marca y comunicación.\n• Implementé sistemas de identidad visual coherentes.\n• Coordiné con clientes para entender objetivos y traducirlos en propuestas.'
+    ];
+  } else {
+    // Plantilla genérica
+    sugerencias = [
+      '• Realicé las tareas propias del puesto cumpliendo los objetivos establecidos.\n• Coordiné con el equipo de trabajo para alcanzar resultados.\n• Cumplí con los procesos y protocolos definidos por la empresa.',
+      '• Apliqué los conocimientos del área en el desempeño diario.\n• Aporté soluciones a las situaciones que surgieron en el trabajo.\n• Mantuve un trato profesional con clientes, proveedores y compañeros.',
+      '• Implementé mejoras en los procesos de trabajo del puesto.\n• Capacité a personal nuevo en las tareas habituales.\n• Cumplí con los objetivos del área dentro de los plazos establecidos.'
+    ];
+  }
+
+  var box = document.getElementById('sug-' + id);
+  var lista = box.querySelector('.exp-sug-lista');
+  lista.innerHTML = '';
+  sugerencias.forEach(function(s, i) {
+    var card = document.createElement('div');
+    card.className = 'exp-sug-card';
+    card.innerHTML = '<strong>Opción ' + (i + 1) + ':</strong><br>' + s.replace(/\n/g, '<br>');
+    card.onclick = function() {
+      actualizarExperiencia(id, 'descripcion', s);
+      var ta = document.getElementById('desc-' + id);
+      if (ta) ta.value = s;
+      box.classList.remove('show');
+    };
+    lista.appendChild(card);
+  });
+  box.classList.add('show');
+}
+
+function renderizar() {
+  var lista = document.getElementById('exp-lista');
+  var vacio = document.getElementById('exp-vacio');
+  var count = document.getElementById('exp-count');
+  var plural = document.getElementById('exp-plural');
+  var plural2 = document.getElementById('exp-plural2');
+
+  count.textContent = experiencias.length;
+  plural.textContent = experiencias.length === 1 ? '' : 's';
+  plural2.textContent = experiencias.length === 1 ? '' : 's';
+
+  if (experiencias.length === 0) {
+    lista.innerHTML = '';
+    vacio.style.display = 'block';
+    return;
+  }
+  vacio.style.display = 'none';
+
+  lista.innerHTML = '';
+  experiencias.forEach(function(exp, idx) {
+    var card = document.createElement('div');
+    card.className = 'exp-card';
+    card.innerHTML = '<div class="exp-card-header">' +
+      '<div class="exp-card-num">Experiencia ' + (idx + 1) + '</div>' +
+      '<div class="exp-card-acciones">' +
+        '<button class="exp-card-btn" onclick="moverExperiencia(\'' + exp.id + '\', -1)" title="Subir" ' + (idx === 0 ? 'disabled' : '') + '>↑</button>' +
+        '<button class="exp-card-btn" onclick="moverExperiencia(\'' + exp.id + '\', 1)" title="Bajar" ' + (idx === experiencias.length - 1 ? 'disabled' : '') + '>↓</button>' +
+        '<button class="exp-card-btn eliminar" onclick="eliminarExperiencia(\'' + exp.id + '\')" title="Eliminar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg> Eliminar</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="exp-fields">' +
+      '<div class="exp-field">' +
+        '<label>Puesto ocupado</label>' +
+        '<input type="text" id="puesto-' + exp.id + '" maxlength="60" placeholder="Vendedora, Operario de planta..." value="' + (exp.puesto || '') + '">' +
+      '</div>' +
+      '<div class="exp-field">' +
+        '<label>Empresa o lugar</label>' +
+        '<input type="text" id="empresa-' + exp.id + '" maxlength="80" placeholder="Nombre de la empresa" value="' + (exp.empresa || '') + '">' +
+      '</div>' +
+      '<div class="exp-field">' +
+        '<label>Desde (mes/año)</label>' +
+        '<input type="text" id="desde-' + exp.id + '" maxlength="20" placeholder="Marzo 2021" value="' + (exp.desde || '') + '">' +
+      '</div>' +
+      '<div class="exp-field">' +
+        '<label>Hasta (mes/año)</label>' +
+        '<input type="text" id="hasta-' + exp.id + '" maxlength="20" placeholder="Diciembre 2024" value="' + (exp.hasta || '') + '" ' + (exp.actual ? 'disabled' : '') + '>' +
+        '<label class="actual-check"><input type="checkbox" id="actual-' + exp.id + '" ' + (exp.actual ? 'checked' : '') + '> Es mi trabajo actual</label>' +
+      '</div>' +
+      '<div class="exp-field full">' +
+        '<label>Descripción de funciones y logros</label>' +
+        '<textarea id="desc-' + exp.id + '" placeholder="Empezá cada línea con un verbo de acción en pasado. Ej: • Atendí a clientes...">' + (exp.descripcion || '') + '</textarea>' +
+        '<div class="exp-ayudas">' +
+          '<button class="exp-ayuda-btn sugerir" onclick="sugerirDescripcion(\'' + exp.id + '\')">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>' +
+            'Sugerir descripción' +
+          '</button>' +
+          '<button class="exp-ayuda-btn ia" disabled>' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>' +
+            'Mejorar con IA <span class="badge-prox">PRÓX</span>' +
+          '</button>' +
+        '</div>' +
+        '<div class="exp-sugerencias" id="sug-' + exp.id + '">' +
+          '<div class="exp-sugerencias-titulo">Tres propuestas para este puesto</div>' +
+          '<div class="exp-sug-lista"></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+    lista.appendChild(card);
+
+    // Listeners
+    document.getElementById('puesto-' + exp.id).addEventListener('input', function(e) { actualizarExperiencia(exp.id, 'puesto', e.target.value); });
+    document.getElementById('empresa-' + exp.id).addEventListener('input', function(e) { actualizarExperiencia(exp.id, 'empresa', e.target.value); });
+    document.getElementById('desde-' + exp.id).addEventListener('input', function(e) { actualizarExperiencia(exp.id, 'desde', e.target.value); });
+    document.getElementById('hasta-' + exp.id).addEventListener('input', function(e) { actualizarExperiencia(exp.id, 'hasta', e.target.value); });
+    document.getElementById('actual-' + exp.id).addEventListener('change', function(e) { actualizarExperiencia(exp.id, 'actual', e.target.checked); });
+    document.getElementById('desc-' + exp.id).addEventListener('input', function(e) { actualizarExperiencia(exp.id, 'descripcion', e.target.value); });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  inicializarExperiencias();
+
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

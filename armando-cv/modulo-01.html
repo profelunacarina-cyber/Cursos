@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · ¿Qué es un CV? · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo 1 del curso Armando tu CV: qué es un currículum, para qué sirve y cómo lo lee el reclutador.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Cita destacada */
+.destacado-30s {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.destacado-30s::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.destacado-30s-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 6px;
+  position: relative;
+}
+.destacado-30s-num {
+  font-family: var(--serif);
+  font-size: clamp(60px, 10vw, 96px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -3px;
+  margin: 0;
+  position: relative;
+}
+.destacado-30s-sub {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-top: 8px;
+  position: relative;
+}
+
+/* Tres lectores */
+.lectores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .lectores { grid-template-columns: 1fr; } }
+.lector {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.lector::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--azul);
+}
+.lector-num {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--gris-3);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.lector-tiempo {
+  display: inline-block;
+  background: var(--azul-3);
+  color: var(--azul);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.lector h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--azul);
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+}
+.lector p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mitos */
+.mitos {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+}
+.mitos-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.mitos h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0 0 18px;
+  letter-spacing: -0.3px;
+}
+.mito {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gris-2);
+}
+.mito:last-child { border-bottom: none; }
+.mito-creencia {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--gris-4);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mito-creencia::before {
+  content: "✗";
+  color: var(--rojo);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.mito-realidad {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.6;
+  margin-left: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mito-realidad::before {
+  content: "→";
+  color: var(--verde);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.mito-realidad strong { font-weight: 600; color: var(--verde); }
+
+/* Quiz */
+.quiz-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .quiz-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.quiz-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.quiz-tool-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.quiz-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-tool-icon svg { width: 22px; height: 22px; }
+.quiz-tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.quiz-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.quiz-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.situacion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.situacion-num {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--gris-3);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.situacion-texto {
+  font-size: 15px;
+  color: var(--tinta);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.situacion-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 600px) { .situacion-opts { grid-template-columns: 1fr; } }
+.opt-btn {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--sans);
+  color: var(--tinta);
+  line-height: 1.45;
+}
+.opt-btn:hover:not(:disabled) {
+  border-color: var(--verde);
+  background: var(--verde-3);
+}
+.opt-btn.correcta {
+  background: var(--verde-3);
+  border-color: var(--verde);
+  color: var(--verde);
+  font-weight: 500;
+}
+.opt-btn.incorrecta {
+  background: #fee;
+  border-color: var(--rojo);
+  color: var(--rojo);
+}
+.opt-btn:disabled { cursor: default; }
+.situacion-fb {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: 13.5px;
+  line-height: 1.55;
+  background: var(--azul-3);
+  color: var(--azul);
+  border-left: 3px solid var(--azul);
+}
+.situacion-fb.show { display: block; }
+.situacion-fb strong { font-weight: 600; }
+
+/* Mirada (cierre) */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html" class="active">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="modulo-07.html">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 01</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 1 de 7
+    </span>
+    <h1>¿Qué es un CV y <em>para qué sirve?</em></h1>
+    <p>Antes de aprender a armar un buen CV, conviene entender qué es exactamente y cómo lo leen las personas que toman decisiones de contratación. Saber esto cambia por completo la forma en que lo escribimos.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 14%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 01 / 07</span>
+      <span>14% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Imaginemos esta situación cotidiana. Una empresa publica una búsqueda laboral y recibe ochenta currículums en dos días. La persona encargada de revisarlos tiene una hora para preseleccionar a los cinco candidatos que pasan a la entrevista. ¿Cuánto tiempo dedica a cada CV en esa primera lectura?</p>
+
+    <div class="destacado-30s">
+      <div class="destacado-30s-label">El dato que cambia todo</div>
+      <div class="destacado-30s-num">30<small style="font-family:var(--sans); font-size:24px; font-weight:500; margin-left:8px; opacity:0.85;">segundos</small></div>
+      <div class="destacado-30s-sub">en promedio dedica un reclutador a la primera lectura de un CV</div>
+    </div>
+
+    <p>Si entendemos este dato, todo lo que viene a continuación cobra sentido. El CV no es un documento extenso sobre nuestra vida. Es una <strong>herramienta de comunicación</strong> que tiene que transmitir información clara en muy poco tiempo. En este módulo vamos a ver cómo lograrlo.</p>
+
+    <h2>Los tres lectores del CV</h2>
+
+    <p>Antes de llegar a manos del entrevistador, un CV suele pasar por tres lectores distintos. Cada uno mira cosas diferentes, y un buen CV está pensado para los tres.</p>
+
+    <div class="lectores">
+      <div class="lector">
+        <div class="lector-num">LECTOR 01</div>
+        <span class="lector-tiempo">5 segundos</span>
+        <h4>El sistema automático</h4>
+        <p>Muchas empresas usan software que filtra los CV por palabras clave. Si el aviso busca "atención al cliente" y el CV no menciona esa frase, puede ser descartado antes de que un humano lo lea.</p>
+      </div>
+      <div class="lector">
+        <div class="lector-num">LECTOR 02</div>
+        <span class="lector-tiempo">30 segundos</span>
+        <h4>El reclutador</h4>
+        <p>El primer ojo humano. En medio minuto decide si nuestro CV pasa al siguiente paso. Mira datos rápidos: ¿el perfil coincide? ¿La experiencia es relevante? ¿Está bien presentado?</p>
+      </div>
+      <div class="lector">
+        <div class="lector-num">LECTOR 03</div>
+        <span class="lector-tiempo">5 a 10 minutos</span>
+        <h4>El entrevistador</h4>
+        <p>Si el CV pasó el filtro, esta persona lo lee con más calma antes de la entrevista. Acá importan los detalles, los logros y la coherencia entre las distintas secciones.</p>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Un buen CV no busca contar toda nuestra vida. Busca comunicar, en pocos segundos, por qué somos el candidato indicado para ese puesto en particular.</p>
+    </div>
+
+    <h2>Mitos comunes <em>que conviene desarmar</em></h2>
+
+    <div class="mitos">
+      <span class="mitos-label">Creencias frecuentes</span>
+      <h3>Tres ideas que hacen que muchos CV no funcionen</h3>
+
+      <div class="mito">
+        <div class="mito-creencia">"El CV tiene que ser largo para mostrar todo lo que hice."</div>
+        <div class="mito-realidad"><span><strong>En realidad.</strong> Un CV ideal tiene 1 página (a veces 2, si hay mucha experiencia relevante). Listar todo lo que se hizo no ayuda; lo que ayuda es elegir bien qué incluir.</span></div>
+      </div>
+
+      <div class="mito">
+        <div class="mito-creencia">"Hay que poner todos los trabajos, incluso los temporales o muy cortos."</div>
+        <div class="mito-realidad"><span><strong>En realidad.</strong> Solo si suman al perfil. Un trabajo que no aporta a la búsqueda actual ocupa un espacio que se podría usar mejor.</span></div>
+      </div>
+
+      <div class="mito">
+        <div class="mito-creencia">"El diseño no importa, lo único que importa es el contenido."</div>
+        <div class="mito-realidad"><span><strong>En realidad.</strong> Importa el contenido, pero la presentación también. Si está mal estructurado, el lector puede no llegar al contenido.</span></div>
+      </div>
+    </div>
+
+    <div class="quiz-tool">
+      <div class="quiz-tool-header">
+        <div class="quiz-tool-title">
+          <div class="quiz-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/></svg>
+          </div>
+          <h3>¿Qué harías en cada caso?</h3>
+        </div>
+        <span class="quiz-tool-tag">Ejercicio inicial</span>
+      </div>
+      <p class="quiz-desc">A continuación se presentan tres situaciones reales relacionadas con la construcción de un CV. Elegí en cada caso la decisión que te parece más adecuada. Al elegir, vas a ver una breve explicación que ayuda a entender por qué.</p>
+
+      <div class="situacion">
+        <div class="situacion-num">SITUACIÓN 01</div>
+        <div class="situacion-texto">Estás postulando a un empleo administrativo en una oficina pública. ¿Pondrías una foto tuya en el CV?</div>
+        <div class="situacion-opts">
+          <button class="opt-btn" data-situacion="0" data-correcta="false" onclick="responder(this, 'En contextos formales como administración pública, suele ser preferible <strong>no incluir foto</strong> para evitar sesgos en la primera selección. La decisión debe basarse en la experiencia y formación, no en la apariencia.')">Sí, una foto formal y prolija</button>
+          <button class="opt-btn" data-situacion="0" data-correcta="true" onclick="responder(this, 'Decisión correcta. En contextos formales y administrativos suele ser preferible <strong>no incluir foto</strong>. La selección se centra así en la experiencia y formación, evitando sesgos en la primera mirada.')">No, en este contexto no es necesario</button>
+        </div>
+        <div class="situacion-fb" id="fb-0"></div>
+      </div>
+
+      <div class="situacion">
+        <div class="situacion-num">SITUACIÓN 02</div>
+        <div class="situacion-texto">Tu primera experiencia laboral fue como repartidor de volantes a los 16 años, hace 15 años. ¿La incluirías en tu CV actual?</div>
+        <div class="situacion-opts">
+          <button class="opt-btn" data-situacion="1" data-correcta="false" onclick="responder(this, 'Si pasaron muchos años y la experiencia no se relaciona con el puesto al que postulamos, es preferible <strong>no incluirla</strong>. El CV debe priorizar lo más reciente y relevante. Hay excepciones, si recién comenzamos nuestra vida laboral.')">Sí, toda experiencia suma</button>
+          <button class="opt-btn" data-situacion="1" data-correcta="true" onclick="responder(this, 'Correcto. Si pasaron muchos años y no se relaciona con el puesto actual, lo más adecuado es <strong>no incluirla</strong>. El CV prioriza lo más reciente y relevante. Es distinto si recién empezamos a trabajar: ahí toda experiencia ayuda.')">No, ya pasó demasiado tiempo</button>
+        </div>
+        <div class="situacion-fb" id="fb-1"></div>
+      </div>
+
+      <div class="situacion">
+        <div class="situacion-num">SITUACIÓN 03</div>
+        <div class="situacion-texto">Tenés un email viejo que usás desde adolescente: gatitalinda82@hotmail.com. ¿Lo usarías en el CV?</div>
+        <div class="situacion-opts">
+          <button class="opt-btn" data-situacion="2" data-correcta="true" onclick="responder(this, 'Decisión correcta. El email del CV debe ser <strong>profesional y serio</strong>, idealmente con nombre.apellido. Es muy rápido crear uno nuevo en Gmail y vale la pena hacerlo antes de enviar el primer CV.')">No, conviene crear uno nuevo con tu nombre y apellido</button>
+          <button class="opt-btn" data-situacion="2" data-correcta="false" onclick="responder(this, 'No es lo más adecuado. El email del CV debe ser <strong>profesional y serio</strong>, idealmente con formato nombre.apellido. Es muy rápido crear uno nuevo en Gmail antes de enviar el primer CV.')">Sí, es el que uso siempre</button>
+        </div>
+        <div class="situacion-fb" id="fb-2"></div>
+      </div>
+
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Un buen CV no dice más; comunica mejor</h3>
+      <p>En los próximos módulos vamos a construir el CV sección por sección, aplicando todo lo que acabamos de ver: pensar en quien lo va a leer, ser claros, elegir bien qué incluir y dejar lo demás afuera. La diferencia entre un CV efectivo y uno que pasa desapercibido no está en cuánto cuenta, sino en qué cuenta y cómo lo cuenta.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="index.html" class="prev">
+      <span class="label">← Volver</span>
+      <span class="title">Inicio del curso</span>
+    </a>
+    <a href="modulo-02.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">02 · Datos de contacto</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+function responder(btn, mensaje) {
+  var grupo = btn.parentElement;
+  var idx = btn.dataset.situacion;
+  var correcta = btn.dataset.correcta === 'true';
+  var todos = grupo.querySelectorAll('.opt-btn');
+  todos.forEach(function(b) { b.disabled = true; });
+  if (correcta) {
+    btn.classList.add('correcta');
+  } else {
+    btn.classList.add('incorrecta');
+    todos.forEach(function(b) { if (b.dataset.correcta === 'true') b.classList.add('correcta'); });
+  }
+  var fb = document.getElementById('fb-' + idx);
+  fb.innerHTML = mensaje;
+  fb.classList.add('show');
+}
+
+// Mostrar banner según modo
+document.addEventListener('DOMContentLoaded', function() {
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('modo')) {
+    modo = params.get('modo');
+    try { localStorage.setItem('epja753_cv_modo', modo); } catch (e) {}
+  }
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Perfil profesional · Armando tu CV · EPJA 753</title>
+<meta name="description" content="Módulo 3 del curso Armando tu CV: cómo escribir tu perfil profesional, la frase de presentación del CV.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Anatomía de un perfil */
+.anatomia {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px 30px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.anatomia::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.anatomia-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.anatomia h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin: 0 0 18px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  position: relative;
+  color: #fff;
+}
+.anatomia-formula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--serif);
+  font-size: 17px;
+  align-items: center;
+  position: relative;
+  margin-bottom: 18px;
+}
+.anatomia-formula .pill {
+  background: rgba(255,255,255,0.15);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-style: italic;
+  font-family: var(--sans);
+}
+.anatomia-formula .plus {
+  font-size: 18px;
+  opacity: 0.7;
+}
+.anatomia-ej {
+  background: rgba(255,255,255,0.08);
+  border-left: 3px solid rgba(255,255,255,0.4);
+  padding: 14px 18px;
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-style: italic;
+  font-size: 14.5px;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Ejemplos comparados */
+.comp-ejemplos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0;
+}
+@media (max-width: 760px) { .comp-ejemplos { grid-template-columns: 1fr; } }
+.ej-perfil {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  border-left: 4px solid;
+}
+.ej-perfil.malo { border-left-color: var(--rojo); }
+.ej-perfil.bueno { border-left-color: var(--verde); }
+.ej-perfil-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.ej-perfil.malo .ej-perfil-eyebrow { color: var(--rojo); }
+.ej-perfil.bueno .ej-perfil-eyebrow { color: var(--verde); }
+.ej-perfil-texto {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--tinta);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+}
+.ej-perfil-analisis {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.5;
+}
+.ej-perfil-analisis strong { color: var(--azul); font-weight: 600; }
+
+/* Errores típicos */
+.errores {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.errores h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 16px;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+}
+.error-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gris-2);
+}
+.error-item:last-child { border-bottom: none; }
+.error-num {
+  width: 32px;
+  height: 32px;
+  background: #fee;
+  color: var(--rojo);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.error-content h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.error-content p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Tool: editor de perfil con ayuda */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editor-tool-icon svg { width: 22px; height: 22px; }
+.editor-tool h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Campos de contexto para sugerencias */
+.contexto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding: 18px;
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  border: 1px dashed var(--gris-2);
+}
+@media (max-width: 600px) { .contexto-grid { grid-template-columns: 1fr; } }
+.contexto-grid .contexto-titulo {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--gris-4);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+}
+.contexto-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-4);
+  display: block;
+  margin-bottom: 4px;
+}
+.contexto-field input,
+.contexto-field select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+}
+.contexto-field input:focus,
+.contexto-field select:focus {
+  outline: none;
+  border-color: var(--verde);
+}
+
+/* Editor textarea */
+.editor-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-md);
+  font-size: 14.5px;
+  font-family: var(--sans);
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  background: #fff;
+  color: var(--tinta);
+}
+.editor-textarea:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,131,46,0.1);
+}
+.editor-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--gris-3);
+  margin-top: 6px;
+}
+.editor-stats .alerta { color: var(--rojo); font-weight: 600; }
+.editor-stats .ok { color: var(--verde); font-weight: 600; }
+
+/* Botones de ayuda */
+.ayudas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+@media (max-width: 600px) { .ayudas-grid { grid-template-columns: 1fr; } }
+.ayuda-btn {
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  border: 1.5px solid;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.3;
+}
+.ayuda-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.ayuda-btn.sugerir {
+  border-color: var(--verde);
+  color: var(--verde);
+}
+.ayuda-btn.sugerir:hover {
+  background: var(--verde-3);
+}
+.ayuda-btn.ia {
+  border-color: var(--azul);
+  color: var(--azul);
+  background: linear-gradient(135deg, #fff 0%, #f0f6ff 100%);
+}
+.ayuda-btn.ia:hover {
+  background: linear-gradient(135deg, var(--azul-3) 0%, #d8eaff 100%);
+}
+.ayuda-btn:disabled {
+  border-color: var(--gris-2);
+  color: var(--gris-3);
+  cursor: not-allowed;
+  background: var(--gris-1);
+}
+.ayuda-btn .badge-ia {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  background: var(--azul);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+/* Sugerencias generadas */
+.sugerencias {
+  display: none;
+  margin-top: 18px;
+  padding: 18px;
+  background: var(--verde-3);
+  border-radius: var(--r-md);
+  border-left: 3px solid var(--verde);
+}
+.sugerencias.show { display: block; }
+.sugerencias-titulo {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--verde);
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.sugerencia-card {
+  background: #fff;
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1px solid var(--verde-3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sugerencia-card:hover {
+  border-color: var(--verde);
+  box-shadow: 0 2px 8px rgba(0,131,46,0.08);
+}
+.sugerencia-card:last-child { margin-bottom: 0; }
+.sugerencia-card-num {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gris-3);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.sugerencia-card-texto {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+.sugerencia-card-usar {
+  font-size: 11px;
+  color: var(--verde);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Mensaje aviso IA */
+.aviso-ia {
+  background: var(--azul-3);
+  border-left: 3px solid var(--azul);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 12px 16px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--azul);
+  line-height: 1.55;
+}
+.aviso-ia strong { font-weight: 600; }
+
+/* Vista previa con perfil */
+.preview-box {
+  background: linear-gradient(135deg, var(--crema) 0%, var(--hueso-2) 100%);
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  margin-top: 24px;
+}
+.preview-box-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--gris-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.preview-cv {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 26px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--gris-2);
+  max-width: 620px;
+  margin: 0 auto;
+}
+.preview-cv-nombre {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--azul);
+  margin: 0 0 4px;
+  letter-spacing: -0.3px;
+}
+.preview-cv-ciudad {
+  font-size: 12.5px;
+  color: var(--gris-4);
+  margin-bottom: 10px;
+}
+.preview-cv-contacto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--gris-4);
+  padding: 10px 0;
+  border-top: 1px solid var(--gris-2);
+  border-bottom: 1px solid var(--gris-2);
+  margin-bottom: 16px;
+}
+.preview-cv-perfil-titulo {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.preview-cv-perfil-texto {
+  font-size: 13.5px;
+  color: var(--tinta);
+  line-height: 1.65;
+  font-family: var(--sans);
+}
+.preview-cv-perfil-texto.placeholder {
+  color: var(--gris-3);
+  font-style: italic;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Armando tu CV · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Armando tu CV</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html" class="active">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="modulo-07.html">07</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Armando tu CV</a>
+      <span>›</span>
+      <span>Módulo 03</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 3 de 7
+    </span>
+    <h1>El <em>perfil profesional</em>: tu frase de presentación</h1>
+    <p>Justo debajo de tu nombre, antes de cualquier otra sección, va el perfil profesional. Son tres o cuatro líneas que resumen quién sos profesionalmente. Es lo que el reclutador lee primero después de tu nombre, así que conviene escribirlo con criterio.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 42%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 03 / 07</span>
+      <span>42% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">El perfil profesional (también llamado "objetivo profesional" o "resumen") es un párrafo breve que aparece al inicio del CV. En tres o cuatro líneas, le cuenta al reclutador quién sos, qué hacés bien y qué buscás. Bien escrito, hace que el lector quiera seguir leyendo. Mal escrito, hace que pase al siguiente CV de la pila.</p>
+
+    <h2>Anatomía de un buen perfil</h2>
+
+    <div class="anatomia">
+      <div class="anatomia-label">La fórmula</div>
+      <h3>Cuatro piezas que conviene combinar</h3>
+      <div class="anatomia-formula">
+        <span class="pill">Rol o profesión</span>
+        <span class="plus">+</span>
+        <span class="pill">Experiencia (años o tipo)</span>
+        <span class="plus">+</span>
+        <span class="pill">Diferencial / fortaleza</span>
+        <span class="plus">+</span>
+        <span class="pill">Objetivo o búsqueda</span>
+      </div>
+      <div class="anatomia-ej">
+        Ejemplo: "Asistente administrativa con cinco años de experiencia en empresas pequeñas. Especializada en facturación electrónica y atención al cliente. Busco un puesto donde aplicar mi capacidad de organización y mi formación reciente en herramientas digitales."
+      </div>
+    </div>
+
+    <h2>Ejemplos comparados</h2>
+
+    <p>Comparemos dos perfiles redactados para la misma persona. La diferencia entre uno y otro está en cómo se cuenta la misma información.</p>
+
+    <div class="comp-ejemplos">
+      <div class="ej-perfil malo">
+        <div class="ej-perfil-eyebrow">Perfil poco efectivo</div>
+        <div class="ej-perfil-texto">"Soy una persona responsable, proactiva y con ganas de trabajar. Busco una oportunidad laboral donde pueda crecer y desarrollarme profesionalmente."</div>
+        <div class="ej-perfil-analisis">
+          <strong>¿Qué falla?</strong> No dice qué rol busca ni qué sabe hacer. "Responsable y proactiva" es algo que escribe todo el mundo: no diferencia. Y "donde pueda crecer" no le dice nada al reclutador sobre el perfil. Es un perfil genérico que sirve para cualquier puesto, y por eso no sirve para ninguno.
+        </div>
+      </div>
+      <div class="ej-perfil bueno">
+        <div class="ej-perfil-eyebrow">Perfil efectivo</div>
+        <div class="ej-perfil-texto">"Operaria de producción con tres años en planta textil. Especializada en máquinas industriales rectas y overlock. Busco sumarme a un equipo de producción donde pueda aportar mi experiencia y mi disponibilidad para turnos rotativos."</div>
+        <div class="ej-perfil-analisis">
+          <strong>¿Por qué funciona?</strong> Dice claramente qué rol busca (operaria), qué experiencia tiene (3 años), qué máquinas maneja (lo concreto y verificable), y qué ofrece (disponibilidad). El reclutador, en 5 segundos, sabe si encaja.
+        </div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Un buen perfil dice cosas concretas: el rol, los años, las herramientas, el rubro. Un perfil débil usa palabras genéricas como "responsable", "proactivo" o "con ganas de aprender".</p>
+    </div>
+
+    <h2>Errores típicos que conviene evitar</h2>
+
+    <div class="errores">
+      <h3>Cuatro problemas frecuentes en los perfiles profesionales</h3>
+      <div class="error-item">
+        <div class="error-num">1</div>
+        <div class="error-content">
+          <h5>Ser demasiado genérico</h5>
+          <p>"Persona responsable, proactiva, con ganas de aprender." Lo mismo escriben miles de personas. Si todos lo escriben, no diferencia.</p>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-num">2</div>
+        <div class="error-content">
+          <h5>Hablar de uno mismo en exceso</h5>
+          <p>"Excelente, comprometido, dedicado, perfeccionista..." Conviene mostrar resultados o habilidades concretas, no autoelogios.</p>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-num">3</div>
+        <div class="error-content">
+          <h5>Confundir perfil con autobiografía</h5>
+          <p>El perfil no es para contar la vida. Tres a cinco líneas alcanzan. Lo demás va en las secciones de experiencia y formación.</p>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-num">4</div>
+        <div class="error-content">
+          <h5>Escribir el mismo perfil para todas las búsquedas</h5>
+          <p>Conviene adaptar el perfil al puesto al que se postula. No es necesario reescribirlo entero: alcanza con cambiar dos o tres palabras clave para que conecte con el aviso.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-perfil">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h3>Escribí tu perfil profesional</h3>
+        </div>
+        <span class="editor-tool-tag">Tu CV · Paso 2</span>
+      </div>
+      <p class="editor-tool-desc">Antes de escribir, completá los datos de contexto: van a usarse para generar sugerencias adaptadas a tu perfil. Después escribí tu perfil en el editor, o usá uno de los botones de ayuda para arrancar con una propuesta.</p>
+
+      <div class="contexto-grid">
+        <div class="contexto-titulo">Datos de contexto para personalizar tu perfil</div>
+        <div class="contexto-field">
+          <label for="ctx-rol">Rol o profesión</label>
+          <input type="text" id="ctx-rol" maxlength="60" placeholder="Asistente administrativa, repostera, soldador...">
+        </div>
+        <div class="contexto-field">
+          <label for="ctx-anios">Años de experiencia</label>
+          <select id="ctx-anios">
+            <option value="">Elegir...</option>
+            <option value="sin">Sin experiencia formal</option>
+            <option value="menos-1">Menos de 1 año</option>
+            <option value="1-3">Entre 1 y 3 años</option>
+            <option value="3-5">Entre 3 y 5 años</option>
+            <option value="5-10">Entre 5 y 10 años</option>
+            <option value="mas-10">Más de 10 años</option>
+          </select>
+        </div>
+        <div class="contexto-field">
+          <label for="ctx-rubro">Rubro o sector</label>
+          <input type="text" id="ctx-rubro" maxlength="60" placeholder="Gastronomía, salud, construcción, comercio...">
+        </div>
+        <div class="contexto-field">
+          <label for="ctx-fortaleza">Tu fortaleza principal (en pocas palabras)</label>
+          <input type="text" id="ctx-fortaleza" maxlength="80" placeholder="Atención al detalle, trato con clientes, trabajo en equipo...">
+        </div>
+      </div>
+
+      <label for="perfil-texto" style="font-size: 12px; font-weight: 600; color: var(--gris-4); letter-spacing: 0.3px; text-transform: uppercase; display: block; margin-bottom: 6px;">Tu perfil profesional</label>
+      <textarea id="perfil-texto" class="editor-textarea" placeholder="Escribí tu perfil acá. Tres o cuatro líneas alcanzan. Combiná rol + experiencia + diferencial + búsqueda."></textarea>
+      <div class="editor-stats">
+        <span id="stats-palabras">0 palabras</span>
+        <span id="stats-recomendacion">Recomendado: entre 40 y 80 palabras</span>
+      </div>
+
+      <div class="ayudas-grid">
+        <button class="ayuda-btn sugerir" id="btn-sugerir" onclick="generarSugerencias()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+          Sugerime opciones con plantillas
+        </button>
+        <button class="ayuda-btn ia" id="btn-mejorar" onclick="mejorarConIA()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Mejorar mi texto con IA
+          <span class="badge-ia">PRÓX</span>
+        </button>
+      </div>
+
+      <div class="aviso-ia">
+        <strong>Sobre la ayuda con IA:</strong> el botón "Mejorar mi texto con IA" va a estar disponible próximamente. Por ahora podés usar las plantillas inteligentes, que combinan tus datos de contexto para sugerir tres opciones de perfil distintas.
+      </div>
+
+      <div class="sugerencias" id="sugerencias-box">
+        <div class="sugerencias-titulo">Tres propuestas para tu perfil</div>
+        <div id="sugerencias-lista"></div>
+      </div>
+
+      <div class="preview-box">
+        <div class="preview-box-label">Vista previa de tu CV hasta acá</div>
+        <div class="preview-cv" id="preview-cv">
+          <div style="text-align: center; color: var(--gris-3); font-style: italic; padding: 30px 20px;">Cargá tus datos en los módulos anteriores y tu perfil acá para ver la vista previa.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>El perfil es lo más leído del CV</h3>
+      <p>Si solo tuvieras 10 segundos para captar la atención del reclutador, esos 10 segundos los gana o los pierde tu perfil. Vale la pena dedicarle el tiempo de pensarlo bien, probarlo, leerlo en voz alta y ajustarlo. Un buen perfil no es necesariamente el más elaborado: es el más claro y específico. En el próximo módulo vamos a trabajar con la experiencia laboral, donde se demuestra lo que el perfil promete.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-02.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">02 · Datos de contacto</span>
+    </a>
+    <a href="modulo-04.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">04 · Experiencia laboral</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Armando tu CV" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es un CV?</a></li>
+          <li><a href="modulo-02.html">02 · Datos de contacto</a></li>
+          <li><a href="modulo-03.html">03 · Perfil profesional</a></li>
+          <li><a href="modulo-04.html">04 · Experiencia laboral</a></li>
+          <li><a href="modulo-05.html">05 · Formación</a></li>
+          <li><a href="modulo-06.html">06 · Habilidades</a></li>
+          <li><a href="modulo-07.html">07 · Revisión y descarga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var CV_KEY = 'epja753_cv_datos';
+
+function leerCV() {
+  try { return JSON.parse(localStorage.getItem(CV_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarCV(d) {
+  try { localStorage.setItem(CV_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function getCtx() {
+  return {
+    rol: document.getElementById('ctx-rol').value.trim(),
+    anios: document.getElementById('ctx-anios').value,
+    rubro: document.getElementById('ctx-rubro').value.trim(),
+    fortaleza: document.getElementById('ctx-fortaleza').value.trim(),
+    perfil: document.getElementById('perfil-texto').value.trim()
+  };
+}
+
+function setCtx(d) {
+  if (d.rol) document.getElementById('ctx-rol').value = d.rol;
+  if (d.anios) document.getElementById('ctx-anios').value = d.anios;
+  if (d.rubro) document.getElementById('ctx-rubro').value = d.rubro;
+  if (d.fortaleza) document.getElementById('ctx-fortaleza').value = d.fortaleza;
+  if (d.perfil) document.getElementById('perfil-texto').value = d.perfil;
+}
+
+function actualizarStats() {
+  var texto = document.getElementById('perfil-texto').value.trim();
+  var palabras = texto ? texto.split(/\s+/).length : 0;
+  var statsEl = document.getElementById('stats-palabras');
+  var recoEl = document.getElementById('stats-recomendacion');
+  statsEl.textContent = palabras + ' palabra' + (palabras !== 1 ? 's' : '');
+  if (palabras === 0) {
+    recoEl.textContent = 'Recomendado: entre 40 y 80 palabras';
+    recoEl.className = '';
+  } else if (palabras < 30) {
+    recoEl.textContent = 'Un poco corto. Intentá llegar a 40 palabras.';
+    recoEl.className = 'alerta';
+  } else if (palabras > 100) {
+    recoEl.textContent = 'Muy extenso. Conviene acortar a menos de 80 palabras.';
+    recoEl.className = 'alerta';
+  } else {
+    recoEl.textContent = '✓ Longitud adecuada';
+    recoEl.className = 'ok';
+  }
+}
+
+function actualizarPreview() {
+  var d = leerCV();
+  Object.assign(d, getCtx());
+  var preview = document.getElementById('preview-cv');
+  if (!d.nombre && !d.apellido && !d.perfil) {
+    preview.innerHTML = '<div style="text-align: center; color: var(--gris-3); font-style: italic; padding: 30px 20px;">Cargá tus datos en los módulos anteriores y tu perfil acá para ver la vista previa.</div>';
+    return;
+  }
+  var html = '';
+  html += '<div class="preview-cv-nombre">' + ((d.nombre || '') + ' ' + (d.apellido || '')).trim() + '</div>';
+  if (d.ciudad || d.provincia) {
+    html += '<div class="preview-cv-ciudad">' + (d.ciudad || '') + (d.ciudad && d.provincia ? ', ' : '') + (d.provincia || '') + '</div>';
+  }
+  html += '<div class="preview-cv-contacto">';
+  if (d.email) html += '<span>✉ ' + d.email + '</span>';
+  if (d.linkedin) html += '<span>🔗 ' + d.linkedin + '</span>';
+  html += '</div>';
+  if (d.perfil) {
+    html += '<div class="preview-cv-perfil-titulo">Perfil profesional</div>';
+    html += '<div class="preview-cv-perfil-texto">' + d.perfil.replace(/\n/g, '<br>') + '</div>';
+  } else {
+    html += '<div class="preview-cv-perfil-titulo">Perfil profesional</div>';
+    html += '<div class="preview-cv-perfil-texto placeholder">(Tu perfil va a aparecer acá cuando lo escribas)</div>';
+  }
+  preview.innerHTML = html;
+}
+
+function guardar() {
+  var datos = leerCV();
+  Object.assign(datos, getCtx());
+  guardarCV(datos);
+  actualizarStats();
+  actualizarPreview();
+}
+
+// PLANTILLAS DE PERFIL
+function generarSugerencias() {
+  var c = getCtx();
+  if (!c.rol || !c.anios) {
+    alert('Para generar sugerencias, completá al menos los campos "Rol o profesión" y "Años de experiencia".');
+    return;
+  }
+
+  var experienciaTexto = {
+    'sin': 'sin experiencia laboral formal previa',
+    'menos-1': 'con experiencia inicial',
+    '1-3': 'con experiencia de uno a tres años',
+    '3-5': 'con tres a cinco años de experiencia',
+    '5-10': 'con cinco a diez años de experiencia',
+    'mas-10': 'con más de diez años de experiencia'
+  }[c.anios] || '';
+
+  var rubroTexto = c.rubro ? ' en el rubro ' + c.rubro.toLowerCase() : '';
+  var fortalezaTexto = c.fortaleza ? ' Mi fortaleza principal es ' + c.fortaleza.toLowerCase() + '.' : '';
+
+  var sugerencias = [];
+
+  if (c.anios === 'sin' || c.anios === 'menos-1') {
+    // Plantillas para sin experiencia
+    sugerencias.push(
+      c.rol.charAt(0).toUpperCase() + c.rol.slice(1) + ' en formación, ' + experienciaTexto + rubroTexto + '. Cuento con conocimientos teóricos del área y compromiso para aprender en el puesto.' + fortalezaTexto + ' Busco mi primera oportunidad laboral formal para aplicar lo aprendido y crecer profesionalmente.'
+    );
+    sugerencias.push(
+      'Persona ' + experienciaTexto + ' interesada en desempeñarme como ' + c.rol.toLowerCase() + rubroTexto + '. Cuento con la formación necesaria y disposición para integrarme a un equipo de trabajo.' + fortalezaTexto + ' Busco un primer empleo que me permita poner en práctica mis conocimientos.'
+    );
+    sugerencias.push(
+      'Próximamente me incorporo al mercado laboral como ' + c.rol.toLowerCase() + rubroTexto + '. Tengo formación específica del área y experiencia en trabajos informales y de cuidado.' + fortalezaTexto + ' Busco una oportunidad para demostrar mi compromiso y capacidad de aprendizaje.'
+    );
+  } else {
+    // Plantillas con experiencia
+    sugerencias.push(
+      c.rol.charAt(0).toUpperCase() + c.rol.slice(1) + ' ' + experienciaTexto + rubroTexto + '.' + fortalezaTexto + ' Busco sumarme a un equipo de trabajo donde aportar mi experiencia y continuar desarrollándome profesionalmente.'
+    );
+    sugerencias.push(
+      'Profesional ' + experienciaTexto + ' como ' + c.rol.toLowerCase() + rubroTexto + '. He desarrollado conocimientos prácticos en el día a día del puesto.' + fortalezaTexto + ' Interesado/a en proyectos donde la calidad del trabajo y el compromiso a largo plazo sean valorados.'
+    );
+    sugerencias.push(
+      'Me desempeño como ' + c.rol.toLowerCase() + rubroTexto + ' ' + experienciaTexto + '. Mi recorrido me permitió consolidar las habilidades clave del puesto.' + fortalezaTexto + ' Busco una nueva oportunidad para aportar mi experiencia y asumir nuevos desafíos.'
+    );
+  }
+
+  var lista = document.getElementById('sugerencias-lista');
+  lista.innerHTML = '';
+  sugerencias.forEach(function(s, i) {
+    var card = document.createElement('div');
+    card.className = 'sugerencia-card';
+    card.innerHTML = '<div class="sugerencia-card-num">Opción ' + (i + 1) + '</div>' +
+                     '<p class="sugerencia-card-texto">"' + s + '"</p>' +
+                     '<span class="sugerencia-card-usar">→ Tocar para usar esta opción</span>';
+    card.onclick = function() {
+      document.getElementById('perfil-texto').value = s;
+      guardar();
+      document.getElementById('perfil-texto').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    lista.appendChild(card);
+  });
+  document.getElementById('sugerencias-box').classList.add('show');
+}
+
+function mejorarConIA() {
+  alert('Esta función va a estar disponible próximamente. Mientras tanto, usá las plantillas inteligentes.');
+}
+
+// Listeners
+['ctx-rol','ctx-rubro','ctx-fortaleza','perfil-texto'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardar);
+});
+document.getElementById('ctx-anios').addEventListener('change', guardar);
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerCV();
+  setCtx(datos);
+  actualizarStats();
+  actualizarPreview();
+
+  // Banner de modo
+  var modo;
+  try { modo = localStorage.getItem('epja753_cv_modo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && modo) {
+    if (modo === 'primer') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Mi primer CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien recién empieza</span></div>';
+      banner.style.display = 'block';
+    } else if (modo === 'actualizar') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Modo: <strong>Actualizar mi CV</strong></span><span style="opacity:0.8;">El contenido se adapta para quien ya tiene experiencia</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
