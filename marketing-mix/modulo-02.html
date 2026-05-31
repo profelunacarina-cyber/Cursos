@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Conocé a tu cliente · Marketing Mix · EPJA 753</title>
+<meta name="description" content="Módulo 2: segmentación de mercado y construcción del buyer persona para tu emprendimiento.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Comparación: vender a todos vs segmentar */
+.comparacion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .comparacion { grid-template-columns: 1fr; } }
+.comp-card {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.comp-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.comp-card.malo::before { background: var(--rojo); }
+.comp-card.bueno::before { background: var(--verde); }
+.comp-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 22px;
+}
+.comp-card.malo .comp-card-icon { background: #fee; }
+.comp-card.bueno .comp-card-icon { background: var(--verde-3); }
+.comp-card-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.comp-card.malo .comp-card-eyebrow { color: var(--rojo); }
+.comp-card.bueno .comp-card-eyebrow { color: var(--verde); }
+.comp-card h3 {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.comp-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+.comp-card-ejemplo {
+  font-size: 13px;
+  color: var(--tinta);
+  background: var(--gris-1);
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+/* Criterios de segmentación */
+.criterios {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.criterios::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.criterios-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.criterios h3 {
+  font-size: 24px;
+  margin: 0 0 20px;
+  font-weight: 700;
+  position: relative;
+  color: #fff;
+  letter-spacing: -0.4px;
+}
+.criterios-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  position: relative;
+}
+@media (max-width: 600px) { .criterios-grid { grid-template-columns: 1fr; } }
+.criterio-item {
+  background: rgba(255,255,255,0.1);
+  padding: 14px 16px;
+  border-radius: var(--r-sm);
+}
+.criterio-nombre {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  opacity: 0.95;
+}
+.criterio-ej {
+  font-size: 12px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+/* Buyer persona explicación */
+.buyer-card {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.buyer-card-label {
+  display: inline-block;
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.buyer-card h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.4px;
+}
+.buyer-card p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.buyer-ejemplo {
+  background: var(--azul-soft);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-top: 18px;
+  border-left: 4px solid var(--azul);
+}
+.buyer-ejemplo h4 {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--azul);
+  margin: 0 0 10px;
+}
+.buyer-ejemplo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.buyer-ejemplo li {
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.5;
+  border-bottom: 1px dashed rgba(67,56,202,0.15);
+}
+.buyer-ejemplo li:last-child { border-bottom: none; }
+.buyer-ejemplo li strong { color: var(--azul); font-weight: 600; }
+
+/* Editor del buyer persona */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.editor-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+/* Secciones del formulario */
+.form-seccion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.form-seccion-titulo {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.form-seccion-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.55;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.form-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Chips para multi-select */
+.chips-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip-toggle {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--tinta);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.15s;
+}
+.chip-toggle:hover { border-color: var(--azul); }
+.chip-toggle.active {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Vista previa del buyer persona */
+.preview-buyer {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin-top: 24px;
+  border: 1px solid var(--azul-3);
+}
+.preview-buyer-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.preview-buyer-card {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(28,25,23,0.04);
+}
+.preview-buyer-nombre {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+  letter-spacing: -0.4px;
+}
+.preview-buyer-edad {
+  font-size: 14px;
+  color: var(--gris-4);
+  margin-bottom: 14px;
+}
+.preview-buyer-seccion {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gris-2);
+}
+.preview-buyer-seccion:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+.preview-buyer-seccion-titulo {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--verde);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.preview-buyer-seccion p {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.55;
+  margin: 0;
+}
+.preview-vacio {
+  text-align: center;
+  color: var(--gris-3);
+  font-style: italic;
+  padding: 30px 20px;
+}
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Marketing Mix · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Marketing Mix</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html" class="active">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Marketing Mix</a>
+      <span>›</span>
+      <span>Módulo 02</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 2 de 6
+    </span>
+    <h1>Conocé a <em>tu cliente</em></h1>
+    <p>Antes de hablar de producto, precio o promoción, conviene responder una pregunta: ¿quién es la persona que te compra? Conocer al cliente cambia todas las decisiones que vienen después.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 33%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 02 / 06</span>
+      <span>33% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">"Yo le vendo a todo el mundo." Esa frase, que se escucha mucho en emprendedores que recién empiezan, es uno de los errores más comunes del marketing. La realidad es la contraria: <strong>cuanto más específico es el cliente al que apuntás, más fácil es venderle</strong>. Suena raro, pero tiene una explicación lógica y vamos a verla en este módulo.</p>
+
+    <h2>El error de querer venderle <em>a todos</em></h2>
+
+    <div class="comparacion">
+      <div class="comp-card malo">
+        <div class="comp-card-icon">😵</div>
+        <div class="comp-card-eyebrow">No funciona</div>
+        <h3>"Le vendo a todo el mundo"</h3>
+        <p>Cuando tu mensaje quiere llegar a todos, no le habla a nadie en particular. La comunicación se vuelve genérica, los productos pierden personalidad, y los clientes no sienten que es para ellos.</p>
+        <div class="comp-card-ejemplo">Ejemplo: "Tortas caseras para toda ocasión, ricas y económicas, para vos y tu familia."</div>
+      </div>
+      <div class="comp-card bueno">
+        <div class="comp-card-icon">🎯</div>
+        <div class="comp-card-eyebrow">Funciona</div>
+        <h3>"Le vendo a un grupo específico"</h3>
+        <p>Cuando definís bien a quién apuntás, podés hablarle directamente. El mensaje conecta, el producto se ajusta a esa necesidad, y el cliente siente que el emprendimiento "lo entiende".</p>
+        <div class="comp-card-ejemplo">Ejemplo: "Tortas decoradas para cumpleaños infantiles, hechas a pedido, con personajes de cada chico."</div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Apuntar a un cliente específico no significa <em>perder</em> a los demás. Significa tener un mensaje claro que conecta primero con uno, y de ahí se expande.</p>
+    </div>
+
+    <h2>Segmentación de mercado: criterios para dividir</h2>
+
+    <p>La <strong>segmentación de mercado</strong> es el proceso de dividir a tus posibles clientes en grupos con características similares. Cada grupo, llamado <em>segmento</em>, tiene necesidades, gustos y comportamientos parecidos entre sí, y distintos a los de otros segmentos.</p>
+
+    <div class="criterios">
+      <div class="criterios-label">Las cuatro patas de la segmentación</div>
+      <h3>Cuatro criterios para dividir tu mercado</h3>
+      <div class="criterios-grid">
+        <div class="criterio-item">
+          <div class="criterio-nombre">Geográfica</div>
+          <div class="criterio-ej">Dónde viven: ciudad, barrio, zona, país. Útil si el local físico o el delivery limitan el alcance.</div>
+        </div>
+        <div class="criterio-item">
+          <div class="criterio-nombre">Demográfica</div>
+          <div class="criterio-ej">Edad, género, ocupación, ingresos, nivel educativo, situación familiar.</div>
+        </div>
+        <div class="criterio-item">
+          <div class="criterio-nombre">Psicográfica</div>
+          <div class="criterio-ej">Estilo de vida, valores, intereses, personalidad. Por ejemplo: "personas que valoran lo artesanal" o "deportistas amateur".</div>
+        </div>
+        <div class="criterio-item">
+          <div class="criterio-nombre">Conductual</div>
+          <div class="criterio-ej">Cómo usan el producto, con qué frecuencia, cuándo compran, qué valoran (precio, calidad, urgencia).</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Del segmento al <em>buyer persona</em></h2>
+
+    <div class="buyer-card">
+      <span class="buyer-card-label">Herramienta clave</span>
+      <h3>El cliente ideal con nombre y apellido</h3>
+      <p>Una vez que tenés definido tu segmento, viene el paso más útil: construir un <strong>buyer persona</strong>. Es una representación ficticia pero detallada de tu cliente ideal. Le ponés nombre, edad, ocupación, lo que le gusta, lo que le preocupa, lo que busca cuando compra.</p>
+      <p>Suena exagerado al principio, pero funciona. Cuando tenés que tomar una decisión ("¿le pongo este nombre al producto?", "¿hago publicidad en Facebook o Instagram?", "¿el precio es muy alto?"), podés preguntarte: <em>"¿qué haría María, mi clienta ideal?"</em>. Y la respuesta aparece sola.</p>
+
+      <div class="buyer-ejemplo">
+        <h4>Ejemplo: Cliente ideal de una repostería de cumpleaños infantiles</h4>
+        <ul>
+          <li><strong>Nombre:</strong> Carolina</li>
+          <li><strong>Edad:</strong> 34 años</li>
+          <li><strong>Ocupación:</strong> Empleada administrativa con dos hijos chicos</li>
+          <li><strong>Vive en:</strong> Rawson, zona céntrica</li>
+          <li><strong>Qué necesita:</strong> Una torta linda para el cumpleaños del nene, sin tener que hacerla ella, con poco tiempo disponible</li>
+          <li><strong>Qué la frena:</strong> Le preocupa el precio y que llegue a tiempo el día del cumpleaños</li>
+          <li><strong>Dónde busca:</strong> Instagram, recomendaciones de mamás del jardín</li>
+          <li><strong>Frase típica:</strong> "Quiero algo lindo y prolijo, pero a un precio razonable"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>El buyer persona no es una verdad fija: es una hipótesis para validar</h4>
+      <p>El marketing clásico te invita a "estudiar" a tu cliente desde un escritorio, antes de salir a vender. Pero para un emprendimiento que recién arranca, esto no funciona bien: <strong>el cliente real aparece cuando empezás a vender, no antes</strong>. Por eso conviene mirar el buyer persona como un primer borrador, una idea que vas a ajustar a medida que conozcás gente real.</p>
+      <p>La recomendación práctica: armá el perfil ahora, salí a vender y, en las primeras semanas, anotá lo que descubrís de tus clientes reales. Es muy probable que tu buyer persona inicial cambie. Y eso está bien: significa que estás aprendiendo del mercado.</p>
+      <div class="mirada-inc-cita">
+        "No existe una manera de estudiar la demanda de un producto que aún no existe, excepto testeándola, vinculando la propuesta de valor con los potenciales clientes y escuchando qué tienen para decir sobre ella. En síntesis: aprendiendo del mercado de forma directa."
+        <strong>Luna y Gallo (2018), Incremental, p. 103</strong>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-buyer">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">👤</div>
+          <h3>Construí tu buyer persona</h3>
+        </div>
+        <span class="editor-tool-tag">Tu plan · Paso 1</span>
+      </div>
+      <p class="editor-tool-desc">Vamos a construir el perfil de tu cliente ideal. Algunos datos van guiados (elegís opciones); para otros vas a escribir vos. <strong>No tiene que ser perfecto:</strong> es una primera versión que podés ajustar más adelante.</p>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Quién es</div>
+        <p class="form-seccion-desc">Datos básicos del cliente ideal. Si pensás en alguien que ya te compra, puede ser ese perfil.</p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="bp-nombre">Nombre (ficticio)</label>
+            <input type="text" id="bp-nombre" maxlength="40" placeholder="María, Carlos, Sofía...">
+            <small>Es un nombre cualquiera, solo para ponerle cara</small>
+          </div>
+          <div class="form-field">
+            <label for="bp-edad">Rango de edad</label>
+            <select id="bp-edad">
+              <option value="">Elegir...</option>
+              <option value="18-25">18 a 25 años</option>
+              <option value="25-35">25 a 35 años</option>
+              <option value="35-50">35 a 50 años</option>
+              <option value="50-65">50 a 65 años</option>
+              <option value="mas-65">Más de 65</option>
+              <option value="mixto">Mezcla de edades</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="bp-genero">Género</label>
+            <select id="bp-genero">
+              <option value="">Elegir...</option>
+              <option value="mujer">Principalmente mujeres</option>
+              <option value="varon">Principalmente varones</option>
+              <option value="mixto">Mixto, no distingue</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="bp-ocupacion">Ocupación o situación</label>
+            <input type="text" id="bp-ocupacion" maxlength="60" placeholder="Empleado/a, ama de casa, estudiante...">
+          </div>
+          <div class="form-field full">
+            <label for="bp-zona">Zona donde vive</label>
+            <input type="text" id="bp-zona" maxlength="80" placeholder="Centro de Rawson, barrios cercanos, toda la ciudad...">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Qué necesita y qué valora</div>
+        <p class="form-seccion-desc">Acá vamos al corazón de tu cliente: qué problema le resolvés y qué busca al comprar.</p>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label>Qué valora al comprar (podés elegir varios)</label>
+            <div class="chips-area" id="chips-valora">
+              <button type="button" class="chip-toggle" data-valor="precio-bajo">Precio bajo</button>
+              <button type="button" class="chip-toggle" data-valor="calidad">Calidad</button>
+              <button type="button" class="chip-toggle" data-valor="rapidez">Rapidez</button>
+              <button type="button" class="chip-toggle" data-valor="trato-cercano">Trato cercano</button>
+              <button type="button" class="chip-toggle" data-valor="diseno">Diseño</button>
+              <button type="button" class="chip-toggle" data-valor="recomendacion">Recomendación</button>
+              <button type="button" class="chip-toggle" data-valor="artesanal">Lo artesanal</button>
+              <button type="button" class="chip-toggle" data-valor="conveniencia">Conveniencia</button>
+              <button type="button" class="chip-toggle" data-valor="exclusividad">Exclusividad</button>
+              <button type="button" class="chip-toggle" data-valor="confianza">Confianza</button>
+            </div>
+          </div>
+          <div class="form-field full">
+            <label for="bp-necesidad">Qué necesita resolver (con tus palabras)</label>
+            <textarea id="bp-necesidad" maxlength="200" placeholder="Ej: necesita una torta linda para el cumple, pero no tiene tiempo de hacerla."></textarea>
+            <small>Pensá en el problema concreto que tu emprendimiento resuelve</small>
+          </div>
+          <div class="form-field full">
+            <label for="bp-freno">Qué la o lo frena al comprar (preocupaciones)</label>
+            <textarea id="bp-freno" maxlength="200" placeholder="Ej: le preocupa el precio, o que llegue a tiempo, o no saber si va a quedar bien."></textarea>
+            <small>Las dudas o miedos que pueden hacer que NO compre</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Cómo se entera de los productos</div>
+        <p class="form-seccion-desc">Dónde busca información cuando necesita comprar algo parecido a lo que vendés.</p>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label>Dónde busca o se informa (podés elegir varios)</label>
+            <div class="chips-area" id="chips-canal">
+              <button type="button" class="chip-toggle" data-valor="instagram">Instagram</button>
+              <button type="button" class="chip-toggle" data-valor="facebook">Facebook</button>
+              <button type="button" class="chip-toggle" data-valor="whatsapp">WhatsApp</button>
+              <button type="button" class="chip-toggle" data-valor="tiktok">TikTok</button>
+              <button type="button" class="chip-toggle" data-valor="recomendacion">Recomendación de conocidos</button>
+              <button type="button" class="chip-toggle" data-valor="google">Búsquedas en Google</button>
+              <button type="button" class="chip-toggle" data-valor="caminando">Caminando por el barrio</button>
+              <button type="button" class="chip-toggle" data-valor="ferias">Ferias y eventos</button>
+              <button type="button" class="chip-toggle" data-valor="diarios">Diarios y radio local</button>
+            </div>
+          </div>
+          <div class="form-field full">
+            <label for="bp-frase">Frase típica de tu cliente (con sus palabras)</label>
+            <input type="text" id="bp-frase" maxlength="120" placeholder="Ej: 'Quiero algo lindo pero a un precio razonable'">
+            <small>Una frase que se imagina diciendo cuando piensa en comprar lo que vendés</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-buyer">
+        <div class="preview-buyer-label">Tu buyer persona</div>
+        <div class="preview-buyer-card" id="preview-buyer-card">
+          <div class="preview-vacio">Tu cliente ideal va a aparecer acá a medida que completés los campos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Conocer al cliente es la base de todo lo demás</h3>
+      <p>Las 4 P del marketing (producto, precio, plaza, promoción) son decisiones que se toman <em>en función del cliente</em>. Por eso este módulo es el más importante del curso: si te equivocás acá, las decisiones que vengan después van a ser confusas. Si acertás, todo lo demás se vuelve más fácil. En el próximo módulo arrancamos con las dos primeras P: producto y precio.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-01.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">01 · ¿Qué es el marketing?</span>
+    </a>
+    <a href="modulo-03.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">03 · Producto y precio</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Marketing Mix" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es el marketing?</a></li>
+          <li><a href="modulo-02.html">02 · Conocé a tu cliente</a></li>
+          <li><a href="modulo-03.html">03 · Producto y precio</a></li>
+          <li><a href="modulo-04.html">04 · Plaza</a></li>
+          <li><a href="modulo-05.html">05 · Promoción</a></li>
+          <li><a href="modulo-06.html">06 · Tu plan de marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var MKT_KEY = 'epja753_mkt_datos';
+
+function leerMkt() {
+  try { return JSON.parse(localStorage.getItem(MKT_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarMkt(d) {
+  try { localStorage.setItem(MKT_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function getBuyerPersona() {
+  var valoraChips = document.querySelectorAll('#chips-valora .chip-toggle.active');
+  var canalChips = document.querySelectorAll('#chips-canal .chip-toggle.active');
+  return {
+    bpNombre: document.getElementById('bp-nombre').value.trim(),
+    bpEdad: document.getElementById('bp-edad').value,
+    bpGenero: document.getElementById('bp-genero').value,
+    bpOcupacion: document.getElementById('bp-ocupacion').value.trim(),
+    bpZona: document.getElementById('bp-zona').value.trim(),
+    bpValora: Array.from(valoraChips).map(function(c) { return c.dataset.valor; }),
+    bpNecesidad: document.getElementById('bp-necesidad').value.trim(),
+    bpFreno: document.getElementById('bp-freno').value.trim(),
+    bpCanal: Array.from(canalChips).map(function(c) { return c.dataset.valor; }),
+    bpFrase: document.getElementById('bp-frase').value.trim()
+  };
+}
+
+function setBuyerPersona(d) {
+  if (d.bpNombre) document.getElementById('bp-nombre').value = d.bpNombre;
+  if (d.bpEdad) document.getElementById('bp-edad').value = d.bpEdad;
+  if (d.bpGenero) document.getElementById('bp-genero').value = d.bpGenero;
+  if (d.bpOcupacion) document.getElementById('bp-ocupacion').value = d.bpOcupacion;
+  if (d.bpZona) document.getElementById('bp-zona').value = d.bpZona;
+  if (d.bpNecesidad) document.getElementById('bp-necesidad').value = d.bpNecesidad;
+  if (d.bpFreno) document.getElementById('bp-freno').value = d.bpFreno;
+  if (d.bpFrase) document.getElementById('bp-frase').value = d.bpFrase;
+  
+  if (Array.isArray(d.bpValora)) {
+    d.bpValora.forEach(function(v) {
+      var chip = document.querySelector('#chips-valora .chip-toggle[data-valor="' + v + '"]');
+      if (chip) chip.classList.add('active');
+    });
+  }
+  if (Array.isArray(d.bpCanal)) {
+    d.bpCanal.forEach(function(v) {
+      var chip = document.querySelector('#chips-canal .chip-toggle[data-valor="' + v + '"]');
+      if (chip) chip.classList.add('active');
+    });
+  }
+}
+
+function edadTexto(v) {
+  var map = {
+    '18-25': '18-25 años',
+    '25-35': '25-35 años',
+    '35-50': '35-50 años',
+    '50-65': '50-65 años',
+    'mas-65': 'Más de 65',
+    'mixto': 'Mezcla de edades'
+  };
+  return map[v] || '';
+}
+function generoTexto(v) {
+  var map = {
+    'mujer': 'mujer',
+    'varon': 'varón',
+    'mixto': 'género mixto'
+  };
+  return map[v] || '';
+}
+function valorLabel(v) {
+  var map = {
+    'precio-bajo':'precio bajo', 'calidad':'calidad', 'rapidez':'rapidez',
+    'trato-cercano':'trato cercano', 'diseno':'diseño', 'recomendacion':'recomendaciones',
+    'artesanal':'lo artesanal', 'conveniencia':'la conveniencia', 'exclusividad':'la exclusividad', 'confianza':'la confianza',
+    'instagram':'Instagram', 'facebook':'Facebook', 'whatsapp':'WhatsApp', 'tiktok':'TikTok',
+    'google':'Google', 'caminando':'caminando por el barrio', 'ferias':'ferias', 'diarios':'diarios y radio'
+  };
+  return map[v] || v;
+}
+
+function actualizarPreview() {
+  var d = getBuyerPersona();
+  var preview = document.getElementById('preview-buyer-card');
+  if (!d.bpNombre && !d.bpEdad && !d.bpOcupacion) {
+    preview.innerHTML = '<div class="preview-vacio">Tu cliente ideal va a aparecer acá a medida que completés los campos.</div>';
+    return;
+  }
+  var html = '';
+  html += '<div class="preview-buyer-nombre">' + (d.bpNombre || 'Tu cliente') + '</div>';
+  var datosBasicos = [];
+  if (d.bpEdad) datosBasicos.push(edadTexto(d.bpEdad));
+  if (d.bpGenero) datosBasicos.push(generoTexto(d.bpGenero));
+  if (d.bpOcupacion) datosBasicos.push(d.bpOcupacion);
+  if (d.bpZona) datosBasicos.push(d.bpZona);
+  if (datosBasicos.length) html += '<div class="preview-buyer-edad">' + datosBasicos.join(' · ') + '</div>';
+  
+  if (d.bpValora.length || d.bpNecesidad || d.bpFreno) {
+    html += '<div class="preview-buyer-seccion">';
+    html += '<div class="preview-buyer-seccion-titulo">Qué busca</div>';
+    if (d.bpValora.length) {
+      html += '<p>Valora: ' + d.bpValora.map(valorLabel).join(', ') + '.</p>';
+    }
+    if (d.bpNecesidad) html += '<p>' + d.bpNecesidad + '</p>';
+    if (d.bpFreno) html += '<p><em>Pero le preocupa: ' + d.bpFreno + '</em></p>';
+    html += '</div>';
+  }
+  
+  if (d.bpCanal.length || d.bpFrase) {
+    html += '<div class="preview-buyer-seccion">';
+    html += '<div class="preview-buyer-seccion-titulo">Dónde y cómo</div>';
+    if (d.bpCanal.length) html += '<p>Se entera por: ' + d.bpCanal.map(valorLabel).join(', ') + '.</p>';
+    if (d.bpFrase) html += '<p style="font-style:italic; color:var(--azul);">"' + d.bpFrase + '"</p>';
+    html += '</div>';
+  }
+  preview.innerHTML = html;
+}
+
+function guardar() {
+  var datos = leerMkt();
+  Object.assign(datos, getBuyerPersona());
+  guardarMkt(datos);
+  actualizarPreview();
+}
+
+// Listeners de inputs
+['bp-nombre', 'bp-ocupacion', 'bp-zona', 'bp-necesidad', 'bp-freno', 'bp-frase'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardar);
+});
+['bp-edad', 'bp-genero'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('change', guardar);
+});
+
+// Chips toggleables
+document.querySelectorAll('.chip-toggle').forEach(function(chip) {
+  chip.addEventListener('click', function() {
+    chip.classList.toggle('active');
+    guardar();
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerMkt();
+  setBuyerPersona(datos);
+  actualizarPreview();
+
+  var tipo;
+  try { tipo = localStorage.getItem('epja753_mkt_tipo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && tipo) {
+    if (tipo === 'fisico') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Producto físico</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a productos tangibles</span></div>';
+      banner.style.display = 'block';
+    } else if (tipo === 'servicio') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Servicio</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a servicios</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
