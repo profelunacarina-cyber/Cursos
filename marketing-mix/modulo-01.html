@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · ¿Qué es el marketing? · Marketing Mix · EPJA 753</title>
+<meta name="description" content="Módulo 1: qué es el marketing y qué no es, aplicado al emprendimiento.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Es y no es */
+.es-noes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .es-noes { grid-template-columns: 1fr; } }
+.lista-marketing {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.lista-marketing::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.lista-marketing.es::before { background: var(--verde); }
+.lista-marketing.no-es::before { background: var(--rojo); }
+.lista-marketing-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.lista-marketing.es .lista-marketing-icon { background: var(--verde-3); color: var(--verde); }
+.lista-marketing.no-es .lista-marketing-icon { background: #fee; color: var(--rojo); }
+.lista-marketing-icon svg { width: 22px; height: 22px; }
+.lista-marketing-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.lista-marketing.es .lista-marketing-eyebrow { color: var(--verde); }
+.lista-marketing.no-es .lista-marketing-eyebrow { color: var(--rojo); }
+.lista-marketing h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--azul);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.lista-marketing ul { list-style: none; padding: 0; margin: 0; }
+.lista-marketing li {
+  padding: 10px 0 10px 24px;
+  position: relative;
+  font-size: 13.5px;
+  color: var(--tinta);
+  line-height: 1.55;
+  border-bottom: 1px dashed var(--gris-2);
+}
+.lista-marketing li:last-child { border-bottom: none; }
+.lista-marketing li::before {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  font-weight: 700;
+}
+.lista-marketing.es li::before { content: "✓"; color: var(--verde); }
+.lista-marketing.no-es li::before { content: "✗"; color: var(--rojo); }
+
+/* Las 4 P */
+.las-4p {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.las-4p::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.las-4p-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.las-4p h3 {
+  font-family: var(--sans);
+  font-size: 24px;
+  margin: 0 0 20px;
+  font-weight: 500;
+  position: relative;
+  color: #fff;
+}
+.p-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  position: relative;
+}
+@media (max-width: 600px) { .p-grid { grid-template-columns: 1fr; } }
+.p-item {
+  background: rgba(255,255,255,0.1);
+  padding: 16px 18px;
+  border-radius: var(--r-sm);
+}
+.p-letra {
+  font-family: var(--sans);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.p-nombre {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.p-desc {
+  font-size: 13px;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+/* Quiz: ¿qué es marketing? */
+.quiz-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) { .quiz-tool { padding: 24px; border-radius: var(--r-lg); } }
+.quiz-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.quiz-tool-title { display: flex; align-items: center; gap: 14px; }
+.quiz-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-tool-icon svg { width: 22px; height: 22px; }
+.quiz-tool h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--azul);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.quiz-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.quiz-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.situacion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.situacion-num {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--gris-3);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.situacion-texto {
+  font-size: 15px;
+  color: var(--tinta);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.situacion-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 600px) { .situacion-opts { grid-template-columns: 1fr; } }
+.opt-btn {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--sans);
+  color: var(--tinta);
+  line-height: 1.45;
+}
+.opt-btn:hover:not(:disabled) {
+  border-color: var(--verde);
+  background: var(--verde-3);
+}
+.opt-btn.correcta {
+  background: var(--verde-3);
+  border-color: var(--verde);
+  color: var(--verde);
+  font-weight: 500;
+}
+.opt-btn.incorrecta {
+  background: #fee;
+  border-color: var(--rojo);
+  color: var(--rojo);
+}
+.opt-btn:disabled { cursor: default; }
+.situacion-fb {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: 13.5px;
+  line-height: 1.55;
+  background: var(--azul-3);
+  color: var(--azul);
+  border-left: 3px solid var(--azul);
+}
+.situacion-fb.show { display: block; }
+.situacion-fb strong { font-weight: 600; }
+
+/* Mirada */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--azul);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Marketing Mix · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Marketing Mix</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html" class="active">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Marketing Mix</a>
+      <span>›</span>
+      <span>Módulo 01</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 1 de 6
+    </span>
+    <h1>¿Qué es el <em>marketing</em>, realmente?</h1>
+    <p>Antes de hablar de las 4 P, conviene sacar de la cabeza algunas ideas equivocadas sobre marketing. Saber qué es, y sobre todo qué no es, ayuda a aplicarlo bien en un emprendimiento pequeño.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 16%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 01 / 06</span>
+      <span>16% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Cuando alguien escucha "marketing" piensa en publicidades en televisión, en gente con traje en oficinas grandes, en presupuestos enormes. Por eso muchos emprendedores creen que <em>"el marketing no es para mí"</em>. Y eso es un error. El marketing es algo mucho más simple, mucho más accesible y absolutamente clave para que un emprendimiento funcione. En este módulo vamos a ver qué es realmente.</p>
+
+    <h2>Una definición útil</h2>
+
+    <p>El marketing es el conjunto de acciones que hace un emprendimiento para <strong>identificar qué necesita la gente</strong>, <strong>ofrecerle algo que cubra esa necesidad</strong> y <strong>comunicárselo bien</strong>. Es eso. No es publicidad cara, ni redes sociales con muchos seguidores, ni nombres en inglés. Es entender a quien te compra y darle valor.</p>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Marketing no es vender lo que producís. Marketing es <em>producir lo que la gente necesita</em>, y comunicarlo de forma clara.</p>
+    </div>
+
+    <h2>Qué es el marketing, qué no es</h2>
+
+    <div class="es-noes">
+      <div class="lista-marketing es">
+        <div class="lista-marketing-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="lista-marketing-eyebrow">Sí es marketing</div>
+        <h3>Lo que ya hacés sin saberlo</h3>
+        <ul>
+          <li>Preguntarle a un cliente qué le gustó y qué no del producto</li>
+          <li>Decidir el horario de atención según cuándo viene más gente</li>
+          <li>Cambiar el envoltorio porque uno se ve más cuidado</li>
+          <li>Subir una foto del producto en WhatsApp para que vean cómo quedó</li>
+          <li>Bajar el precio en una temporada baja</li>
+          <li>Recomendar tus productos a clientes con necesidades específicas</li>
+          <li>Pedirle al cliente conforme que te recomiende</li>
+        </ul>
+      </div>
+
+      <div class="lista-marketing no-es">
+        <div class="lista-marketing-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="lista-marketing-eyebrow">No es solamente</div>
+        <h3>Mitos que conviene desarmar</h3>
+        <ul>
+          <li>"Marketing es solo publicidad" → es mucho más amplio</li>
+          <li>"Marketing es manipular a la gente" → es entender, no manipular</li>
+          <li>"Marketing requiere presupuesto grande" → mucho se hace con casi cero</li>
+          <li>"Para vender hay que estar en Instagram" → no siempre</li>
+          <li>"Lo que importa es vender más" → importa vender mejor</li>
+          <li>"Es algo que se hace cuando ya tenés mucho cliente" → arranca antes</li>
+          <li>"Eso es para empresas grandes" → arranca con tu primera venta</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>¿De dónde vienen <em>las 4 P</em>?</h2>
+
+    <p>El marketing tiene un concepto central que es la base de este curso: el <strong>marketing mix</strong>, también conocido como <strong>las 4 P</strong>. Fue formulado por el economista Jerome McCarthy en 1960, y desde entonces se enseña en escuelas y universidades de todo el mundo. La idea es simple: cuando ofrecés algo al mercado, hay 4 variables que podés ajustar para que tu negocio funcione mejor. Las cuatro empiezan con la letra P en inglés (y se mantienen en español por tradición).</p>
+
+    <div class="las-4p">
+      <div class="las-4p-label">Las cuatro variables</div>
+      <h3>El marketing mix de McCarthy</h3>
+      <div class="p-grid">
+        <div class="p-item">
+          <div class="p-letra">P</div>
+          <div class="p-nombre">Producto</div>
+          <div class="p-desc">Qué ofrecés. Características, beneficios, calidad, marca.</div>
+        </div>
+        <div class="p-item">
+          <div class="p-letra">P</div>
+          <div class="p-nombre">Precio</div>
+          <div class="p-desc">A cuánto lo vendés. Estrategia, descuentos, formas de pago.</div>
+        </div>
+        <div class="p-item">
+          <div class="p-letra">P</div>
+          <div class="p-nombre">Plaza</div>
+          <div class="p-desc">Dónde lo vendés. Local, redes, ferias, delivery, mayoristas.</div>
+        </div>
+        <div class="p-item">
+          <div class="p-letra">P</div>
+          <div class="p-nombre">Promoción</div>
+          <div class="p-desc">Cómo te das a conocer. Publicidad, redes, boca a boca.</div>
+        </div>
+      </div>
+    </div>
+
+    <p>En este curso vamos a recorrer las 4 P una por una. Pero antes (en el módulo 2) vamos a trabajar algo fundamental: <strong>conocer al cliente</strong>. Porque sin entender al cliente, las 4 P se aplican a ciegas.</p>
+
+    <div class="quiz-tool">
+      <div class="quiz-tool-header">
+        <div class="quiz-tool-title">
+          <div class="quiz-tool-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/></svg>
+          </div>
+          <h3>¿Cuál es la "P" en cada caso?</h3>
+        </div>
+        <span class="quiz-tool-tag">Ejercicio inicial</span>
+      </div>
+      <p class="quiz-desc">A continuación tres situaciones reales de un emprendimiento. Elegí en cada una a qué "P" del marketing mix corresponde. Al elegir, vas a ver una explicación.</p>
+
+      <div class="situacion">
+        <div class="situacion-num">SITUACIÓN 01</div>
+        <div class="situacion-texto">Una repostera decide cambiar su packaging de cartulina simple por una caja con su logo, porque vio que los clientes lo valoran al regalar las tortas.</div>
+        <div class="situacion-opts">
+          <button class="opt-btn" data-q="0" onclick="responder(this, 0, true, 'Correcto. El packaging es parte del <strong>producto</strong>: forma parte de lo que el cliente recibe. No es solo el contenido, también es cómo se entrega.')">Producto</button>
+          <button class="opt-btn" data-q="0" onclick="responder(this, 0, false, 'No. La caja con logo es parte del <strong>producto</strong>, no del precio. El precio es a cuánto se vende, no qué se entrega.')">Precio</button>
+          <button class="opt-btn" data-q="0" onclick="responder(this, 0, false, 'No. El packaging no es plaza. <strong>Plaza</strong> es dónde se vende. Acá estamos hablando de qué se entrega: eso es producto.')">Plaza</button>
+          <button class="opt-btn" data-q="0" onclick="responder(this, 0, false, 'No. La caja con logo puede ayudar a la promoción (porque suma imagen), pero esencialmente es parte del <strong>producto</strong>.')">Promoción</button>
+        </div>
+        <div class="situacion-fb" id="fb-0"></div>
+      </div>
+
+      <div class="situacion">
+        <div class="situacion-num">SITUACIÓN 02</div>
+        <div class="situacion-texto">Un peluquero decide ofrecer un 20% de descuento los martes y miércoles porque son sus días con menos clientes.</div>
+        <div class="situacion-opts">
+          <button class="opt-btn" data-q="1" onclick="responder(this, 1, false, 'No. El servicio no cambia. Lo que cambia es el <strong>precio</strong>: aplicar un descuento es una decisión de precio.')">Producto</button>
+          <button class="opt-btn" data-q="1" onclick="responder(this, 1, true, 'Correcto. Aplicar descuentos por día es una decisión de <strong>precio</strong>. El precio incluye no solo el monto base, sino también las promociones temporales.')">Precio</button>
+          <button class="opt-btn" data-q="1" onclick="responder(this, 1, false, 'No. La plaza (el lugar de venta) no cambia. Lo que cambia es el monto a cobrar: eso es <strong>precio</strong>.')">Plaza</button>
+          <button class="opt-btn" data-q="1" onclick="responder(this, 1, false, 'No. Aunque el descuento se comunique con un cartel (eso sería promoción), la decisión de bajar el precio es de la P de <strong>precio</strong>.')">Promoción</button>
+        </div>
+        <div class="situacion-fb" id="fb-1"></div>
+      </div>
+
+      <div class="situacion">
+        <div class="situacion-num">SITUACIÓN 03</div>
+        <div class="situacion-texto">Una emprendedora que vendía solo a vecinos del barrio empieza a tomar pedidos por Instagram y a enviar productos por moto a toda la ciudad.</div>
+        <div class="situacion-opts">
+          <button class="opt-btn" data-q="2" onclick="responder(this, 2, false, 'No. El producto no cambió. Cambió <strong>dónde y cómo</strong> se vende: eso es plaza.')">Producto</button>
+          <button class="opt-btn" data-q="2" onclick="responder(this, 2, false, 'No. El precio puede ajustarse por el envío, pero el cambio principal es de <strong>plaza</strong>: nuevos canales de venta.')">Precio</button>
+          <button class="opt-btn" data-q="2" onclick="responder(this, 2, true, 'Correcto. Sumar Instagram como canal de pedidos y delivery como forma de llegar al cliente es una decisión de <strong>plaza</strong>: dónde se vende.')">Plaza</button>
+          <button class="opt-btn" data-q="2" onclick="responder(this, 2, false, 'No. Instagram también se usa para promoción, pero acá el cambio es de canal de venta: <strong>plaza</strong>.')">Promoción</button>
+        </div>
+        <div class="situacion-fb" id="fb-2"></div>
+      </div>
+
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>El marketing arranca con la primera venta</h3>
+      <p>No hay que esperar a tener un negocio grande, ni un presupuesto importante, ni un equipo. Desde el primer producto vendido o el primer servicio prestado, ya estás haciendo marketing. La pregunta no es si lo hacés, es si lo hacés bien o mal, con criterio o por intuición. En el próximo módulo vamos a empezar por lo más importante: entender a quién le estamos vendiendo.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="index.html" class="prev">
+      <span class="label">← Volver</span>
+      <span class="title">Inicio del curso</span>
+    </a>
+    <a href="modulo-02.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">02 · Conocé a tu cliente</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Marketing Mix" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es el marketing?</a></li>
+          <li><a href="modulo-02.html">02 · Conocé a tu cliente</a></li>
+          <li><a href="modulo-03.html">03 · Producto y precio</a></li>
+          <li><a href="modulo-04.html">04 · Plaza</a></li>
+          <li><a href="modulo-05.html">05 · Promoción</a></li>
+          <li><a href="modulo-06.html">06 · Tu plan de marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+function responder(btn, idx, correcto, mensaje) {
+  var grupo = btn.parentElement;
+  var todos = grupo.querySelectorAll('.opt-btn');
+  todos.forEach(function(b) { b.disabled = true; });
+  if (correcto) {
+    btn.classList.add('correcta');
+  } else {
+    btn.classList.add('incorrecta');
+    todos.forEach(function(b) {
+      if (b.onclick.toString().indexOf('true,') !== -1) b.classList.add('correcta');
+    });
+  }
+  var fb = document.getElementById('fb-' + idx);
+  fb.innerHTML = mensaje;
+  fb.classList.add('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var tipo;
+  try { tipo = localStorage.getItem('epja753_mkt_tipo'); } catch (e) {}
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('tipo')) {
+    tipo = params.get('tipo');
+    try { localStorage.setItem('epja753_mkt_tipo', tipo); } catch (e) {}
+  }
+  var banner = document.getElementById('mode-banner');
+  if (banner && tipo) {
+    if (tipo === 'fisico') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Producto físico</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a productos tangibles</span></div>';
+      banner.style.display = 'block';
+    } else if (tipo === 'servicio') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Servicio</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a servicios</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
