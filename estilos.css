@@ -1,30 +1,51 @@
 :root {
-  --azul: #003050;
-  --azul-2: #0a4a78;
-  --azul-3: #e8f1f7;
-  --verde: #006020;
-  --verde-2: #00832e;
-  --verde-3: #e8f5ec;
-  --hueso: #e0f0f0;
-  --hueso-2: #f4faf9;
-  --crema: #fbfaf7;
-  --gris-1: #f7f8fa;
-  --gris-2: #e6e8ec;
-  --gris-3: #9aa0a8;
-  --gris-4: #4a5058;
-  --tinta: #1a1f26;
-  --amarillo: #f5c842;
-  --rojo: #c2410c;
-  --serif: 'Fraunces', Georgia, serif;
-  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* ============ PALETA MODERNIZADA ============ */
+  /* Azul-violeta principal (índigo moderno) */
+  --azul: #4338ca;
+  --azul-2: #6366f1;
+  --azul-3: #eef2ff;
+  --azul-soft: #f5f3ff;
+
+  /* Verde acento (esmeralda suave) */
+  --verde: #10b981;
+  --verde-2: #34d399;
+  --verde-3: #ecfdf5;
+
+  /* Coral / cálido (para destacar) */
+  --coral: #f97316;
+  --coral-soft: #fff7ed;
+
+  /* Crema y blancos */
+  --hueso: #fef3c7;
+  --hueso-2: #fffbeb;
+  --crema: #fafaf9;
+
+  /* Grises cálidos (stone) */
+  --gris-1: #fafaf9;
+  --gris-2: #e7e5e4;
+  --gris-3: #a8a29e;
+  --gris-4: #57534e;
+  --tinta: #1c1917;
+
+  /* Otros */
+  --amarillo: #facc15;
+  --rojo: #ef4444;
+
+  /* Tipografía */
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
-  --r-sm: 8px;
+
+  /* Redondeces (mezcla: cards grandes, botones medios) */
+  --r-sm: 10px;
   --r-md: 14px;
   --r-lg: 20px;
-  --r-xl: 28px;
-  --sombra-suave: 0 1px 2px rgba(0,48,80,0.04), 0 4px 12px rgba(0,48,80,0.04);
-  --sombra-media: 0 2px 4px rgba(0,48,80,0.06), 0 8px 24px rgba(0,48,80,0.08);
-  --sombra-fuerte: 0 4px 8px rgba(0,48,80,0.08), 0 20px 40px rgba(0,48,80,0.12);
+  --r-xl: 24px;
+
+  /* Sombras más suaves */
+  --sombra-suave: 0 1px 2px rgba(28,25,23,0.04), 0 2px 8px rgba(28,25,23,0.04);
+  --sombra-media: 0 2px 4px rgba(28,25,23,0.06), 0 8px 24px rgba(28,25,23,0.08);
+  --sombra-fuerte: 0 4px 8px rgba(28,25,23,0.08), 0 20px 40px rgba(28,25,23,0.10);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -113,45 +134,38 @@ a { color: var(--azul); }
   color: inherit;
 }
 .brand-mark {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--azul);
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--serif);
   font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.5px;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 1.5px var(--azul);
+  letter-spacing: 0.3px;
   position: relative;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(67,56,202,0.25);
 }
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  inset: -7px;
-  border: 1px dashed var(--gris-2);
-  border-radius: 50%;
-}
+.brand-mark::after { display: none; }
 .brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 .brand-text strong {
-  font-family: var(--serif);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--azul);
+  letter-spacing: -0.2px;
 }
 .brand-text span {
   font-size: 12px;
   color: var(--gris-4);
-  letter-spacing: 0.2px;
+  letter-spacing: 0;
+  font-weight: 500;
 }
 .nav {
   display: flex;
@@ -985,17 +999,17 @@ a { color: var(--azul); }
   border-radius: 50%;
 }
 .subhero h1 {
-  font-family: var(--serif);
-  font-weight: 500;
+  font-weight: 700;
   font-size: clamp(34px, 5vw, 52px);
-  line-height: 1.1;
-  letter-spacing: -1px;
-  color: var(--azul);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--tinta);
   margin-bottom: 16px;
 }
 .subhero h1 em {
-  font-style: italic;
-  color: var(--verde);
+  font-style: normal;
+  color: var(--azul);
+  font-weight: 700;
 }
 .subhero p {
   font-size: 18px;
@@ -1035,25 +1049,24 @@ a { color: var(--azul); }
   margin: 0 auto;
 }
 .section h2 {
-  font-family: var(--serif);
-  font-weight: 500;
+  font-weight: 700;
   font-size: clamp(26px, 3.5vw, 34px);
-  line-height: 1.2;
-  letter-spacing: -0.5px;
-  color: var(--azul);
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  color: var(--tinta);
   margin-bottom: 18px;
 }
 .section h2 em {
-  font-style: italic;
-  color: var(--verde);
+  font-style: normal;
+  color: var(--azul);
+  font-weight: 700;
 }
 .section h3 {
-  font-family: var(--serif);
   font-weight: 600;
-  font-size: 22px;
-  color: var(--azul);
+  font-size: 21px;
+  color: var(--tinta);
   margin: 32px 0 14px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
 }
 .section p {
   font-size: 16px;
