@@ -164,6 +164,62 @@
   opacity: 0.95;
 }
 
+/* Nota ANMAT (recurso externo destacado) */
+.nota-anmat {
+  background: linear-gradient(135deg, var(--verde-3) 0%, #fff 100%);
+  border: 1px solid var(--verde-3);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.nota-anmat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.nota-anmat-icon {
+  font-size: 22px;
+}
+.nota-anmat-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.nota-anmat h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.nota-anmat p {
+  font-size: 14.5px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin: 0 0 14px;
+}
+.nota-anmat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--verde);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.nota-anmat-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
 /* Tabla decidir canal */
 .tabla-decidir {
   background: #fff;
@@ -642,6 +698,16 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="nota-anmat">
+      <div class="nota-anmat-header">
+        <span class="nota-anmat-icon">📋</span>
+        <span class="nota-anmat-label">Dato importante para emprendimientos de alimentos</span>
+      </div>
+      <h4>¿Vendés comida? Necesitás el carnet de manipulador</h4>
+      <p>Si tu emprendimiento incluye productos alimenticios (repostería, viandas, conservas, ferias, comida elaborada), <strong>la ley exige tener el carnet oficial de Manipulación segura de alimentos</strong>. Sin él, ningún canal formal (ferias municipales, comercios, plataformas de delivery) te va a dejar vender. ANMAT ofrece el curso gratuito y virtual.</p>
+      <a href="https://www.argentina.gob.ar/anmat/regulados/alimentos/carnet-de-manipuladores/curso" target="_blank" rel="noopener" class="nota-anmat-btn">Inscribirme al curso de ANMAT <span>↗</span></a>
     </div>
 
     <h2>La <em>mezcla</em> de canales</h2>
