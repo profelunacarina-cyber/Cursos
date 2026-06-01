@@ -354,6 +354,69 @@
   border-color: var(--verde);
 }
 .eval-result-actions .primary:hover { background: var(--verde-2); }
+
+/* Bloque de aporte solidario */
+.aporte-bloque {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border: 1px solid var(--azul-3);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 28px 0 0;
+  text-align: center;
+}
+.aporte-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.aporte-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.aporte-bloque h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.aporte-bloque p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin: 0 0 20px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.aporte-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--azul);
+  color: #fff;
+  padding: 14px 26px;
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--sans);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.aporte-link:hover {
+  background: var(--azul-2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(67,56,202,0.25);
+}
+.aporte-pie {
+  font-size: 12px;
+  color: var(--gris-3);
+  margin-top: 14px;
+  font-style: italic;
+}
 </style>
 </head>
 <body>
@@ -454,6 +517,15 @@
         <a href="modulo-07.html">↓ Descargar mi CV</a>
         <button onclick="reiniciar()">Volver a intentar</button>
         <a href="../index.html">Volver al portal</a>
+      </div>
+
+      <div class="aporte-bloque" id="aporte-bloque" style="display:none;">
+        <div class="aporte-icon">🤝</div>
+        <div class="aporte-eyebrow">Aporte solidario</div>
+        <h3>Si este curso te aportó algo, ayudame a que aporte a otras personas</h3>
+        <p>Estos cursos son gratuitos y van a seguir siéndolo. Tu colaboración mantiene este proyecto vivo y abierto a todos: a más personas que necesitan herramientas para mejorar su currículum y conseguir trabajo.</p>
+        <a href="https://link.mercadopago.com.ar/profelunacursos" target="_blank" rel="noopener" class="aporte-link">Hacer un aporte solidario →</a>
+        <div class="aporte-pie">Cualquier monto suma · Pago seguro por MercadoPago</div>
       </div>
     </div>
 
@@ -703,6 +775,12 @@ function mostrarResultado() {
   }
   document.getElementById('r-titulo').textContent = titulo;
   document.getElementById('r-msg').textContent = msg;
+  
+  // Mostrar aporte solidario solo si aprobó (>=60%)
+  if (pct >= 60) {
+    document.getElementById('aporte-bloque').style.display = 'block';
+  }
+  
   registrarEnSheet(pct);
 }
 
