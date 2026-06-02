@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Estafas y decisiones · Finanzas · EPJA 753</title>
+<meta name="description" content="Módulo 5: cómo identificar esquemas piramidales, Ponzi y otras estafas financieras. Sesgos cognitivos.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Aviso destacado */
+.aviso-importante {
+  background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
+  border: 1px solid #fecaca;
+  border-left: 4px solid var(--rojo);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.aviso-importante h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--rojo);
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.aviso-importante p {
+  font-size: 14.5px;
+  color: var(--tinta);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Tipos de estafa */
+.estafas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .estafas-grid { grid-template-columns: 1fr; } }
+.estafa-card {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.estafa-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--rojo);
+}
+.estafa-icono {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #fef2f2;
+  color: var(--rojo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 26px;
+}
+.estafa-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--rojo);
+  margin-bottom: 6px;
+}
+.estafa-card h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.estafa-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.estafa-como {
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+.estafa-como-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gris-4);
+  margin-bottom: 8px;
+  display: block;
+}
+.estafa-como p {
+  font-size: 13.5px;
+  color: var(--tinta);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Caso real */
+.caso-real {
+  background: linear-gradient(135deg, var(--coral-soft) 0%, var(--crema) 100%);
+  border: 1px solid #fed7aa;
+  border-left: 4px solid var(--coral);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.caso-real-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.caso-real-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--coral);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.caso-real-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--coral);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.caso-real h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.caso-real p {
+  font-size: 14.5px;
+  color: #78350f;
+  line-height: 1.65;
+  margin: 0 0 10px;
+}
+.caso-real p:last-child { margin-bottom: 0; }
+
+/* Señales de alerta */
+.senales-alerta {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.senales-alerta::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.senales-alerta-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.senales-alerta h3 {
+  font-size: 24px;
+  margin: 0 0 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.senales-alerta-lista {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .senales-alerta-lista { grid-template-columns: 1fr; } }
+.senal-item {
+  background: rgba(255,255,255,0.1);
+  border-radius: var(--r-md);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.senal-item-num {
+  font-size: 22px;
+  font-weight: 700;
+  opacity: 0.4;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.senal-item-texto {
+  font-size: 13.5px;
+  line-height: 1.55;
+  opacity: 0.95;
+}
+.senal-item-texto strong { color: #fff; }
+
+/* Sesgos cognitivos */
+.sesgos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin: 24px 0 32px;
+}
+.sesgo-card {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+}
+.sesgo-icono {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.sesgo-card h4 {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--tinta);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+.sesgo-card > p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+.sesgo-ejemplo {
+  background: var(--azul-soft);
+  border-left: 3px solid var(--azul);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-size: 12.5px;
+  color: var(--tinta);
+  line-height: 1.55;
+  font-style: italic;
+}
+.sesgo-ejemplo strong {
+  font-style: normal;
+  color: var(--azul);
+}
+
+/* Test interactivo */
+.test-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .test-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.test-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.test-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.test-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.test-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+.test-pregunta {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.test-pregunta-num {
+  display: inline-block;
+  background: var(--azul-soft);
+  color: var(--azul);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.test-pregunta-texto {
+  font-size: 15px;
+  color: var(--tinta);
+  font-weight: 500;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.test-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.test-opcion {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 14px;
+  font-family: var(--sans);
+  color: var(--tinta);
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1.5;
+}
+.test-opcion:hover:not(:disabled) {
+  border-color: var(--azul);
+  background: var(--azul-soft);
+}
+.test-opcion.correcta {
+  background: var(--verde-3);
+  border-color: var(--verde);
+  color: #14532d;
+  font-weight: 600;
+}
+.test-opcion.incorrecta {
+  background: #fef2f2;
+  border-color: var(--rojo);
+  color: #7f1d1d;
+}
+.test-opcion:disabled { cursor: default; }
+.test-feedback {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.test-feedback.show { display: block; }
+.test-feedback.ok {
+  background: var(--verde-3);
+  border-left: 3px solid var(--verde);
+  color: #14532d;
+}
+.test-feedback.error {
+  background: #fef2f2;
+  border-left: 3px solid var(--rojo);
+  color: #7f1d1d;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Banner puerta */
+.mode-banner {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  display: none;
+}
+.mode-banner-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html" class="active">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Finanzas</a>
+      <span>›</span>
+      <span>Módulo 05</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 5 de 6
+    </span>
+    <h1>Estafas y <em>decisiones inteligentes</em></h1>
+    <p>Identificar antes de caer. Esquemas Ponzi, estafas piramidales, "oportunidades únicas". Aprender a reconocer las señales de alerta y entender por qué nuestra propia cabeza nos puede llevar a decisiones malas.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 83%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 05 / 06</span>
+      <span>83% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Las estafas financieras existen desde hace siglos y siguen funcionando porque <strong>juegan con cosas muy humanas</strong>: las ganas de mejorar nuestra situación, el miedo a quedarnos afuera, la confianza en alguien conocido. No es cuestión de "ser inteligente" o "no caer en cosas obvias": cualquiera puede caer si no conoce las señales. Te paso un mapa simple pero útil.</p>
+
+    <div class="aviso-importante">
+      <h4>📢 Una verdad simple</h4>
+      <p>En finanzas, hay una regla casi sin excepción: <strong>si algo te promete mucho más de lo que paga el plazo fijo, hay un riesgo importante detrás</strong>. Eso no significa que toda inversión que rinda más sea estafa. Pero sí significa que tenés que entender muy bien cuál es el riesgo y por qué. Si no podés explicarlo con tus palabras, no inviertas todavía.</p>
+    </div>
+
+    <h2>Las estafas <em>clásicas</em> que se repiten</h2>
+
+    <div class="estafas-grid">
+      <div class="estafa-card">
+        <div class="estafa-icono">🏗️</div>
+        <div class="estafa-eyebrow">Estafa Tipo 1</div>
+        <h3>Esquema Ponzi</h3>
+        <p>Una persona o empresa te promete altos rendimientos por invertir tu plata. Te muestra resultados al principio. Pero la plata no se invierte en nada: <strong>los rendimientos de los primeros vienen de los aportes de los siguientes</strong>.</p>
+        <div class="estafa-como">
+          <span class="estafa-como-label">Cómo funciona</span>
+          <p>El sistema necesita que entre cada vez más gente nueva. Cuando deja de entrar, se cae todo y los últimos pierden todo. El primer Ponzi fue en 1920 en EE.UU. y desde entonces se repite con nombres distintos.</p>
+        </div>
+      </div>
+
+      <div class="estafa-card">
+        <div class="estafa-icono">🔺</div>
+        <div class="estafa-eyebrow">Estafa Tipo 2</div>
+        <h3>Esquema piramidal</h3>
+        <p>Similar al Ponzi, pero acá vos tenés que <strong>"reclutar" a otras personas</strong> para ganar. Cada nivel paga al anterior. Muchas veces se disfraza de "marketing multinivel" o "negocio de oportunidad".</p>
+        <div class="estafa-como">
+          <span class="estafa-como-label">Cómo funciona</span>
+          <p>Te venden un producto (a veces sin valor real) y la promesa es que vas a ganar invitando a otros. Los pocos que están arriba ganan a costa de los muchos que están abajo, que pierden lo que pusieron.</p>
+        </div>
+      </div>
+
+      <div class="estafa-card">
+        <div class="estafa-icono">📈</div>
+        <div class="estafa-eyebrow">Estafa Tipo 3</div>
+        <h3>"Inversiones cripto" no reguladas</h3>
+        <p>Apps o "operadores" que prometen rendimientos altos en cripto. <strong>Algunas son legítimas, otras no</strong>. Las estafas usan nombres parecidos a marcas conocidas, ofrecen retornos garantizados o presionan a "invertir ya".</p>
+        <div class="estafa-como">
+          <span class="estafa-como-label">Cómo identificar</span>
+          <p>Las legítimas no garantizan retornos (los precios suben y bajan). Las truchas sí. Si está bajo control del BCRA y la CNV, podés operar. Si no, andate.</p>
+        </div>
+      </div>
+
+      <div class="estafa-card">
+        <div class="estafa-icono">📱</div>
+        <div class="estafa-eyebrow">Estafa Tipo 4</div>
+        <h3>Estafas por WhatsApp / teléfono</h3>
+        <p>Te llaman o escriben diciéndote que ganaste algo, que hay que regularizar una situación bancaria, que un familiar tuvo un accidente. <strong>El objetivo es que les pases plata o datos</strong>.</p>
+        <div class="estafa-como">
+          <span class="estafa-como-label">Cómo identificar</span>
+          <p>Te crean urgencia falsa, te piden hacer transferencias "ya", o que abras un link que parece del banco. Ningún banco real te pide datos por teléfono. Cortá y llamá vos al banco después.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-real">
+      <div class="caso-real-header">
+        <span class="caso-real-icon">📰</span>
+        <span class="caso-real-label">Caso real</span>
+      </div>
+      <h4>Lo que pasó con varios "fideicomisos cripto" en Argentina (2022-2024)</h4>
+      <p>Entre 2022 y 2024 se conocieron varios casos en distintas provincias argentinas (incluso en Chubut) donde personas invertían en supuestos "fideicomisos" o "plataformas de inversión" que prometían rendimientos del 5-10% mensual en dólares. Los primeros inversores cobraban (porque entraba plata nueva). Cuando se cayó, miles de personas perdieron sus ahorros.</p>
+      <p>Las señales estuvieron desde el principio: rendimiento muy por encima del mercado, no estaban registrados ante la CNV, urgencia para invertir, todo se manejaba "por confianza" entre conocidos. <strong>Conocer las señales hubiera evitado muchas pérdidas.</strong></p>
+    </div>
+
+    <h2>Las <em>8 señales</em> de alerta</h2>
+
+    <div class="senales-alerta">
+      <div class="senales-alerta-label">Si ves dos o más, escapate</div>
+      <h3>Banderas rojas que aparecen en casi todas las estafas</h3>
+      <div class="senales-alerta-lista">
+        <div class="senal-item">
+          <span class="senal-item-num">01</span>
+          <span class="senal-item-texto"><strong>Rendimiento muy por encima del mercado.</strong> "Ganás 10% mensual garantizado en dólares". Las inversiones legítimas no garantizan retornos altos.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">02</span>
+          <span class="senal-item-texto"><strong>Presión para decidir ya.</strong> "Es solo por hoy", "se cierra esta semana", "quedan pocos lugares". El apuro es señal de venta, no de oportunidad.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">03</span>
+          <span class="senal-item-texto"><strong>No te explican bien qué hacen con la plata.</strong> Si te dicen "es complicado, confiá en mí" o "es un algoritmo secreto", desconfiá.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">04</span>
+          <span class="senal-item-texto"><strong>No están registrados oficialmente.</strong> Las inversiones legales se registran ante la CNV (Comisión Nacional de Valores). Si no aparecen en cnv.gov.ar, no operes.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">05</span>
+          <span class="senal-item-texto"><strong>Te invitó alguien conocido pero no es especialista.</strong> Tu primo, tu amiga, tu vecino. La mayoría de las estafas se propagan así: gente que entró confiando y necesita reclutar más.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">06</span>
+          <span class="senal-item-texto"><strong>Te piden que reclutes a otros para ganar más.</strong> Si el negocio depende de que sumes gente nueva, no es una inversión: es una pirámide.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">07</span>
+          <span class="senal-item-texto"><strong>Aparecen famosos o "testimonios" exitosos.</strong> "Mirá esta familia que se compró una casa con esto". Suelen ser actores o casos preparados.</span>
+        </div>
+        <div class="senal-item">
+          <span class="senal-item-num">08</span>
+          <span class="senal-item-texto"><strong>Para sacar la plata es complicado.</strong> Mientras pongás plata todo es fácil. Cuando querés retirar, ponen trabas, demoras o piden "comisiones extras".</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Regla de oro</div>
+      <p>Si una inversión te genera dudas, <em>esperá 7 días antes de poner plata</em>. Los estafadores te apuran porque saben que cuando consultás con gente o investigás, te das cuenta del problema. Las inversiones legítimas pueden esperar una semana sin ningún problema.</p>
+    </div>
+
+    <h2>Sesgos cognitivos: <em>cómo nos engañamos solos</em></h2>
+
+    <p>Las estafas funcionan porque hay cosas en nuestra cabeza que las hacen efectivas. Estos "sesgos" son atajos mentales que normalmente nos ayudan, pero a veces nos juegan en contra. Conocerlos te ayuda a reconocer cuándo estás siendo manipulado/a:</p>
+
+    <div class="sesgos">
+      <div class="sesgo-card">
+        <div class="sesgo-icono">🎯</div>
+        <h4>FOMO (miedo a quedarse afuera)</h4>
+        <p>Sentís que todos están ganando con algo y vos te lo estás perdiendo. Te apurás a entrar sin pensar.</p>
+        <div class="sesgo-ejemplo">
+          <strong>Ejemplo:</strong> "Mi amiga ya ganó $500.000 en 3 meses, yo me lo estoy perdiendo".
+        </div>
+      </div>
+      
+      <div class="sesgo-card">
+        <div class="sesgo-icono">🤝</div>
+        <h4>Confianza por conocidos</h4>
+        <p>Si te lo recomienda alguien que conocés, asumís que está validado. Pero esa persona también puede estar engañada.</p>
+        <div class="sesgo-ejemplo">
+          <strong>Ejemplo:</strong> "Si mi vecina, que es seria, está invirtiendo ahí, debe ser confiable".
+        </div>
+      </div>
+      
+      <div class="sesgo-card">
+        <div class="sesgo-icono">💸</div>
+        <h4>Aversión a la pérdida</h4>
+        <p>Después de poner plata, te cuesta aceptar que era estafa. Seguís poniendo más para "recuperar" lo invertido.</p>
+        <div class="sesgo-ejemplo">
+          <strong>Ejemplo:</strong> "Ya puse $100.000, si me salgo ahora pierdo todo, mejor pongo más".
+        </div>
+      </div>
+      
+      <div class="sesgo-card">
+        <div class="sesgo-icono">🌟</div>
+        <h4>Exceso de confianza</h4>
+        <p>Pensás que <em>vos</em> sí vas a poder identificar cuándo retirar la plata, aunque otros caigan. Te creés más vivo/a que el promedio.</p>
+        <div class="sesgo-ejemplo">
+          <strong>Ejemplo:</strong> "Yo me voy a salir antes de que se caiga".
+        </div>
+      </div>
+      
+      <div class="sesgo-card">
+        <div class="sesgo-icono">⚡</div>
+        <h4>Gratificación instantánea</h4>
+        <p>Querés resultados rápidos. Te tienta lo que promete ganancias inmediatas, aunque sepas que las inversiones serias son lentas.</p>
+        <div class="sesgo-ejemplo">
+          <strong>Ejemplo:</strong> "Si puedo duplicar la plata en 30 días, ¿por qué esperar años con un plazo fijo?".
+        </div>
+      </div>
+      
+      <div class="sesgo-card">
+        <div class="sesgo-icono">📊</div>
+        <h4>Sesgo de confirmación</h4>
+        <p>Buscás solo información que confirma lo que ya querés hacer. Ignorás señales de alerta porque no encajan con tu decisión.</p>
+        <div class="sesgo-ejemplo">
+          <strong>Ejemplo:</strong> "Bueno, hay malos comentarios, pero también gente que ganó plata".
+        </div>
+      </div>
+    </div>
+
+    <h2>Test rápido: <em>identificá la estafa</em></h2>
+
+    <div class="test-tool">
+      <div class="test-header">
+        <div class="test-icon">🔍</div>
+        <h3>Tres situaciones reales</h3>
+      </div>
+      <p class="test-tool-desc">Probá identificar las señales de alerta en estas situaciones. Después de responder, te explico qué pasaba.</p>
+
+      <div class="test-pregunta" id="test-1">
+        <span class="test-pregunta-num">Situación 01</span>
+        <div class="test-pregunta-texto">Una vecina te invita a una reunión "informativa". Te muestran una plataforma cripto que rinde 8% mensual en dólares. Si invitás a otros, ganás un porcentaje extra. Te dicen que "tenés que decidir antes del viernes porque cierra el ciclo". ¿Qué hacés?</div>
+        <div class="test-opciones">
+          <button class="test-opcion" onclick="responder(1, 0)">Invierto algo chiquito a ver qué pasa</button>
+          <button class="test-opcion" onclick="responder(1, 1)">No invierto, hay varias señales de alerta (rendimiento alto, presión, recluta a otros)</button>
+          <button class="test-opcion" onclick="responder(1, 2)">Le pido a mi vecina que me muestre los recibos de lo que ganó</button>
+        </div>
+        <div class="test-feedback" id="fb-1"></div>
+      </div>
+
+      <div class="test-pregunta" id="test-2">
+        <span class="test-pregunta-num">Situación 02</span>
+        <div class="test-pregunta-texto">Recibís un WhatsApp del "banco" diciendo que tu cuenta fue bloqueada por seguridad y que hay que regularizarla. Te mandan un link que parece de la app del banco para "verificar tus datos". ¿Qué hacés?</div>
+        <div class="test-opciones">
+          <button class="test-opcion" onclick="responder(2, 0)">Hago clic en el link y veo qué piden, después decido</button>
+          <button class="test-opcion" onclick="responder(2, 1)">No hago clic. Llamo yo al banco al número oficial para verificar</button>
+          <button class="test-opcion" onclick="responder(2, 2)">Respondo el WhatsApp para preguntar quién es</button>
+        </div>
+        <div class="test-feedback" id="fb-2"></div>
+      </div>
+
+      <div class="test-pregunta" id="test-3">
+        <span class="test-pregunta-num">Situación 03</span>
+        <div class="test-pregunta-texto">Un conocido te ofrece un "plazo fijo en una cooperativa" que paga 12% mensual en pesos (el banco paga 7%). Es alguien serio que conocés hace años. ¿Qué hacés?</div>
+        <div class="test-opciones">
+          <button class="test-opcion" onclick="responder(3, 0)">Si es alguien de confianza, invierto algo</button>
+          <button class="test-opcion" onclick="responder(3, 1)">Le pido más información: ¿está registrada en el BCRA? ¿es una cooperativa real?</button>
+          <button class="test-opcion" onclick="responder(3, 2)">Le digo que sí pero pongo plata que pueda perder</button>
+        </div>
+        <div class="test-feedback" id="fb-3"></div>
+      </div>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>La buena inversión es aburrida</h4>
+      <p>Hay una idea instalada que dice: "para ganar plata hay que arriesgarse, los osados son los que ganan". Es una idea peligrosa porque mezcla dos cosas distintas: arriesgarse a innovar en TU emprendimiento (sano) vs arriesgar la plata en oportunidades dudosas (insano). <strong>Lo primero te puede dar premio; lo segundo, casi siempre te quita lo que tenías.</strong></p>
+      <p>El enfoque incremental sugiere: si querés crecer financieramente, hacelo desde lo que entendés y controlás (tu propio negocio). Las inversiones financieras deberían ser <em>la parte aburrida y conservadora</em> de tu vida. Plazo fijo, fondos comunes simples, dólares ahorrados. Nada épico, pero te protege.</p>
+      <div class="mirada-inc-cita">
+        "La emoción es enemiga de las buenas decisiones financieras. Lo bueno casi siempre se ve aburrido desde afuera, y eso está bien."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>El mejor antídoto: hacer las preguntas correctas</h3>
+      <p>No hace falta saber de finanzas avanzadas para evitar caer en estafas. Solo hace falta hacer las preguntas básicas: <em>¿por qué rinde tanto?, ¿está registrada en la CNV?, ¿qué pasa si no entra gente nueva?, ¿puedo sacar mi plata cuando quiera?</em>. Si las respuestas no son claras o te apuran para no preguntar, ya tenés la respuesta. En el último módulo vamos a ver cómo dar tus primeros pasos en inversiones <em>legítimas</em>, simples y al alcance.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-04.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">04 · Crédito y endeudamiento</span>
+    </a>
+    <a href="modulo-06.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">06 · Primeros pasos en inversiones</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var RESPUESTAS = {
+  1: { correcta: 1, explicaciones: [
+    'Aunque sea poco, una vez que entrás es difícil salir. Si hay señales claras de alerta, no entres ni con "algo chico". La mejor decisión cuando ves banderas rojas es no jugar.',
+    '¡Exacto! Hay tres señales claras: rendimiento muy alto (8% mensual en dólares es imposible legalmente), presión por tiempo, y sistema de reclutamiento. Es muy probable que sea esquema piramidal.',
+    'Lo que tu vecina cobró podría ser real, pero eso es justamente cómo funcionan los Ponzi: los primeros cobran con plata de los que entran después. Que ella haya ganado no significa que vos vayas a ganar.'
+  ]},
+  2: { correcta: 1, explicaciones: [
+    'Hacer clic puede instalar malware o llevarte a un sitio falso que parece real. Nunca hagas clic en links de SMS o WhatsApp de "bancos", aunque parezcan reales.',
+    '¡Correcto! Esta es la regla de oro frente a comunicaciones bancarias inesperadas: NUNCA respondas el link/mensaje original. Cortá y llamá vos al banco al número que figura en tu tarjeta o app oficial.',
+    'Responder ya confirma que tu número está activo y que sos una persona "respondedora". Eso te pone en listas de "víctimas potenciales" que circulan entre estafadores.'
+  ]},
+  3: { correcta: 1, explicaciones: [
+    'La confianza personal no reemplaza la regulación oficial. Tu conocido puede ser honesto y, sin saberlo, estar participando de algo problemático. Una tasa así de alta en pesos (impuesta en pesos, 12% mensual) es una señal clara.',
+    '¡Bien! La pregunta correcta es: ¿está regulada? Las cooperativas de crédito reales en Argentina están supervisadas por el INAES y el BCRA. Si no podés verificar el registro, no inviertas.',
+    'Invertir solo "lo que puedas perder" suena prudente pero acepta el riesgo de pérdida. Si las señales son malas, la respuesta es no invertir, no "invertir poco".'
+  ]}
+};
+
+function responder(preguntaIdx, opcionIdx) {
+  var bloque = document.getElementById('test-' + preguntaIdx);
+  if (bloque.dataset.respondida === 'true') return;
+  bloque.dataset.respondida = 'true';
+  
+  var info = RESPUESTAS[preguntaIdx];
+  var botones = bloque.querySelectorAll('.test-opcion');
+  
+  botones.forEach(function(b, i) {
+    b.disabled = true;
+    if (i === info.correcta) b.classList.add('correcta');
+    if (i === opcionIdx && opcionIdx !== info.correcta) b.classList.add('incorrecta');
+  });
+  
+  var fb = document.getElementById('fb-' + preguntaIdx);
+  fb.classList.add('show');
+  if (opcionIdx === info.correcta) {
+    fb.classList.add('ok');
+    fb.innerHTML = info.explicaciones[opcionIdx];
+  } else {
+    fb.classList.add('error');
+    fb.innerHTML = info.explicaciones[opcionIdx] + ' <strong>La respuesta correcta es la opción ' + (info.correcta + 1) + '.</strong>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var puerta;
+  try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && puerta) {
+    if (puerta === 'arranco') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Recién empiezo</strong></span><span style="opacity:0.8;">Ejemplos con montos pequeños y foco en hábitos básicos</span></div>';
+      banner.style.display = 'block';
+    } else if (puerta === 'andando') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Negocio andando</strong></span><span style="opacity:0.8;">Ejemplos con números reales y foco en optimización</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
