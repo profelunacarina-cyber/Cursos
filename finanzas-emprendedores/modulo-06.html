@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Primeros pasos en inversiones · Finanzas · EPJA 753</title>
+<meta name="description" content="Módulo 6: plazo fijo, cuentas remuneradas y FCI básicos. Tu dashboard financiero final.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Pirámide de prioridades */
+.piramide {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.piramide::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.piramide-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.piramide h3 {
+  font-size: 24px;
+  margin: 0 0 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.piramide-niveles {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.piramide-nivel {
+  background: rgba(255,255,255,0.1);
+  padding: 14px 20px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.piramide-nivel-num {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.4;
+  flex-shrink: 0;
+  width: 32px;
+}
+.piramide-nivel-content {
+  flex: 1;
+}
+.piramide-nivel-titulo {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.piramide-nivel-desc {
+  font-size: 13px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Instrumentos */
+.inst-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+.inst-card {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.inst-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.inst-card.bajo::before { background: var(--verde); }
+.inst-card.medio::before { background: var(--azul); }
+.inst-card.alto::before { background: var(--coral); }
+.inst-icono {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 26px;
+}
+.inst-card.bajo .inst-icono { background: var(--verde-3); }
+.inst-card.medio .inst-icono { background: var(--azul-3); }
+.inst-card.alto .inst-icono { background: var(--coral-soft); }
+.inst-riesgo {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.inst-card.bajo .inst-riesgo { color: var(--verde); }
+.inst-card.medio .inst-riesgo { color: var(--azul); }
+.inst-card.alto .inst-riesgo { color: var(--coral); }
+.inst-card h3 {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--tinta);
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.inst-card > p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+.inst-detalle {
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--tinta);
+  line-height: 1.55;
+}
+.inst-detalle strong { color: var(--azul); }
+.inst-pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+.inst-pro, .inst-con {
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  line-height: 1.5;
+}
+.inst-pro {
+  background: var(--verde-3);
+  color: #14532d;
+}
+.inst-con {
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+.inst-pro strong, .inst-con strong { font-weight: 700; }
+
+/* Cuadro UVA */
+.uva-explica {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border: 1px solid var(--azul-3);
+  border-left: 4px solid var(--azul);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.uva-explica h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.uva-explica p {
+  font-size: 14.5px;
+  color: var(--gris-4);
+  line-height: 1.65;
+  margin: 0 0 10px;
+}
+.uva-explica p:last-child { margin: 0; }
+.uva-explica strong { color: var(--azul); }
+
+/* Recomendaciones por perfil */
+.perfiles {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.perfiles h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 18px;
+  letter-spacing: -0.4px;
+}
+.perfiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.perfil-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 18px;
+}
+.perfil-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.perfil-card p {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+.perfil-card .perfil-rec {
+  font-size: 12.5px;
+  color: var(--tinta);
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  border-left: 3px solid var(--verde);
+  line-height: 1.55;
+}
+.perfil-card .perfil-rec strong { color: var(--verde); }
+
+/* Mode banner */
+.mode-banner {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  display: none;
+}
+.mode-banner-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Dashboard final */
+.dashboard-vista {
+  background: #fff;
+  border-radius: var(--r-xl);
+  margin: 32px 0;
+  box-shadow: var(--sombra-media);
+  border: 1px solid var(--gris-2);
+  overflow: hidden;
+}
+.dashboard-header {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  padding: 32px 36px;
+  color: #fff;
+}
+@media (max-width: 600px) { .dashboard-header { padding: 24px; } }
+.dashboard-header-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.dashboard-header h2 {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.dashboard-body {
+  padding: 36px;
+}
+@media (max-width: 600px) { .dashboard-body { padding: 24px; } }
+
+.dash-bloque {
+  margin-bottom: 32px;
+}
+.dash-bloque:last-child { margin-bottom: 0; }
+.dash-bloque-num {
+  display: inline-block;
+  background: var(--azul-soft);
+  color: var(--azul);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.dash-bloque h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.4px;
+}
+
+/* Indicadores */
+.indicadores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+.indicador-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.indicador-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+.indicador-card.bueno::before { background: var(--verde); }
+.indicador-card.neutro::before { background: var(--azul); }
+.indicador-card.alerta::before { background: var(--coral); }
+.indicador-eyebrow {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gris-4);
+  margin-bottom: 6px;
+}
+.indicador-valor {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--tinta);
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.indicador-detalle {
+  font-size: 12px;
+  color: var(--gris-4);
+  line-height: 1.4;
+}
+
+.dash-empty {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--gris-3);
+  font-style: italic;
+}
+.dash-empty a { color: var(--azul); font-weight: 600; text-decoration: none; }
+
+.dash-cuentas {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+.dash-cuentas li {
+  padding: 10px 0;
+  border-top: 1px solid var(--gris-2);
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.55;
+}
+.dash-cuentas li:first-child { border-top: none; }
+.dash-cuentas li strong { color: var(--azul); }
+
+.dash-objetivo-box {
+  background: var(--verde-3);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--r-sm);
+  padding: 14px 18px;
+  font-size: 14.5px;
+  color: var(--tinta);
+  line-height: 1.6;
+}
+
+/* Descargar */
+.btn-descargar-grupo {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 32px 0 8px;
+  flex-wrap: wrap;
+}
+.btn-descargar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-descargar:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+}
+.btn-descargar.secundario {
+  background: #fff;
+  color: var(--azul);
+  border: 1.5px solid var(--azul);
+}
+.btn-descargar.secundario:hover {
+  background: var(--azul);
+  color: #fff;
+}
+
+/* Bibliografía */
+.biblio {
+  background: var(--gris-1);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 32px 0;
+}
+.biblio h3 {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.biblio-ref {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.65;
+  padding: 10px 0;
+  border-top: 1px solid var(--gris-2);
+}
+.biblio-ref:first-of-type { border-top: none; padding-top: 0; }
+.biblio-ref strong { color: var(--azul); font-weight: 700; }
+.biblio-ref em { color: var(--gris-4); font-style: italic; }
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Impresión del dashboard */
+@media print {
+  body { background: #fff !important; }
+  .topbar, .mode-banner, .header, .subhero, .page-nav, .footer,
+  .piramide, .inst-grid, .uva-explica, .perfiles, .mirada-inc, .mirada,
+  .biblio, .btn-descargar-grupo, h2:not(.dashboard-vista h2) { display: none !important; }
+  .section { padding: 0 !important; background: #fff !important; }
+  .section-inner { max-width: 100% !important; padding: 0 !important; }
+  .dashboard-vista {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+  .dashboard-header {
+    background: var(--azul) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 24px 28px !important;
+  }
+  .dashboard-body { padding: 24px 28px !important; }
+  .dash-bloque { page-break-inside: avoid; }
+  .indicador-card, .dash-objetivo-box {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page { size: A4; margin: 14mm; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html" class="active">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Finanzas</a>
+      <span>›</span>
+      <span>Módulo 06</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 6 de 6 · Último módulo
+    </span>
+    <h1>Primeros pasos <em>en inversiones</em></h1>
+    <p>Cerramos el curso con lo más concreto: cuáles son las opciones legítimas, simples y al alcance para empezar a invertir. Sin entrar en bolsa, sin productos complicados. Lo básico y lo seguro primero.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 100%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 06 / 06</span>
+      <span>100% del recorrido 🎯</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Llegamos al final. Tenés presupuesto, sabés cómo separar tu plata, conocés las trampas. Ahora la pregunta es: <strong>cuando te queda algo de plata para guardar, ¿dónde la ponés?</strong>. Hay muchas opciones, pero la mayoría de las personas que recién empiezan a invertir necesitan saber solo de cuatro: caja remunerada, plazo fijo, plazo fijo UVA y FCI simples. Vamos.</p>
+
+    <h2>La <em>pirámide</em> de prioridades</h2>
+
+    <p>Antes de invertir hay que tener resueltas otras cosas. Si invertís sin tener la base resuelta, una urgencia te obliga a deshacer la inversión en mal momento y perdés. Mirá el orden ideal:</p>
+
+    <div class="piramide">
+      <div class="piramide-label">El orden importa</div>
+      <h3>Antes de invertir, asegurate de tener</h3>
+      <div class="piramide-niveles">
+        <div class="piramide-nivel">
+          <span class="piramide-nivel-num">01</span>
+          <div class="piramide-nivel-content">
+            <div class="piramide-nivel-titulo">Ingreso estable o predecible</div>
+            <div class="piramide-nivel-desc">Si todavía no sabés cuánto vas a ganar el mes que viene, primero estabilizá ingresos. Invertir con incertidumbre es estresante.</div>
+          </div>
+        </div>
+        <div class="piramide-nivel">
+          <span class="piramide-nivel-num">02</span>
+          <div class="piramide-nivel-content">
+            <div class="piramide-nivel-titulo">Cero deudas de tarjeta de crédito</div>
+            <div class="piramide-nivel-desc">Las tasas de tarjeta están muy por encima de cualquier inversión legal. Pagar la deuda es la mejor inversión que podés hacer.</div>
+          </div>
+        </div>
+        <div class="piramide-nivel">
+          <span class="piramide-nivel-num">03</span>
+          <div class="piramide-nivel-content">
+            <div class="piramide-nivel-titulo">Colchón de emergencia (3-6 meses de gastos)</div>
+            <div class="piramide-nivel-desc">Plata accesible para imprevistos. Sin esto, cualquier urgencia te obliga a romper inversiones o pedir crédito caro.</div>
+          </div>
+        </div>
+        <div class="piramide-nivel">
+          <span class="piramide-nivel-num">04</span>
+          <div class="piramide-nivel-content">
+            <div class="piramide-nivel-titulo">Inversión en tu propio negocio</div>
+            <div class="piramide-nivel-desc">Si tenés capital extra, casi siempre rinde más invertirlo en tu emprendimiento (que conocés) que en instrumentos financieros.</div>
+          </div>
+        </div>
+        <div class="piramide-nivel">
+          <span class="piramide-nivel-num">05</span>
+          <div class="piramide-nivel-content">
+            <div class="piramide-nivel-titulo">Inversiones financieras conservadoras</div>
+            <div class="piramide-nivel-desc">Recién ahora tiene sentido pensar en inversiones financieras. Y siempre empezando por las más simples y seguras.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Cuatro instrumentos <em>accesibles</em></h2>
+
+    <p>Estos son los instrumentos más simples y disponibles en Argentina. Cualquier billetera virtual o banco te permite acceder a ellos sin trámites complicados. Te los paso ordenados de menor a mayor riesgo:</p>
+
+    <div class="inst-grid">
+      <div class="inst-card bajo">
+        <div class="inst-icono">💵</div>
+        <div class="inst-riesgo">Riesgo bajo</div>
+        <h3>Cuenta remunerada</h3>
+        <p>El saldo de tu billetera virtual rinde un interés diario automáticamente. La plata sigue disponible para usar cuando quieras.</p>
+        <div class="inst-detalle">
+          <strong>Cómo accedés:</strong> Activá el "fondo de inversión" en tu billetera (Mercado Pago, Ualá, Naranja X). Es un clic.
+        </div>
+        <div class="inst-pros-cons">
+          <div class="inst-pro"><strong>+</strong> Plata disponible 24/7</div>
+          <div class="inst-con"><strong>−</strong> Rendimiento más bajo que plazo fijo</div>
+        </div>
+      </div>
+
+      <div class="inst-card bajo">
+        <div class="inst-icono">🏦</div>
+        <div class="inst-riesgo">Riesgo bajo</div>
+        <h3>Plazo fijo tradicional</h3>
+        <p>Le prestás la plata al banco por un plazo fijo (30, 60, 90 días). Te paga un interés conocido al final.</p>
+        <div class="inst-detalle">
+          <strong>Cómo accedés:</strong> Desde la app del banco o billetera. Mínimo 30 días, podés renovar automáticamente.
+        </div>
+        <div class="inst-pros-cons">
+          <div class="inst-pro"><strong>+</strong> Tasa conocida desde el inicio</div>
+          <div class="inst-con"><strong>−</strong> La plata queda inmovilizada</div>
+        </div>
+      </div>
+
+      <div class="inst-card medio">
+        <div class="inst-icono">📈</div>
+        <div class="inst-riesgo">Riesgo bajo-medio</div>
+        <h3>Plazo fijo UVA</h3>
+        <p>Similar al plazo fijo pero <strong>ajustado por inflación</strong>. Suma una tasa extra al CER (índice de precios). Mínimo 180 días.</p>
+        <div class="inst-detalle">
+          <strong>Cómo accedés:</strong> Desde la app del banco. Tenés que poder dejarla 6 meses sin tocar.
+        </div>
+        <div class="inst-pros-cons">
+          <div class="inst-pro"><strong>+</strong> Protege contra la inflación</div>
+          <div class="inst-con"><strong>−</strong> Tenés que esperar 6 meses</div>
+        </div>
+      </div>
+
+      <div class="inst-card medio">
+        <div class="inst-icono">🌐</div>
+        <div class="inst-riesgo">Riesgo bajo-medio</div>
+        <h3>FCI conservadores</h3>
+        <p>Fondos Comunes de Inversión "Money Market" o de "Renta Fija conservadora". Es como un plazo fijo, pero gestionado por profesionales.</p>
+        <div class="inst-detalle">
+          <strong>Cómo accedés:</strong> Desde tu billetera (Mercado Pago, IOL, Cocos). Comprás cuotapartes desde poca plata.
+        </div>
+        <div class="inst-pros-cons">
+          <div class="inst-pro"><strong>+</strong> Mejor rendimiento que cuenta remunerada</div>
+          <div class="inst-con"><strong>−</strong> Tarda 24-48 hs en estar disponible</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uva-explica">
+      <h4>📌 Aclaración importante sobre el plazo fijo UVA</h4>
+      <p>El <strong>plazo fijo UVA</strong> es de las opciones más interesantes para emprendedores que pueden inmovilizar plata por 6 meses. <strong>"UVA" significa Unidad de Valor Adquisitivo</strong>: es una unidad que se ajusta diariamente con la inflación. Si pusiste $100.000 hoy y en 6 meses la inflación fue del 30%, tu plata sigue valiendo $130.000 (en términos reales) más un pequeño extra.</p>
+      <p>La contra: <strong>tenés que poder esperar 6 meses</strong>. Si rompés antes, perdés todo lo ganado y te queda el plazo fijo común. Por eso es ideal para plata que sabés que no vas a necesitar.</p>
+    </div>
+
+    <h2>¿Y los <em>dólares</em>?</h2>
+
+    <p>En Argentina hay una pregunta inevitable: ¿conviene tener dólares? Te paso una respuesta honesta, sin recomendaciones cerradas:</p>
+
+    <ul style="margin: 18px 0; padding-left: 22px;">
+      <li style="margin-bottom: 8px; line-height: 1.65;"><strong>Los dólares conservan el poder de compra a largo plazo</strong> (en USA la inflación promedio es del 2-3% anual). Son una protección, no una inversión que rinde.</li>
+      <li style="margin-bottom: 8px; line-height: 1.65;"><strong>El tipo de cambio fluctúa.</strong> A veces sube rápido, otras se mantiene estable. Comprar dólares para "ganar plata en pesos" es especular, no invertir.</li>
+      <li style="margin-bottom: 8px; line-height: 1.65;"><strong>Tener parte del ahorro en dólares</strong> es una estrategia válida en Argentina. La pregunta es <em>cuánto</em>, no si conviene o no.</li>
+      <li style="margin-bottom: 0; line-height: 1.65;"><strong>Cómo acceder:</strong> dólar MEP a través de billeteras (Cocos, IOL, Brubank). Es legal, regulado, y a mejor precio que el "blue".</li>
+    </ul>
+
+    <div class="perfiles">
+      <h3>Recomendación según tu situación</h3>
+      <div class="perfiles-grid">
+        <div class="perfil-card">
+          <h4>🌱 Recién empezando</h4>
+          <p>Tenés poca plata para invertir y todavía estás estabilizando el negocio.</p>
+          <div class="perfil-rec">
+            <strong>Empezá con:</strong> activar la cuenta remunerada en tu billetera virtual. Es un clic y ya empezás a ganar.
+          </div>
+        </div>
+        <div class="perfil-card">
+          <h4>📊 Tenés algo guardado</h4>
+          <p>Lograste juntar un colchón básico (1-2 meses de gastos) y querés que rinda algo.</p>
+          <div class="perfil-rec">
+            <strong>Probá:</strong> dividir entre cuenta remunerada (para emergencias) y plazo fijo de 30 días (para lo que no usás).
+          </div>
+        </div>
+        <div class="perfil-card">
+          <h4>🚀 Negocio andando</h4>
+          <p>Tu emprendimiento genera ingresos estables y tenés capital para mover.</p>
+          <div class="perfil-rec">
+            <strong>Considerá:</strong> 50% en cuenta remunerada o plazo fijo, 30% en plazo fijo UVA, 20% en dólares para diversificar.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>Tu mejor inversión sos vos misma, vos mismo, y tu negocio</h4>
+      <p>Hay una verdad incómoda en finanzas: <strong>la mayoría de los emprendedores ganan más invirtiendo en su propio negocio que en cualquier instrumento financiero</strong>. Una máquina que te permite producir el doble, un curso que te abre nuevos clientes, un proveedor mejor: eso tiene rentabilidades del 50%, 100%, 200% anual. Ningún plazo fijo se le acerca.</p>
+      <p>El enfoque incremental para inversiones es claro: <em>invertí en lo que conocés y controlás</em>. Las inversiones financieras conservadoras son el plan B, no el principal. Y eso está bien: el rol de las inversiones financieras es <strong>proteger lo que tenés</strong>, no enriquecerte.</p>
+      <div class="mirada-inc-cita">
+        "La inversión más rentable es la que se hace en uno mismo y en lo que se conoce. El conocimiento aplicado siempre rinde más que el conocimiento delegado."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <h2>Tu <em>dashboard</em> financiero</h2>
+    <p style="color: var(--gris-4); font-size: 15px; margin-bottom: 18px;">Acá se junta todo lo que cargaste durante el curso. Es tu mapa financiero personal. Podés descargarlo en PDF y tenerlo a mano para revisar mes a mes.</p>
+
+    <div class="dashboard-vista" id="dashboard-vista">
+      <div class="dashboard-header">
+        <div class="dashboard-header-label">Mi situación financiera</div>
+        <h2 id="dash-titulo">Tu dashboard</h2>
+        <p id="dash-fecha" style="margin: 8px 0 0; opacity: 0.9; font-size: 14px;">Curso "Finanzas para emprendedores" · EPJA 753 · Rawson, Chubut</p>
+      </div>
+      <div class="dashboard-body" id="dashboard-body">
+        <div class="dash-empty">
+          A medida que completés los módulos anteriores, los datos van a aparecer acá automáticamente.<br><br>
+          Empezá por el <a href="modulo-02.html">Módulo 02</a> (Presupuesto).
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-descargar-grupo">
+      <button class="btn-descargar" onclick="window.print()">
+        <span>📄</span> Descargar dashboard en PDF
+      </button>
+      <a href="evaluacion.html" class="btn-descargar secundario">
+        <span>✓</span> Ir a la autoevaluación
+      </a>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el curso</span>
+      <h3>El conocimiento financiero es un derecho, no un privilegio</h3>
+      <p>Durante años, el manejo del dinero quedó en manos de "los que saben". Ese conocimiento es importante para cualquier persona, sobre todo para quien emprende. Lo que aprendiste en este curso es la base. No te convierte en experto financiero, pero te da herramientas para tomar mejores decisiones con tu plata, identificar trampas y proyectar. Ahora viene la parte más importante: aplicarlo. <strong>Las finanzas no se aprenden leyendo: se aprenden haciendo</strong>. Empezá con algo chico, sostenelo, y vas a ver los resultados.</p>
+    </div>
+
+    <div class="biblio">
+      <h3>Bibliografía y referencias</h3>
+      <div class="biblio-ref">
+        Luna, Juan Pablo y Gallo, Graciela Inés (2018). <em>Incremental: una visita guiada al mundo emprendedor</em>. Buenos Aires: Editorial Teseo. <strong>Marco teórico de la mirada incremental aplicada al emprendimiento.</strong>
+      </div>
+      <div class="biblio-ref">
+        Programa "Educación Financiera y Mercado de Capitales en el aula" (2026). Capacitación brindada por <strong>Fundación BCBA, BCBA Joven y Ministerio de Educación del Gobierno del Chubut</strong>. Contenido adaptado para público emprendedor.
+      </div>
+      <div class="biblio-ref">
+        <strong>Recursos oficiales:</strong> Banco Central de la República Argentina (bcra.gob.ar) · Comisión Nacional de Valores (cnv.gov.ar) · Anses (anses.gob.ar) · Banco Nación (bna.com.ar).
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-05.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">05 · Estafas y decisiones</span>
+    </a>
+    <a href="evaluacion.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">Autoevaluación final</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var FIN_KEY = 'epja753_fin_datos';
+
+function leerFin() {
+  try { return JSON.parse(localStorage.getItem(FIN_KEY)) || {}; } catch (e) { return {}; }
+}
+function formatear(n) {
+  if (!n || isNaN(n)) return '$0';
+  return '$' + Math.round(n).toLocaleString('es-AR');
+}
+
+function renderDashboard() {
+  var d = leerFin();
+  var body = document.getElementById('dashboard-body');
+  var titulo = document.getElementById('dash-titulo');
+  
+  titulo.textContent = 'Mi dashboard financiero';
+  
+  // Calcular indicadores del presupuesto
+  var totalIngresos = (d.ingSueldo || 0) + (d.ingRetiro || 0) + (d.ingOtros || 0);
+  var totalNecesidades = (d.gasVivienda || 0) + (d.gasServicios || 0) + (d.gasComida || 0) + (d.gasTransporte || 0) + (d.gasSalud || 0);
+  var totalDeseos = (d.gasOcio || 0) + (d.gasRopa || 0);
+  var totalGastos = totalNecesidades + totalDeseos;
+  var disponible = totalIngresos - totalGastos;
+  
+  var algoCargado = totalIngresos > 0 || d.ctaPersNombre || d.ctaNegNombre || d.ctaAhoNombre;
+  
+  if (!algoCargado) {
+    body.innerHTML = '<div class="dash-empty">A medida que completés los módulos anteriores, los datos van a aparecer acá automáticamente.<br><br>Empezá por el <a href="modulo-02.html">Módulo 02</a> (Presupuesto).</div>';
+    return;
+  }
+  
+  var html = '';
+  
+  // BLOQUE 1: Indicadores
+  if (totalIngresos > 0) {
+    var pctAhorro = totalIngresos > 0 ? Math.round(disponible / totalIngresos * 100) : 0;
+    var pctNecesidades = totalIngresos > 0 ? Math.round(totalNecesidades / totalIngresos * 100) : 0;
+    var pctRetiro = totalIngresos > 0 ? Math.round((d.ingRetiro || 0) / totalIngresos * 100) : 0;
+    
+    var ahorroClase = 'neutro';
+    if (pctAhorro >= 20) ahorroClase = 'bueno';
+    if (pctAhorro < 5) ahorroClase = 'alerta';
+    
+    var necesidadesClase = 'neutro';
+    if (pctNecesidades > 70) necesidadesClase = 'alerta';
+    if (pctNecesidades < 50) necesidadesClase = 'bueno';
+    
+    html += '<div class="dash-bloque">';
+    html += '<span class="dash-bloque-num">01 · Indicadores</span>';
+    html += '<h3>Tu situación en números</h3>';
+    html += '<div class="indicadores-grid">';
+    
+    html += '<div class="indicador-card neutro">';
+    html += '<div class="indicador-eyebrow">Ingresos totales</div>';
+    html += '<div class="indicador-valor">' + formatear(totalIngresos) + '</div>';
+    html += '<div class="indicador-detalle">Total mensual</div>';
+    html += '</div>';
+    
+    html += '<div class="indicador-card neutro">';
+    html += '<div class="indicador-eyebrow">Gastos totales</div>';
+    html += '<div class="indicador-valor">' + formatear(totalGastos) + '</div>';
+    html += '<div class="indicador-detalle">' + Math.round(totalGastos/totalIngresos*100) + '% de tus ingresos</div>';
+    html += '</div>';
+    
+    html += '<div class="indicador-card ' + ahorroClase + '">';
+    html += '<div class="indicador-eyebrow">Disponible mensual</div>';
+    html += '<div class="indicador-valor">' + formatear(disponible) + '</div>';
+    html += '<div class="indicador-detalle">' + pctAhorro + '% de tus ingresos</div>';
+    html += '</div>';
+    
+    html += '<div class="indicador-card ' + necesidadesClase + '">';
+    html += '<div class="indicador-eyebrow">% en necesidades</div>';
+    html += '<div class="indicador-valor">' + pctNecesidades + '%</div>';
+    html += '<div class="indicador-detalle">Ideal: menos del 50%</div>';
+    html += '</div>';
+    
+    if (d.ingRetiro) {
+      html += '<div class="indicador-card neutro">';
+      html += '<div class="indicador-eyebrow">Retiro del negocio</div>';
+      html += '<div class="indicador-valor">' + formatear(d.ingRetiro) + '</div>';
+      html += '<div class="indicador-detalle">' + pctRetiro + '% de tus ingresos vienen del emprendimiento</div>';
+      html += '</div>';
+    }
+    
+    // Capacidad de inversión (proyección anual)
+    if (disponible > 0) {
+      html += '<div class="indicador-card bueno">';
+      html += '<div class="indicador-eyebrow">Capacidad de ahorro anual</div>';
+      html += '<div class="indicador-valor">' + formatear(disponible * 12) + '</div>';
+      html += '<div class="indicador-detalle">Si sostenés este ritmo 12 meses</div>';
+      html += '</div>';
+    }
+    
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  // BLOQUE 2: Mis cuentas
+  if (d.ctaPersNombre || d.ctaNegNombre || d.ctaAhoNombre) {
+    html += '<div class="dash-bloque">';
+    html += '<span class="dash-bloque-num">02 · Cuentas</span>';
+    html += '<h3>Mi mapa de cuentas</h3>';
+    html += '<ul class="dash-cuentas">';
+    if (d.ctaPersNombre) {
+      html += '<li>👤 <strong>Personal:</strong> ' + d.ctaPersNombre;
+      if (d.ctaPersUso) html += ' · <em style="color:var(--gris-4);">' + d.ctaPersUso + '</em>';
+      html += '</li>';
+    }
+    if (d.ctaNegNombre) {
+      html += '<li>🏪 <strong>Negocio:</strong> ' + d.ctaNegNombre;
+      if (d.ctaNegUso) html += ' · <em style="color:var(--gris-4);">' + d.ctaNegUso + '</em>';
+      html += '</li>';
+    }
+    if (d.ctaAhoNombre) {
+      html += '<li>💸 <strong>Ahorro:</strong> ' + d.ctaAhoNombre;
+      if (d.ctaAhoMeta) html += ' · <em style="color:var(--gris-4);">Meta: ' + d.ctaAhoMeta + '</em>';
+      html += '</li>';
+    }
+    html += '</ul>';
+    html += '</div>';
+  }
+  
+  // BLOQUE 3: Recomendaciones
+  if (totalIngresos > 0) {
+    var pctAhorro = Math.round(disponible / totalIngresos * 100);
+    var mensaje = '';
+    
+    if (disponible < 0) {
+      mensaje = '⚠️ <strong>Atención:</strong> tus gastos superan tus ingresos. La prioridad es revisar dónde podés recortar o aumentar ingresos del emprendimiento. Las inversiones quedan para después.';
+    } else if (pctAhorro >= 20) {
+      mensaje = '✓ <strong>Estás en posición de empezar a invertir.</strong> Te queda más del 20% para ahorrar. Activá la cuenta remunerada en tu billetera y empezá a armar tu colchón de 3-6 meses de gastos.';
+    } else if (pctAhorro >= 10) {
+      mensaje = '✓ <strong>Buen camino.</strong> Te queda algo para ahorrar. Antes de invertir, armá un colchón de 3 meses de gastos. Después podés mirar plazo fijo o FCI.';
+    } else if (pctAhorro > 0) {
+      mensaje = '📝 <strong>Margen ajustado.</strong> Antes de invertir, conviene aumentar el margen (más ingresos o menos gastos). Mientras tanto, lo que te quede ponelo en cuenta remunerada.';
+    } else {
+      mensaje = '⚠️ <strong>Sin margen para invertir todavía.</strong> Primero estabilizá ingresos y reducí gastos. El módulo 02 te ayuda a hacer eso.';
+    }
+    
+    html += '<div class="dash-bloque">';
+    html += '<span class="dash-bloque-num">03 · Recomendación</span>';
+    html += '<h3>Próximo paso financiero</h3>';
+    html += '<div class="dash-objetivo-box">' + mensaje + '</div>';
+    html += '</div>';
+  }
+  
+  body.innerHTML = html;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderDashboard();
+  
+  var puerta;
+  try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && puerta) {
+    if (puerta === 'arranco') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Recién empiezo</strong></span><span style="opacity:0.8;">Ejemplos con montos pequeños y foco en hábitos básicos</span></div>';
+      banner.style.display = 'block';
+    } else if (puerta === 'andando') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Negocio andando</strong></span><span style="opacity:0.8;">Ejemplos con números reales y foco en optimización</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
