@@ -85,6 +85,244 @@
   line-height: 1.5;
 }
 
+/* Simulador con pestañas */
+.simulador {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  margin: 32px 0;
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+}
+.simulador-header {
+  background: linear-gradient(135deg, var(--verde) 0%, #059669 100%);
+  padding: 24px 32px;
+  color: #fff;
+}
+@media (max-width: 600px) { .simulador-header { padding: 20px 24px; } }
+.simulador-header-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.simulador-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #fff;
+  letter-spacing: -0.4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.simulador-header p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+.sim-tabs {
+  display: flex;
+  background: var(--gris-1);
+  border-bottom: 1px solid var(--gris-2);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.sim-tab {
+  flex: 1;
+  min-width: 140px;
+  background: transparent;
+  border: none;
+  padding: 16px 14px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--gris-4);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.sim-tab:hover { color: var(--azul); background: rgba(67,56,202,0.04); }
+.sim-tab.activa {
+  color: var(--verde);
+  border-bottom-color: var(--verde);
+  background: #fff;
+}
+.sim-tab-icono {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.sim-panel {
+  display: none;
+  padding: 28px 32px;
+}
+@media (max-width: 600px) { .sim-panel { padding: 24px; } }
+.sim-panel.activa { display: block; }
+.sim-panel h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 6px;
+}
+.sim-panel-desc {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+.sim-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.sim-input {
+  display: flex;
+  flex-direction: column;
+}
+.sim-input label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.sim-input input {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 15px;
+  font-family: var(--sans);
+  background: #fff;
+  font-weight: 600;
+  color: var(--tinta);
+}
+.sim-input input:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+}
+.sim-input small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Resultado simple */
+.sim-resultado {
+  background: linear-gradient(135deg, var(--verde-3) 0%, #fff 100%);
+  border: 1px solid var(--verde-3);
+  border-radius: var(--r-md);
+  padding: 20px 24px;
+  margin-top: 8px;
+}
+.sim-resultado-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.sim-resultado-valor {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--verde);
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.sim-resultado-detalle {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+}
+
+/* Tabla comparativa simulador */
+.sim-tabla-comp {
+  background: #fff;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  margin-top: 16px;
+  border: 1px solid var(--gris-2);
+}
+.sim-tabla-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 14px 16px;
+  border-top: 1px solid var(--gris-2);
+  gap: 12px;
+  font-size: 14px;
+}
+.sim-tabla-row:first-child { border-top: none; }
+.sim-tabla-row.header {
+  background: var(--gris-1);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gris-4);
+}
+.sim-tabla-row.header > div:not(:first-child) { text-align: right; }
+.sim-tabla-row .nombre {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--tinta);
+}
+.sim-tabla-row .nombre-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.sim-tabla-row .valor {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta);
+}
+.sim-tabla-row .ganancia {
+  text-align: right;
+  font-weight: 700;
+  font-family: var(--mono);
+}
+.sim-tabla-row.mejor .ganancia { color: var(--verde); }
+.sim-tabla-row.peor .ganancia { color: var(--coral); }
+.sim-tabla-row.neutro .ganancia { color: var(--gris-4); }
+@media (max-width: 600px) {
+  .sim-tabla-row { grid-template-columns: 1fr; gap: 4px; text-align: left !important; }
+  .sim-tabla-row .valor, .sim-tabla-row .ganancia { text-align: left; }
+  .sim-tabla-row.header { display: none; }
+}
+
+.sim-disclaimer {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  font-size: 12.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+}
+.sim-disclaimer strong { color: var(--tinta); }
+
 /* Instrumentos */
 .inst-grid {
   display: grid;
@@ -527,7 +765,7 @@
   body { background: #fff !important; }
   .topbar, .mode-banner, .header, .subhero, .page-nav, .footer,
   .piramide, .inst-grid, .uva-explica, .perfiles, .mirada-inc, .mirada,
-  .biblio, .btn-descargar-grupo, h2:not(.dashboard-vista h2) { display: none !important; }
+  .biblio, .btn-descargar-grupo, .simulador, h2:not(.dashboard-vista h2) { display: none !important; }
   .section { padding: 0 !important; background: #fff !important; }
   .section-inner { max-width: 100% !important; padding: 0 !important; }
   .dashboard-vista {
@@ -660,6 +898,179 @@
             <div class="piramide-nivel-titulo">Inversiones financieras conservadoras</div>
             <div class="piramide-nivel-desc">Recién ahora tiene sentido pensar en inversiones financieras. Y siempre empezando por las más simples y seguras.</div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Simulador <em>de inversiones</em></h2>
+    <p style="color: var(--gris-4); font-size: 15px; margin-bottom: 18px;">Probá distintos escenarios para entender cuánto rinde cada opción. Los valores que cargás son ilustrativos: lo importante es entender cómo funcionan, no quedarte con un número exacto. Las tasas reales las consultás en el banco o billetera del momento.</p>
+
+    <div class="simulador">
+      <div class="simulador-header">
+        <div class="simulador-header-eyebrow">Herramienta interactiva</div>
+        <h3><span>📊</span> Calculadora de inversiones</h3>
+        <p>Elegí una de las 4 simulaciones, cargá los valores y obtené el resultado al instante.</p>
+      </div>
+
+      <div class="sim-tabs">
+        <button class="sim-tab activa" onclick="cambiarTab('plazofijo')">
+          <span class="sim-tab-icono">🏦</span>
+          Plazo fijo
+        </button>
+        <button class="sim-tab" onclick="cambiarTab('ahorro')">
+          <span class="sim-tab-icono">📈</span>
+          Ahorro mensual
+        </button>
+        <button class="sim-tab" onclick="cambiarTab('comparador')">
+          <span class="sim-tab-icono">⚖️</span>
+          Comparador
+        </button>
+        <button class="sim-tab" onclick="cambiarTab('uva')">
+          <span class="sim-tab-icono">🛡️</span>
+          UVA vs Tradicional
+        </button>
+      </div>
+
+      <!-- TAB 1: PLAZO FIJO -->
+      <div class="sim-panel activa" id="panel-plazofijo">
+        <h4>Plazo fijo simple</h4>
+        <p class="sim-panel-desc">Cuánto cobrás al vencimiento de un plazo fijo. La tasa actual aproximada se publica diariamente en el sitio del BCRA.</p>
+        <div class="sim-inputs">
+          <div class="sim-input">
+            <label for="pf-monto">Plata que pongo</label>
+            <input type="number" id="pf-monto" value="100000" min="0" step="10000">
+            <small>En pesos</small>
+          </div>
+          <div class="sim-input">
+            <label for="pf-dias">Cantidad de días</label>
+            <input type="number" id="pf-dias" value="30" min="30" max="365" step="1">
+            <small>Mínimo 30, máximo 365</small>
+          </div>
+          <div class="sim-input">
+            <label for="pf-tna">TNA (% anual)</label>
+            <input type="number" id="pf-tna" value="80" min="0" max="200" step="1">
+            <small>Tasa Nominal Anual</small>
+          </div>
+        </div>
+        <div class="sim-resultado">
+          <div class="sim-resultado-label">Al vencimiento cobrás</div>
+          <div class="sim-resultado-valor" id="pf-resultado">$0</div>
+          <div class="sim-resultado-detalle" id="pf-detalle">Cargá los datos para ver el resultado</div>
+        </div>
+        <div class="sim-disclaimer">
+          <strong>Recordá:</strong> el plazo fijo es seguro pero conservador. En contextos inflacionarios, conviene mirar si la tasa supera o no la inflación esperada. Si no la supera, perdés poder de compra aunque ganes pesos.
+        </div>
+      </div>
+
+      <!-- TAB 2: AHORRO MENSUAL -->
+      <div class="sim-panel" id="panel-ahorro">
+        <h4>Ahorro mensual sostenido</h4>
+        <p class="sim-panel-desc">El poder del interés compuesto: cuánto juntás si aportás algo todos los meses durante un tiempo. Aunque sea poco por mes, sumado da bastante.</p>
+        <div class="sim-inputs">
+          <div class="sim-input">
+            <label for="ah-inicial">Plata inicial</label>
+            <input type="number" id="ah-inicial" value="50000" min="0" step="10000">
+            <small>Lo que tenés ahora</small>
+          </div>
+          <div class="sim-input">
+            <label for="ah-mensual">Aporte mensual</label>
+            <input type="number" id="ah-mensual" value="10000" min="0" step="1000">
+            <small>Lo que sumás cada mes</small>
+          </div>
+          <div class="sim-input">
+            <label for="ah-meses">Cantidad de meses</label>
+            <input type="number" id="ah-meses" value="12" min="1" max="120" step="1">
+            <small>De 1 a 120 meses</small>
+          </div>
+          <div class="sim-input">
+            <label for="ah-tna">TNA estimada (%)</label>
+            <input type="number" id="ah-tna" value="60" min="0" max="200" step="1">
+            <small>Rendimiento esperado</small>
+          </div>
+        </div>
+        <div class="sim-resultado">
+          <div class="sim-resultado-label">Al final del período tenés</div>
+          <div class="sim-resultado-valor" id="ah-resultado">$0</div>
+          <div class="sim-resultado-detalle" id="ah-detalle">Cargá los datos para ver el resultado</div>
+        </div>
+        <div class="sim-disclaimer">
+          <strong>Idea clave:</strong> el secreto no es ahorrar mucho una vez, sino sostener el hábito en el tiempo. Aportes pequeños y constantes ganan a aportes grandes y esporádicos.
+        </div>
+      </div>
+
+      <!-- TAB 3: COMPARADOR -->
+      <div class="sim-panel" id="panel-comparador">
+        <h4>Comparador de 5 opciones</h4>
+        <p class="sim-panel-desc">Ponés la misma plata en 5 lugares distintos. Mirá cuánto rinde cada uno al cabo de un año (rendimientos ilustrativos).</p>
+        <div class="sim-inputs">
+          <div class="sim-input">
+            <label for="comp-monto">Plata a comparar</label>
+            <input type="number" id="comp-monto" value="100000" min="0" step="10000">
+            <small>El mismo monto en todas</small>
+          </div>
+          <div class="sim-input">
+            <label for="comp-inflacion">Inflación anual estimada (%)</label>
+            <input type="number" id="comp-inflacion" value="40" min="0" max="200" step="1">
+            <small>Para medir poder de compra</small>
+          </div>
+          <div class="sim-input">
+            <label for="comp-tasa-remun">Tasa cta. remunerada (%)</label>
+            <input type="number" id="comp-tasa-remun" value="40" min="0" max="200" step="1">
+            <small>TNA aprox.</small>
+          </div>
+          <div class="sim-input">
+            <label for="comp-tasa-pf">Tasa plazo fijo (%)</label>
+            <input type="number" id="comp-tasa-pf" value="80" min="0" max="200" step="1">
+            <small>TNA aprox.</small>
+          </div>
+        </div>
+        <div class="sim-tabla-comp" id="comp-tabla">
+          <div class="sim-tabla-row header">
+            <div>Dónde pusiste la plata</div>
+            <div>Al año tenés</div>
+            <div>Ganancia real</div>
+          </div>
+        </div>
+        <div class="sim-disclaimer">
+          <strong>La "ganancia real"</strong> es lo que ganaste descontando la inflación. Si es negativa, perdiste poder de compra aunque tengas más pesos en mano.
+        </div>
+      </div>
+
+      <!-- TAB 4: UVA -->
+      <div class="sim-panel" id="panel-uva">
+        <h4>Plazo fijo UVA vs tradicional</h4>
+        <p class="sim-panel-desc">Comparación directa: la misma plata por 6 meses en plazo fijo tradicional o en UVA. ¿Cuál protege mejor del deterioro inflacionario?</p>
+        <div class="sim-inputs">
+          <div class="sim-input">
+            <label for="uva-monto">Plata a invertir</label>
+            <input type="number" id="uva-monto" value="200000" min="0" step="10000">
+            <small>Por 6 meses</small>
+          </div>
+          <div class="sim-input">
+            <label for="uva-inflacion">Inflación 6 meses (%)</label>
+            <input type="number" id="uva-inflacion" value="20" min="0" max="100" step="1">
+            <small>Estimada para el período</small>
+          </div>
+          <div class="sim-input">
+            <label for="uva-tasa-pf">Tasa plazo fijo (anual %)</label>
+            <input type="number" id="uva-tasa-pf" value="80" min="0" max="200" step="1">
+            <small>TNA tradicional</small>
+          </div>
+          <div class="sim-input">
+            <label for="uva-tasa-uva">Tasa UVA (anual %)</label>
+            <input type="number" id="uva-tasa-uva" value="5" min="0" max="20" step="0.5">
+            <small>Suma a la inflación</small>
+          </div>
+        </div>
+        <div class="sim-tabla-comp" id="uva-tabla">
+          <div class="sim-tabla-row header">
+            <div>Opción</div>
+            <div>A los 6 meses tenés</div>
+            <div>Ganancia real</div>
+          </div>
+        </div>
+        <div class="sim-disclaimer">
+          <strong>El plazo fijo UVA</strong> ajusta el capital diariamente con la inflación (CER) y le suma una tasa pequeña. Esto significa que tu plata mantiene el poder de compra. La contra: si rompés antes de 6 meses, perdés esa ventaja.
         </div>
       </div>
     </div>
@@ -890,6 +1301,231 @@ function formatear(n) {
   return '$' + Math.round(n).toLocaleString('es-AR');
 }
 
+// ===== SIMULADOR DE INVERSIONES =====
+function cambiarTab(tabId) {
+  document.querySelectorAll('.sim-tab').forEach(function(t) { t.classList.remove('activa'); });
+  document.querySelectorAll('.sim-panel').forEach(function(p) { p.classList.remove('activa'); });
+  event.currentTarget.classList.add('activa');
+  document.getElementById('panel-' + tabId).classList.add('activa');
+}
+
+function getNumSim(id, def) {
+  var el = document.getElementById(id);
+  if (!el) return def || 0;
+  var v = parseFloat(el.value);
+  return isNaN(v) ? (def || 0) : v;
+}
+
+// TAB 1: Plazo Fijo simple
+function simPlazoFijo() {
+  var monto = getNumSim('pf-monto');
+  var dias = getNumSim('pf-dias', 30);
+  var tna = getNumSim('pf-tna');
+  
+  if (monto <= 0 || dias <= 0 || tna < 0) {
+    document.getElementById('pf-resultado').textContent = '$0';
+    document.getElementById('pf-detalle').textContent = 'Cargá los datos para ver el resultado';
+    return;
+  }
+  
+  // Interés simple proporcional al período
+  var tasaPeriodo = (tna / 100) * (dias / 365);
+  var intereses = monto * tasaPeriodo;
+  var total = monto + intereses;
+  
+  document.getElementById('pf-resultado').textContent = formatear(total);
+  document.getElementById('pf-detalle').innerHTML = 
+    'Capital inicial: ' + formatear(monto) + ' · Intereses ganados: ' + formatear(intereses) +
+    ' <strong>(+' + Math.round(intereses/monto*100) + '% en ' + dias + ' días)</strong>';
+}
+
+// TAB 2: Ahorro mensual con interés compuesto
+function simAhorro() {
+  var inicial = getNumSim('ah-inicial');
+  var mensual = getNumSim('ah-mensual');
+  var meses = getNumSim('ah-meses', 12);
+  var tna = getNumSim('ah-tna');
+  
+  if ((inicial <= 0 && mensual <= 0) || meses <= 0 || tna < 0) {
+    document.getElementById('ah-resultado').textContent = '$0';
+    document.getElementById('ah-detalle').textContent = 'Cargá los datos para ver el resultado';
+    return;
+  }
+  
+  var tasaMensual = (tna / 100) / 12;
+  var saldo = inicial;
+  
+  // Cada mes: saldo gana interés + aporte nuevo
+  for (var i = 0; i < meses; i++) {
+    saldo = saldo * (1 + tasaMensual) + mensual;
+  }
+  
+  var totalAportado = inicial + (mensual * meses);
+  var ganancia = saldo - totalAportado;
+  
+  document.getElementById('ah-resultado').textContent = formatear(saldo);
+  document.getElementById('ah-detalle').innerHTML = 
+    'Total aportado: ' + formatear(totalAportado) + ' · Ganancia por interés: ' + formatear(ganancia) +
+    ' <strong>(+' + Math.round(ganancia/totalAportado*100) + '%)</strong>';
+}
+
+// TAB 3: Comparador
+function simComparador() {
+  var monto = getNumSim('comp-monto');
+  var inflacion = getNumSim('comp-inflacion');
+  var tasaRemun = getNumSim('comp-tasa-remun');
+  var tasaPf = getNumSim('comp-tasa-pf');
+  
+  if (monto <= 0) {
+    document.getElementById('comp-tabla').innerHTML = 
+      '<div class="sim-tabla-row header"><div>Dónde pusiste la plata</div><div>Al año tenés</div><div>Ganancia real</div></div>';
+    return;
+  }
+  
+  // Cálculo del valor real (descontando inflación)
+  var factorInflacion = 1 + (inflacion / 100);
+  
+  var opciones = [
+    { 
+      icono: '📦', 
+      color: '#94a3b8',
+      nombre: 'Bajo el colchón', 
+      valor: monto, 
+      tasa: 0 
+    },
+    { 
+      icono: '🏦', 
+      color: '#94a3b8',
+      nombre: 'Caja de ahorro', 
+      valor: monto, 
+      tasa: 0 
+    },
+    { 
+      icono: '💵', 
+      color: '#10b981',
+      nombre: 'Cuenta remunerada', 
+      valor: monto * (1 + tasaRemun / 100), 
+      tasa: tasaRemun 
+    },
+    { 
+      icono: '🏛️', 
+      color: '#4338ca',
+      nombre: 'Plazo fijo (1 año)', 
+      valor: monto * (1 + tasaPf / 100), 
+      tasa: tasaPf 
+    },
+    { 
+      icono: '🛡️', 
+      color: '#f97316',
+      nombre: 'Plazo fijo UVA', 
+      valor: monto * factorInflacion * 1.05, // inflación + 5%
+      tasa: inflacion + 5 
+    }
+  ];
+  
+  // Ordenar por valor para colorear el mejor y el peor
+  var valores = opciones.map(function(o) { return o.valor; });
+  var maxV = Math.max.apply(null, valores);
+  var minV = Math.min.apply(null, valores);
+  
+  var html = '<div class="sim-tabla-row header"><div>Dónde pusiste la plata</div><div>Al año tenés</div><div>Ganancia real</div></div>';
+  
+  opciones.forEach(function(op) {
+    // Ganancia real = valor final / inflación - monto inicial
+    var valorReal = op.valor / factorInflacion;
+    var gananciaReal = valorReal - monto;
+    var pctReal = Math.round(gananciaReal / monto * 100);
+    
+    var clase = 'neutro';
+    if (op.valor === maxV && maxV > monto) clase = 'mejor';
+    else if (op.valor === minV && minV <= monto) clase = 'peor';
+    
+    var gananciaStr = (pctReal >= 0 ? '+' : '') + pctReal + '%';
+    
+    html += '<div class="sim-tabla-row ' + clase + '">';
+    html += '<div class="nombre">';
+    html += '<span class="nombre-icon" style="background:' + op.color + '20; color:' + op.color + ';">' + op.icono + '</span>';
+    html += '<span>' + op.nombre + '</span>';
+    html += '</div>';
+    html += '<div class="valor">' + formatear(op.valor) + '</div>';
+    html += '<div class="ganancia">' + gananciaStr + '</div>';
+    html += '</div>';
+  });
+  
+  document.getElementById('comp-tabla').innerHTML = html;
+}
+
+// TAB 4: UVA vs Tradicional
+function simUVA() {
+  var monto = getNumSim('uva-monto');
+  var inflacion = getNumSim('uva-inflacion'); // % en 6 meses
+  var tasaPf = getNumSim('uva-tasa-pf'); // TNA del PF tradicional
+  var tasaUva = getNumSim('uva-tasa-uva'); // % anual extra sobre inflación
+  
+  if (monto <= 0) {
+    document.getElementById('uva-tabla').innerHTML = 
+      '<div class="sim-tabla-row header"><div>Opción</div><div>A los 6 meses tenés</div><div>Ganancia real</div></div>';
+    return;
+  }
+  
+  // Plazo fijo tradicional a 6 meses
+  var tasaPfPeriodo = (tasaPf / 100) * (180 / 365);
+  var valorPf = monto * (1 + tasaPfPeriodo);
+  
+  // UVA: capital ajustado por inflación + tasa pequeña
+  var factorInflacion = 1 + (inflacion / 100);
+  var tasaUvaPeriodo = (tasaUva / 100) * (180 / 365);
+  var valorUva = monto * factorInflacion * (1 + tasaUvaPeriodo);
+  
+  // Ganancia real = lo que tiene / inflación - monto inicial
+  var realPf = valorPf / factorInflacion - monto;
+  var realUva = valorUva / factorInflacion - monto;
+  
+  var pfMejor = valorPf > valorUva;
+  
+  var html = '<div class="sim-tabla-row header"><div>Opción</div><div>A los 6 meses tenés</div><div>Ganancia real</div></div>';
+  
+  // PF Tradicional
+  html += '<div class="sim-tabla-row ' + (pfMejor ? 'mejor' : 'neutro') + '">';
+  html += '<div class="nombre">';
+  html += '<span class="nombre-icon" style="background:#4338ca20; color:#4338ca;">🏛️</span>';
+  html += '<span>Plazo fijo tradicional</span>';
+  html += '</div>';
+  html += '<div class="valor">' + formatear(valorPf) + '</div>';
+  html += '<div class="ganancia">' + (realPf >= 0 ? '+' : '') + Math.round(realPf/monto*100) + '%</div>';
+  html += '</div>';
+  
+  // UVA
+  html += '<div class="sim-tabla-row ' + (!pfMejor ? 'mejor' : 'neutro') + '">';
+  html += '<div class="nombre">';
+  html += '<span class="nombre-icon" style="background:#f9731620; color:#f97316;">🛡️</span>';
+  html += '<span>Plazo fijo UVA</span>';
+  html += '</div>';
+  html += '<div class="valor">' + formatear(valorUva) + '</div>';
+  html += '<div class="ganancia">' + (realUva >= 0 ? '+' : '') + Math.round(realUva/monto*100) + '%</div>';
+  html += '</div>';
+  
+  document.getElementById('uva-tabla').innerHTML = html;
+}
+
+// Listeners de inputs del simulador
+['pf-monto','pf-dias','pf-tna'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', simPlazoFijo);
+});
+['ah-inicial','ah-mensual','ah-meses','ah-tna'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', simAhorro);
+});
+['comp-monto','comp-inflacion','comp-tasa-remun','comp-tasa-pf'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', simComparador);
+});
+['uva-monto','uva-inflacion','uva-tasa-pf','uva-tasa-uva'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', simUVA);
+});
+
 function renderDashboard() {
   var d = leerFin();
   var body = document.getElementById('dashboard-body');
@@ -1031,6 +1667,12 @@ function renderDashboard() {
 
 document.addEventListener('DOMContentLoaded', function() {
   renderDashboard();
+  
+  // Inicializar simulador
+  simPlazoFijo();
+  simAhorro();
+  simComparador();
+  simUVA();
   
   var puerta;
   try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
