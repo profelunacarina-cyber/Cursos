@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Crédito y endeudamiento · Finanzas · EPJA 753</title>
+<meta name="description" content="Módulo 4: cuándo conviene endeudarse, cómo funcionan las tasas y cómo evitar el sobreendeudamiento.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Dos caras del crédito */
+.dos-caras {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .dos-caras { grid-template-columns: 1fr; } }
+.cara-card {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.cara-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.cara-card.bueno::before { background: var(--verde); }
+.cara-card.malo::before { background: var(--coral); }
+.cara-icono {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 26px;
+}
+.cara-card.bueno .cara-icono { background: var(--verde-3); }
+.cara-card.malo .cara-icono { background: var(--coral-soft); }
+.cara-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.cara-card.bueno .cara-eyebrow { color: var(--verde); }
+.cara-card.malo .cara-eyebrow { color: var(--coral); }
+.cara-card h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.cara-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.cara-ejemplos {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--gris-2);
+}
+.cara-ejemplos-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gris-4);
+  margin-bottom: 8px;
+  display: block;
+}
+.cara-ejemplos ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cara-ejemplos li {
+  font-size: 13px;
+  color: var(--tinta);
+  padding: 5px 0 5px 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.cara-card.bueno li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+  font-weight: 700;
+}
+.cara-card.malo li::before {
+  content: "✗";
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-weight: 700;
+}
+
+/* Conceptos de tasa */
+.conceptos-tasa {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.conceptos-tasa h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 18px;
+  letter-spacing: -0.4px;
+}
+.tasa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) { .tasa-grid { grid-template-columns: 1fr; } }
+.tasa-item {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 18px;
+}
+.tasa-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 6px;
+}
+.tasa-item p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.tasa-item .formula {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--azul);
+  font-weight: 600;
+}
+
+/* Calculadora */
+.calculadora {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.calculadora::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.calculadora-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.calculadora h3 {
+  font-size: 24px;
+  margin: 0 0 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.calculadora-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  position: relative;
+  margin-bottom: 20px;
+}
+@media (max-width: 700px) { .calculadora-inputs { grid-template-columns: 1fr; } }
+.calc-input {
+  background: rgba(255,255,255,0.1);
+  padding: 14px;
+  border-radius: var(--r-md);
+}
+.calc-input label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0.9;
+  font-weight: 600;
+}
+.calc-input input {
+  width: 100%;
+  background: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--tinta);
+  font-weight: 600;
+}
+.calc-input input:focus { outline: 2px solid #fff; }
+.calc-resultado {
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--r-md);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+.calc-resultado-label {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+.calc-resultado-valor {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.calc-resultado-detalle {
+  font-size: 13px;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+/* Señales sobreendeudamiento */
+.senales {
+  background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
+  border: 1px solid #fecaca;
+  border-left: 4px solid var(--rojo);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.senales-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.senales-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--rojo);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.senales-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--rojo);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.senales h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.senales ol {
+  list-style: none;
+  counter-reset: senal;
+  padding: 0;
+  margin: 0;
+}
+.senales ol li {
+  counter-increment: senal;
+  padding: 10px 0 10px 38px;
+  position: relative;
+  font-size: 14.5px;
+  color: var(--tinta);
+  line-height: 1.55;
+  border-top: 1px dashed #fecaca;
+}
+.senales ol li:first-child { border-top: none; }
+.senales ol li::before {
+  content: counter(senal);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 28px;
+  height: 28px;
+  background: var(--rojo);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Programas */
+.programas {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.programas h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 18px;
+  letter-spacing: -0.4px;
+}
+.prog-lista {
+  display: grid;
+  gap: 12px;
+}
+.prog-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+}
+@media (max-width: 600px) {
+  .prog-item { grid-template-columns: 1fr; gap: 8px; }
+}
+.prog-tipo {
+  background: var(--azul);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-align: center;
+}
+.prog-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 4px;
+}
+.prog-info p {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.5;
+  margin: 0;
+}
+.prog-link {
+  font-size: 12px;
+  color: var(--azul);
+  font-weight: 600;
+  text-decoration: none;
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--azul-3);
+  transition: all 0.15s;
+}
+.prog-link:hover {
+  background: var(--azul);
+  color: #fff;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Banner puerta */
+.mode-banner {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  display: none;
+}
+.mode-banner-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html" class="active">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Finanzas</a>
+      <span>›</span>
+      <span>Módulo 04</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 4 de 6
+    </span>
+    <h1>Crédito y <em>endeudamiento</em></h1>
+    <p>Endeudarse no es ni bueno ni malo: depende para qué. En este módulo aprendés a leer tasas, saber cuándo conviene tomar un crédito y cómo identificar las señales de que la deuda se está yendo de las manos.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 66%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 04 / 06</span>
+      <span>66% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">El crédito es una herramienta. Como cualquier herramienta, puede ser muy útil o muy peligrosa según cómo se use. <strong>Lo que define si una deuda es "buena" o "mala" no es la deuda en sí, sino qué hacés con esa plata y si podés devolverla</strong>. En este módulo vamos a ver las dos caras de la moneda, sin moralinas ni recetas mágicas.</p>
+
+    <h2>Las dos caras del crédito</h2>
+
+    <div class="dos-caras">
+      <div class="cara-card bueno">
+        <div class="cara-icono">✨</div>
+        <div class="cara-eyebrow">Cuando suma</div>
+        <h3>Crédito productivo</h3>
+        <p>Es la deuda que tomás para <strong>generar más plata de lo que te va a costar</strong>. La inversión rinde más que la tasa que pagás.</p>
+        <div class="cara-ejemplos">
+          <span class="cara-ejemplos-label">Ejemplos típicos</span>
+          <ul>
+            <li>Comprar una máquina que te permite producir el doble</li>
+            <li>Stock para una fecha pico (Navidad, Día de la Madre)</li>
+            <li>Mejora del local que aumenta tus ventas</li>
+            <li>Curso o capacitación que te abre nuevas oportunidades</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cara-card malo">
+        <div class="cara-icono">⚠️</div>
+        <div class="cara-eyebrow">Cuando resta</div>
+        <h3>Crédito de consumo / problema</h3>
+        <p>Es la deuda que tomás para <strong>cubrir gastos corrientes</strong>, sin generar un retorno. El día de mañana hay que pagarla con plata futura.</p>
+        <div class="cara-ejemplos">
+          <span class="cara-ejemplos-label">Ejemplos típicos</span>
+          <ul>
+            <li>Pagar la luz con la tarjeta de crédito</li>
+            <li>Comprarte ropa o cosas que no necesitás con cuotas</li>
+            <li>Vacaciones financiadas con préstamo personal</li>
+            <li>Tapar un agujero con otro crédito ("ruleta")</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Antes de pedir un crédito hacete esta pregunta: <em>"¿Esta deuda me va a permitir generar más plata de lo que me cuesta?"</em>. Si la respuesta es sí, puede tener sentido. Si la respuesta es no, casi siempre es mejor esperar.</p>
+    </div>
+
+    <h2>Cómo entender <em>las tasas</em></h2>
+
+    <p>Las tasas de interés son el "precio" del crédito. En Argentina aparecen con nombres distintos que pueden confundir. Te paso los más importantes:</p>
+
+    <div class="conceptos-tasa">
+      <h3>Las cuatro tasas que vas a ver</h3>
+      <div class="tasa-grid">
+        <div class="tasa-item">
+          <h4>TNA · Tasa Nominal Anual</h4>
+          <p>Es la tasa que figura "en grande" en la publicidad del crédito. No incluye el efecto del interés compuesto (que es el que te cobra el banco realmente).</p>
+          <div class="formula">Ej: 80% TNA</div>
+        </div>
+        <div class="tasa-item">
+          <h4>TEA · Tasa Efectiva Anual</h4>
+          <p>Es la tasa real que pagás al año, considerando el interés compuesto. <strong>Siempre es mayor que la TNA</strong>. Es el número que importa.</p>
+          <div class="formula">Ej: 120% TEA</div>
+        </div>
+        <div class="tasa-item">
+          <h4>CFT · Costo Financiero Total</h4>
+          <p>Es la tasa real <strong>incluyendo gastos extras</strong>: seguros, sellos, comisiones. Es el costo verdadero de la deuda. Por ley, los bancos deben mostrarlo.</p>
+          <div class="formula">Ej: 140% CFT</div>
+        </div>
+        <div class="tasa-item">
+          <h4>TM · Tasa Mensual</h4>
+          <p>La que pagás cada mes. Útil para créditos en cuotas. Si el banco dice "5% mensual", multiplicalo por 12 para sacar la TNA aproximada.</p>
+          <div class="formula">Ej: 7% mensual</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--gris-4); margin: 16px 0 0; line-height: 1.6;">📌 <strong>Importante:</strong> al comparar dos créditos, mirá siempre el <strong>CFT</strong>. Es el único número que te dice cuánto vas a pagar realmente.</p>
+    </div>
+
+    <div class="calculadora">
+      <div class="calculadora-label">Calculadora</div>
+      <h3>Costo total de un crédito</h3>
+      <p style="font-size: 14.5px; opacity: 0.95; margin-bottom: 18px; line-height: 1.6; position: relative;">Modificá los valores y mirá cuánto vas a pagar realmente. Te ayuda a entender el peso de la tasa.</p>
+      <div class="calculadora-inputs">
+        <div class="calc-input">
+          <label for="calc-monto">Plata que pedís ($)</label>
+          <input type="number" id="calc-monto" value="500000" min="0" step="10000">
+        </div>
+        <div class="calc-input">
+          <label for="calc-meses">En cuántas cuotas</label>
+          <input type="number" id="calc-meses" value="12" min="1" max="60">
+        </div>
+        <div class="calc-input">
+          <label for="calc-tasa">TNA (anual %)</label>
+          <input type="number" id="calc-tasa" value="80" min="0" step="5">
+        </div>
+      </div>
+      <div class="calc-resultado">
+        <div class="calc-resultado-label">Total a pagar</div>
+        <div class="calc-resultado-valor" id="calc-total">$0</div>
+        <div class="calc-resultado-detalle" id="calc-detalle">Cuota mensual: $0 · Intereses totales: $0</div>
+      </div>
+    </div>
+
+    <h2>5 reglas <em>antes de pedir un crédito</em></h2>
+
+    <ol style="counter-reset: regla; list-style: none; padding: 0; margin: 28px 0;">
+      <li style="counter-increment: regla; padding: 14px 0 14px 50px; position: relative; border-top: 1px solid var(--gris-2); font-size: 15px; color: var(--tinta); line-height: 1.6;">
+        <span style="position: absolute; left: 0; top: 14px; width: 36px; height: 36px; background: var(--azul); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</span>
+        <strong>Verificá que tenés capacidad de pago.</strong> La cuota mensual del crédito no debería superar el 25-30% de tus ingresos mensuales netos. Si es más, vas a vivir ajustando todo.
+      </li>
+      <li style="counter-increment: regla; padding: 14px 0 14px 50px; position: relative; border-top: 1px solid var(--gris-2); font-size: 15px; color: var(--tinta); line-height: 1.6;">
+        <span style="position: absolute; left: 0; top: 14px; width: 36px; height: 36px; background: var(--azul); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</span>
+        <strong>Compará al menos 3 ofertas.</strong> La diferencia entre el peor y el mejor crédito puede ser de un 50% o más. No firmes el primero que te ofrecen.
+      </li>
+      <li style="counter-increment: regla; padding: 14px 0 14px 50px; position: relative; border-top: 1px solid var(--gris-2); font-size: 15px; color: var(--tinta); line-height: 1.6;">
+        <span style="position: absolute; left: 0; top: 14px; width: 36px; height: 36px; background: var(--azul); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</span>
+        <strong>Leé el CFT, no solo la cuota.</strong> "Cuotas chiquitas, ¡hasta 36 meses!" suena bien hasta que sumás el CFT total. A veces vas a pagar 3 veces lo que pediste.
+      </li>
+      <li style="counter-increment: regla; padding: 14px 0 14px 50px; position: relative; border-top: 1px solid var(--gris-2); font-size: 15px; color: var(--tinta); line-height: 1.6;">
+        <span style="position: absolute; left: 0; top: 14px; width: 36px; height: 36px; background: var(--azul); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</span>
+        <strong>Evitá créditos para cubrir otros créditos.</strong> Es la "ruleta de deudas" y siempre termina mal. Si entraste en eso, mejor renegociar todo de una vez que seguir tapando agujeros.
+      </li>
+      <li style="counter-increment: regla; padding: 14px 0 14px 50px; position: relative; border-top: 1px solid var(--gris-2); font-size: 15px; color: var(--tinta); line-height: 1.6;">
+        <span style="position: absolute; left: 0; top: 14px; width: 36px; height: 36px; background: var(--azul); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">5</span>
+        <strong>Pensá cómo lo devolvés ANTES de tomarlo.</strong> Hacé el ejercicio mental: ¿de dónde va a salir cada cuota? Si la respuesta es "veremos", no lo tomes.
+      </li>
+    </ol>
+
+    <h2>Señales de <em>sobreendeudamiento</em></h2>
+
+    <div class="senales">
+      <div class="senales-header">
+        <span class="senales-icon">⚠️</span>
+        <span class="senales-label">Alerta temprana</span>
+      </div>
+      <h4>Si ves tres o más de estas señales, hay que actuar rápido</h4>
+      <ol>
+        <li>El total de cuotas de todos tus créditos supera el 40% de tus ingresos mensuales.</li>
+        <li>Estás pagando el resumen de la tarjeta con el pago mínimo de forma habitual.</li>
+        <li>Pediste un crédito nuevo para pagar uno viejo (refinanciación informal).</li>
+        <li>Tenés deudas con varias entidades a la vez (banco, tarjeta, prestamista, financiera).</li>
+        <li>El dinero se te va sin saber bien en qué (porque las cuotas se cargan automáticamente).</li>
+        <li>Tu obligación de pago crece mes a mes, no baja.</li>
+        <li>Empezaste a mentirle a tu familia sobre el estado de tus finanzas.</li>
+      </ol>
+    </div>
+
+    <p>Si te identificás con varios puntos, no es para entrar en pánico, pero sí <strong>para tomarlo en serio</strong>. Lo primero: <em>parar de tomar deuda nueva</em>. Lo segundo: hacer un mapa real de todo lo que debés (a quién, cuánto, qué tasa). Lo tercero: ir a hablar con quienes te prestan a buscar refinanciar antes de entrar en default. Los acreedores prefieren renegociar a perder.</p>
+
+    <h2>Programas para emprendedores en Argentina</h2>
+
+    <p>Si lo que necesitás es un crédito <strong>productivo</strong>, hay programas públicos que suelen tener tasas mucho mejores que el crédito personal de los bancos. Algunos cambian con cada gobierno, pero los más estables:</p>
+
+    <div class="programas">
+      <h3>Algunas opciones para investigar</h3>
+      <div class="prog-lista">
+        <div class="prog-item">
+          <span class="prog-tipo">Nacional</span>
+          <div class="prog-info">
+            <h4>Banco Nación · Línea PyME</h4>
+            <p>Créditos productivos para PyMEs y emprendedores con condiciones preferenciales según rubro.</p>
+          </div>
+          <a href="https://www.bna.com.ar/" target="_blank" rel="noopener" class="prog-link">Ver más ↗</a>
+        </div>
+        <div class="prog-item">
+          <span class="prog-tipo">Nacional</span>
+          <div class="prog-info">
+            <h4>Anses · Créditos Anses</h4>
+            <p>Créditos para titulares de AUH, jubilaciones, asignaciones, con tasas subsidiadas.</p>
+          </div>
+          <a href="https://www.anses.gob.ar/" target="_blank" rel="noopener" class="prog-link">Ver más ↗</a>
+        </div>
+        <div class="prog-item">
+          <span class="prog-tipo">Provincial</span>
+          <div class="prog-info">
+            <h4>Programas provinciales de Chubut</h4>
+            <p>El Ministerio de Producción y otras áreas suelen tener líneas para emprendedores. Buscá las activas en tu zona.</p>
+          </div>
+          <a href="https://www.chubut.gov.ar/" target="_blank" rel="noopener" class="prog-link">Ver más ↗</a>
+        </div>
+        <div class="prog-item">
+          <span class="prog-tipo">Mutuales</span>
+          <div class="prog-info">
+            <h4>Mutuales y cooperativas locales</h4>
+            <p>A veces tienen condiciones mejores que los bancos. Conviene preguntar en las mutuales de Rawson y Trelew.</p>
+          </div>
+          <span style="font-size: 12px; color: var(--gris-4);">Consulta local</span>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--gris-4); margin: 16px 0 0; line-height: 1.6;">⚠️ Estas opciones son orientativas. Las condiciones cambian seguido: tasas, montos máximos, requisitos. Siempre chequeá la información actualizada antes de decidir.</p>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>Crecer con plata propia es más lento, pero más sólido</h4>
+      <p>Hay una idea muy instalada en el mundo emprendedor: "para crecer necesitás invertir, y para invertir necesitás endeudarte". Es verdad a medias. Para crecer <em>rápido</em> generalmente necesitás capital externo. Pero crecer <strong>despacio y con plata propia</strong> también es válido, y muchas veces más sólido.</p>
+      <p>El enfoque incremental sugiere: si podés invertir progresivamente con la ganancia que va generando el propio negocio (autofinanciamiento), el riesgo es mucho menor. Tomá deuda solo cuando esté claro que la inversión rinde más que la tasa, y siempre con un plan de devolución concreto, no con "Dios proveerá".</p>
+      <div class="mirada-inc-cita">
+        "El crecimiento sostenido se construye con pasos firmes, no con saltos arriesgados. La paciencia es una herramienta financiera tan poderosa como el capital."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>El crédito es una palanca: amplifica lo que ya hay</h3>
+      <p>Si tu emprendimiento funciona, el crédito puede ayudarlo a crecer más rápido. Si tu emprendimiento todavía no es rentable, el crédito puede acelerar su quiebra. No hay magia: la deuda no "salva" un negocio, lo amplifica para bien o para mal. En el próximo módulo vamos a hablar de algo muy importante: cómo identificar estafas y fraudes financieros antes de caer.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-03.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">03 · Cuentas y billeteras</span>
+    </a>
+    <a href="modulo-05.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">05 · Estafas y decisiones</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+function formatear(n) {
+  if (!n || isNaN(n)) return '$0';
+  return '$' + Math.round(n).toLocaleString('es-AR');
+}
+
+function calcularCredito() {
+  var monto = parseFloat(document.getElementById('calc-monto').value) || 0;
+  var meses = parseFloat(document.getElementById('calc-meses').value) || 1;
+  var tnaPct = parseFloat(document.getElementById('calc-tasa').value) || 0;
+  
+  if (monto <= 0 || meses <= 0 || tnaPct < 0) {
+    document.getElementById('calc-total').textContent = '$0';
+    document.getElementById('calc-detalle').textContent = 'Cargá los datos para ver el resultado';
+    return;
+  }
+  
+  // Tasa mensual a partir de TNA
+  var tasaMensual = tnaPct / 100 / 12;
+  
+  // Sistema francés: cuota constante
+  // Cuota = Monto × tasa × (1+tasa)^n / ((1+tasa)^n - 1)
+  var cuota;
+  if (tasaMensual === 0) {
+    cuota = monto / meses;
+  } else {
+    var factor = Math.pow(1 + tasaMensual, meses);
+    cuota = monto * tasaMensual * factor / (factor - 1);
+  }
+  
+  var totalPagar = cuota * meses;
+  var totalIntereses = totalPagar - monto;
+  
+  document.getElementById('calc-total').textContent = formatear(totalPagar);
+  document.getElementById('calc-detalle').textContent = 
+    'Cuota mensual: ' + formatear(cuota) + ' · Intereses totales: ' + formatear(totalIntereses) + 
+    ' (' + Math.round(totalIntereses/monto*100) + '% del monto original)';
+}
+
+['calc-monto','calc-meses','calc-tasa'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', calcularCredito);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  calcularCredito();
+  
+  var puerta;
+  try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && puerta) {
+    if (puerta === 'arranco') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Recién empiezo</strong></span><span style="opacity:0.8;">Ejemplos con montos pequeños y foco en hábitos básicos</span></div>';
+      banner.style.display = 'block';
+    } else if (puerta === 'andando') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Negocio andando</strong></span><span style="opacity:0.8;">Ejemplos con números reales y foco en optimización</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
