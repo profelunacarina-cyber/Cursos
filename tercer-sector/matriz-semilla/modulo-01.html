@@ -1,1 +1,681 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulo 1 · La economía que existe — Capacitación Matriz Semilla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<style>
+  :root{
+    --loam:#241E17;        /* soil / ink */
+    --suelo:#3B2E20;       /* deep soil */
+    --raiz:#7A5230;        /* root brown */
+    --brote:#5E8C5A;       /* sprout green */
+    --brote-bright:#84B36E;/* highlight green */
+    --estepa:#C7A867;      /* steppe dry-grass gold */
+    --hueso:#F5EFE1;       /* parchment panel */
+    --hueso-2:#EFE7D4;     /* parchment shade */
+    --flor:#B25C79;        /* restrained bloom */
+    --linea:rgba(36,30,23,.14);
+    --ok:#3f7d43; --ok-bg:#e6efe0;
+    --no:#a1483f; --no-bg:#f4e2dd;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:
+      radial-gradient(120% 80% at 100% -10%, #efe6d1 0%, rgba(239,230,209,0) 55%),
+      linear-gradient(#F7F2E6, #F1E9D8);
+    color:var(--loam);
+    font-family:"Figtree", system-ui, -apple-system, sans-serif;
+    font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:0 22px 96px}
+
+  /* ---------- header ---------- */
+  .top{
+    background:
+      radial-gradient(140% 120% at 8% 0%, #33281c 0%, var(--loam) 60%);
+    color:var(--hueso); border-radius:0 0 26px 26px;
+    padding:30px 26px 34px; margin-bottom:34px;
+    box-shadow:0 24px 48px -30px rgba(36,30,23,.7);
+  }
+  .top-inner{max-width:820px; margin:0 auto; display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap}
+  .top-txt{flex:1 1 340px; min-width:0}
+  .eyebrow{
+    font-size:12.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--estepa); font-weight:600; margin:0 0 12px; display:flex; gap:10px; align-items:center;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--estepa); display:inline-block}
+  h1.mod{
+    font-family:"Fraunces", Georgia, serif; font-weight:600; font-optical-sizing:auto;
+    font-size:clamp(30px,6vw,46px); line-height:1.03; margin:0 0 14px; letter-spacing:-.01em;
+  }
+  h1.mod em{font-style:italic; color:var(--brote-bright); font-weight:500}
+  .meta{display:flex; gap:8px 22px; flex-wrap:wrap; font-size:14px; color:#e7ddc7}
+  .meta b{color:var(--hueso); font-weight:600}
+  .meta .dot{opacity:.4}
+
+  /* growing-plant progress */
+  .grow{flex:0 0 132px; display:flex; flex-direction:column; align-items:center; gap:10px; padding-top:6px}
+  .grow-track{
+    width:132px; background:rgba(245,239,225,.06); border:1px solid rgba(245,239,225,.14);
+    border-radius:16px; padding:14px 10px; text-align:center;
+  }
+  .stages{display:flex; justify-content:space-between; align-items:flex-end; height:70px; margin-bottom:8px}
+  .stg{width:26px; opacity:.28; transition:opacity .5s, transform .5s; transform:translateY(4px)}
+  .stg.on{opacity:1; transform:translateY(0)}
+  .stg svg{display:block; width:26px; height:auto; margin:0 auto}
+  .grow-label{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--estepa)}
+
+  /* ---------- panels ---------- */
+  .panel{
+    background:var(--hueso); border:1px solid var(--linea); border-radius:18px;
+    padding:26px 26px; margin:0 0 22px; box-shadow:0 2px 0 rgba(36,30,23,.03);
+  }
+  .kicker{
+    font-family:"Figtree"; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    font-weight:700; color:var(--raiz); margin:0 0 8px; display:flex; gap:10px; align-items:center;
+  }
+  .kicker .n{
+    background:var(--brote); color:#fff; width:24px; height:24px; border-radius:50%;
+    display:grid; place-items:center; font-size:12.5px; font-weight:700; letter-spacing:0;
+    font-family:"Fraunces", serif;
+  }
+  h2{font-family:"Fraunces", Georgia, serif; font-weight:600; font-size:clamp(22px,4vw,29px); line-height:1.12; margin:.1em 0 .5em; letter-spacing:-.01em}
+  h3{font-family:"Fraunces", Georgia, serif; font-weight:600; font-size:20px; margin:1.3em 0 .3em}
+  p{margin:0 0 1em}
+  .lead{font-size:19px}
+  strong{font-weight:700}
+  .term{color:var(--raiz); font-weight:700}
+  ul{margin:0 0 1em; padding-left:1.15em}
+  li{margin:.35em 0}
+  .obj li{margin:.5em 0}
+
+  .note{
+    border-left:3px solid var(--brote); background:var(--hueso-2);
+    padding:14px 18px; border-radius:0 12px 12px 0; margin:1.2em 0; font-size:16px;
+  }
+  .note .src{display:block; margin-top:6px; font-size:13.5px; color:var(--raiz); font-style:italic}
+
+  .case{
+    background:linear-gradient(180deg,#2c2519,#241E17); color:var(--hueso);
+    border-radius:16px; padding:22px 24px; margin:1.3em 0;
+  }
+  .case .kicker{color:var(--estepa)}
+  .case .kicker .n{background:var(--estepa); color:var(--loam)}
+  .case h3{color:var(--hueso); margin-top:.2em}
+  .case p{color:#e9e0cd}
+  .case em{color:var(--brote-bright); font-style:normal}
+
+  /* three-logics diagram */
+  .logics{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:1.2em 0}
+  .logic{border:1px solid var(--linea); border-radius:14px; padding:16px 14px; background:var(--hueso-2)}
+  .logic h4{margin:8px 0 4px; font-family:"Fraunces",serif; font-size:17px; font-weight:600}
+  .logic p{font-size:14px; margin:0; color:#4a4032}
+  .logic .ic{width:30px; height:30px}
+  .logic.m{border-top:4px solid var(--estepa)}
+  .logic.rd{border-top:4px solid var(--raiz)}
+  .logic.rc{border-top:4px solid var(--brote)}
+
+  /* ---------- activities ---------- */
+  .act-head{display:flex; align-items:center; gap:10px; margin-bottom:4px}
+  .badge{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:#fff; background:var(--flor); padding:4px 10px; border-radius:999px}
+  .cards{display:grid; gap:12px; margin:16px 0 6px}
+  .card{border:1px solid var(--linea); border-radius:14px; padding:14px 16px; background:#fff; transition:border-color .3s, background .3s}
+  .card .q{font-weight:600; margin:0 0 10px; font-size:16px}
+  .opts{display:flex; gap:8px; flex-wrap:wrap}
+  .opt{
+    border:1.5px solid var(--linea); background:#fff; color:var(--loam);
+    font-family:inherit; font-size:14px; font-weight:600; padding:8px 13px; border-radius:999px;
+    cursor:pointer; transition:.18s;
+  }
+  .opt:hover{border-color:var(--brote); background:var(--hueso-2)}
+  .opt:disabled{cursor:default}
+  .card.correct{border-color:var(--ok); background:var(--ok-bg)}
+  .card.wrong{border-color:var(--no); background:var(--no-bg)}
+  .fb{margin:10px 0 0; font-size:14px; font-weight:600; display:none}
+  .card.correct .fb, .card.wrong .fb{display:block}
+  .card.correct .fb{color:var(--ok)}
+  .card.wrong .fb{color:var(--no)}
+  .opt.pick-ok{background:var(--ok); color:#fff; border-color:var(--ok)}
+  .opt.pick-no{background:var(--no); color:#fff; border-color:var(--no)}
+  .opt.reveal{border-color:var(--ok); color:var(--ok)}
+
+  textarea{
+    width:100%; min-height:96px; border:1px solid var(--linea); border-radius:12px;
+    padding:12px 14px; font-family:inherit; font-size:15px; resize:vertical; background:#fff; color:var(--loam);
+  }
+  .reveal-btn{margin-top:10px}
+  .hint{display:none; margin-top:12px; background:var(--hueso-2); border-radius:12px; padding:14px 16px; font-size:15px}
+  .hint.show{display:block}
+
+  /* buttons */
+  .btn{
+    font-family:inherit; font-weight:700; font-size:15px; cursor:pointer;
+    background:var(--brote); color:#fff; border:none; border-radius:12px; padding:12px 20px;
+    transition:.18s; box-shadow:0 10px 20px -12px rgba(94,140,90,.9);
+  }
+  .btn:hover{background:#527d4e; transform:translateY(-1px)}
+  .btn.ghost{background:transparent; color:var(--raiz); border:1.5px solid var(--linea); box-shadow:none}
+  .btn.ghost:hover{border-color:var(--raiz); background:var(--hueso-2)}
+  .btn:disabled{opacity:.45; cursor:not-allowed; transform:none; box-shadow:none}
+  .btn.gold{background:var(--raiz); box-shadow:0 10px 20px -12px rgba(122,82,48,.9)}
+  .btn.gold:hover{background:#63421f}
+
+  /* identity */
+  .idrow{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .idrow label{display:block; font-size:13px; font-weight:600; color:var(--raiz); margin-bottom:5px; letter-spacing:.02em}
+  .idrow input{width:100%; border:1px solid var(--linea); border-radius:11px; padding:11px 13px; font-family:inherit; font-size:15px; background:#fff; color:var(--loam)}
+  .idrow input:focus{outline:2px solid var(--brote); outline-offset:1px}
+
+  /* quiz */
+  .qz{border:1px solid var(--linea); border-radius:14px; padding:18px 18px; margin:0 0 14px; background:#fff}
+  .qz .qn{font-weight:700; margin:0 0 12px; font-size:16px}
+  .qz .qn span{color:var(--brote); font-family:"Fraunces",serif; margin-right:6px}
+  .choice{display:flex; gap:11px; align-items:flex-start; padding:9px 12px; border:1px solid var(--linea); border-radius:11px; margin:7px 0; cursor:pointer; transition:.15s; font-size:15px}
+  .choice:hover{background:var(--hueso-2)}
+  .choice input{margin-top:3px; accent-color:var(--brote)}
+  .qz.graded .choice{cursor:default}
+  .qz.graded .choice.is-correct{border-color:var(--ok); background:var(--ok-bg)}
+  .qz.graded .choice.is-wrong{border-color:var(--no); background:var(--no-bg)}
+  .qexp{display:none; margin-top:8px; font-size:14px; color:#4a4032; background:var(--hueso-2); padding:10px 13px; border-radius:10px}
+  .qz.graded .qexp{display:block}
+
+  .result{border-radius:16px; padding:24px; text-align:center; margin:16px 0; display:none}
+  .result.show{display:block}
+  .result.pass{background:linear-gradient(180deg,#eef4e7,#e2eed8); border:1px solid var(--brote)}
+  .result.fail{background:var(--no-bg); border:1px solid var(--no)}
+  .score{font-family:"Fraunces",serif; font-size:54px; font-weight:900; line-height:1; margin:6px 0}
+  .result.pass .score{color:var(--brote)}
+  .result.fail .score{color:var(--no)}
+  .result p{margin:.3em 0}
+  .result .cta{margin-top:16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+  .warn{color:var(--no); font-size:14px; font-weight:600; margin-top:10px; display:none}
+  .warn.show{display:block}
+
+  .foot{text-align:center; font-size:13.5px; color:var(--raiz); margin-top:30px; line-height:1.5}
+  .foot em{font-style:italic}
+
+  @media (max-width:560px){
+    .idrow{grid-template-columns:1fr}
+    .logics{grid-template-columns:1fr}
+    .grow{flex-basis:100%}
+    .grow-track{width:100%}
+    .stages{justify-content:space-around}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto !important}
+    .stg{transition:none}
+  }
+</style>
+
+<div class="top">
+  <div class="top-inner">
+    <div class="top-txt">
+      <p class="eyebrow">Capacitación · Matriz Semilla · Módulo 1 de 6</p>
+      <h1 class="mod">La economía <em>que existe</em></h1>
+      <div class="meta">
+        <span><b>Duración</b> 1 h 30 (cursada asincrónica)</span><span class="dot">•</span>
+        <span><b>Para</b> integrantes de organizaciones de la ESCyS</span><span class="dot">•</span>
+        <span><b>Región</b> VIRCH, Chubut</span>
+      </div>
+    </div>
+    <div class="grow">
+      <div class="grow-track">
+        <div class="stages" id="stages">
+          <div class="stg" data-s="0" title="Semilla">
+            <svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="15" rx="6" ry="7.5" fill="#C7A867"/><path d="M12 8c1.5-2 4-2.5 6-2-.5 2.5-2 4-4 4.5" stroke="#84B36E" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stg" data-s="1" title="Raíz">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v9" stroke="#5E8C5A" stroke-width="2" stroke-linecap="round"/><path d="M12 12c-1 3-3 4-4 6M12 12c1 3 3 4 4 6M12 12v8" stroke="#7A5230" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <div class="stg" data-s="2" title="Brote">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21V8" stroke="#5E8C5A" stroke-width="2" stroke-linecap="round"/><path d="M12 12c-3-.5-5-2.5-5.5-5 2.5-.3 4.7 1 5.5 3M12 10c2.6-.6 4.4-2.4 4.8-4.7-2.2-.2-4 1-4.8 2.9" fill="#84B36E"/></svg>
+          </div>
+          <div class="stg" data-s="3" title="Flor">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21v-8" stroke="#5E8C5A" stroke-width="2" stroke-linecap="round"/><g><circle cx="12" cy="8" r="2.4" fill="#C7A867"/><ellipse cx="12" cy="3.6" rx="2" ry="3" fill="#B25C79"/><ellipse cx="12" cy="12.4" rx="2" ry="3" fill="#B25C79"/><ellipse cx="7.6" cy="8" rx="3" ry="2" fill="#B25C79"/><ellipse cx="16.4" cy="8" rx="3" ry="2" fill="#B25C79"/></g></svg>
+          </div>
+        </div>
+        <div class="grow-label" id="growLabel">Semilla</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- IDENTITY -->
+  <section class="panel">
+    <p class="kicker"><span class="n">✽</span> Antes de empezar</p>
+    <h2>Tu constancia lleva tu nombre</h2>
+    <p>Completá tus datos: al aprobar la autoevaluación final vas a poder descargar la constancia de aprobación de este módulo con estos datos.</p>
+    <div class="idrow">
+      <div><label for="fn">Nombre y apellido</label><input id="fn" type="text" placeholder="Ej.: Carina Luna" autocomplete="name"></div>
+      <div><label for="org">Organización</label><input id="org" type="text" placeholder="Ej.: Cooperativa El Pulpo Rojo"></div>
+    </div>
+  </section>
+
+  <!-- OBJECTIVES -->
+  <section class="panel">
+    <p class="kicker"><span class="n">◔</span> Qué vas a poder hacer</p>
+    <h2>Objetivos del módulo</h2>
+    <ul class="obj">
+      <li>Reconocer por qué las herramientas de marketing convencional <strong>no alcanzan</strong> para comunicar lo que hace una organización de la ESCyS.</li>
+      <li>Comprender las <strong>tres lógicas de la economía plural</strong> y encontrarlas en la práctica de tu propia organización.</li>
+      <li>Distinguir entre <strong>gestionar</strong> el sentido y <strong>co-producirlo</strong> con la comunidad.</li>
+    </ul>
+  </section>
+
+  <!-- THEORY 1 -->
+  <section class="panel" data-milestone="0">
+    <p class="kicker"><span class="n">1</span> El punto de partida</p>
+    <h2>Cuando la vidriera no alcanza</h2>
+    <p class="lead">Muchas organizaciones de la economía social sienten que "no saben comunicarse". Buscan cursos de redes, de marketing, de marca. Y aun así algo no cierra.</p>
+    <p>El problema no es que falte técnica. Es que las herramientas disponibles están <span class="term">calibradas para comunicar intercambio mercantil</span> —transacciones, servicios, precio— y no para dar cuenta de lo que estas organizaciones realmente producen: <strong>reciprocidad, arraigo en el territorio, cuidado como bien común, construcción colectiva de sentido</strong>.</p>
+    <p>Cuando una cooperativa de cuidados aprende a "vender su servicio" con los criterios del mercado, no resuelve su problema de visibilidad: lo <strong>desplaza</strong>. Comunica lo que no es —una empresa de servicios— y esconde lo que sí es: una forma de organizar la vida en común.</p>
+    <div class="note">
+      El semiólogo Andrea Semprini pensó cómo las marcas gestionan su sentido <em>hacia</em> un consumidor. Pero en la ESCyS el sentido no se gestiona: <strong>se co-produce</strong> con la comunidad de pertenencia. No hay destinatarios; hay participantes. Esa diferencia no es de grado, es de naturaleza.
+      <span class="src">— Reconfiguración de Semprini desde la economía social (marco de la Matriz Semilla)</span>
+    </div>
+  </section>
+
+  <!-- CASE 1 -->
+  <section class="panel" data-milestone="0" style="padding-top:8px; background:transparent; border:none; box-shadow:none">
+    <div class="case">
+      <p class="kicker"><span class="n">◆</span> Caso de experiencia</p>
+      <h3>El sector se mira al espejo</h3>
+      <p>En el <em>II Encuentro Nacional de Cooperativas de Cuidados</em> (Santa Rosa, La Pampa, marzo 2026), las propias cooperativas nombraron sus dificultades: cómo captar demanda al inicio, cómo sumar valor al servicio, cómo usar las redes para conseguir clientes. Y se respondieron a sí mismas: "capacitarnos en marketing y comunicación estratégica".</p>
+      <p>Es una respuesta comprensible. Pero adopta el vocabulario del mercado <em>sin resignificarlo</em>. Lo que falta no es una herramienta más: es un marco propio para pensar la comunicación desde los valores de la economía social. Ese marco es lo que empezamos a construir acá.</p>
+    </div>
+  </section>
+
+  <!-- THEORY 2 -->
+  <section class="panel" data-milestone="0">
+    <p class="kicker"><span class="n">2</span> La idea central</p>
+    <h2>Las tres lógicas de la economía plural</h2>
+    <p>Jean-Louis Laville lo dice claro: una organización de la ESCyS <strong>nunca opera en una sola lógica económica</strong>. Opera en tres, al mismo tiempo.</p>
+    <div class="logics">
+      <div class="logic m">
+        <svg class="ic" viewBox="0 0 24 24" fill="none"><rect x="3" y="9" width="18" height="11" rx="2" stroke="#C7A867" stroke-width="1.8"/><path d="M8 9V7a4 4 0 0 1 8 0v2" stroke="#C7A867" stroke-width="1.8"/></svg>
+        <h4>Mercado</h4>
+        <p>Intercambio de bienes y servicios. Lo que se vende, lo que se cobra.</p>
+      </div>
+      <div class="logic rd">
+        <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M4 20V10l8-6 8 6v10" stroke="#7A5230" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke="#7A5230" stroke-width="1.8"/></svg>
+        <h4>Redistribución</h4>
+        <p>Recursos públicos: subsidios, políticas sociales, un local que cede el municipio.</p>
+      </div>
+      <div class="logic rc">
+        <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.7-7 9-7 9Z" stroke="#5E8C5A" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <h4>Reciprocidad</h4>
+        <p>Voluntariado, trabajo comunitario, vínculos de confianza, favores que sostienen.</p>
+      </div>
+    </div>
+    <p>La consecuencia para la comunicación es directa: una organización que comunica <strong>solo su dimensión de servicios</strong> —la más visible para el mercado— invisibiliza justamente lo que la diferencia de una empresa. La Matriz Semilla existe para dar cuenta de <strong>las tres a la vez</strong>.</p>
+    <div class="note">
+      Y hay una regla de fondo, tomada de Franco Basaglia: nadie sabe mejor que la organización qué es la organización. Por eso esta comunicación no se diagnostica desde afuera; <strong>la construye el colectivo</strong>. Quien facilita acompaña, no dirige.
+    </div>
+  </section>
+
+  <!-- ACTIVITY 1 -->
+  <section class="panel" data-milestone="1">
+    <div class="act-head"><span class="badge">Actividad 1</span></div>
+    <h2>Reconocé las tres lógicas</h2>
+    <p>Cada situación pertenece sobre todo a una lógica. Elegí la que corresponde. Vas a recibir una devolución al instante.</p>
+    <div class="cards" id="clasif"></div>
+    <p id="clasifDone" style="display:none; color:var(--brote); font-weight:700; margin-top:14px">✔ Actividad completa. Ninguna lógica sobra: todas sostienen a la organización.</p>
+  </section>
+
+  <!-- ACTIVITY 2 -->
+  <section class="panel" data-milestone="1">
+    <div class="act-head"><span class="badge">Actividad 2</span></div>
+    <h2>Lo que casi nunca se cuenta</h2>
+    <p>Pensá en <strong>tu</strong> organización. Escribí una práctica que la sostiene todos los días pero que casi nunca aparece en su comunicación. ¿A qué lógica pertenece?</p>
+    <textarea id="refl" placeholder="Ej.: 'Una socia lleva y trae a las usuarias en su auto sin cobrar nafta.' → lógica de reciprocidad."></textarea>
+    <button class="btn ghost reveal-btn" id="hintBtn">Ver una pista</button>
+    <div class="hint" id="hintBox">
+      Muchas veces lo invisibilizado es <strong>reciprocidad</strong> (tiempo donado, cuidado entre compañeras) o <strong>redistribución</strong> (un recurso público que hace posible todo lo demás). Si tu comunicación solo muestra lo que se vende, la comunidad no llega a ver por qué tu organización es distinta. Guardá esta práctica: en el Módulo 2 (Raíz) la vamos a usar para construir tu narrativa.
+    </div>
+  </section>
+
+  <!-- SELF-EVALUATION -->
+  <section class="panel" data-milestone="2" id="evalSec">
+    <p class="kicker"><span class="n">✓</span> Cierre del módulo</p>
+    <h2>Autoevaluación</h2>
+    <p>Quince preguntas. Necesitás una nota de <strong>6 o más</strong> (al menos 9 respuestas correctas) para habilitar la descarga de tu constancia. Si no llegás, podés repasar y volver a intentarlo.</p>
+    <div id="quiz"></div>
+    <button class="btn" id="gradeBtn">Corregir y ver mi nota</button>
+    <p class="warn" id="quizWarn">Respondé las quince preguntas antes de corregir.</p>
+
+    <div class="result" id="result">
+      <div class="score" id="scoreVal">—</div>
+      <p id="resTitle"></p>
+      <p id="resMsg"></p>
+      <div class="cta" id="resCta"></div>
+      <p class="warn" id="nameWarn">Completá tu nombre y organización arriba para generar la constancia.</p>
+    </div>
+  </section>
+
+  <p class="foot">
+    Módulo 1 de la capacitación <strong>Matriz Semilla</strong> · Una tecnología social de comunicación para la ESCyS<br>
+    <em>No te enseñamos a venderte mejor. Te acompañamos a comunicar la economía que existe.</em>
+  </p>
+</div>
+
+<canvas id="certCanvas" width="1400" height="990" style="display:none"></canvas>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- growing plant progress ---------- */
+  var milestones = {0:false, 1:false, 2:false, 3:false};
+  var labels = ["Semilla","Raíz","Brote","Flor"];
+  function setStage(i){
+    if(milestones[i]) return;
+    milestones[i]=true;
+    var reached=0;
+    for(var k=0;k<=3;k++){ if(milestones[k]){ document.querySelector('.stg[data-s="'+k+'"]').classList.add('on'); reached=k; } }
+    document.getElementById('growLabel').textContent = labels[reached];
+  }
+  // stage 0 once user scrolls past first theory blocks
+  var theoryEls = document.querySelectorAll('[data-milestone="0"]');
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting) setStage(0); });
+  }, {threshold:.4});
+  theoryEls.forEach(function(el){ io.observe(el); });
+
+  /* ---------- Activity 1: classify ---------- */
+  var LOGICS = ["Mercado","Redistribución","Reciprocidad"];
+  var items = [
+    {t:"Vendemos nuestros productos en una feria del barrio.", a:"Mercado"},
+    {t:"Recibimos un subsidio provincial para comprar equipamiento.", a:"Redistribución"},
+    {t:"Una socia arregla la página web sin cobrar.", a:"Reciprocidad"},
+    {t:"El municipio nos cede un salón para funcionar.", a:"Redistribución"},
+    {t:"Vecinas y vecinos donan su tiempo para levantar el local.", a:"Reciprocidad"},
+    {t:"Cobramos una cuota mensual por el servicio de cuidado.", a:"Mercado"}
+  ];
+  var fbOK = {
+    "Mercado":"Correcto. Es intercambio: algo se vende o se cobra.",
+    "Redistribución":"Correcto. Es un recurso público que se redistribuye hacia la organización.",
+    "Reciprocidad":"Correcto. Es tiempo o trabajo donado que sostiene el vínculo."
+  };
+  var answered1 = 0;
+  var cont = document.getElementById('clasif');
+  items.forEach(function(it, idx){
+    var card = document.createElement('div'); card.className='card';
+    var q = document.createElement('p'); q.className='q'; q.textContent=it.t; card.appendChild(q);
+    var opts = document.createElement('div'); opts.className='opts';
+    LOGICS.forEach(function(L){
+      var b=document.createElement('button'); b.className='opt'; b.textContent=L;
+      b.addEventListener('click', function(){
+        if(card.dataset.done) return;
+        card.dataset.done="1";
+        Array.prototype.forEach.call(opts.children,function(x){x.disabled=true;});
+        var fb=document.createElement('p'); fb.className='fb';
+        if(L===it.a){ card.classList.add('correct'); b.classList.add('pick-ok'); fb.textContent="✔ "+fbOK[it.a]; }
+        else{
+          card.classList.add('wrong'); b.classList.add('pick-no');
+          Array.prototype.forEach.call(opts.children,function(x){ if(x.textContent===it.a) x.classList.add('reveal'); });
+          fb.textContent="✘ Era «"+it.a+"». "+fbOK[it.a];
+        }
+        card.appendChild(fb);
+        answered1++;
+        if(answered1===items.length){ document.getElementById('clasifDone').style.display='block'; setStage(1); }
+      });
+      opts.appendChild(b);
+    });
+    card.appendChild(opts);
+    cont.appendChild(card);
+  });
+
+  /* ---------- Activity 2: reveal hint ---------- */
+  document.getElementById('hintBtn').addEventListener('click', function(){
+    document.getElementById('hintBox').classList.add('show');
+    this.style.display='none';
+    setStage(1);
+  });
+
+  /* ---------- Self-evaluation ---------- */
+  var QS = [
+    { q:"¿Cuál es el principal problema comunicacional de las organizaciones de la ESCyS, según el módulo?",
+      o:["Falta de presupuesto para publicidad",
+         "No dominan las redes sociales",
+         "La comunidad no se interesa",
+         "Las herramientas disponibles comunican intercambio mercantil y no reciprocidad, arraigo ni cuidado"],
+      c:3, e:"El déficit no es de herramientas sino de un marco conceptual propio para comunicar lo que la organización realmente produce." },
+    { q:"Las tres lógicas de la economía plural (Laville) son:",
+      o:["Producción, distribución y consumo",
+         "Mercado, redistribución y reciprocidad",
+         "Oferta, demanda y precio",
+         "Estado, empresa y familia"],
+      c:1, e:"Una organización de la ESCyS opera en las tres al mismo tiempo." },
+    { q:"Un subsidio municipal para sostener un comedor comunitario responde sobre todo a la lógica de…",
+      o:["Redistribución","Mercado","Reciprocidad","Intercambio"],
+      c:0, e:"Es un recurso público redistribuido hacia la organización." },
+    { q:"Que vecinas cocinen sin cobrar para una olla popular expresa la lógica de…",
+      o:["Reciprocidad","Mercado","Redistribución","Ninguna"],
+      c:0, e:"Es tiempo y trabajo donado: reciprocidad, el vínculo de confianza que sostiene." },
+    { q:"Según la reconfiguración de Semprini desde la ESCyS, en estas organizaciones el sentido…",
+      o:["Se gestiona desde la organización hacia el consumidor",
+         "Lo define un experto en comunicación desde afuera",
+         "Se co-produce con la comunidad de pertenencia",
+         "No es importante"],
+      c:2, e:"No hay destinatarios pasivos: hay participantes que construyen el sentido junto a la organización." },
+    { q:"¿Por qué el II Encuentro Nacional de Cooperativas de Cuidados es relevante para este módulo?",
+      o:["Porque prohibió las redes sociales",
+         "Porque documentó las dificultades de comunicación del sector, que tendió a responder con marketing",
+         "Porque creó una empresa de servicios",
+         "Porque decidió no comunicar"],
+      c:1, e:"Muestra el problema real y por qué la respuesta 'más marketing' resulta insuficiente." },
+    { q:"Una cooperativa de cuidado que comunica solo «ofrecemos acompañamiento a personas mayores por hora» está, sobre todo…",
+      o:["Comunicando muy bien su identidad cooperativa",
+         "Haciendo redistribución",
+         "Cumpliendo una obligación legal",
+         "Adoptando el vocabulario del mercado e invisibilizando lo que la diferencia"],
+      c:3, e:"Al hablar como una empresa de servicios esconde la reciprocidad, el cuidado como derecho y su forma cooperativa." },
+    { q:"En una feria del barrio donde una cooperativa vende sus productos, ¿qué lógica de la economía plural predomina?",
+      o:["Reciprocidad","Redistribución","Mercado","Ninguna"],
+      c:2, e:"La feria es un espacio de intercambio: predomina la lógica de mercado, aunque convivan las otras dos." },
+    { q:"El Mercado de la Estepa reúne a productores de la meseta chubutense y sostiene el arraigo en el territorio. Esto muestra que la ESCyS…",
+      o:["Articula varias lógicas y hace que el valor se quede en el territorio",
+         "Solo puede funcionar con subsidios",
+         "No necesita comunicar lo que hace",
+         "Compite igual que cualquier empresa"],
+      c:0, e:"Combina mercado, reciprocidad y arraigo territorial: produce valor y lo retiene en la comunidad." },
+    { q:"Según la regla tomada de Franco Basaglia, ¿quién debe construir la comunicación de la organización?",
+      o:["Un experto externo en marketing",
+         "La propia organización, acompañada por quien facilita",
+         "El Estado provincial",
+         "Los clientes o usuarios"],
+      c:1, e:"Nadie sabe mejor que la organización qué es la organización: quien facilita acompaña, no dirige." },
+    { q:"Que un municipio ceda un local a una asociación civil para que funcione responde a la lógica de…",
+      o:["Mercado","Reciprocidad","Intercambio","Redistribución"],
+      c:3, e:"Es un recurso público que se redistribuye hacia la organización." },
+    { q:"En El Hoyo, la Cooperativa de Desarrollo Local sienta en una misma mesa a organizaciones productivas, cooperativas, originarias y sociales. Esto ilustra que la economía social…",
+      o:["Es siempre una sola actividad económica",
+         "Rechaza cualquier vínculo con el Estado",
+         "Articula economías plurales dentro del territorio",
+         "Se dedica únicamente a vender productos"],
+      c:2, e:"La economía social no es homogénea: articula distintas economías que conviven en el territorio." },
+    { q:"El trabajo de cuidado que sostienen las cooperativas de cuidado del Valle es, ante todo…",
+      o:["Un trabajo y un derecho, muchas veces invisibilizado y no remunerado",
+         "Un gasto que conviene esconder",
+         "Una actividad solo del Estado",
+         "Un servicio idéntico al de una empresa privada"],
+      c:0, e:"El cuidado es trabajo y es derecho; buena parte permanece invisibilizada y sin reconocimiento." },
+    { q:"Si tu comunicación muestra únicamente lo que vendés y no lo que sostenés por reciprocidad, el efecto es que…",
+      o:["Ganás demasiados clientes",
+         "La comunidad no llega a ver por qué tu organización es distinta",
+         "Dejás de pagar impuestos",
+         "Mejora automáticamente tu identidad"],
+      c:1, e:"Sin mostrar las tres lógicas, la comunidad no percibe la diferencia con una empresa común." },
+    { q:"La idea central del módulo puede resumirse en…",
+      o:["Aprender a vender más barato que la competencia",
+         "Copiar la comunicación de las grandes empresas",
+         "Comunicar la economía que existe, dando cuenta de sus tres lógicas",
+         "Dejar de usar redes sociales"],
+      c:2, e:"El módulo propone comunicar lo que la organización realmente hace, con las tres lógicas a la vista." }
+  ];
+  var quizWrap = document.getElementById('quiz');
+  QS.forEach(function(item, qi){
+    var box=document.createElement('div'); box.className='qz'; box.dataset.qi=qi;
+    var qn=document.createElement('p'); qn.className='qn';
+    qn.innerHTML='<span>'+(qi+1)+'.</span>'+item.q; box.appendChild(qn);
+    item.o.forEach(function(opt, oi){
+      var lab=document.createElement('label'); lab.className='choice';
+      var inp=document.createElement('input'); inp.type='radio'; inp.name='q'+qi; inp.value=oi;
+      var sp=document.createElement('span'); sp.textContent=opt;
+      lab.appendChild(inp); lab.appendChild(sp); box.appendChild(lab);
+    });
+    var exp=document.createElement('div'); exp.className='qexp'; exp.textContent=''; box.appendChild(exp);
+    quizWrap.appendChild(box);
+  });
+
+  var graded=false;
+  document.getElementById('gradeBtn').addEventListener('click', function(){
+    var boxes=document.querySelectorAll('.qz');
+    // check all answered
+    for(var i=0;i<QS.length;i++){
+      if(!document.querySelector('input[name="q'+i+'"]:checked')){
+        document.getElementById('quizWarn').classList.add('show');
+        boxes[i].scrollIntoView({block:'center'});
+        return;
+      }
+    }
+    document.getElementById('quizWarn').classList.remove('show');
+    var correct=0;
+    boxes.forEach(function(box,qi){
+      box.classList.add('graded');
+      var chosen=parseInt(document.querySelector('input[name="q'+qi+'"]:checked').value,10);
+      var labels=box.querySelectorAll('.choice');
+      labels.forEach(function(l,oi){
+        var inp=l.querySelector('input'); inp.disabled=true;
+        if(oi===QS[qi].c) l.classList.add('is-correct');
+        if(oi===chosen && chosen!==QS[qi].c) l.classList.add('is-wrong');
+      });
+      var exp=box.querySelector('.qexp');
+      if(chosen===QS[qi].c){ correct++; exp.textContent='✔ '+QS[qi].e; }
+      else{ exp.textContent='✘ '+QS[qi].e; }
+    });
+    var nota=Math.round(correct/QS.length*10);
+    var passed = nota>=6;
+    graded=true;
+    showResult(correct, nota, passed);
+    document.getElementById('gradeBtn').style.display='none';
+  });
+
+  function showResult(correct, nota, passed){
+    var r=document.getElementById('result');
+    r.className='result show '+(passed?'pass':'fail');
+    document.getElementById('scoreVal').textContent=nota+'/10';
+    document.getElementById('resTitle').innerHTML = passed
+      ? '<strong>¡Módulo aprobado!</strong>'
+      : '<strong>Todavía no alcanza</strong>';
+    document.getElementById('resMsg').textContent = correct+' de '+QS.length+' respuestas correctas.'+
+      (passed ? ' Ya podés descargar tu constancia.' : ' Necesitás una nota de 6 (9 correctas). Repasá el material y volvé a intentarlo.');
+    var cta=document.getElementById('resCta'); cta.innerHTML='';
+    if(passed){
+      setStage(3);
+      var dl=document.createElement('button'); dl.className='btn gold'; dl.textContent='Descargar constancia (PNG)';
+      dl.addEventListener('click', function(){ downloadCert(nota); });
+      cta.appendChild(dl);
+    } else {
+      setStage(2);
+      var again=document.createElement('button'); again.className='btn'; again.textContent='Volver a intentar';
+      again.addEventListener('click', resetQuiz);
+      cta.appendChild(again);
+      var up=document.createElement('button'); up.className='btn ghost'; up.textContent='Repasar el material';
+      up.addEventListener('click', function(){ document.querySelector('[data-milestone="0"]').scrollIntoView({behavior:'smooth'}); });
+      cta.appendChild(up);
+    }
+    r.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  function resetQuiz(){
+    document.querySelectorAll('.qz').forEach(function(box,qi){
+      box.classList.remove('graded');
+      box.querySelectorAll('.choice').forEach(function(l){
+        l.classList.remove('is-correct','is-wrong');
+        var inp=l.querySelector('input'); inp.disabled=false; inp.checked=false;
+      });
+    });
+    document.getElementById('result').className='result';
+    document.getElementById('gradeBtn').style.display='';
+    document.getElementById('evalSec').scrollIntoView({behavior:'smooth'});
+  }
+
+  /* ---------- Constancia (certificate) ---------- */
+  function downloadCert(nota){
+    var name=(document.getElementById('fn').value||'').trim();
+    var org=(document.getElementById('org').value||'').trim();
+    if(!name || !org){
+      document.getElementById('nameWarn').classList.add('show');
+      document.getElementById('fn').scrollIntoView({behavior:'smooth', block:'center'});
+      document.getElementById('fn').focus();
+      return;
+    }
+    document.getElementById('nameWarn').classList.remove('show');
+    var draw=function(){
+      var c=document.getElementById('certCanvas'), x=c.getContext('2d');
+      var W=c.width, H=c.height;
+      // parchment bg
+      var g=x.createLinearGradient(0,0,0,H); g.addColorStop(0,'#F7F2E6'); g.addColorStop(1,'#EFE7D4');
+      x.fillStyle=g; x.fillRect(0,0,W,H);
+      // soil band top
+      x.fillStyle='#241E17'; x.fillRect(0,0,W,26);
+      x.fillRect(0,H-26,W,26);
+      // frame
+      x.strokeStyle='#7A5230'; x.lineWidth=3; x.strokeRect(46,60,W-92,H-120);
+      x.strokeStyle='#5E8C5A'; x.lineWidth=1.4; x.strokeRect(58,72,W-116,H-144);
+      // sprout mark
+      x.strokeStyle='#5E8C5A'; x.lineWidth=6; x.lineCap='round';
+      x.beginPath(); x.moveTo(W/2, 150); x.lineTo(W/2, 210); x.stroke();
+      x.fillStyle='#84B36E';
+      x.beginPath(); x.ellipse(W/2-24,168,26,14,-0.5,0,Math.PI*2); x.fill();
+      x.beginPath(); x.ellipse(W/2+24,160,26,14,0.5,0,Math.PI*2); x.fill();
+      x.fillStyle='#C7A867'; x.beginPath(); x.arc(W/2,150,11,0,Math.PI*2); x.fill();
+      // eyebrow
+      x.textAlign='center'; x.fillStyle='#7A5230';
+      x.font='600 22px Figtree, system-ui, sans-serif';
+      x.fillText('C A P A C I T A C I Ó N   ·   M A T R I Z   S E M I L L A', W/2, 262);
+      // title
+      x.fillStyle='#241E17'; x.font='900 62px Fraunces, Georgia, serif';
+      x.fillText('Constancia de aprobación', W/2, 340);
+      // subtitle
+      x.fillStyle='#3B2E20'; x.font='400 26px Figtree, system-ui, sans-serif';
+      x.fillText('Se deja constancia de que', W/2, 420);
+      // name
+      x.fillStyle='#5E8C5A'; x.font='600 56px Fraunces, Georgia, serif';
+      x.fillText(name, W/2, 490);
+      // org
+      x.fillStyle='#3B2E20'; x.font='400 26px Figtree, system-ui, sans-serif';
+      x.fillText('de '+org, W/2, 540);
+      // body
+      x.fillStyle='#241E17'; x.font='400 27px Figtree, system-ui, sans-serif';
+      x.fillText('aprobó el Módulo 1 — «La economía que existe: las tres lógicas»', W/2, 610);
+      x.fillText('de la capacitación en comunicación para organizaciones de la ESCyS.', W/2, 650);
+      // grade + date
+      var fecha=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'long',year:'numeric'});
+      x.fillStyle='#7A5230'; x.font='700 28px Figtree, system-ui, sans-serif';
+      x.fillText('Nota: '+nota+'/10', W/2-190, 740);
+      x.fillText('Fecha: '+fecha, W/2+190, 740);
+      // footer line
+      x.strokeStyle='#7A5230'; x.lineWidth=1; x.beginPath(); x.moveTo(W/2-260,800); x.lineTo(W/2+260,800); x.stroke();
+      x.fillStyle='#3B2E20'; x.font='italic 20px Fraunces, Georgia, serif';
+      x.fillText('Región VIRCH · Chubut · Patagonia', W/2, 838);
+      x.font='400 17px Figtree, system-ui, sans-serif'; x.fillStyle='#7A5230';
+      x.fillText('Tecnología social de comunicación · Maestría en Economía Social, Comunitaria y Solidaria', W/2, 872);
+
+      var link=document.createElement('a');
+      link.download='constancia_modulo1_'+name.replace(/\s+/g,'_')+'.png';
+      link.href=c.toDataURL('image/png');
+      link.click();
+    };
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(draw); } else { draw(); }
+  }
+})();
+</script>
