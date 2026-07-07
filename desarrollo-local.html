@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vitrina territorial del VIRCH. Emprendedores y organizaciones de Rawson, Trelew, Gaiman y el Valle comunican lo que hacen. Espacio gratuito · Prof. Carina Luna." />
+  <title>Desarrollo local · VIRCH · Prof. Carina Luna</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --clr-bg:            #0f172a;
+      --clr-surface:       #1e293b;
+      --clr-border:        #334155;
+      --clr-accent:        #3b82f6;
+      --clr-accent2:       #60a5fa;
+      --clr-coral:         #f97316;
+      --clr-coral2:        #fb923c;
+      --clr-green:         #22c55e;
+      --clr-green-bg:      #14532d;
+      --clr-text:          #f1f5f9;
+      --clr-muted:         #94a3b8;
+      --radius:            12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--clr-bg); color: var(--clr-text); line-height: 1.6; font-size: 16px; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Topbar ── */
+    .topbar { background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); text-align: center; padding: 6px 16px; font-size: 12px; color: var(--clr-muted); letter-spacing: .04em; }
+
+    /* ── Nav ── */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(15,23,42,.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--clr-border); padding: 0 24px; display: flex; align-items: center; gap: 20px; height: 60px; }
+    .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; white-space: nowrap; margin-right: auto; }
+    .nav-brand .badge-logo { background: var(--clr-accent); color: #fff; border-radius: 6px; padding: 3px 8px; font-size: 13px; font-weight: 800; }
+    .nav-brand span { color: var(--clr-muted); font-weight: 400; font-size: 13px; }
+    .nav-links { display: flex; gap: 6px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 14px; color: var(--clr-muted); padding: 6px 12px; border-radius: 6px; transition: color .2s, background .2s; }
+    .nav-links a:hover { color: var(--clr-text); background: rgba(255,255,255,.05); }
+    .nav-links .nav-sep { width: 1px; height: 20px; background: var(--clr-border); margin: 0 4px; }
+    .nav-cta { background: var(--clr-coral) !important; color: #fff !important; font-weight: 600 !important; border-radius: 20px !important; padding: 7px 18px !important; font-size: 13px !important; transition: background .2s !important; }
+    .nav-cta:hover { background: var(--clr-coral2) !important; }
+    .nav-back { font-size: 13px; color: var(--clr-muted); display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { color: var(--clr-text); }
+
+    /* ── Container ── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Hero ── */
+    .hero { padding: 72px 24px 52px; text-align: center; max-width: 720px; margin: 0 auto; }
+    .eyebrow { display: inline-block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--clr-accent2); border: 1px solid var(--clr-accent); border-radius: 20px; padding: 4px 14px; margin-bottom: 22px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; margin-bottom: 18px; }
+    .hero h1 em { color: var(--clr-green); font-style: normal; }
+    .hero p { color: var(--clr-muted); font-size: 17px; margin-bottom: 32px; }
+    .hero-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 36px; }
+    .chip { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 4px 14px; font-size: 13px; color: var(--clr-muted); }
+    .chip strong { color: var(--clr-text); }
+    .btn-primary { display: inline-block; background: var(--clr-coral); color: #fff; padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; transition: background .2s; }
+    .btn-primary:hover { background: var(--clr-coral2); }
+    .btn-secondary { display: inline-block; background: transparent; border: 1px solid var(--clr-border); color: var(--clr-text); padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: border-color .2s; }
+    .btn-secondary:hover { border-color: var(--clr-accent2); }
+    .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Sección ── */
+    .section { padding: 60px 0; }
+    hr.divider { border: none; border-top: 1px solid var(--clr-border); }
+    .section-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--clr-accent2); margin-bottom: 10px; }
+    .section-label.green { color: var(--clr-green); }
+    .section-label.coral { color: var(--clr-coral2); }
+    .section-title { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; margin-bottom: 8px; }
+    .section-sub { color: var(--clr-muted); font-size: 15px; margin-bottom: 32px; }
+
+    /* ── Card destacada (Accionar) ── */
+    .featured-card {
+      background: var(--clr-surface);
+      border: 2px solid var(--clr-green);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 40px;
+    }
+    .featured-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, #14532d, #22c55e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+      border: 3px solid var(--clr-green);
+    }
+    .featured-badge { display: inline-block; background: var(--clr-green-bg); color: var(--clr-green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+    .featured-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .featured-card p { color: var(--clr-muted); font-size: 14.5px; margin-bottom: 10px; }
+    .featured-card strong { color: var(--clr-text); }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .tag { background: rgba(255,255,255,.05); border: 1px solid var(--clr-border); border-radius: 20px; padding: 3px 12px; font-size: 12px; color: var(--clr-muted); }
+    .featured-link { display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--clr-green); }
+
+    /* ── Grid de tarjetas ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .org-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px; transition: border-color .2s, transform .15s; }
+    .org-card:hover { border-color: var(--clr-accent); transform: translateY(-2px); }
+    .org-card-top { display: flex; align-items: center; gap: 14px; }
+    .org-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; flex-shrink: 0; }
+    .org-type { font-size: 11px; color: var(--clr-muted); letter-spacing: .06em; text-transform: uppercase; }
+    .org-name { font-size: 1rem; font-weight: 700; }
+    .org-loc { font-size: 12px; color: var(--clr-muted); }
+    .org-desc { font-size: 13.5px; color: var(--clr-muted); flex: 1; }
+    .org-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .org-tag { background: rgba(255,255,255,.04); border: 1px solid var(--clr-border); border-radius: 20px; padding: 2px 10px; font-size: 11px; color: var(--clr-muted); }
+    .ficcion-badge { font-size: 10px; color: var(--clr-muted); font-style: italic; margin-top: 4px; }
+
+    /* ── Cómo funciona ── */
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .step-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 22px; }
+    .step-num { font-size: 28px; font-weight: 800; color: var(--clr-coral); margin-bottom: 8px; }
+    .step-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .step-desc { font-size: 13.5px; color: var(--clr-muted); }
+
+    /* ── Formulario ── */
+    .form-wrap {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 36px;
+      max-width: 680px;
+    }
+    .form-wrap h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .form-wrap p.form-intro { font-size: 14px; color: var(--clr-muted); margin-bottom: 28px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { font-size: 13px; font-weight: 600; color: var(--clr-text); }
+    label span { color: var(--clr-coral); }
+    input, select, textarea {
+      background: var(--clr-bg);
+      border: 1px solid var(--clr-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--clr-text);
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color .2s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--clr-accent); }
+    select option { background: var(--clr-surface); }
+    textarea { resize: vertical; min-height: 90px; }
+    .form-note { font-size: 12px; color: var(--clr-muted); margin-top: 4px; }
+    .form-submit {
+      background: var(--clr-coral);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: var(--clr-coral2); }
+    .form-legal { font-size: 12px; color: var(--clr-muted); margin-top: 14px; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--clr-border); padding: 24px; text-align: center; }
+    footer p { font-size: 12px; color: var(--clr-muted); line-height: 1.8; }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .nav-links li:not(:last-child):not(.nav-sep) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">Rawson · Chubut &nbsp;·&nbsp; Prof. Carina Luna · Ciclo 2026</div>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="https://profeluna.ar" class="nav-brand">
+    <span class="badge-logo">CL</span>
+    <div>
+      <strong>Prof. Carina Luna</strong>
+      <span>&nbsp;· Capacitaciones</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://profeluna.ar#estudiantes">Estudiantes</a></li>
+    <li><a href="https://profeluna.ar#organizaciones">Organizaciones</a></li>
+    <li class="nav-sep"></li>
+    <li><a href="https://profeluna.ar#docente">Quién soy</a></li>
+    <li><a href="#formulario" class="nav-cta">Sumá tu emprendimiento →</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="eyebrow">Vitrina territorial · Rawson · VIRCH · Chubut</div>
+  <h1>Un espacio para que <em>Rawson y el VIRCH</em> se vean</h1>
+  <p>Emprendedores, productoras, cooperativas y organizaciones de Rawson, el Valle y el resto de Chubut comunican lo que hacen. Completamente gratuito. Sin algoritmos, sin intermediarios.</p>
+  <div class="hero-chips">
+    <span class="chip"><strong>100%</strong> gratuito</span>
+    <span class="chip">📍 <strong>Rawson</strong> primero</span>
+    <span class="chip">VIRCH · Trelew · Gaiman · Dolavon</span>
+    <span class="chip">Resto de <strong>Chubut</strong></span>
+    <span class="chip">Emprendimientos y organizaciones</span>
+  </div>
+  <div class="btn-group">
+    <a href="#formulario" class="btn-primary">Sumá tu emprendimiento →</a>
+    <a href="#quienes" class="btn-secondary">Ver quiénes ya están</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Cómo funciona ── -->
+<section class="section">
+  <div class="container">
+    <p class="section-label coral">Cómo funciona</p>
+    <h2 class="section-title">Simple y gratuito</h2>
+    <p class="section-sub">Tres pasos para que tu emprendimiento o tu organización aparezca acá.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Completás el formulario</div>
+        <div class="step-desc">Nombre, rubro, localidad y una descripción breve de lo que hacés o vendés.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Revisamos juntos</div>
+        <div class="step-desc">Te contactamos por WhatsApp para confirmar los datos y coordinar la publicación.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Aparecés en la vitrina</div>
+        <div class="step-desc">Tu tarjeta queda publicada en esta página, visible para quien visite el sitio.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">✓</div>
+        <div class="step-title">Sin costo, siempre</div>
+        <div class="step-desc">Este espacio es una contribución al desarrollo local. No tiene costo ni va a tenerlo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Quiénes ya están ── -->
+<section class="section" id="quienes">
+  <div class="container">
+    <p class="section-label green">Quiénes ya están</p>
+    <h2 class="section-title">Emprendedores y organizaciones de Rawson, el VIRCH y Chubut</h2>
+    <p class="section-sub">Cada tarjeta es una historia de trabajo, de arraigo y de economía real en el territorio. Primero Rawson, luego el Valle, luego el resto de la provincia.</p>
+
+    <!-- Accionar destacada -->
+    <div class="featured-card">
+      <div class="featured-avatar">AC</div>
+      <div>
+        <div class="featured-badge">★ Organización destacada</div>
+        <h3>Accionar · Asociación Civil</h3>
+        <p><strong>Accionar</strong> es una asociación civil sin fines de lucro con base en Rawson que trabaja en la intersección entre economía del cuidado, género y economía popular. Acompaña a mujeres y personas en situación de vulnerabilidad a través de talleres, capacitaciones y articulación con políticas públicas, desde una perspectiva de derechos y autonomía.</p>
+        <p>Su trabajo cotidiano sostiene la vida de muchas familias del VIRCH sin que eso aparezca en ningún PBI: es economía invisible, es cuidado como derecho, es territorio.</p>
+        <div class="tag-row">
+          <span class="tag">Rawson · Chubut</span>
+          <span class="tag">Economía del cuidado</span>
+          <span class="tag">Género</span>
+          <span class="tag">Economía popular</span>
+          <span class="tag">Sin fines de lucro</span>
+        </div>
+        <a href="mailto:accionar@ejemplo.ar" class="featured-link">Contactar a Accionar →</a>
+      </div>
+    </div>
+
+    <!-- Separador Rawson -->
+    <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-accent2);margin-bottom:12px;">📍 Rawson</p>
+    <div class="cards-grid" style="margin-bottom:32px;">
+
+      <div class="org-card">
+        <div class="org-card-top">
+          <div class="org-icon" style="background:rgba(34,197,94,.12);color:#22c55e;">🐟</div>
+          <div>
+            <div class="org-type">Cooperativa de trabajo</div>
+            <div class="org-name">Cooperativa Pesquera Puerto Rawson</div>
+            <div class="org-loc">📍 Puerto Rawson · Rawson</div>
+          </div>
+        </div>
+        <div class="org-desc">Pesca artesanal de merluza y mariscos con gestión cooperativa. Venta directa al público, restaurantes y distribución local. Precio justo, sin intermediarios.</div>
+        <div class="org-tags">
+          <span class="org-tag">Pesca artesanal</span>
+          <span class="org-tag">Cooperativa</span>
+          <span class="org-tag">Venta directa</span>
+        </div>
+        <div class="ficcion-badge">* Caso modelo · ficción</div>
+      </div>
+
+      <div class="org-card">
+        <div class="org-card-top">
+          <div class="org-icon" style="background:rgba(249,115,22,.15);color:#fb923c;">🧵</div>
+          <div>
+            <div class="org-type">Emprendimiento textil</div>
+            <div class="org-name">Soltrecha · Tejidos cooperativos</div>
+            <div class="org-loc">📍 Rawson</div>
+          </div>
+        </div>
+        <div class="org-desc">Cooperativa de mujeres tejedoras que produce prendas y accesorios en lana patagónica. Comercialización directa en ferias y por encargo, con gestión democrática del trabajo.</div>
+        <div class="org-tags">
+          <span class="org-tag">Textil</span>
+          <span class="org-tag">Cooperativa</span>
+          <span class="org-tag">Lana patagónica</span>
+        </div>
+        <div class="ficcion-badge">* Caso modelo · ficción</div>
+      </div>
+
+    </div>
+
+    <!-- Separador VIRCH -->
+    <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-accent2);margin-bottom:12px;">📍 VIRCH · Valle del Río Chubut</p>
+    <div class="cards-grid" style="margin-bottom:32px;">
+
+      <div class="org-card">
+        <div class="org-card-top">
+          <div class="org-icon" style="background:rgba(249,115,22,.15);color:#fb923c;">🧁</div>
+          <div>
+            <div class="org-type">Producción artesanal</div>
+            <div class="org-name">Carmen · Torta Negra Galesa</div>
+            <div class="org-loc">📍 Gaiman</div>
+          </div>
+        </div>
+        <div class="org-desc">Elaboración artesanal de torta negra galesa con receta familiar de tres generaciones. Venta bajo pedido para fechas especiales, ferias y envíos dentro del VIRCH.</div>
+        <div class="org-tags">
+          <span class="org-tag">Gastronomía</span>
+          <span class="org-tag">Artesanal</span>
+          <span class="org-tag">Pedidos</span>
+        </div>
+        <div class="ficcion-badge">* Caso modelo · ficción</div>
+      </div>
+
+      <div class="org-card">
+        <div class="org-card-top">
+          <div class="org-icon" style="background:rgba(59,130,246,.12);color:#60a5fa;">🌿</div>
+          <div>
+            <div class="org-type">Producción hortícola</div>
+            <div class="org-name">Chacra Don Roberto</div>
+            <div class="org-loc">📍 Dolavon</div>
+          </div>
+        </div>
+        <div class="org-desc">Verduras de estación cultivadas sin agroquímicos en el margen del río Chubut. Bolsones semanales y venta en ferias. Producción familiar con más de 30 años de historia.</div>
+        <div class="org-tags">
+          <span class="org-tag">Horticultura</span>
+          <span class="org-tag">Orgánico</span>
+          <span class="org-tag">Bolsones</span>
+        </div>
+        <div class="ficcion-badge">* Caso modelo · ficción</div>
+      </div>
+
+    </div>
+
+    <!-- Separador Chubut -->
+    <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-accent2);margin-bottom:12px;">📍 Resto de Chubut</p>
+    <div class="cards-grid">
+      <div class="org-card" style="border-style:dashed;opacity:.6;">
+        <div class="org-card-top">
+          <div class="org-icon" style="background:rgba(148,163,184,.08);color:var(--clr-muted);">+</div>
+          <div>
+            <div class="org-type">Tu organización o emprendimiento</div>
+            <div class="org-name">¿Sos de Chubut?</div>
+            <div class="org-loc">📍 Cualquier localidad de Chubut</div>
+          </div>
+        </div>
+        <div class="org-desc">Si trabajás desde otra localidad de la provincia, también podés sumarte a la vitrina. Completá el formulario y coordinamos.</div>
+        <div class="org-tags"><span class="org-tag">Comodoro · Madryn · Esquel · y más</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Formulario ── -->
+<section class="section" id="formulario">
+  <div class="container">
+    <p class="section-label coral">Sumá tu espacio</p>
+    <h2 class="section-title">Publicá tu emprendimiento u organización</h2>
+    <p class="section-sub">Completá el formulario y te contactamos para coordinar la publicación de tu tarjeta. Es gratuito y siempre lo va a ser.</p>
+
+    <div class="form-wrap">
+      <h3>Solicitud de publicación</h3>
+      <p class="form-intro">Campos marcados con <span style="color:var(--clr-coral)">*</span> son obligatorios. El resto es opcional pero ayuda a que tu tarjeta sea más completa.</p>
+
+      <form action="https://formspree.io/f/TUCODIGO" method="POST">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre del emprendimiento / organización <span>*</span></label>
+            <input type="text" name="nombre" placeholder="Ej: Carmen · Torta Negra Galesa" required />
+          </div>
+          <div class="form-group">
+            <label>Tipo <span>*</span></label>
+            <select name="tipo" required>
+              <option value="">— Elegí una opción —</option>
+              <option>Emprendimiento personal</option>
+              <option>Producción artesanal / alimentaria</option>
+              <option>Cooperativa de trabajo</option>
+              <option>Mutual</option>
+              <option>Asociación civil / ONG</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Localidad <span>*</span></label>
+            <select name="localidad" required>
+              <option value="">— Elegí —</option>
+              <optgroup label="Rawson">
+                <option>Rawson</option>
+                <option>Puerto Rawson</option>
+              </optgroup>
+              <optgroup label="VIRCH">
+                <option>Trelew</option>
+                <option>Gaiman</option>
+                <option>Dolavon</option>
+                <option>28 de Julio</option>
+              </optgroup>
+              <optgroup label="Resto de Chubut">
+                <option>Comodoro Rivadavia</option>
+                <option>Puerto Madryn</option>
+                <option>Esquel</option>
+                <option>Otra localidad de Chubut</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Rubro / actividad principal <span>*</span></label>
+            <input type="text" name="rubro" placeholder="Ej: Gastronomía artesanal" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descripción breve <span>*</span></label>
+          <textarea name="descripcion" placeholder="Contá en 2 o 3 oraciones qué hacés, qué vendés o qué ofrecés. Este texto va a aparecer en tu tarjeta." required></textarea>
+          <div class="form-note">Máximo 3 oraciones. Lo podemos editar juntos si querés.</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tu nombre <span>*</span></label>
+            <input type="text" name="contacto_nombre" placeholder="Nombre y apellido" required />
+          </div>
+          <div class="form-group">
+            <label>WhatsApp <span>*</span></label>
+            <input type="tel" name="whatsapp" placeholder="Ej: 2804001234" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Instagram / Facebook (opcional)</label>
+          <input type="text" name="redes" placeholder="Ej: @carmengaiman o facebook.com/carmengaiman" />
+        </div>
+
+        <div class="form-group">
+          <label>¿Querés agregar algo más?</label>
+          <textarea name="extra" placeholder="Horarios, forma de contacto preferida, si tenés foto del producto, si querés que linkemos a tu perfil de redes, etc." style="min-height:70px;"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Enviar solicitud →</button>
+        <p class="form-legal">Tus datos se usan exclusivamente para coordinar la publicación. No se comparten con terceros ni se usan con fines comerciales. Una vez publicada tu tarjeta, podés pedirnos que la actualicemos o quitemos en cualquier momento.</p>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA final ── -->
+<div class="container" style="padding-bottom: 64px;">
+  <div style="text-align:center;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);padding:52px 24px;margin-top:40px;">
+    <p class="section-label green" style="justify-content:center;display:block;">Economía que existe</p>
+    <h2 style="font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;margin-bottom:12px;">El VIRCH tiene más economía de la que aparece en los diarios</h2>
+    <p style="color:var(--clr-muted);font-size:15px;margin-bottom:28px;max-width:580px;margin-left:auto;margin-right:auto;">Cada emprendimiento, cada cooperativa, cada productora que sostiene una familia es parte de la economía real del territorio. Este espacio existe para que se vean.</p>
+    <div class="btn-group">
+      <a href="#formulario" class="btn-primary">Sumá tu emprendimiento →</a>
+      <a href="https://profeluna.ar" class="btn-secondary">Volver al inicio</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>
+    © 2026 Carina Luna · profeluna.ar · Todos los derechos reservados.<br>
+    El contenido de este sitio —textos, materiales didácticos, actividades y recursos— es de autoría propia y no puede reproducirse, distribuirse ni utilizarse con fines comerciales sin autorización expresa de la autora.
+  </p>
+</footer>
+
+</body>
+</html>
