@@ -21,6 +21,7 @@
       --clr-badge-bg:      #14532d;
       --clr-badge-soon:    #fb923c;
       --clr-badge-soon-bg: #7c2d12;
+      --clr-green:         #22c55e;
       --radius:            12px;
       --radius-sm:         8px;
     }
@@ -296,9 +297,11 @@
     <ul class="nav-links">
       <li><a href="#estudiantes">Estudiantes</a></li>
       <li><a href="#organizaciones">Organizaciones</a></li>
+      <li><a href="desarrollo-local.html">Vitrina</a></li>
+      <li><a href="mapa.html">Mapa</a></li>
       <li class="nav-sep"></li>
       <li><a href="#docente">Quién soy</a></li>
-      <li><a href="#elegi" class="nav-cta">Empezar ahora →</a></li>
+      <li><a href="desarrollo-local.html#formulario" class="nav-cta">Sumá tu organización →</a></li>
     </ul>
   </nav>
 
@@ -619,6 +622,30 @@
           <p>Me estoy formando en la <strong>Maestría en Economía Social, Comunitaria y Solidaria</strong>, un enfoque que entiende la economía como algo que sucede entre personas y comunidades, no solo entre empresas y consumidores. Desde ahí pienso estos dos espacios: uno para el aula y el emprendimiento, otro para las organizaciones que sostienen la vida en común en el territorio.</p>
           <p>Los cursos son y van a seguir siendo <strong>gratuitos</strong>. Si te resultó útil y querés colaborar para que llegue a más personas, podés hacer un aporte solidario al finalizar. Cualquier monto suma.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Vitrina y Mapa ── -->
+  <hr class="section-divider" />
+  <section class="section" id="vitrina">
+    <div class="container">
+      <p class="section-label green">Desarrollo local · VIRCH · Chubut</p>
+      <h2 class="section-title">Vitrina territorial y mapa de organizaciones</h2>
+      <p class="section-sub">Un espacio gratuito para que emprendedores, cooperativas y asociaciones de Rawson, el VIRCH y Chubut comuniquen lo que hacen.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:680px;">
+        <a href="desarrollo-local.html" style="display:flex;flex-direction:column;gap:10px;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);padding:24px;transition:border-color .2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='#334155'">
+          <div style="font-size:28px;">🏪</div>
+          <div style="font-weight:700;font-size:1rem;">Vitrina territorial</div>
+          <div style="font-size:13.5px;color:var(--clr-muted);flex:1;">Tarjetas de emprendedores y organizaciones del territorio. Gratuito y sin intermediarios.</div>
+          <div style="font-size:13px;font-weight:600;color:var(--clr-accent2);">Ver la vitrina →</div>
+        </a>
+        <a href="mapa.html" style="display:flex;flex-direction:column;gap:10px;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);padding:24px;transition:border-color .2s;" onmouseover="this.style.borderColor='#22c55e'" onmouseout="this.style.borderColor='#334155'">
+          <div style="font-size:28px;">🗺️</div>
+          <div style="font-weight:700;font-size:1rem;">Mapa de organizaciones</div>
+          <div style="font-size:13.5px;color:var(--clr-muted);flex:1;">Localizador interactivo de cooperativas, asociaciones y emprendimientos en Chubut.</div>
+          <div style="font-size:13px;font-weight:600;color:#22c55e;">Ver el mapa →</div>
+        </a>
       </div>
     </div>
   </section>
