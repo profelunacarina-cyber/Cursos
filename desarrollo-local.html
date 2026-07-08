@@ -168,10 +168,45 @@
 
     /* ── Responsive ── */
     @media (max-width: 680px) {
-      .featured-card { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .cards-grid { grid-template-columns: 1fr; }
+      /* Nav: ocultar links, mostrar solo brand y CTA */
       .nav-links li:not(:last-child):not(.nav-sep) { display: none; }
+      .nav-links .nav-sep { display: none; }
+      nav { padding: 0 16px; gap: 10px; }
+      .nav-brand span { display: none; }
+
+      /* Hero más compacto */
+      .hero { padding: 40px 16px 32px; }
+      .hero p { font-size: 15px; }
+      .hero-chips { gap: 6px; }
+      .chip { font-size: 12px; padding: 3px 10px; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; padding: 13px 20px; }
+      .btn-group { flex-direction: column; }
+
+      /* Selector de dos columnas → una columna */
+      .selector { grid-template-columns: 1fr !important; padding: 0 16px; }
+
+      /* Cards */
+      .cards-grid { grid-template-columns: 1fr; }
+      .featured-card { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+      .featured-avatar { width: 60px; height: 60px; font-size: 20px; }
+
+      /* Público grid */
+      .publico-grid { grid-template-columns: 1fr; }
+
+      /* Pasos */
+      .steps-grid { grid-template-columns: 1fr; }
+
+      /* Formulario */
+      .form-row { grid-template-columns: 1fr; }
+      .form-wrap { padding: 24px 16px; }
+      .form-submit { width: 100%; }
+
+      /* Container */
+      .container { padding: 0 16px; }
+      .section { padding: 40px 0; }
+
+      /* CTA final */
+      .cta-final { padding: 36px 16px; }
     }
   </style>
 </head>
@@ -193,7 +228,7 @@
     <li><a href="https://profeluna.ar#organizaciones">Organizaciones</a></li>
     <li class="nav-sep"></li>
     <li><a href="https://profeluna.ar#docente">Quién soy</a></li>
-    <li><a href="#formulario" class="nav-cta">Sumá tu emprendimiento →</a></li>
+    <li><a href="#formulario" class="nav-cta">Sumá tu organización →</a></li>
   </ul>
 </nav>
 
@@ -210,7 +245,7 @@
     <span class="chip">Emprendimientos y organizaciones</span>
   </div>
   <div class="btn-group">
-    <a href="#formulario" class="btn-primary">Sumá tu emprendimiento →</a>
+    <a href="#formulario" class="btn-primary">Sumá tu organización →</a>
     <a href="#quienes" class="btn-secondary">Ver quiénes ya están</a>
   </div>
 </section>
@@ -385,7 +420,7 @@
 <section class="section" id="formulario">
   <div class="container">
     <p class="section-label coral">Sumá tu espacio</p>
-    <h2 class="section-title">Publicá tu emprendimiento u organización</h2>
+    <h2 class="section-title">Sumá tu organización o emprendimiento</h2>
     <p class="section-sub">Completá el formulario y te contactamos para coordinar la publicación de tu tarjeta. Es gratuito y siempre lo va a ser.</p>
 
     <div class="form-wrap">
@@ -481,10 +516,10 @@
 <div class="container" style="padding-bottom: 64px;">
   <div style="text-align:center;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);padding:52px 24px;margin-top:40px;">
     <p class="section-label green" style="justify-content:center;display:block;">Economía que existe</p>
-    <h2 style="font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;margin-bottom:12px;">El VIRCH tiene más economía de la que aparece en los diarios</h2>
-    <p style="color:var(--clr-muted);font-size:15px;margin-bottom:28px;max-width:580px;margin-left:auto;margin-right:auto;">Cada emprendimiento, cada cooperativa, cada productora que sostiene una familia es parte de la economía real del territorio. Este espacio existe para que se vean.</p>
+    <h2 style="font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;margin-bottom:12px;">El potencial del VIRCH merece ser visible</h2>
+    <p style="color:var(--clr-muted);font-size:15px;margin-bottom:28px;max-width:580px;margin-left:auto;margin-right:auto;">Cada emprendimiento, cada cooperativa, cada productora que trabaja en el territorio tiene una historia que vale la pena contar. Este espacio existe para visibilizar ese potencial y que el VIRCH se reconozca en su propia economía.</p>
     <div class="btn-group">
-      <a href="#formulario" class="btn-primary">Sumá tu emprendimiento →</a>
+      <a href="#formulario" class="btn-primary">Sumá tu organización →</a>
       <a href="https://profeluna.ar" class="btn-secondary">Volver al inicio</a>
     </div>
   </div>
