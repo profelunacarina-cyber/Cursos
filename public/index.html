@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Capacitaciones gratuitas de la Prof. Carina Luna. Dos caminos: estudiantes de la EPJA N° 753 y organizaciones del tercer sector, en el marco de la Economía Social, Comunitaria y Solidaria." />
+  <title>Capacitaciones · Prof. Carina Luna</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="tema.css" />
+</head>
+<body>
+
+  <!-- ── Cabecera ── -->
+  <header class="cabecera">
+    <div class="cabecera-int">
+      <a href="#inicio" class="marca">
+        <span class="logo-cl">CL</span>
+        <span class="marca-textos">
+          <strong>Capacitaciones</strong>
+          <span>Prof. Carina Luna</span>
+        </span>
+      </a>
+      <nav class="nav-principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#elegi">Cursos</a>
+        <a href="desarrollo-local.html">Vitrina</a>
+        <a href="mapa.html">Mapa</a>
+        <a href="#docente">Quién soy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Héroe ── -->
+  <section id="inicio" class="heroe">
+    <div class="heroe-int">
+      <span class="insignia-pill">Capacitaciones gratuitas en línea · Ciclo 2026</span>
+      <h1>Que el saber no sea <em>privilegio de pocos</em></h1>
+      <p class="bajada-heroe">Dos caminos, una misma idea: aprender herramientas concretas, a tu ritmo y con constancia. Elegí el espacio que te corresponde.</p>
+      <div id="elegi" class="selector-tabs" role="tablist">
+        <button class="tab activa" id="tab-epja" role="tab" aria-selected="true">Estudiantes · EPJA N° 753</button>
+        <button class="tab" id="tab-tercer" role="tab" aria-selected="false">Organizaciones · Tercer sector</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ Espacio EPJA ═══════════ -->
+  <div id="espacio-epja">
+
+    <section class="seccion-intro">
+      <div class="contenedor centrado">
+        <span class="antetitulo">Educación de jóvenes y adultos</span>
+        <h2 class="titulo-seccion">Para estudiantes de la EPJA N° 753 de Rawson</h2>
+        <p class="bajada">Material complementario para reforzar lo que vemos en clase y para quien quiere arrancar su propio emprendimiento: costos, marketing, finanzas y armado del CV, aplicados a la realidad de la zona.</p>
+        <div class="chips">
+          <span class="chip">100% gratuito</span>
+          <span class="chip">A tu ritmo</span>
+          <span class="chip">Desde el celular</span>
+          <span class="chip">Autoevaluación de 15 preguntas</span>
+          <span class="chip">Con constancia</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <div class="contenedor" style="display:flex;flex-direction:column;gap:26px;">
+        <div class="cab-bloque">
+          <span class="antetitulo">Ruta del emprendedor</span>
+          <h3 class="titulo-bloque">Una capacitación integral, paso a paso</h3>
+          <p class="bajada">Cada curso es independiente, pero juntos forman una trayectoria que culmina en tu propio plan de negocio.</p>
+        </div>
+        <div class="grilla" id="grilla-ruta" data-numerada="si"></div>
+      </div>
+    </section>
+
+    <section class="seccion" style="padding-top:clamp(24px,4vw,48px);">
+      <div class="contenedor" style="display:flex;flex-direction:column;gap:26px;">
+        <div class="cab-bloque">
+          <span class="antetitulo">Cursos transversales</span>
+          <h3 class="titulo-bloque">Capacitaciones que también pueden ayudarte</h3>
+          <p class="bajada">No forman parte de la ruta del emprendedor, pero son útiles para muchos perfiles.</p>
+        </div>
+        <div class="grilla" id="grilla-transversales"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ═══════════ Espacio Tercer sector ═══════════ -->
+  <div id="espacio-tercer" class="oculto">
+
+    <section class="seccion-intro franja-verde" style="padding-bottom:clamp(48px,7vw,72px);">
+      <div class="contenedor" style="display:flex;flex-direction:column;gap:32px;">
+        <div class="centrado">
+          <span class="antetitulo verde">Economía Social, Comunitaria y Solidaria</span>
+          <h2 class="titulo-seccion">Para organizaciones del tercer sector del Valle</h2>
+          <p class="bajada">Un espacio de formación para cooperativas, mutuales, asociaciones civiles, cooperativas de cuidado y organizaciones de la economía popular. No para competir mejor: para <strong>fortalecer la organización y comunicar la economía que ya hacen</strong>.</p>
+          <div class="chips">
+            <span class="chip borde">100% gratuito</span>
+            <span class="chip borde">A tu ritmo</span>
+            <span class="chip borde">Constancia por módulo</span>
+            <span class="chip borde">Enfoque territorial (VIRCH)</span>
+          </div>
+        </div>
+
+        <div class="panel-suave" style="max-width:800px;margin:0 auto;">
+          <h4>Otra manera de entender la comunicación</h4>
+          <p>Las herramientas de marketing están calibradas para el mercado y dejan invisible lo que distingue a una organización social: la reciprocidad, el arraigo y el cuidado como bien común. Estas capacitaciones ofrecen un marco propio, que no se aplica desde afuera sino que se construye con cada organización —nadie sabe mejor que ella qué es y qué hace.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:26px;">
+          <div class="cab-bloque">
+            <span class="antetitulo verde">Capacitación destacada</span>
+            <h3 class="titulo-bloque">Matriz Semilla · Comunicar la economía que existe</h3>
+            <p class="bajada">Una tecnología social de comunicación para organizaciones de la ESCyS, en seis módulos de 1 h 30, con autoevaluación y constancia por módulo.</p>
+          </div>
+          <div class="grilla" id="grilla-matriz"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:26px;">
+          <div class="cab-bloque">
+            <span class="antetitulo verde">Próximas capacitaciones</span>
+            <h3 class="titulo-bloque">Fortalecer la organización</h3>
+            <p class="bajada">En preparación, dentro de la misma línea de trabajo territorial.</p>
+          </div>
+          <div class="grilla" id="grilla-proximas"></div>
+        </div>
+
+        <div class="grilla" style="max-width:900px;margin:0 auto;width:100%;">
+          <div class="panel-suave">
+            <h4>Para qué sirve</h4>
+            <ul>
+              <li>Comunicar lo que la organización realmente hace y sostiene</li>
+              <li>Fortalecer la identidad y la democracia interna</li>
+              <li>Incidir en la agenda pública del territorio</li>
+            </ul>
+          </div>
+          <div class="panel-suave">
+            <h4>A quién está dirigido</h4>
+            <ul>
+              <li>Cooperativas, mutuales y asociaciones civiles</li>
+              <li>Cooperativas de cuidado y economía popular</li>
+              <li>Referentes y equipos de organizaciones del VIRCH</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ── Docente ── -->
+  <section id="docente" class="seccion" style="padding:clamp(48px,7vw,80px) 24px;">
+    <div class="docente-envoltura">
+      <img src="assets/laurel-garland.svg" alt="" aria-hidden="true" class="laurel" />
+      <div class="docente-tarjeta">
+        <div class="arco-foto">
+          <img src="assets/carina.png" alt="Carina Luna"
+               onerror="this.onerror=null;this.src='mi-foto.jpg';this.className='recorte-simple';" />
+        </div>
+        <div class="docente-texto">
+          <h3>Carina Luna, docente</h3>
+          <p>Soy Carina Luna, docente de <strong>Economía y Administración</strong>. Acompaño a jóvenes y adultos en la <strong>EPJA N° 753 de Rawson</strong> y a quienes deciden emprender un proyecto propio.</p>
+          <p>Me estoy formando en la <strong>Maestría en Economía Social, Comunitaria y Solidaria</strong>, un enfoque que entiende la economía como algo que sucede entre personas y comunidades, no solo entre empresas y consumidores. Desde ahí pienso estos dos espacios: uno para el aula y el emprendimiento, otro para las organizaciones que sostienen la vida en común en el territorio.</p>
+          <p>Los cursos son y van a seguir siendo <strong>gratuitos</strong>. Si te resultó útil y querés colaborar para que llegue a más personas, podés hacer un aporte solidario al finalizar. Cualquier monto suma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA final ── -->
+  <section style="padding:0 24px clamp(48px,7vw,72px);">
+    <div class="cta-final">
+      <h2>Empezá cuando <em>quieras</em></h2>
+      <p>Elegí tu espacio arriba, entrá al curso y hacelo a tu ritmo. Al finalizar cada módulo descargás tu constancia.</p>
+      <a href="#elegi" class="boton-dorado">Elegir mi espacio →</a>
+    </div>
+  </section>
+
+  <!-- ── Pie ── -->
+  <footer class="pie">
+    <p class="lema">Que el saber sea un bien común, no un privilegio.</p>
+    <p class="datos">Rawson · Chubut · Ciclo 2026 — Prof. Carina Luna · profeluna.ar</p>
+    <p class="datos">© 2026 Carina Luna · profeluna.ar · Todos los derechos reservados y los izquierdos bien puestos.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Pestañas EPJA / Tercer sector ── */
+      var tabEpja = document.getElementById('tab-epja');
+      var tabTercer = document.getElementById('tab-tercer');
+      var espacioEpja = document.getElementById('espacio-epja');
+      var espacioTercer = document.getElementById('espacio-tercer');
+
+      function elegirEspacio(espacio) {
+        var esEpja = espacio === 'epja';
+        espacioEpja.classList.toggle('oculto', !esEpja);
+        espacioTercer.classList.toggle('oculto', esEpja);
+        tabEpja.classList.toggle('activa', esEpja);
+        tabTercer.classList.toggle('activa', !esEpja);
+        tabEpja.setAttribute('aria-selected', esEpja);
+        tabTercer.setAttribute('aria-selected', !esEpja);
+        try { sessionStorage.setItem('profeluna_espacio', espacio); } catch (e) {}
+      }
+      tabEpja.addEventListener('click', function () { elegirEspacio('epja'); });
+      tabTercer.addEventListener('click', function () { elegirEspacio('tercer'); });
+      try {
+        if (sessionStorage.getItem('profeluna_espacio') === 'tercer') elegirEspacio('tercer');
+      } catch (e) {}
+
+      /* ── Render de tarjetas de cursos ──
+         Los cursos vienen de la API (base de datos); si no responde,
+         se usa el respaldo embebido al final de este script. */
+      var BADGES = {
+        disponible:   { clase: 'badge-verde', texto: 'Disponible' },
+        proximamente: { clase: 'badge-prox',  texto: 'Próximamente' },
+        preparacion:  { clase: 'badge-prox',  texto: 'Próximamente' },
+        externo:      { clase: 'badge-ext',   texto: 'Externo' }
+      };
+
+      function esc(texto) {
+        var d = document.createElement('div');
+        d.textContent = texto == null ? '' : String(texto);
+        return d.innerHTML;
+      }
+      function escAttr(texto) { return esc(texto).replace(/"/g, '&quot;'); }
+      function enlaceSeguro(url) {
+        return /^(https?:\/\/|[\w./-]+$)/.test(url || '') ? url : '';
+      }
+
+      function metaHTML(meta) {
+        var partes = String(meta).split(' ');
+        var primera = partes.shift();
+        return '<span><strong>' + esc(primera) + '</strong>' +
+               (partes.length ? ' ' + esc(partes.join(' ')) : '') + '</span>';
+      }
+
+      function tarjetaHTML(curso, numero) {
+        var badge = BADGES[curso.estado] || BADGES.proximamente;
+        var textoBadge = curso.insignia || badge.texto;
+        var claseBadge = curso.destacado ? 'badge-final' : badge.clase;
+        // Curso externo (los 4 con página propia + ANMAT): usa su enlace.
+        // Curso interno (creado en el panel): se abre en curso.html con su id.
+        var enlace = enlaceSeguro(curso.enlace);
+        if (!enlace && curso.interno && curso.estado === 'disponible' && curso.id) {
+          enlace = 'curso.html?c=' + curso.id;
+        }
+        var clickeable = (curso.estado === 'disponible' || curso.estado === 'externo') && enlace;
+
+        var clases = 'tarjeta';
+        if (curso.destacado) clases += ' destacada';
+        else if (!clickeable) clases += ' pendiente';
+
+        var html = '<div class="tarjeta-cab">';
+        if (numero) html += '<span class="numero-paso">' + esc(numero) + '</span>';
+        else html += '<span class="kicker">' + esc(curso.etiqueta) + '</span>';
+        html += '<span class="badge ' + claseBadge + '">' + esc(textoBadge) + '</span></div>';
+
+        if (numero) {
+          html += '<div style="display:flex;flex-direction:column;gap:6px;">' +
+                    '<span class="kicker">' + esc(curso.etiqueta) + '</span>' +
+                    '<h4>' + esc(curso.titulo) + '</h4>' +
+                  '</div>';
+        } else {
+          html += '<h4>' + esc(curso.titulo) + '</h4>';
+        }
+
+        html += '<p class="descripcion">' + esc(curso.descripcion) + '</p>';
+        if (curso.metas && curso.metas.length) {
+          html += '<div class="metas">' + curso.metas.map(metaHTML).join('') + '</div>';
+        }
+
+        if (clickeable) {
+          html += '<span class="cta-tarjeta">' + esc(curso.textoEnlace || 'Empezar el curso →') + '</span>';
+          var externo = curso.estado === 'externo' ? ' target="_blank" rel="noopener"' : '';
+          return '<a href="' + escAttr(enlace) + '" class="' + clases + '"' + externo + '>' + html + '</a>';
+        }
+        return '<div class="' + clases + '">' + html + '</div>';
+      }
+
+      function pintarCursos(grupos) {
+        var grillas = {
+          'grilla-ruta': grupos.ruta,
+          'grilla-transversales': grupos.transversales,
+          'grilla-matriz': grupos.matriz,
+          'grilla-proximas': grupos.proximas
+        };
+        Object.keys(grillas).forEach(function (id) {
+          var grilla = document.getElementById(id);
+          var cursos = grillas[id] || [];
+          if (!grilla || !cursos.length) return;
+          var numerada = grilla.getAttribute('data-numerada') === 'si';
+          grilla.innerHTML = cursos.map(function (curso, i) {
+            var numero = '';
+            if (numerada) numero = curso.destacado ? '★' : String(i + 1).padStart(2, '0');
+            return tarjetaHTML(curso, numero);
+          }).join('');
+        });
+      }
+
+      Api.cursos.listar()
+        .then(pintarCursos)
+        .catch(function () { pintarCursos(CURSOS_RESPALDO); });
+
+      /* ── Respaldo: copia estática de los cursos actuales ── */
+      var CURSOS_RESPALDO = {
+        ruta: [
+          { etiqueta: 'Estudio de costos', titulo: 'Estructura de costos', descripcion: 'Qué te cuesta producir y a qué precio conviene vender. Costos, gastos, margen de contribución, punto de equilibrio y estrategias de precio.', estado: 'disponible', enlace: 'costos/index.html', textoEnlace: 'Empezar el curso →', metas: ['10 módulos', '4 herramientas', '~120 min'] },
+          { etiqueta: 'Llegar al cliente', titulo: 'Marketing mix para emprendedores', descripcion: 'Cómo llegar al cliente que querés. Las 4 P —producto, precio, plaza y promoción— aplicadas a tu emprendimiento.', estado: 'disponible', enlace: 'marketing-mix/index.html', textoEnlace: 'Empezar el curso →', metas: ['6 módulos', 'Plan descargable', '~75 min'] },
+          { etiqueta: 'Finanzas del negocio', titulo: 'Finanzas para emprendedores', descripcion: 'Cómo separar la plata del negocio de la plata personal. Cuentas, registros, manejo del efectivo y primeros pasos en inversiones.', estado: 'disponible', enlace: 'finanzas-emprendedores/index.html', textoEnlace: 'Empezar el curso →', metas: ['6 módulos', 'Plan descargable', '~90 min'] },
+          { etiqueta: 'Cuidar el valor', titulo: 'Inflación y resguardo de valor', descripcion: 'Cómo proteger lo que ganás en un contexto inflacionario. Estrategias para no perder.', estado: 'proximamente', metas: ['Próximo ciclo 2026'] },
+          { etiqueta: 'Financiamiento', titulo: 'Acceso al financiamiento', descripcion: 'Cómo buscar plata para crecer: créditos, herramientas del Estado y programas para emprendedores.', estado: 'proximamente', metas: ['Próximo ciclo 2026'] },
+          { etiqueta: 'Cierre de la ruta', titulo: 'Mi plan de negocio', descripcion: 'Tomás todo lo aprendido y armás tu propio plan de negocio, siguiendo el marco de formulación de proyectos de Daniel Semyraz.', estado: 'proximamente', metas: ['Cuando completes la ruta'], destacado: true, insignia: 'Integrador final' }
+        ],
+        transversales: [
+          { etiqueta: 'Empleo', titulo: 'Armando tu CV', descripcion: 'Construí un currículum profesional paso a paso. Cargás tus datos en cada módulo y al final descargás tu CV en PDF y la constancia.', estado: 'disponible', enlace: 'armando-cv/index.html', textoEnlace: 'Empezar el curso →', metas: ['7 módulos', '3 estilos', '~90 min'] },
+          { etiqueta: 'Trabajo registrado', titulo: 'Empleadas de casas particulares', descripcion: 'Liquidación de sueldos: haberes, aportes, vacaciones, SAC e indemnizaciones para empleadas y empleadores.', estado: 'proximamente', metas: ['Próximo ciclo 2026'] },
+          { etiqueta: 'Recurso ANMAT', titulo: 'Manipulación segura de alimentos', descripcion: 'Curso oficial gratuito que otorga el carnet de manipulador, necesario para gastronomía, ferias y repostería.', estado: 'externo', enlace: 'https://www.argentina.gob.ar/anmat/regulados/alimentos/carnet-de-manipuladores/curso', textoEnlace: 'Inscribirme en ANMAT ↗', metas: ['Carnet oficial', 'Virtual · ANMAT'] }
+        ],
+        matriz: [
+          { etiqueta: 'Módulo 01 · Punto de partida', titulo: 'La economía que existe', descripcion: 'Por qué el marketing no alcanza, las tres lógicas de la economía plural (mercado, redistribución, reciprocidad) y la diferencia entre gestionar el sentido y co-producirlo.', estado: 'disponible', enlace: 'tercer-sector/matriz-semilla/modulo-01.html', textoEnlace: 'Empezar el módulo →', metas: ['1 módulo', '~90 min', 'Constancia'] },
+          { etiqueta: 'Módulo 02 · Raíz', titulo: 'La narrativa fundante', descripcion: 'Identidad cooperativa: quiénes somos, por qué existimos y qué nos diferencia de una empresa o un programa estatal.', estado: 'proximamente', metas: ['Ciclo 2026'] },
+          { etiqueta: 'Módulos 03–06 · Flor · Tronco · Fruto', titulo: 'Propósito, gestión e incidencia', descripcion: 'Propósito territorial y cuidado como derecho; comunicación interna que sostiene la democracia; e incidencia para co-construir políticas públicas.', estado: 'proximamente', metas: ['Ciclo 2026'] }
+        ],
+        proximas: [
+          { etiqueta: 'En preparación', titulo: 'Gobernanza y democracia cooperativa', descripcion: 'Cómo tomar decisiones entre muchas personas, prevenir la degeneración cooperativa y sostener la participación real.', estado: 'preparacion', metas: ['Ciclo 2026'] },
+          { etiqueta: 'En preparación', titulo: 'Economía del cuidado', descripcion: 'El cuidado como trabajo y como derecho: cooperativas de cuidado, reconocimiento y organización del sector en el Valle.', estado: 'preparacion', metas: ['Ciclo 2026'] },
+          { etiqueta: 'En preparación', titulo: 'Formalización e INAES', descripcion: 'Del grupo de hecho a la organización con personería: pasos, requisitos y acompañamiento para regularizarse.', estado: 'preparacion', metas: ['Ciclo 2026'] }
+        ]
+      };
+    })();
+  </script>
+</body>
+</html>

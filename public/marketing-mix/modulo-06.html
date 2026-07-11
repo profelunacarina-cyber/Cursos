@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Tu plan de marketing · Marketing Mix · EPJA 753</title>
+<meta name="description" content="Módulo 6: armá tu plan de marketing con todo lo aprendido y descargalo en PDF.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* SMART explicación */
+.smart {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.smart::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.smart-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.smart h3 {
+  font-size: 24px;
+  margin: 0 0 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.smart-letras {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  position: relative;
+}
+@media (max-width: 760px) { .smart-letras { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .smart-letras { grid-template-columns: 1fr; } }
+.smart-letra {
+  background: rgba(255,255,255,0.1);
+  padding: 14px 12px;
+  border-radius: var(--r-sm);
+  text-align: center;
+}
+.smart-letra-l {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.5;
+  margin-bottom: 4px;
+}
+.smart-letra-nombre {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.smart-letra-desc {
+  font-size: 11px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+.smart-ejemplo {
+  background: rgba(255,255,255,0.1);
+  border-radius: var(--r-md);
+  padding: 16px;
+  margin-top: 16px;
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.smart-ejemplo strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.smart-ejemplo .vago {
+  text-decoration: line-through;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Editor del objetivo SMART y plan */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.editor-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+.form-seccion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.form-seccion-titulo {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.form-seccion-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 70px;
+  line-height: 1.55;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.form-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Acciones del cronograma (lista dinámica) */
+.acciones-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.accion-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 38px;
+  gap: 8px;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .accion-row { grid-template-columns: 1fr 1fr 38px; gap: 6px; }
+}
+.accion-input,
+.accion-cuando {
+  padding: 10px 12px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+}
+.accion-input:focus,
+.accion-cuando:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.accion-del {
+  background: var(--gris-1);
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--gris-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.accion-del:hover { color: var(--rojo); border-color: var(--rojo); }
+.accion-add {
+  background: #fff;
+  border: 1.5px dashed var(--gris-2);
+  color: var(--azul);
+  padding: 10px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: var(--sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.accion-add:hover { border-color: var(--azul); background: var(--azul-soft); }
+
+/* Plan completo (vista previa + impresión) */
+.plan-vista {
+  background: #fff;
+  border-radius: var(--r-xl);
+  padding: 0;
+  margin: 32px 0;
+  box-shadow: var(--sombra-media);
+  border: 1px solid var(--gris-2);
+  overflow: hidden;
+}
+.plan-vista-header {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  padding: 32px 36px;
+  color: #fff;
+}
+@media (max-width: 600px) { .plan-vista-header { padding: 24px; } }
+.plan-vista-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.plan-vista-header h2 {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.plan-vista-header p {
+  margin: 8px 0 0;
+  opacity: 0.9;
+  font-size: 14.5px;
+}
+.plan-vista-body {
+  padding: 36px;
+}
+@media (max-width: 600px) { .plan-vista-body { padding: 24px; } }
+.plan-bloque {
+  margin-bottom: 32px;
+}
+.plan-bloque:last-child { margin-bottom: 0; }
+.plan-bloque-num {
+  display: inline-block;
+  background: var(--azul-soft);
+  color: var(--azul);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.plan-bloque h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.4px;
+}
+.plan-bloque-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 16px;
+}
+@media (max-width: 600px) {
+  .plan-bloque-grid { grid-template-columns: 1fr; gap: 4px 0; }
+  .plan-bloque-grid > div:nth-child(odd) { font-weight: 700; margin-top: 8px; }
+}
+.plan-bloque-grid > div {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.plan-bloque-grid > div:nth-child(odd) {
+  color: var(--gris-4);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+.plan-bloque-grid > div:nth-child(even) {
+  color: var(--tinta);
+}
+.plan-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.plan-chip {
+  background: var(--azul-soft);
+  color: var(--azul);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.plan-bloque-lista {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+.plan-bloque-lista li {
+  padding: 6px 0 6px 22px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--tinta);
+}
+.plan-bloque-lista li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+  font-weight: 700;
+}
+.plan-objetivo-box {
+  background: var(--verde-3);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--r-sm);
+  padding: 14px 18px;
+  font-size: 14.5px;
+  color: var(--tinta);
+  line-height: 1.6;
+  font-weight: 500;
+}
+.plan-cronograma {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 13.5px;
+}
+.plan-cronograma th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--gris-4);
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--gris-2);
+}
+.plan-cronograma td {
+  padding: 10px;
+  border-bottom: 1px solid var(--gris-2);
+  vertical-align: top;
+}
+.plan-cronograma td:first-child { color: var(--tinta); font-weight: 500; }
+.plan-cronograma td:last-child { color: var(--gris-4); }
+.plan-mensaje-box {
+  background: var(--hueso-2);
+  border-left: 4px solid var(--coral);
+  padding: 14px 18px;
+  border-radius: var(--r-sm);
+  font-size: 14.5px;
+  font-style: italic;
+  color: #78350f;
+  line-height: 1.6;
+}
+.plan-vacio {
+  text-align: center;
+  color: var(--gris-3);
+  padding: 60px 24px;
+  font-style: italic;
+}
+
+.btn-descargar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-descargar:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+}
+.btn-descargar-grupo {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 32px 0 8px;
+  flex-wrap: wrap;
+}
+.btn-descargar.secundario {
+  background: #fff;
+  color: var(--azul);
+  border: 1.5px solid var(--azul);
+}
+.btn-descargar.secundario:hover {
+  background: var(--azul);
+  color: #fff;
+}
+
+/* Bibliografía */
+.biblio {
+  background: var(--gris-1);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 32px 0;
+}
+.biblio h3 {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.biblio-ref {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.65;
+  padding: 10px 0;
+  border-top: 1px solid var(--gris-2);
+}
+.biblio-ref:first-of-type { border-top: none; padding-top: 0; }
+.biblio-ref strong { color: var(--azul); font-weight: 700; }
+.biblio-ref em { color: var(--gris-4); font-style: italic; }
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* IMPRESIÓN: tamaño A4 con margen, oculta navegación */
+@media print {
+  body { background: #fff !important; }
+  .topbar, .mode-banner, .header, .subhero, .page-nav, .footer,
+  .editor-tool, .smart, .mirada-inc, .mirada, .biblio,
+  .btn-descargar-grupo, h2:not(.plan-vista h2) { display: none !important; }
+  .section { padding: 0 !important; background: #fff !important; }
+  .section-inner { max-width: 100% !important; padding: 0 !important; }
+  .plan-vista {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+  .plan-vista-header {
+    background: var(--azul) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 24px 28px !important;
+  }
+  .plan-vista-body { padding: 24px 28px !important; }
+  .plan-bloque { page-break-inside: avoid; margin-bottom: 22px; }
+  .plan-bloque h3 { font-size: 16px !important; }
+  .plan-bloque-grid > div { font-size: 12px !important; }
+  .plan-bloque-lista li { font-size: 12px !important; }
+  .plan-chips .plan-chip {
+    background: var(--azul-soft) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .plan-objetivo-box, .plan-mensaje-box {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page { size: A4; margin: 14mm; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Marketing Mix · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Marketing Mix</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html" class="active">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Marketing Mix</a>
+      <span>›</span>
+      <span>Módulo 06</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 6 de 6 · Último módulo
+    </span>
+    <h1>Tu <em>plan de marketing</em></h1>
+    <p>Llegamos al final del recorrido. En este módulo se junta todo lo que cargaste en los módulos anteriores. Vas a sumar dos cosas más (objetivos y cronograma) y al final podés descargar tu plan completo en PDF.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 100%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 06 / 06</span>
+      <span>100% del recorrido 🎯</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">El plan de marketing no es un documento mágico que arregla un negocio: es una <strong>guía de acción</strong>. Sirve para tomar decisiones con claridad cuando estés en el día a día. Lo importante no es que el plan sea largo o complicado: es que sea <em>tuyo</em>, que lo entiendas y lo puedas seguir.</p>
+
+    <h2>Objetivos <em>SMART</em>: cómo se formulan bien</h2>
+
+    <p>Antes de mirar tu plan completo, falta una pieza: los <strong>objetivos</strong>. Sin objetivos, todas las acciones del plan no tienen brújula. Existe una manera clásica de formular objetivos que funcionen: los objetivos SMART. La sigla viene del inglés y cada letra es una característica.</p>
+
+    <div class="smart">
+      <div class="smart-label">5 letras, 5 características</div>
+      <h3>Objetivos SMART: específicos y medibles</h3>
+      <div class="smart-letras">
+        <div class="smart-letra">
+          <div class="smart-letra-l">S</div>
+          <div class="smart-letra-nombre">Específico</div>
+          <div class="smart-letra-desc">Concreto, no vago</div>
+        </div>
+        <div class="smart-letra">
+          <div class="smart-letra-l">M</div>
+          <div class="smart-letra-nombre">Medible</div>
+          <div class="smart-letra-desc">Con un número</div>
+        </div>
+        <div class="smart-letra">
+          <div class="smart-letra-l">A</div>
+          <div class="smart-letra-nombre">Alcanzable</div>
+          <div class="smart-letra-desc">Realista</div>
+        </div>
+        <div class="smart-letra">
+          <div class="smart-letra-l">R</div>
+          <div class="smart-letra-nombre">Relevante</div>
+          <div class="smart-letra-desc">Importante para vos</div>
+        </div>
+        <div class="smart-letra">
+          <div class="smart-letra-l">T</div>
+          <div class="smart-letra-nombre">Temporal</div>
+          <div class="smart-letra-desc">Con fecha límite</div>
+        </div>
+      </div>
+      <div class="smart-ejemplo">
+        <strong>De objetivo vago a objetivo SMART</strong>
+        <span class="vago">❌ "Quiero vender más"</span>
+        ✓ "Quiero pasar de 20 a 35 tortas vendidas por mes para fines de junio, sumando un canal nuevo (alianza con jardines maternales)."
+      </div>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>Objetivos chicos cumplidos vs. grandes inalcanzados</h4>
+      <p>El error común es ponerse objetivos enormes que después no se cumplen, y eso genera frustración. La mirada incremental sugiere lo opuesto: <strong>objetivos chicos, posibles y a corto plazo</strong>. "Sumar 5 clientes nuevos este mes" es mejor objetivo que "duplicar el negocio este año". Lo chico se cumple, te da confianza, y desde ahí el siguiente puede ser un poco más grande.</p>
+      <p>Tres objetivos chicos, cumplidos uno por mes, te llevan más lejos que un objetivo enorme que abandonás en marzo.</p>
+      <div class="mirada-inc-cita">
+        "Lo más importante no es la magnitud del avance sino la frecuencia. Pequeños pasos sostenidos producen, en el tiempo, transformaciones grandes."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-plan">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">🎯</div>
+          <h3>Objetivos y cronograma</h3>
+        </div>
+        <span class="editor-tool-tag">Tu plan · Paso 5</span>
+      </div>
+      <p class="editor-tool-desc">Vamos a sumar las últimas dos piezas: <strong>tus objetivos</strong> (qué querés lograr) y <strong>tu cronograma</strong> (qué acciones vas a hacer y cuándo). Con esto, tu plan queda completo y se va a generar abajo para descargar.</p>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Tu objetivo principal (SMART)</div>
+        <p class="form-seccion-desc">Definí UN objetivo concreto, con número y plazo. Si lo armás bien, te organiza todo el resto.</p>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="pn-objetivo">Objetivo principal</label>
+            <textarea id="pn-objetivo" maxlength="220" placeholder="Ej: 'Quiero pasar de 20 a 35 tortas vendidas por mes para fines de junio, sumando alianza con 3 jardines maternales.'"></textarea>
+            <small>Probá que cumpla las 5 letras de SMART (específico, medible, alcanzable, relevante, temporal)</small>
+          </div>
+          <div class="form-field">
+            <label for="pn-plazo">¿En qué plazo?</label>
+            <select id="pn-plazo">
+              <option value="">Elegir...</option>
+              <option value="1mes">1 mes</option>
+              <option value="3meses">3 meses (un trimestre)</option>
+              <option value="6meses">6 meses (medio año)</option>
+              <option value="12meses">12 meses (un año)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="pn-medir">¿Cómo vas a medir si se cumple?</label>
+            <input type="text" id="pn-medir" maxlength="80" placeholder="Ej: cantidad de pedidos al mes, plata facturada, clientes nuevos">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Cronograma de acciones</div>
+        <p class="form-seccion-desc">Acciones concretas que vas a hacer para cumplir tu objetivo. Indicá <em>qué</em> y <em>cuándo</em>. Tip: 4-6 acciones es ideal.</p>
+        <div class="acciones-lista" id="acciones-lista">
+          <div class="accion-row">
+            <input type="text" class="accion-input" maxlength="100" placeholder="Qué acción (ej: visitar 5 jardines maternales)">
+            <input type="text" class="accion-cuando" maxlength="40" placeholder="Cuándo (ej: primera semana de marzo)">
+            <button type="button" class="accion-del" onclick="quitarAccion(this)">×</button>
+          </div>
+          <div class="accion-row">
+            <input type="text" class="accion-input" maxlength="100" placeholder="Otra acción">
+            <input type="text" class="accion-cuando" maxlength="40" placeholder="Cuándo">
+            <button type="button" class="accion-del" onclick="quitarAccion(this)">×</button>
+          </div>
+          <div class="accion-row">
+            <input type="text" class="accion-input" maxlength="100" placeholder="Otra acción">
+            <input type="text" class="accion-cuando" maxlength="40" placeholder="Cuándo">
+            <button type="button" class="accion-del" onclick="quitarAccion(this)">×</button>
+          </div>
+        </div>
+        <button type="button" class="accion-add" onclick="agregarAccion()">+ Agregar otra acción</button>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Nombre del emprendimiento (para el plan)</div>
+        <p class="form-seccion-desc">Para personalizar tu plan de marketing.</p>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="pn-nombre-emp">Nombre del emprendimiento</label>
+            <input type="text" id="pn-nombre-emp" maxlength="80" placeholder="Ej: Repostería Carolina, Plomero del barrio, Estudio Luna">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Vista previa de <em>tu plan</em></h2>
+    <p style="color: var(--gris-4); font-size: 15px; margin-bottom: 18px;">Esto es lo que vas a descargar. Si falta información, completá los módulos anteriores (02, 03, 04, 05) y los datos van a aparecer automáticamente.</p>
+
+    <div class="plan-vista" id="plan-vista">
+      <div class="plan-vista-header">
+        <div class="plan-vista-label">Plan de Marketing</div>
+        <h2 id="plan-titulo">Tu emprendimiento</h2>
+        <p id="plan-fecha">Curso "Marketing Mix" · EPJA 753 · Rawson, Chubut</p>
+      </div>
+      <div class="plan-vista-body" id="plan-vista-body">
+        <div class="plan-vacio">A medida que completés los módulos, tu plan se va a armar acá automáticamente.</div>
+      </div>
+    </div>
+
+    <div class="btn-descargar-grupo">
+      <button class="btn-descargar" onclick="window.print()">
+        <span>📄</span> Descargar plan en PDF
+      </button>
+      <a href="evaluacion.html" class="btn-descargar secundario">
+        <span>✓</span> Ir a la autoevaluación
+      </a>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el curso</span>
+      <h3>El plan está listo. Ahora viene lo más importante: usarlo.</h3>
+      <p>Tu plan no sirve si queda guardado en un cajón. Imprimilo, pegalo en un lugar visible, revisalo cada semana. Y sobre todo: <em>permitite ajustarlo</em>. Lo que cargaste hoy es una primera versión. Vas a salir al mercado, vas a probar, vas a aprender, y vas a volver a ajustar el plan. Eso no es fallar: es justamente cómo se construye un emprendimiento.</p>
+    </div>
+
+    <div class="biblio">
+      <h3>Bibliografía y referencias</h3>
+      <div class="biblio-ref">
+        McCarthy, E. Jerome (1960). <em>Basic Marketing: A Managerial Approach</em>. Homewood, IL: Richard D. Irwin. <strong>Texto fundacional de las 4 P del marketing mix.</strong>
+      </div>
+      <div class="biblio-ref">
+        Luna, Juan Pablo y Gallo, Graciela Inés (2018). <em>Incremental: una visita guiada al mundo emprendedor</em>. Buenos Aires: Editorial Teseo. <strong>Marco teórico de la mirada incremental aplicada al emprendimiento.</strong>
+      </div>
+      <div class="biblio-ref">
+        Strong, Edward Kellogg (1925). <em>The Psychology of Selling and Advertising</em>. Adaptación del modelo AIDA originalmente propuesto por Lewis (1898).
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-05.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">05 · Promoción</span>
+    </a>
+    <a href="evaluacion.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">Autoevaluación final</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Marketing Mix" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es el marketing?</a></li>
+          <li><a href="modulo-02.html">02 · Conocé a tu cliente</a></li>
+          <li><a href="modulo-03.html">03 · Producto y precio</a></li>
+          <li><a href="modulo-04.html">04 · Plaza</a></li>
+          <li><a href="modulo-05.html">05 · Promoción</a></li>
+          <li><a href="modulo-06.html">06 · Tu plan de marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var MKT_KEY = 'epja753_mkt_datos';
+
+function leerMkt() {
+  try { return JSON.parse(localStorage.getItem(MKT_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarMkt(d) {
+  try { localStorage.setItem(MKT_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+// ============== HELPERS DE LECTURA ==============
+function valorLabel(v) {
+  var map = {
+    'precio-bajo':'precio bajo', 'calidad':'calidad', 'rapidez':'rapidez',
+    'trato-cercano':'trato cercano', 'diseno':'diseño', 'recomendacion':'recomendaciones',
+    'artesanal':'lo artesanal', 'conveniencia':'la conveniencia', 'exclusividad':'la exclusividad', 'confianza':'la confianza',
+    'instagram':'Instagram', 'facebook':'Facebook', 'whatsapp':'WhatsApp', 'tiktok':'TikTok',
+    'google':'Google', 'caminando':'caminando por el barrio', 'ferias':'ferias', 'diarios':'diarios y radio'
+  };
+  return map[v] || v;
+}
+function edadTexto(v) {
+  var map = {
+    '18-25':'18-25 años', '25-35':'25-35 años', '35-50':'35-50 años',
+    '50-65':'50-65 años', 'mas-65':'Más de 65', 'mixto':'Mezcla de edades'
+  };
+  return map[v] || '';
+}
+function generoTexto(v) {
+  var map = { 'mujer':'mujer', 'varon':'varón', 'mixto':'género mixto' };
+  return map[v] || '';
+}
+function cicloTexto(v) {
+  var map = {
+    'introduccion':'En etapa de introducción', 'crecimiento':'En crecimiento',
+    'madurez':'En etapa madura', 'declive':'En declive'
+  };
+  return map[v] || '';
+}
+function estrategiaTexto(v) {
+  var map = {
+    'penetracion':'Estrategia de penetración', 'paridad':'Estrategia de paridad',
+    'descreme':'Estrategia de descreme', 'indecisa':'Estrategia por definir'
+  };
+  return map[v] || '';
+}
+function canalNombre(id) {
+  var map = {
+    'local-propio':'Local o taller propio', 'comercios-terceros':'Otros comercios',
+    'ferias':'Ferias y eventos', 'instagram':'Instagram', 'facebook':'Facebook',
+    'whatsapp':'WhatsApp Business', 'marketplace':'Mercado Libre / OLX',
+    'delivery-propio':'Delivery propio', 'domicilio':'Servicio a domicilio',
+    'boca-boca':'Boca a boca'
+  };
+  return map[id] || id;
+}
+function entregaTexto(v) {
+  var map = {
+    'retiro':'El cliente retira', 'delivery-propio':'Hago delivery yo',
+    'delivery-tercero':'Contrato cadetería', 'correo':'Envío por correo',
+    'presencial':'Servicio presencial en mi local', 'domicilio':'Voy al domicilio del cliente',
+    'mixto':'Mezcla de varias formas'
+  };
+  return map[v] || '';
+}
+function accionNombre(id) {
+  var map = {
+    'boca-boca':'Boca a boca', 'contenido-redes':'Contenido en redes',
+    'testimonios':'Testimonios de clientes', 'alianzas':'Alianzas',
+    'promociones':'Promociones y descuentos', 'carteleria':'Cartelería local',
+    'publicidad-redes':'Publicidad pagada en redes', 'medios-locales':'Medios locales'
+  };
+  return map[id] || id;
+}
+function frecuenciaTexto(v) {
+  var map = {
+    'diaria':'Publicación diaria', '3-semana':'3 veces por semana',
+    'semanal':'Una vez por semana', 'puntual':'Solo cuando hay novedades',
+    'aun-no':'Frecuencia por definir'
+  };
+  return map[v] || '';
+}
+function objetivoTexto(v) {
+  var map = {
+    'atraer':'Conseguir clientes nuevos', 'fidelizar':'Fidelizar los clientes actuales',
+    'recordar':'Que la gente me recuerde', 'lanzar':'Lanzar un producto o servicio nuevo'
+  };
+  return map[v] || '';
+}
+function plazoTexto(v) {
+  var map = {
+    '1mes':'1 mes', '3meses':'3 meses', '6meses':'6 meses', '12meses':'12 meses'
+  };
+  return map[v] || '';
+}
+
+// ============== GESTIÓN DEL EDITOR PROPIO ==============
+function getAcciones() {
+  var rows = document.querySelectorAll('.accion-row');
+  var arr = [];
+  rows.forEach(function(r) {
+    var qInp = r.querySelector('.accion-input');
+    var cInp = r.querySelector('.accion-cuando');
+    if (qInp && cInp && (qInp.value.trim() || cInp.value.trim())) {
+      arr.push({ que: qInp.value.trim(), cuando: cInp.value.trim() });
+    }
+  });
+  return arr;
+}
+
+function agregarAccion() {
+  var lista = document.getElementById('acciones-lista');
+  var row = document.createElement('div');
+  row.className = 'accion-row';
+  row.innerHTML = '<input type="text" class="accion-input" maxlength="100" placeholder="Qué acción">' +
+                  '<input type="text" class="accion-cuando" maxlength="40" placeholder="Cuándo">' +
+                  '<button type="button" class="accion-del" onclick="quitarAccion(this)">×</button>';
+  lista.appendChild(row);
+  row.querySelectorAll('input').forEach(function(i) {
+    i.addEventListener('input', guardarPlan);
+  });
+  row.querySelector('.accion-input').focus();
+}
+
+function quitarAccion(btn) {
+  var rows = document.querySelectorAll('.accion-row');
+  if (rows.length <= 1) return;
+  btn.parentElement.remove();
+  guardarPlan();
+}
+
+function getPlan() {
+  return {
+    pnObjetivo: document.getElementById('pn-objetivo').value.trim(),
+    pnPlazo: document.getElementById('pn-plazo').value,
+    pnMedir: document.getElementById('pn-medir').value.trim(),
+    pnNombreEmp: document.getElementById('pn-nombre-emp').value.trim(),
+    pnAcciones: getAcciones()
+  };
+}
+
+function setPlan(d) {
+  if (d.pnObjetivo) document.getElementById('pn-objetivo').value = d.pnObjetivo;
+  if (d.pnPlazo) document.getElementById('pn-plazo').value = d.pnPlazo;
+  if (d.pnMedir) document.getElementById('pn-medir').value = d.pnMedir;
+  if (d.pnNombreEmp) document.getElementById('pn-nombre-emp').value = d.pnNombreEmp;
+  
+  if (Array.isArray(d.pnAcciones) && d.pnAcciones.length) {
+    var lista = document.getElementById('acciones-lista');
+    lista.innerHTML = '';
+    d.pnAcciones.forEach(function(a) {
+      var row = document.createElement('div');
+      row.className = 'accion-row';
+      var qInp = document.createElement('input');
+      qInp.type = 'text'; qInp.className = 'accion-input'; qInp.maxLength = 100;
+      qInp.placeholder = 'Qué acción'; qInp.value = a.que || '';
+      var cInp = document.createElement('input');
+      cInp.type = 'text'; cInp.className = 'accion-cuando'; cInp.maxLength = 40;
+      cInp.placeholder = 'Cuándo'; cInp.value = a.cuando || '';
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'accion-del';
+      btn.onclick = function() { quitarAccion(this); };
+      btn.textContent = '×';
+      row.appendChild(qInp); row.appendChild(cInp); row.appendChild(btn);
+      lista.appendChild(row);
+      qInp.addEventListener('input', guardarPlan);
+      cInp.addEventListener('input', guardarPlan);
+    });
+    // garantizar mínimo 3 filas visibles
+    while (document.querySelectorAll('.accion-row').length < 3) {
+      agregarAccion();
+    }
+  }
+}
+
+// ============== RENDERIZAR EL PLAN COMPLETO ==============
+function renderizarPlan() {
+  var d = leerMkt();
+  var titulo = document.getElementById('plan-titulo');
+  var body = document.getElementById('plan-vista-body');
+  
+  var nombreEmp = d.pnNombreEmp || 'Tu emprendimiento';
+  titulo.textContent = 'Plan de marketing · ' + nombreEmp;
+  
+  // ¿Hay algo cargado?
+  var algoCargado = d.bpNombre || d.ppNombre || (d.plCanales && d.plCanales.length) || 
+                    (d.pmAcciones && d.pmAcciones.length) || d.pnObjetivo;
+  
+  if (!algoCargado) {
+    body.innerHTML = '<div class="plan-vacio">A medida que completés los módulos, tu plan se va a armar acá automáticamente.<br><br>Empezá por el <a href="modulo-02.html" style="color:var(--azul);">Módulo 02</a>.</div>';
+    return;
+  }
+  
+  var html = '';
+  
+  // BLOQUE 1: Cliente ideal
+  if (d.bpNombre || d.bpEdad || d.bpOcupacion || (d.bpValora && d.bpValora.length)) {
+    html += '<div class="plan-bloque">';
+    html += '<span class="plan-bloque-num">01 · Cliente</span>';
+    html += '<h3>A quién le vendo</h3>';
+    html += '<div class="plan-bloque-grid">';
+    if (d.bpNombre) { html += '<div>Cliente ideal</div><div>' + d.bpNombre + '</div>'; }
+    var datosBas = [];
+    if (d.bpEdad) datosBas.push(edadTexto(d.bpEdad));
+    if (d.bpGenero) datosBas.push(generoTexto(d.bpGenero));
+    if (datosBas.length) { html += '<div>Perfil</div><div>' + datosBas.join(', ') + '</div>'; }
+    if (d.bpOcupacion) { html += '<div>Situación</div><div>' + d.bpOcupacion + '</div>'; }
+    if (d.bpZona) { html += '<div>Zona</div><div>' + d.bpZona + '</div>'; }
+    if (d.bpNecesidad) { html += '<div>Qué necesita</div><div>' + d.bpNecesidad + '</div>'; }
+    if (d.bpFreno) { html += '<div>Qué lo frena</div><div>' + d.bpFreno + '</div>'; }
+    if (d.bpValora && d.bpValora.length) {
+      html += '<div>Qué valora</div><div><div class="plan-chips">';
+      d.bpValora.forEach(function(v) { html += '<span class="plan-chip">' + valorLabel(v) + '</span>'; });
+      html += '</div></div>';
+    }
+    if (d.bpFrase) { html += '<div>Frase típica</div><div><em>"' + d.bpFrase + '"</em></div>'; }
+    html += '</div></div>';
+  }
+  
+  // BLOQUE 2: Producto y precio
+  if (d.ppNombre || d.ppDescripcion || (d.ppBeneficios && d.ppBeneficios.length) || d.ppPrecio) {
+    html += '<div class="plan-bloque">';
+    html += '<span class="plan-bloque-num">02 · Producto y precio</span>';
+    html += '<h3>Qué ofrezco y a cuánto</h3>';
+    html += '<div class="plan-bloque-grid">';
+    if (d.ppNombre) { html += '<div>Producto/servicio</div><div>' + d.ppNombre + '</div>'; }
+    if (d.ppDescripcion) { html += '<div>Descripción</div><div>' + d.ppDescripcion + '</div>'; }
+    if (d.ppCiclo) { html += '<div>Etapa</div><div>' + cicloTexto(d.ppCiclo) + '</div>'; }
+    if (d.ppDiferencial) { html += '<div>Diferencial</div><div>' + d.ppDiferencial + '</div>'; }
+    if (d.ppBeneficios && d.ppBeneficios.length) {
+      html += '<div>Beneficios</div><div><ul class="plan-bloque-lista">';
+      d.ppBeneficios.forEach(function(b) { html += '<li>' + b + '</li>'; });
+      html += '</ul></div>';
+    }
+    if (d.ppPrecio) { html += '<div>Precio inicial</div><div>$' + d.ppPrecio + '</div>'; }
+    if (d.ppEstrategia) { html += '<div>Estrategia</div><div>' + estrategiaTexto(d.ppEstrategia) + '</div>'; }
+    if (d.ppPorque) { html += '<div>Por qué este precio</div><div>' + d.ppPorque + '</div>'; }
+    html += '</div></div>';
+  }
+  
+  // BLOQUE 3: Plaza
+  if ((d.plCanales && d.plCanales.length) || d.plPrincipal) {
+    html += '<div class="plan-bloque">';
+    html += '<span class="plan-bloque-num">03 · Plaza</span>';
+    html += '<h3>Dónde y cómo vendo</h3>';
+    html += '<div class="plan-bloque-grid">';
+    if (d.plCanales && d.plCanales.length) {
+      html += '<div>Canales</div><div><div class="plan-chips">';
+      d.plCanales.forEach(function(c) { html += '<span class="plan-chip">' + canalNombre(c) + '</span>'; });
+      html += '</div></div>';
+    }
+    if (d.plPrincipal) { html += '<div>Canal principal</div><div>' + d.plPrincipal + '</div>'; }
+    if (d.plPorque) { html += '<div>Por qué este</div><div>' + d.plPorque + '</div>'; }
+    if (d.plEntrega) { html += '<div>Forma de entrega</div><div>' + entregaTexto(d.plEntrega) + '</div>'; }
+    if (d.plZona) { html += '<div>Zona</div><div>' + d.plZona + '</div>'; }
+    html += '</div></div>';
+  }
+  
+  // BLOQUE 4: Promoción
+  if ((d.pmAcciones && d.pmAcciones.length) || d.pmMensaje) {
+    html += '<div class="plan-bloque">';
+    html += '<span class="plan-bloque-num">04 · Promoción</span>';
+    html += '<h3>Cómo me doy a conocer</h3>';
+    if (d.pmMensaje) {
+      html += '<div class="plan-mensaje-box">"' + d.pmMensaje + '"</div>';
+    }
+    html += '<div class="plan-bloque-grid" style="margin-top:14px;">';
+    if (d.pmAcciones && d.pmAcciones.length) {
+      html += '<div>Acciones</div><div><div class="plan-chips">';
+      d.pmAcciones.forEach(function(a) { html += '<span class="plan-chip">' + accionNombre(a) + '</span>'; });
+      html += '</div></div>';
+    }
+    if (d.pmFrecuencia) { html += '<div>Frecuencia</div><div>' + frecuenciaTexto(d.pmFrecuencia) + '</div>'; }
+    if (d.pmObjetivo) { html += '<div>Objetivo</div><div>' + objetivoTexto(d.pmObjetivo) + '</div>'; }
+    html += '</div></div>';
+  }
+  
+  // BLOQUE 5: Objetivos
+  if (d.pnObjetivo || d.pnPlazo || d.pnMedir) {
+    html += '<div class="plan-bloque">';
+    html += '<span class="plan-bloque-num">05 · Objetivo</span>';
+    html += '<h3>Qué quiero lograr</h3>';
+    if (d.pnObjetivo) {
+      html += '<div class="plan-objetivo-box">' + d.pnObjetivo + '</div>';
+    }
+    html += '<div class="plan-bloque-grid" style="margin-top:14px;">';
+    if (d.pnPlazo) { html += '<div>Plazo</div><div>' + plazoTexto(d.pnPlazo) + '</div>'; }
+    if (d.pnMedir) { html += '<div>Cómo medir</div><div>' + d.pnMedir + '</div>'; }
+    html += '</div></div>';
+  }
+  
+  // BLOQUE 6: Cronograma
+  if (d.pnAcciones && d.pnAcciones.length) {
+    html += '<div class="plan-bloque">';
+    html += '<span class="plan-bloque-num">06 · Cronograma</span>';
+    html += '<h3>Qué voy a hacer y cuándo</h3>';
+    html += '<table class="plan-cronograma">';
+    html += '<thead><tr><th>Acción</th><th style="width:35%;">Cuándo</th></tr></thead>';
+    html += '<tbody>';
+    d.pnAcciones.forEach(function(a) {
+      html += '<tr><td>' + (a.que || '—') + '</td><td>' + (a.cuando || '—') + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    html += '</div>';
+  }
+  
+  body.innerHTML = html;
+}
+
+function guardarPlan() {
+  var datos = leerMkt();
+  Object.assign(datos, getPlan());
+  guardarMkt(datos);
+  renderizarPlan();
+}
+
+['pn-objetivo', 'pn-medir', 'pn-nombre-emp'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardarPlan);
+});
+document.getElementById('pn-plazo').addEventListener('change', guardarPlan);
+
+document.querySelectorAll('.accion-input, .accion-cuando').forEach(function(i) {
+  i.addEventListener('input', guardarPlan);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerMkt();
+  setPlan(datos);
+  renderizarPlan();
+  
+  var tipo;
+  try { tipo = localStorage.getItem('epja753_mkt_tipo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && tipo) {
+    if (tipo === 'fisico') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Producto físico</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a productos tangibles</span></div>';
+      banner.style.display = 'block';
+    } else if (tipo === 'servicio') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Servicio</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a servicios</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

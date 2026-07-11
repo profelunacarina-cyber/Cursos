@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · ¿Para qué sirven las finanzas? · Finanzas · EPJA 753</title>
+<meta name="description" content="Módulo 1: diferencia entre ahorrar, atesorar e invertir. El valor del dinero en el tiempo.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Tres conceptos clave */
+.tres-conceptos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0 36px;
+}
+@media (max-width: 760px) { .tres-conceptos { grid-template-columns: 1fr; } }
+.concepto-card {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.concepto-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.concepto-card.ahorrar::before { background: var(--azul); }
+.concepto-card.atesorar::before { background: var(--coral); }
+.concepto-card.invertir::before { background: var(--verde); }
+.concepto-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 24px;
+}
+.concepto-card.ahorrar .concepto-icono { background: var(--azul-3); }
+.concepto-card.atesorar .concepto-icono { background: var(--coral-soft); }
+.concepto-card.invertir .concepto-icono { background: var(--verde-3); }
+.concepto-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.concepto-card.ahorrar .concepto-eyebrow { color: var(--azul); }
+.concepto-card.atesorar .concepto-eyebrow { color: var(--coral); }
+.concepto-card.invertir .concepto-eyebrow { color: var(--verde); }
+.concepto-card h3 {
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.concepto-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.concepto-ejemplo {
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--tinta);
+  line-height: 1.55;
+}
+.concepto-ejemplo strong {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--gris-4);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+/* Ejemplo del valor del dinero */
+.ejemplo-tiempo {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.ejemplo-tiempo::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.ejemplo-tiempo-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.ejemplo-tiempo h3 {
+  font-size: 24px;
+  margin: 0 0 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.ejemplo-tiempo > p {
+  position: relative;
+  font-size: 15px;
+  opacity: 0.95;
+  line-height: 1.65;
+  margin: 0 0 22px;
+}
+.timeline-tiempo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  position: relative;
+}
+@media (max-width: 600px) { .timeline-tiempo { grid-template-columns: 1fr; } }
+.timeline-paso {
+  background: rgba(255,255,255,0.1);
+  padding: 18px 16px;
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.timeline-paso-momento {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.timeline-paso-valor {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.timeline-paso-detalle {
+  font-size: 12px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Interés simple/compuesto */
+.interes-explicacion {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin: 28px 0;
+}
+.interes-explicacion h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 16px;
+  letter-spacing: -0.4px;
+}
+.interes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 600px) { .interes-grid { grid-template-columns: 1fr; } }
+.interes-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+}
+.interes-card h4 {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--tinta);
+  margin: 0 0 10px;
+}
+.interes-card p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+.interes-formula {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--azul);
+  font-weight: 600;
+}
+
+/* Banner puerta */
+.mode-banner {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  display: none;
+}
+.mode-banner-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html" class="active">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Finanzas</a>
+      <span>›</span>
+      <span>Módulo 01</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 1 de 6
+    </span>
+    <h1>¿Para qué sirven <em>las finanzas?</em></h1>
+    <p>Empezamos por lo más importante: entender bien qué cosas estás haciendo cuando "guardás plata". Porque no es lo mismo guardarla bajo el colchón que ponerla en una caja de ahorro, ni que invertirla en un emprendimiento.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 16%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 01 / 06</span>
+      <span>16% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Tres palabras que se usan como sinónimos pero significan cosas distintas: <strong>ahorrar, atesorar e invertir</strong>. Si te quedás solo con una idea de este módulo, que sea esa diferencia. Porque define qué hacés con el resultado de tu trabajo: lo dejás quieto, lo guardás, o lo ponés a trabajar para vos.</p>
+
+    <h2>Tres palabras, <em>tres ideas distintas</em></h2>
+
+    <div class="tres-conceptos">
+      <div class="concepto-card ahorrar">
+        <div class="concepto-icono">💰</div>
+        <div class="concepto-eyebrow">Opción 1</div>
+        <h3>Ahorrar</h3>
+        <p>Es <strong>guardar parte de tu ingreso</strong> separándola del consumo diario. La plata sigue siendo accesible, pero no la usás en lo cotidiano. Es el primer paso.</p>
+        <div class="concepto-ejemplo">
+          <strong>Ejemplo</strong>
+          Vendés tortas y de cada $10.000 que cobrás, separás $1.000 para tener un colchón.
+        </div>
+      </div>
+
+      <div class="concepto-card atesorar">
+        <div class="concepto-icono">📦</div>
+        <div class="concepto-eyebrow">Opción 2</div>
+        <h3>Atesorar</h3>
+        <p>Es <strong>guardar la plata sin hacerla rendir</strong>. Quieta en una caja, debajo del colchón, en una alcancía. En contexto de inflación, atesorar significa que cada mes vale menos.</p>
+        <div class="concepto-ejemplo">
+          <strong>Ejemplo</strong>
+          $100.000 guardados en pesos abajo del colchón hoy compran menos que hace un año.
+        </div>
+      </div>
+
+      <div class="concepto-card invertir">
+        <div class="concepto-icono">🌱</div>
+        <div class="concepto-eyebrow">Opción 3</div>
+        <h3>Invertir</h3>
+        <p>Es <strong>poner la plata a trabajar</strong> esperando que vuelva con un extra. Puede ser en tu negocio (comprar maquinaria), en un plazo fijo, o en un fondo. Implica algo de riesgo.</p>
+        <div class="concepto-ejemplo">
+          <strong>Ejemplo</strong>
+          Comprás un horno mejor de $200.000 que te permite hacer el doble de tortas por día.
+        </div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Ahorrar es <em>separar</em>. Atesorar es <em>guardar quieto</em>. Invertir es <em>poner a trabajar</em>. Las tres son válidas, pero hacen cosas muy distintas con tu plata.</p>
+    </div>
+
+    <h2>El <em>valor del dinero</em> en el tiempo</h2>
+
+    <p>Una idea clave de las finanzas, y muy real en Argentina: <strong>$1.000 hoy no son los mismos $1.000 dentro de un año</strong>. ¿Por qué? Porque la inflación va comiendo el poder de compra de la plata que tenés. Pero también porque la plata "puesta a trabajar" puede crecer. Te paso un ejemplo concreto.</p>
+
+    <div class="ejemplo-tiempo">
+      <div class="ejemplo-tiempo-label">Caso práctico</div>
+      <h3>$100.000 en diferentes lugares (después de un año con 40% de inflación)</h3>
+      <p>Imaginate que tenés $100.000 ahora mismo. Mirá qué pasa en un año si los dejás en distintos lados (los números son ilustrativos, varían según tasas reales del momento):</p>
+      <div class="timeline-tiempo">
+        <div class="timeline-paso">
+          <div class="timeline-paso-momento">Bajo el colchón</div>
+          <div class="timeline-paso-valor">$100.000</div>
+          <div class="timeline-paso-detalle">Pero compran lo que hace un año compraban $60.000. Perdiste poder.</div>
+        </div>
+        <div class="timeline-paso">
+          <div class="timeline-paso-momento">En caja de ahorro</div>
+          <div class="timeline-paso-valor">$100.000</div>
+          <div class="timeline-paso-detalle">Igual que el colchón: no genera interés. Salvo que sea remunerada.</div>
+        </div>
+        <div class="timeline-paso">
+          <div class="timeline-paso-momento">En plazo fijo UVA</div>
+          <div class="timeline-paso-valor">+inflación</div>
+          <div class="timeline-paso-detalle">Crece con la inflación. Mantenés el poder de compra.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Interés: <em>el costo del tiempo</em></h2>
+
+    <p>Cuando alguien te presta plata, cobra un <strong>interés</strong>. Cuando vos prestás (poniendo plata en un plazo fijo, por ejemplo), te pagan un interés. Es el "precio del tiempo": cuánto cuesta tener algo hoy en vez de esperar. Hay dos tipos importantes que conviene entender.</p>
+
+    <div class="interes-explicacion">
+      <h3>Interés simple vs. interés compuesto</h3>
+      <div class="interes-grid">
+        <div class="interes-card">
+          <h4>Interés simple</h4>
+          <p>Se calcula siempre sobre el monto original. Si pusiste $10.000 al 5% mensual, cada mes te pagan $500.</p>
+          <div class="interes-formula">I = Capital × Tasa × Tiempo</div>
+        </div>
+        <div class="interes-card">
+          <h4>Interés compuesto</h4>
+          <p>Se calcula sobre el monto original + los intereses acumulados. Cada mes la base se hace más grande. Es "interés sobre interés".</p>
+          <div class="interes-formula">I = Capital × (1 + Tasa)^Tiempo − Capital</div>
+        </div>
+      </div>
+      <p style="font-size:14px; color:var(--gris-4); margin-top:14px; line-height:1.6;">El <strong>interés compuesto</strong> es el motor de las inversiones a largo plazo. También es el motor del sobreendeudamiento: si te atrasás con una deuda, los intereses se siguen sumando sobre los intereses.</p>
+    </div>
+
+    <h2>Tasa libre de riesgo y <em>spread</em></h2>
+
+    <p>Otra idea simple pero importante: cuando vas a invertir plata, hay opciones más "seguras" (te pagan menos pero el dinero está garantizado) y opciones más "riesgosas" (te pagan más pero podés perder).</p>
+
+    <p>La <strong>tasa libre de riesgo</strong> es lo que paga el plazo fijo del banco, por ejemplo: poca rentabilidad, pero casi seguro. La diferencia entre lo que paga una inversión más arriesgada y la libre de riesgo se llama <strong>spread de riesgo</strong>: es lo que te pagan por aceptar más incertidumbre.</p>
+
+    <p>Una regla básica de finanzas: <strong>si algo promete mucho más de lo que paga el plazo fijo, hay algún riesgo detrás</strong>. Eso no significa que sea estafa (puede ser una buena inversión), pero sí que conviene entender bien antes de poner la plata.</p>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>Lo importante no es saber TODO, es empezar por algo</h4>
+      <p>Las finanzas pueden parecer un mundo enorme y técnico. Y en parte lo son. Pero para una persona emprendedora chica, no hace falta saberlo todo de entrada: alcanza con tener claros estos tres conceptos (ahorrar/atesorar/invertir) y entender que la plata pierde valor cuando hay inflación.</p>
+      <p>El enfoque incremental sugiere empezar por lo más básico, sostenerlo en el tiempo, y avanzar de a poco. <strong>Es mejor ahorrar $500 todos los meses durante un año, que ahorrar $50.000 un mes y nada los próximos diez.</strong></p>
+      <div class="mirada-inc-cita">
+        "La capacidad de gestión financiera no se construye con grandes movimientos, sino con hábitos constantes. La constancia gana siempre a la perfección."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Saber qué hacés con la plata es saber qué hacés con tu tiempo</h3>
+      <p>Tu plata no es solo dinero: es tu tiempo trabajado. Por eso entender qué hacés con ella es entender qué hacés con tu esfuerzo. En el próximo módulo vamos a la primera decisión concreta y muy importante: separar la plata personal de la plata del negocio. Es el primer paso para profesionalizar tu emprendimiento.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="index.html" class="prev">
+      <span class="label">← Volver</span>
+      <span class="title">Presentación del curso</span>
+    </a>
+    <a href="modulo-02.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">02 · Presupuesto</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var puerta;
+  try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && puerta) {
+    if (puerta === 'arranco') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Recién empiezo</strong></span><span style="opacity:0.8;">Ejemplos con montos pequeños y foco en hábitos básicos</span></div>';
+      banner.style.display = 'block';
+    } else if (puerta === 'andando') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Negocio andando</strong></span><span style="opacity:0.8;">Ejemplos con números reales y foco en optimización</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

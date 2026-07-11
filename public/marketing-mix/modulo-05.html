@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Promoción · Marketing Mix · EPJA 753</title>
+<meta name="description" content="Módulo 5: la cuarta P del marketing mix: cómo te das a conocer.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Herramientas de promoción */
+.herramientas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin: 24px 0 32px;
+}
+.herramienta-card {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.herramienta-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+.herramienta-card.gratis::before { background: var(--verde); }
+.herramienta-card.barata::before { background: var(--azul); }
+.herramienta-card.paga::before { background: var(--coral); }
+.herramienta-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+.herramienta-card.gratis .herramienta-icon { background: var(--verde-3); }
+.herramienta-card.barata .herramienta-icon { background: var(--azul-3); }
+.herramienta-card.paga .herramienta-icon { background: var(--coral-soft); }
+.herramienta-tipo {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.herramienta-card.gratis .herramienta-tipo { color: var(--verde); }
+.herramienta-card.barata .herramienta-tipo { color: var(--azul); }
+.herramienta-card.paga .herramienta-tipo { color: var(--coral); }
+.herramienta-card h4 {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--tinta);
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.herramienta-card > p {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+.herramienta-tip {
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--tinta);
+  line-height: 1.5;
+}
+.herramienta-tip strong {
+  color: var(--azul);
+  font-weight: 700;
+}
+
+/* AIDA - el embudo */
+.aida {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.aida::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.aida-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.aida h3 {
+  font-size: 24px;
+  margin: 0 0 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.aida > p {
+  position: relative;
+  font-size: 14.5px;
+  opacity: 0.95;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+.aida-pasos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  position: relative;
+}
+@media (max-width: 760px) { .aida-pasos { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .aida-pasos { grid-template-columns: 1fr; } }
+.aida-paso {
+  background: rgba(255,255,255,0.1);
+  padding: 16px 14px;
+  border-radius: var(--r-sm);
+}
+.aida-paso-letra {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+.aida-paso-nombre {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.aida-paso-desc {
+  font-size: 12px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Reglas prácticas */
+.reglas {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: 24px 0 32px;
+}
+.regla-row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  padding: 18px 20px;
+  border-top: 1px solid var(--gris-2);
+  align-items: center;
+  gap: 16px;
+}
+.regla-row:first-child { border-top: none; }
+.regla-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--azul);
+  letter-spacing: -0.5px;
+}
+.regla-titulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+.regla-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+}
+
+/* Editor */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.editor-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+.form-seccion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.form-seccion-titulo {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.form-seccion-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+
+/* Selector de acciones de promoción */
+.acciones-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+.accion-toggle {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: left;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.accion-toggle:hover { border-color: var(--azul); }
+.accion-toggle.active {
+  background: var(--azul-soft);
+  border-color: var(--azul);
+  border-width: 2px;
+  padding: 13px 15px;
+}
+.accion-toggle-icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+.accion-toggle-nombre {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tinta);
+}
+.accion-toggle-costo {
+  font-size: 11px;
+  color: var(--gris-4);
+  line-height: 1.4;
+}
+.accion-toggle.active .accion-toggle-nombre { color: var(--azul); }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 70px;
+  line-height: 1.55;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.form-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Vista previa */
+.preview-promo {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin-top: 24px;
+  border: 1px solid var(--azul-3);
+}
+.preview-promo-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.preview-promo-card {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(28,25,23,0.04);
+}
+.preview-promo-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.preview-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.preview-accion-chip {
+  background: var(--azul-soft);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.preview-promo-seccion {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gris-2);
+}
+.preview-promo-seccion-titulo {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--verde);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.preview-promo-seccion p {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.55;
+  margin: 0;
+}
+.preview-promo-mensaje {
+  background: var(--hueso-2);
+  border-left: 3px solid var(--coral);
+  padding: 14px 18px;
+  border-radius: var(--r-sm);
+  font-style: italic;
+  font-size: 14px;
+  color: #78350f;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.preview-vacio {
+  text-align: center;
+  color: var(--gris-3);
+  font-style: italic;
+  padding: 30px 20px;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Marketing Mix · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Marketing Mix</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html" class="active">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Marketing Mix</a>
+      <span>›</span>
+      <span>Módulo 05</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 5 de 6
+    </span>
+    <h1>Promoción: <em>contale al mundo</em> que existís</h1>
+    <p>La cuarta P del marketing mix. Tenés un buen producto, a buen precio, en los canales correctos. Falta lo último: que la gente <strong>se entere</strong>. Y para eso hay muchas formas, no solo "hacer publicidad".</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 83%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 05 / 06</span>
+      <span>83% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">La promoción es todo lo que hacés para que la gente <strong>conozca, recuerde y elija</strong> tu emprendimiento. La trampa es pensar que promoción significa "pagar publicidad". En realidad, en un emprendimiento chico el 80% de la promoción son cosas que no cuestan plata, o que cuestan muy poco. Lo que cuesta es <em>tiempo, constancia y creatividad</em>.</p>
+
+    <h2>El recorrido del cliente</h2>
+
+    <p>Antes de pensar qué acciones de promoción usar, conviene entender cómo es el recorrido mental del cliente desde que no te conoce hasta que te compra. En marketing se usa una sigla clásica: <strong>AIDA</strong>. Es una de las herramientas más viejas (de 1898) pero sigue siendo útil porque describe bien lo que pasa en la cabeza de cualquier persona antes de comprar.</p>
+
+    <div class="aida">
+      <div class="aida-label">El embudo del cliente</div>
+      <h3>AIDA: cómo va decidiendo el cliente</h3>
+      <p>Cada acción de promoción debería apuntar a uno de estos cuatro momentos. Es importante saber cuál, porque las acciones para "llamar la atención" no son las mismas que para "lograr una venta".</p>
+      <div class="aida-pasos">
+        <div class="aida-paso">
+          <div class="aida-paso-letra">A</div>
+          <div class="aida-paso-nombre">Atención</div>
+          <div class="aida-paso-desc">Que sepa que existís. Una foto que se destaca, un cartel, un comentario.</div>
+        </div>
+        <div class="aida-paso">
+          <div class="aida-paso-letra">I</div>
+          <div class="aida-paso-nombre">Interés</div>
+          <div class="aida-paso-desc">Que quiera saber más. Ver el catálogo, conocer precios, leer reseñas.</div>
+        </div>
+        <div class="aida-paso">
+          <div class="aida-paso-letra">D</div>
+          <div class="aida-paso-nombre">Deseo</div>
+          <div class="aida-paso-desc">Que lo quiera para él. Ver el beneficio, imaginarse usándolo.</div>
+        </div>
+        <div class="aida-paso">
+          <div class="aida-paso-letra">A</div>
+          <div class="aida-paso-nombre">Acción</div>
+          <div class="aida-paso-desc">Que compre. Un empujoncito final: oferta, facilidad, urgencia.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Las herramientas de promoción</h2>
+
+    <p>Te las paso agrupadas por cuánto cuestan. Vas a ver que hay muchísimas opciones gratuitas o de bajo costo que son las que más usan los emprendedores chicos.</p>
+
+    <div class="herramientas-grid">
+
+      <div class="herramienta-card gratis">
+        <div class="herramienta-icon">🗣️</div>
+        <div class="herramienta-tipo">Gratis · Muy efectiva</div>
+        <h4>Boca a boca</h4>
+        <p>Tus clientes contentos le hablan a otros. Es la promoción más poderosa que existe y la más confiable para quien la recibe.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> pedile a cada cliente conforme que te recomiende. Aclará "si conocés a alguien que necesite esto, decile".</div>
+      </div>
+
+      <div class="herramienta-card gratis">
+        <div class="herramienta-icon">📸</div>
+        <div class="herramienta-tipo">Gratis · Constante</div>
+        <h4>Contenido en redes</h4>
+        <p>Fotos, videos cortos, historias mostrando tus productos, el proceso, los clientes. Construye marca con el tiempo.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> no esperes ser "fotógrafa" o "diseñadora". Lo importante es la regularidad: subir algo 2-3 veces por semana.</div>
+      </div>
+
+      <div class="herramienta-card gratis">
+        <div class="herramienta-icon">⭐</div>
+        <div class="herramienta-tipo">Gratis · Genera confianza</div>
+        <h4>Testimonios y reseñas</h4>
+        <p>Comentarios de clientes felices. En Google, Instagram, capturas de WhatsApp. La gente confía más en otros clientes que en vos.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> guardá capturas de los mensajes de agradecimiento. Pediles permiso para republicarlos.</div>
+      </div>
+
+      <div class="herramienta-card gratis">
+        <div class="herramienta-icon">🤝</div>
+        <div class="herramienta-tipo">Gratis · Acelera</div>
+        <h4>Alianzas con otros emprendedores</h4>
+        <p>Acuerdos con emprendimientos complementarios. Una repostera puede trabajar con quien hace souvenirs de cumpleaños.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> identificá 3 emprendimientos que tengan tu mismo cliente pero no compitan con vos. Conversá una alianza.</div>
+      </div>
+
+      <div class="herramienta-card barata">
+        <div class="herramienta-icon">🎁</div>
+        <div class="herramienta-tipo">Baja inversión</div>
+        <h4>Promociones y descuentos</h4>
+        <p>2x1, 10% por primera compra, regalo extra al pedido. Atrae al cliente nuevo o le da un empujón al que duda.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> usá descuentos solo en momentos puntuales (lanzamiento, fechas especiales), no todo el tiempo. Si no, la gente se acostumbra.</div>
+      </div>
+
+      <div class="herramienta-card barata">
+        <div class="herramienta-icon">🏷️</div>
+        <div class="herramienta-tipo">Baja inversión</div>
+        <h4>Cartelería local</h4>
+        <p>Tarjetas de presentación, folletos en negocios cercanos, carteles en zonas estratégicas. Llegan a tu vecindario.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> antes que mil folletos malos, hacé 50 buenos. Que tengan: tu nombre, qué hacés, cómo contactarte.</div>
+      </div>
+
+      <div class="herramienta-card paga">
+        <div class="herramienta-icon">🎯</div>
+        <div class="herramienta-tipo">Inversión moderada</div>
+        <h4>Publicidad en redes</h4>
+        <p>Anuncios pagos en Instagram y Facebook. Llegan a un público específico (por edad, zona, intereses).</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> empezá con presupuestos chicos (3-5 USD por día, 5-7 días). Probá distintas piezas a ver cuál anda mejor.</div>
+      </div>
+
+      <div class="herramienta-card paga">
+        <div class="herramienta-icon">📻</div>
+        <div class="herramienta-tipo">Inversión moderada</div>
+        <h4>Medios locales</h4>
+        <p>Aviso en una radio del barrio, mención en un programa de la zona, espacio en un diario local. Sirve para públicos más grandes.</p>
+        <div class="herramienta-tip"><strong>Tip:</strong> evaluá si tu cliente realmente escucha esa radio o lee ese diario. Si no, es plata tirada.</div>
+      </div>
+
+    </div>
+
+    <h2>5 reglas prácticas para emprendedores</h2>
+
+    <div class="reglas">
+      <div class="regla-row">
+        <div class="regla-num">01</div>
+        <div>
+          <div class="regla-titulo">La constancia vale más que la perfección</div>
+          <div class="regla-desc">Es mejor postear algo simple 3 veces por semana que algo perfecto una vez al mes. El algoritmo y la memoria del cliente premian la constancia.</div>
+        </div>
+      </div>
+      <div class="regla-row">
+        <div class="regla-num">02</div>
+        <div>
+          <div class="regla-titulo">Mostrá el detrás de cámara</div>
+          <div class="regla-desc">A la gente le interesa ver cómo trabajás, no solo el producto final. Genera cercanía y diferencia tu emprendimiento de uno grande.</div>
+        </div>
+      </div>
+      <div class="regla-row">
+        <div class="regla-num">03</div>
+        <div>
+          <div class="regla-titulo">Hablale a uno solo</div>
+          <div class="regla-desc">Imaginate que le escribís a tu buyer persona (módulo 02). Si le hablás a una persona específica, conectás más que si hablás "al público".</div>
+        </div>
+      </div>
+      <div class="regla-row">
+        <div class="regla-num">04</div>
+        <div>
+          <div class="regla-titulo">Usá la voz del cliente</div>
+          <div class="regla-desc">Las palabras exactas que usa tu cliente en mensajes son oro. Usalas en tus posts, en tus folletos. Resuenan más que cualquier texto pulido.</div>
+        </div>
+      </div>
+      <div class="regla-row">
+        <div class="regla-num">05</div>
+        <div>
+          <div class="regla-titulo">Pedile permiso a la gente conforme</div>
+          <div class="regla-desc">Cuando alguien te agradece o te recomienda, preguntale si podés republicar el mensaje (con su nombre o sin). Es la mejor publicidad gratuita.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>Probá pequeño, medí, ajustá, repetí</h4>
+      <p>El marketing tradicional propone "lanzar campañas". El enfoque incremental propone algo distinto: <strong>experimentos chicos para aprender qué funciona</strong>. ¿Una promo del 10% por la primera compra trae más gente? Probala una semana. ¿Subir reels te trae más interacción que fotos? Probá un mes. ¿Una alianza con la florería del barrio te trae clientes nuevos? Probá un evento.</p>
+      <p>El truco está en probar de a una cosa por vez, medir el resultado (aunque sea con la sensación de "vino más gente"), y quedarse con lo que funcionó. Es lo opuesto a "hacer 10 cosas a la vez y no saber cuál sirve".</p>
+      <div class="mirada-inc-cita">
+        "La estrategia incremental es esencialmente experimental: testear, observar, aprender, ajustar y volver a testear. La menor inversión posible para el mayor aprendizaje posible."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-promo">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">📣</div>
+          <h3>Definí tu plan de promoción</h3>
+        </div>
+        <span class="editor-tool-tag">Tu plan · Paso 4</span>
+      </div>
+      <p class="editor-tool-desc">Vamos a definir cómo te das a conocer. <strong>No marqués todo:</strong> mejor elegir pocas acciones, que vas a hacer en serio, antes que muchas que vas a hacer mal o vas a abandonar.</p>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">¿Qué acciones de promoción vas a usar?</div>
+        <p class="form-seccion-desc">Marcá las que ya hacés o querés empezar. Tip: 2-4 acciones es ideal para arrancar.</p>
+        <div class="acciones-selector">
+          <button type="button" class="accion-toggle" data-accion="boca-boca">
+            <span class="accion-toggle-icon">🗣️</span>
+            <span class="accion-toggle-nombre">Boca a boca</span>
+            <span class="accion-toggle-costo">Gratis · Muy efectiva</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="contenido-redes">
+            <span class="accion-toggle-icon">📸</span>
+            <span class="accion-toggle-nombre">Contenido en redes</span>
+            <span class="accion-toggle-costo">Gratis · Constante</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="testimonios">
+            <span class="accion-toggle-icon">⭐</span>
+            <span class="accion-toggle-nombre">Testimonios de clientes</span>
+            <span class="accion-toggle-costo">Gratis · Genera confianza</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="alianzas">
+            <span class="accion-toggle-icon">🤝</span>
+            <span class="accion-toggle-nombre">Alianzas con otros emprendedores</span>
+            <span class="accion-toggle-costo">Gratis · Acelera</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="promociones">
+            <span class="accion-toggle-icon">🎁</span>
+            <span class="accion-toggle-nombre">Promociones y descuentos</span>
+            <span class="accion-toggle-costo">Baja inversión</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="carteleria">
+            <span class="accion-toggle-icon">🏷️</span>
+            <span class="accion-toggle-nombre">Cartelería local</span>
+            <span class="accion-toggle-costo">Baja inversión</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="publicidad-redes">
+            <span class="accion-toggle-icon">🎯</span>
+            <span class="accion-toggle-nombre">Publicidad pagada en redes</span>
+            <span class="accion-toggle-costo">Inversión moderada</span>
+          </button>
+          <button type="button" class="accion-toggle" data-accion="medios-locales">
+            <span class="accion-toggle-icon">📻</span>
+            <span class="accion-toggle-nombre">Medios locales (radio, diarios)</span>
+            <span class="accion-toggle-costo">Inversión moderada</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">El mensaje principal</div>
+        <p class="form-seccion-desc">Una frase corta que resume qué ofrecés y para quién. Es lo que dirías si tuvieras 10 segundos para presentar tu emprendimiento.</p>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="pm-mensaje">Tu mensaje en una frase</label>
+            <textarea id="pm-mensaje" maxlength="150" placeholder="Ej: 'Tortas de cumpleaños decoradas con los personajes favoritos de tu hijo, hechas en 48 horas y entregadas a tu puerta.'"></textarea>
+            <small>Tiene que mencionar qué hacés y a quién ayudás</small>
+          </div>
+          <div class="form-field">
+            <label for="pm-frecuencia">Frecuencia de publicación</label>
+            <select id="pm-frecuencia">
+              <option value="">Elegir...</option>
+              <option value="diaria">Todos los días</option>
+              <option value="3-semana">3 veces por semana</option>
+              <option value="semanal">1 vez por semana</option>
+              <option value="puntual">Solo cuando hay novedades</option>
+              <option value="aun-no">Todavía no lo defino</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="pm-objetivo">Objetivo principal</label>
+            <select id="pm-objetivo">
+              <option value="">Elegir...</option>
+              <option value="atraer">Conseguir clientes nuevos</option>
+              <option value="fidelizar">Fidelizar los que ya tengo</option>
+              <option value="recordar">Que la gente me recuerde</option>
+              <option value="lanzar">Lanzar un producto/servicio nuevo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-promo">
+        <div class="preview-promo-label">Tu plan de promoción</div>
+        <div class="preview-promo-card" id="preview-promo-card">
+          <div class="preview-vacio">Tu plan va a aparecer acá a medida que lo completés.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Promoción no es gritar más fuerte. Es contar mejor.</h3>
+      <p>El error común es pensar que promoción es "hacer ruido" o "gastar en publicidad". La verdad es otra: la mejor promoción es la que <em>resuena con el cliente correcto</em>. Es preferible que 10 personas te entiendan bien a que 1000 te escuchen sin interés. Llegamos así al último módulo: vamos a juntar las 4 P en un plan de marketing concreto, que después podés descargar.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-04.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">04 · Plaza (canales)</span>
+    </a>
+    <a href="modulo-06.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">06 · Tu plan de marketing</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Marketing Mix" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es el marketing?</a></li>
+          <li><a href="modulo-02.html">02 · Conocé a tu cliente</a></li>
+          <li><a href="modulo-03.html">03 · Producto y precio</a></li>
+          <li><a href="modulo-04.html">04 · Plaza</a></li>
+          <li><a href="modulo-05.html">05 · Promoción</a></li>
+          <li><a href="modulo-06.html">06 · Tu plan de marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var MKT_KEY = 'epja753_mkt_datos';
+
+function leerMkt() {
+  try { return JSON.parse(localStorage.getItem(MKT_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarMkt(d) {
+  try { localStorage.setItem(MKT_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function accionNombre(id) {
+  var map = {
+    'boca-boca': 'Boca a boca',
+    'contenido-redes': 'Contenido en redes',
+    'testimonios': 'Testimonios de clientes',
+    'alianzas': 'Alianzas',
+    'promociones': 'Promociones y descuentos',
+    'carteleria': 'Cartelería local',
+    'publicidad-redes': 'Publicidad pagada en redes',
+    'medios-locales': 'Medios locales'
+  };
+  return map[id] || id;
+}
+function frecuenciaTexto(v) {
+  var map = {
+    'diaria': 'Publicación diaria',
+    '3-semana': '3 veces por semana',
+    'semanal': 'Una vez por semana',
+    'puntual': 'Solo cuando hay novedades',
+    'aun-no': 'Frecuencia por definir'
+  };
+  return map[v] || '';
+}
+function objetivoTexto(v) {
+  var map = {
+    'atraer': 'Conseguir clientes nuevos',
+    'fidelizar': 'Fidelizar los clientes actuales',
+    'recordar': 'Que la gente me recuerde',
+    'lanzar': 'Lanzar un producto o servicio nuevo'
+  };
+  return map[v] || '';
+}
+
+function getPromo() {
+  var acciones = Array.from(document.querySelectorAll('.accion-toggle.active'))
+    .map(function(a) { return a.dataset.accion; });
+  return {
+    pmAcciones: acciones,
+    pmMensaje: document.getElementById('pm-mensaje').value.trim(),
+    pmFrecuencia: document.getElementById('pm-frecuencia').value,
+    pmObjetivo: document.getElementById('pm-objetivo').value
+  };
+}
+
+function setPromo(d) {
+  if (d.pmMensaje) document.getElementById('pm-mensaje').value = d.pmMensaje;
+  if (d.pmFrecuencia) document.getElementById('pm-frecuencia').value = d.pmFrecuencia;
+  if (d.pmObjetivo) document.getElementById('pm-objetivo').value = d.pmObjetivo;
+  
+  if (Array.isArray(d.pmAcciones)) {
+    d.pmAcciones.forEach(function(a) {
+      var btn = document.querySelector('.accion-toggle[data-accion="' + a + '"]');
+      if (btn) btn.classList.add('active');
+    });
+  }
+}
+
+function actualizarPreview() {
+  var d = getPromo();
+  var preview = document.getElementById('preview-promo-card');
+  if (d.pmAcciones.length === 0 && !d.pmMensaje) {
+    preview.innerHTML = '<div class="preview-vacio">Tu plan va a aparecer acá a medida que lo completés.</div>';
+    return;
+  }
+  var html = '';
+  html += '<div class="preview-promo-titulo">Plan de promoción</div>';
+  
+  if (d.pmAcciones.length) {
+    html += '<div class="preview-acciones">';
+    d.pmAcciones.forEach(function(a) {
+      html += '<span class="preview-accion-chip">' + accionNombre(a) + '</span>';
+    });
+    html += '</div>';
+  }
+  
+  if (d.pmMensaje) {
+    html += '<div class="preview-promo-seccion">';
+    html += '<div class="preview-promo-seccion-titulo">Mensaje principal</div>';
+    html += '<div class="preview-promo-mensaje">"' + d.pmMensaje + '"</div>';
+    html += '</div>';
+  }
+  
+  if (d.pmFrecuencia || d.pmObjetivo) {
+    html += '<div class="preview-promo-seccion">';
+    html += '<div class="preview-promo-seccion-titulo">Cómo y para qué</div>';
+    if (d.pmObjetivo) html += '<p>Objetivo: ' + objetivoTexto(d.pmObjetivo) + '.</p>';
+    if (d.pmFrecuencia) html += '<p>Frecuencia: ' + frecuenciaTexto(d.pmFrecuencia) + '.</p>';
+    html += '</div>';
+  }
+  
+  preview.innerHTML = html;
+}
+
+function guardarPromo() {
+  var datos = leerMkt();
+  Object.assign(datos, getPromo());
+  guardarMkt(datos);
+  actualizarPreview();
+}
+
+document.getElementById('pm-mensaje').addEventListener('input', guardarPromo);
+['pm-frecuencia', 'pm-objetivo'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('change', guardarPromo);
+});
+
+document.querySelectorAll('.accion-toggle').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('active');
+    guardarPromo();
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerMkt();
+  setPromo(datos);
+  actualizarPreview();
+  
+  var tipo;
+  try { tipo = localStorage.getItem('epja753_mkt_tipo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && tipo) {
+    if (tipo === 'fisico') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Producto físico</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a productos tangibles</span></div>';
+      banner.style.display = 'block';
+    } else if (tipo === 'servicio') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Servicio</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a servicios</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
