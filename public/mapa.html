@@ -113,17 +113,17 @@
 <div class="topbar">Rawson · Chubut &nbsp;·&nbsp; Prof. Carina Luna · Ciclo 2026</div>
 
 <nav>
-  <a href="https://profeluna.ar" class="nav-brand">
+  <a href="index.html" class="nav-brand">
     <span class="badge-logo">CL</span>
     <div><strong>Prof. Carina Luna</strong><span>&nbsp;· Capacitaciones</span></div>
   </a>
   <ul class="nav-links">
-    <li><a href="https://profeluna.ar">Inicio</a></li>
-    <li><a href="https://profeluna.ar#estudiantes">Estudiantes</a></li>
-    <li><a href="https://profeluna.ar#organizaciones">Organizaciones</a></li>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="index.html#elegi">Estudiantes</a></li>
+    <li><a href="index.html#elegi">Organizaciones</a></li>
     <li class="sep"></li>
-    <li><a href="https://profeluna.ar/desarrollo-local.html">Vitrina</a></li>
-    <li><a href="https://profeluna.ar/desarrollo-local.html#formulario" class="nav-cta">Sumá tu org →</a></li>
+    <li><a href="desarrollo-local.html">Vitrina</a></li>
+    <li><a href="desarrollo-local.html#formulario" class="nav-cta">Sumá tu org →</a></li>
   </ul>
 </nav>
 
@@ -260,7 +260,7 @@ function renderLista(datos) {
   document.getElementById('count').textContent = datos.length;
   const lista = document.getElementById('lista');
   if (datos.length === 0) {
-    lista.innerHTML = `<div class="empty-list">No hay organizaciones con esos filtros.<br><br>¿La tuya falta? <a href="https://profeluna.ar/desarrollo-local.html#formulario" style="color:#2E5638;font-weight:600;">Sumala acá →</a></div>`;
+    lista.innerHTML = `<div class="empty-list">No hay organizaciones con esos filtros.<br><br>¿La tuya falta? <a href="desarrollo-local.html#formulario" style="color:#2E5638;font-weight:600;">Sumala acá →</a></div>`;
     return;
   }
   lista.innerHTML = datos.map(org => `
