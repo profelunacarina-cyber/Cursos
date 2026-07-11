@@ -1,26 +1,28 @@
 // Capa de servicios: reglas de negocio de los módulos de un curso.
-import sanitizeHtml from 'sanitize-html';
+import xss from 'xss';
 import { modulosRepo } from '../repositories/modulos.repo.js';
 import { cursosRepo } from '../repositories/cursos.repo.js';
 import { ErrorApp } from '../errores.js';
 
 // El contenido llega como HTML del editor del panel. Se limpia contra una whitelist
-// (títulos, párrafos, listas, negrita/itálica y enlaces seguros) para que quede prolijo
-// y, sobre todo, para prevenir XSS almacenado: nada de <script>, estilos ni atributos raros.
+// (títulos, párrafos, listas, negrita/itálica y enlaces) para que quede prolijo y, sobre
+// todo, para prevenir XSS almacenado: se quitan <script>/<style> y todo lo que no esté acá.
+// Usamos `xss` (CommonJS puro) en vez de sanitize-html porque este último arrastra
+// htmlparser2 (ESM) y el empaquetador de funciones de Vercel no puede requerir ESM.
 const OPCIONES_SANITIZADO = {
-  allowedTags: ['h2', 'h3', 'p', 'ul', 'ol', 'li', 'strong', 'em', 'b', 'i', 'br', 'a', 'blockquote'],
-  allowedAttributes: { a: ['href', 'target', 'rel'] },
-  allowedSchemes: ['http', 'https', 'mailto'],
-  transformTags: {
-    // Todo enlace externo se abre en pestaña nueva y sin filtrar el referrer.
-    a: sanitizeHtml.simpleTransform('a', { target: '_blank', rel: 'noopener noreferrer' })
-  }
+  whiteList: {
+    h2: [], h3: [], p: [], ul: [], ol: [], li: [],
+    strong: [], em: [], b: [], i: [], br: [], blockquote: [],
+    a: ['href', 'title']            // xss ya bloquea hrefs peligrosos (javascript:, etc.)
+  },
+  stripIgnoreTag: true,             // etiquetas fuera de la whitelist: se quitan (se conserva su texto)
+  stripIgnoreTagBody: ['script', 'style']  // script/style: se elimina también su contenido
 };
 
 function normalizarContenido(html) {
   // Compatibilidad: si viniera el formato viejo (lista de bloques), se ignora y queda vacío.
   if (typeof html !== 'string') return { contenido: '', palabras: 0 };
-  const limpio = sanitizeHtml(html, OPCIONES_SANITIZADO).trim().slice(0, 40000);
+  const limpio = xss(html, OPCIONES_SANITIZADO).trim().slice(0, 40000);
   const texto = limpio.replace(/<[^>]*>/g, ' ');
   const palabras = texto.split(/\s+/).filter(Boolean).length;
   return { contenido: limpio, palabras };
