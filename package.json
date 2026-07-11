@@ -1,0 +1,27 @@
+{
+  "name": "profeluna-backend",
+  "version": "1.0.0",
+  "description": "API de cursos y resultados de evaluaciones — profeluna.ar",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file=.env server.js",
+    "start": "node --env-file=.env server.js",
+    "db:init": "node --env-file=.env scripts/init-db.js",
+    "admin:crear": "node --env-file=.env scripts/crear-admin.js",
+    "smoke": "node --env-file=.env scripts/smoke.js",
+    "ci:sintaxis": "node -e \"const{execSync}=require('child_process');const fs=require('fs');function w(d){return fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?(e.name==='node_modules'?[]:w(d+'/'+e.name)):(e.name.endsWith('.js')?[d+'/'+e.name]:[]))}for(const f of ['server.js',...w('src'),...w('api'),...w('scripts')]){execSync('node --check '+f)}console.log('OK sintaxis')\"",
+    "ci:boot": "node --env-file-if-exists=.env scripts/ci-boot.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0",
+    "xss": "^1.0.15"
+  }
+}

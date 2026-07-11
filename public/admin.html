@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Panel de administración · Prof. Carina Luna</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="tema.css" />
+  <style>
+    /* Ajustes propios del panel */
+    .panel-caja {
+      background: var(--papel); border: 1px solid var(--borde); border-radius: 16px;
+      padding: 24px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .login-caja { max-width: 420px; margin: clamp(40px, 10vw, 96px) auto; }
+    .fila-curso {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; border: 1px solid var(--borde-suave); border-radius: 12px;
+      background: var(--crema);
+    }
+    .fila-curso .titulo-fila { flex: 1; font-weight: 600; color: var(--tinta); min-width: 0; }
+    .fila-curso .titulo-fila small { display: block; font-weight: 400; color: var(--musgo); font-size: 12.5px; }
+    .grupo-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .tabs-admin { display: flex; gap: 8px; background: var(--pergamino); padding: 6px; border-radius: 999px; width: fit-content; }
+    .tabs-admin .tab { color: var(--texto-suave); padding: 10px 20px; font-size: 14.5px; }
+    .tabs-admin .tab.activa { background: var(--papel); color: var(--verde-oscuro); box-shadow: 0 1px 6px rgba(30,48,31,.12); }
+    dialog.editor {
+      border: 1px solid var(--borde); border-radius: 16px; padding: 0;
+      width: min(560px, calc(100vw - 32px)); background: var(--papel); color: var(--texto);
+    }
+    dialog.editor::backdrop { background: rgba(22, 48, 31, .45); }
+    .editor-int { padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+    .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 520px) { .dos-columnas { grid-template-columns: 1fr; } }
+    .resumen-grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .stat { background: var(--crema); border: 1px solid var(--borde-suave); border-radius: 12px; padding: 14px 16px; }
+    .stat .valor { font-family: var(--serif); font-weight: 700; font-size: 26px; color: var(--tinta); }
+    .stat .rotulo { font-size: 12.5px; color: var(--musgo); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+    .tabla-envoltura { overflow-x: auto; }
+    .marca-aprobado { color: var(--verde); font-weight: 700; }
+    .marca-desaprobado { color: var(--terracota); font-weight: 700; }
+    /* Editor de contenido tipo "compose" */
+    .barra-formato {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+      border: 1px solid var(--borde); border-bottom: none;
+      border-radius: 10px 10px 0 0; padding: 6px 8px; background: var(--crema);
+    }
+    .barra-formato .bf {
+      background: transparent; border: 1px solid transparent; border-radius: 6px;
+      cursor: pointer; padding: 5px 10px; font-size: 13.5px; color: var(--texto-suave);
+      font-family: var(--sans); transition: all .12s ease;
+    }
+    .barra-formato .bf:hover { background: var(--papel); border-color: var(--borde); color: var(--verde); }
+    .barra-formato .bf-sep { width: 1px; height: 20px; background: var(--borde); margin: 0 4px; }
+    .editor-rico {
+      border: 1px solid var(--borde); border-radius: 0 0 10px 10px;
+      padding: 14px 16px; min-height: 180px; max-height: 340px; overflow-y: auto;
+      background: var(--papel); font-size: 15px; line-height: 1.6; color: var(--tinta);
+      outline: none;
+    }
+    .editor-rico:focus { border-color: var(--verde); }
+    .editor-rico:empty::before { content: attr(data-placeholder); color: var(--musgo); }
+    .editor-rico h2 { font-family: var(--serif); font-size: 21px; color: var(--tinta); margin: 12px 0 6px; }
+    .editor-rico h3 { font-family: var(--serif); font-size: 17px; color: var(--verde); margin: 12px 0 4px; }
+    .editor-rico p { margin: 0 0 8px; }
+    .editor-rico ul { margin: 0 0 8px; padding-left: 22px; }
+  </style>
+</head>
+<body>
+
+  <header class="cabecera">
+    <div class="cabecera-int">
+      <a href="index.html" class="marca">
+        <span class="logo-cl">CL</span>
+        <span class="marca-textos">
+          <strong>Panel de administración</strong>
+          <span>Prof. Carina Luna</span>
+        </span>
+      </a>
+      <nav class="nav-principal">
+        <a href="index.html">← Volver al sitio</a>
+        <button id="btn-salir" class="boton-fantasma oculto">Cerrar sesión</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Vista: login ── -->
+  <main id="vista-login" class="contenedor">
+    <form id="form-login" class="panel-caja login-caja">
+      <div>
+        <h2 class="titulo-bloque">Hola, Carina 👋</h2>
+        <p class="bajada" style="margin-top:6px;">Entrá con tu email y contraseña para administrar los cursos y ver los resultados de las evaluaciones.</p>
+      </div>
+      <div class="campo">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" autocomplete="username" required />
+      </div>
+      <div class="campo">
+        <label for="login-clave">Contraseña</label>
+        <input id="login-clave" type="password" autocomplete="current-password" required />
+      </div>
+      <div id="login-error" class="aviso error oculto"></div>
+      <button class="boton-verde" type="submit">Entrar →</button>
+    </form>
+  </main>
+
+  <!-- ── Vista: panel ── -->
+  <main id="vista-panel" class="contenedor oculto" style="padding-top:32px;padding-bottom:64px;display:flex;flex-direction:column;gap:24px;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <span class="antetitulo">Panel</span>
+        <h1 class="titulo-bloque" id="saludo">Cursos y resultados</h1>
+      </div>
+      <div class="tabs-admin" role="tablist">
+        <button class="tab activa" id="tab-cursos" role="tab">Cursos</button>
+        <button class="tab" id="tab-organizaciones" role="tab">Organizaciones</button>
+        <button class="tab" id="tab-resultados" role="tab">Resultados</button>
+      </div>
+    </div>
+
+    <div id="aviso-global" class="aviso oculto"></div>
+
+    <!-- Pestaña Cursos -->
+    <section id="seccion-cursos" style="display:flex;flex-direction:column;gap:20px;"></section>
+
+    <!-- Pestaña Organizaciones -->
+    <section id="seccion-organizaciones" class="oculto" style="display:flex;flex-direction:column;gap:20px;">
+      <div class="panel-caja">
+        <div class="grupo-cab">
+          <div>
+            <h3 class="titulo-bloque" style="font-size:20px;">Organizaciones del territorio</h3>
+            <p class="bajada" style="font-size:14px;">Aparecen en el mapa y la vitrina. Solo se muestran las <strong>aprobadas</strong> y con ubicación cargada.</p>
+          </div>
+          <button id="btn-agregar-org" class="boton-verde" style="padding:9px 18px;font-size:14px;">＋ Agregar organización</button>
+        </div>
+        <div id="lista-organizaciones" style="display:flex;flex-direction:column;gap:10px;"></div>
+      </div>
+    </section>
+
+    <!-- Pestaña Resultados -->
+    <section id="seccion-resultados" class="oculto" style="display:flex;flex-direction:column;gap:20px;">
+      <div class="panel-caja">
+        <div class="grupo-cab">
+          <h3 class="titulo-bloque" style="font-size:20px;">Resumen por curso</h3>
+          <button id="btn-recargar" class="boton-fantasma">↻ Actualizar</button>
+        </div>
+        <div id="resumen" class="resumen-grilla"></div>
+      </div>
+      <div class="panel-caja">
+        <div class="grupo-cab">
+          <h3 class="titulo-bloque" style="font-size:20px;">Evaluaciones rendidas</h3>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <select id="filtro-curso" class="campo" style="padding:9px 14px;border:1px solid var(--borde);border-radius:10px;background:var(--papel);font-family:var(--sans);font-size:14px;">
+              <option value="">Todos los cursos</option>
+            </select>
+            <button id="btn-csv" class="boton-fantasma">↓ Descargar CSV</button>
+          </div>
+        </div>
+        <div class="tabla-envoltura">
+          <table class="tabla">
+            <thead>
+              <tr><th>Fecha</th><th>Apellido</th><th>Nombre</th><th>Curso</th><th>Puntaje</th><th>%</th><th>Estado</th></tr>
+            </thead>
+            <tbody id="tabla-resultados"></tbody>
+          </table>
+        </div>
+        <p id="sin-resultados" class="bajada oculto">Todavía no hay evaluaciones registradas.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Editor de curso (modal) ── -->
+  <dialog id="editor" class="editor">
+    <form id="form-curso" class="editor-int" method="dialog">
+      <h3 class="titulo-bloque" style="font-size:20px;" id="editor-titulo">Nuevo curso</h3>
+      <p class="pista" id="editor-paso-ind" style="margin-top:-6px;"></p>
+
+      <!-- ── Paso 1: datos del curso ── -->
+      <div id="paso-datos" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="dos-columnas">
+          <div class="campo">
+            <label for="c-seccion">Sección</label>
+            <select id="c-seccion">
+              <option value="ruta">Ruta del emprendedor</option>
+              <option value="transversales">Cursos transversales</option>
+              <option value="matriz">Matriz Semilla</option>
+              <option value="proximas">Próximas capacitaciones</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="c-estado">Estado</label>
+            <select id="c-estado">
+              <option value="disponible">Disponible</option>
+              <option value="proximamente">Próximamente</option>
+              <option value="preparacion">En preparación</option>
+              <option value="externo">Curso externo</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="c-titulo">Título</label>
+          <input id="c-titulo" maxlength="120" required />
+        </div>
+        <div class="campo">
+          <label for="c-etiqueta">Etiqueta chica <span class="pista">(arriba de la tarjeta, ej. “Estudio de costos”)</span></label>
+          <input id="c-etiqueta" maxlength="80" />
+        </div>
+        <div class="campo">
+          <label for="c-descripcion">Descripción</label>
+          <textarea id="c-descripcion" maxlength="600"></textarea>
+        </div>
+        <div class="dos-columnas">
+          <div class="campo">
+            <label for="c-insignia">Insignia especial <span class="pista">(opcional, reemplaza al estado)</span></label>
+            <input id="c-insignia" maxlength="40" placeholder="Integrador final" />
+          </div>
+          <div class="campo" style="justify-content:flex-end;">
+            <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;cursor:pointer;">
+              <input type="checkbox" id="c-destacado" style="width:18px;height:18px;" />
+              Tarjeta destacada (fondo verde)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Paso 2: módulos ── -->
+      <div id="paso-modulos" class="oculto" style="display:flex;flex-direction:column;gap:12px;">
+        <div class="grupo-cab">
+          <h4 style="margin:0;font-family:var(--serif);font-size:18px;color:var(--tinta);">Módulos del curso</h4>
+          <button type="button" id="btn-agregar-modulo" class="boton-verde" style="padding:8px 16px;font-size:14px;">＋ Módulo</button>
+        </div>
+        <div id="lista-modulos" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <p id="nota-externo" class="pista oculto">Este curso abre una página propia (externa), así que no se arma con módulos.</p>
+      </div>
+
+      <div id="editor-error" class="aviso error oculto"></div>
+
+      <!-- Footer paso 1 -->
+      <div id="pie-paso1" style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="boton-fantasma" id="btn-cancelar">Cancelar</button>
+        <button type="button" class="boton-verde" id="btn-siguiente">Siguiente: agregar módulos →</button>
+      </div>
+      <!-- Footer paso 2 -->
+      <div id="pie-paso2" class="oculto" style="display:flex;gap:10px;justify-content:space-between;">
+        <button type="button" class="boton-fantasma" id="btn-atras">← Atrás</button>
+        <button type="submit" class="boton-verde" id="btn-guardar">Guardar curso ✓</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ── Tarjeta de confirmación reutilizable (para guardar/eliminar) ── -->
+  <dialog id="confirmar" class="editor" style="width:min(440px,calc(100vw - 32px));">
+    <div class="editor-int">
+      <h3 class="titulo-bloque" style="font-size:20px;" id="confirmar-titulo">¿Confirmás?</h3>
+      <p class="bajada" id="confirmar-mensaje" style="font-size:15px;"></p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="boton-fantasma" id="confirmar-cancelar">Cancelar</button>
+        <button type="button" class="boton-verde" id="confirmar-ok">Confirmar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ── Editor de módulo (modal anidado) ── -->
+  <dialog id="editor-modulo" class="editor">
+    <form id="form-modulo" class="editor-int" method="dialog">
+      <h3 class="titulo-bloque" style="font-size:20px;" id="editor-modulo-titulo">Módulo</h3>
+      <div class="campo">
+        <label for="m-titulo">Título del módulo</label>
+        <input id="m-titulo" maxlength="160" required />
+      </div>
+      <div class="campo">
+        <label>Contenido</label>
+        <div class="barra-formato" id="barra-formato">
+          <button type="button" class="bf" data-cmd="formatBlock" data-val="h2" title="Título">Título</button>
+          <button type="button" class="bf" data-cmd="formatBlock" data-val="h3" title="Subtítulo">Subtítulo</button>
+          <button type="button" class="bf" data-cmd="formatBlock" data-val="p" title="Texto normal">Texto</button>
+          <span class="bf-sep"></span>
+          <button type="button" class="bf" data-cmd="bold" title="Negrita" style="font-weight:800;">N</button>
+          <button type="button" class="bf" data-cmd="italic" title="Itálica" style="font-style:italic;">I</button>
+          <button type="button" class="bf" data-cmd="insertUnorderedList" title="Lista con viñetas">• Lista</button>
+          <button type="button" class="bf" data-cmd="removeFormat" title="Quitar formato">✕ formato</button>
+        </div>
+        <div id="m-contenido" class="editor-rico" contenteditable="true"
+             data-placeholder="Escribí acá el contenido del módulo. Usá los botones de arriba para poner títulos, subtítulos o listas."></div>
+      </div>
+      <div id="editor-modulo-error" class="aviso error oculto"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="boton-fantasma" id="btn-cancelar-modulo">Cancelar</button>
+        <button type="submit" class="boton-verde" id="btn-guardar-modulo">Guardar módulo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ── Editor de organización (modal) ── -->
+  <dialog id="editor-org" class="editor">
+    <form id="form-org" class="editor-int" method="dialog">
+      <h3 class="titulo-bloque" style="font-size:20px;" id="editor-org-titulo">Editar organización</h3>
+      <div class="campo">
+        <label for="o-nombre">Nombre</label>
+        <input id="o-nombre" maxlength="120" required />
+      </div>
+      <div class="dos-columnas">
+        <div class="campo">
+          <label for="o-tipo">Tipo</label>
+          <select id="o-tipo">
+            <option value="Asociacion">Asociación</option>
+            <option value="Cooperativa">Cooperativa</option>
+            <option value="Produccion">Producción</option>
+            <option value="Emprendimiento">Emprendimiento</option>
+            <option value="Mutual">Mutual</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="o-zona">Zona</label>
+          <input id="o-zona" maxlength="60" placeholder="VIRCH" />
+        </div>
+      </div>
+      <div class="campo">
+        <label for="o-localidad">Localidad</label>
+        <input id="o-localidad" maxlength="80" placeholder="Rawson" />
+      </div>
+      <div class="campo">
+        <label for="o-descripcion">Descripción</label>
+        <textarea id="o-descripcion" maxlength="800"></textarea>
+      </div>
+      <div class="dos-columnas">
+        <div class="campo">
+          <label for="o-lat">Latitud <span class="pista">(ej. -43.3002)</span></label>
+          <input id="o-lat" inputmode="decimal" placeholder="-43.3002" />
+        </div>
+        <div class="campo">
+          <label for="o-lng">Longitud <span class="pista">(ej. -65.1023)</span></label>
+          <input id="o-lng" inputmode="decimal" placeholder="-65.1023" />
+        </div>
+      </div>
+      <p class="pista" style="margin-top:-6px;">💡 Para sacar las coordenadas: entrá a Google Maps, clic derecho sobre el lugar → clic en los números que aparecen (se copian). El primero es la latitud, el segundo la longitud.</p>
+      <div class="dos-columnas">
+        <div class="campo">
+          <label for="o-contacto">Enlace de contacto <span class="pista">(web, Instagram, WhatsApp…)</span></label>
+          <input id="o-contacto" maxlength="300" placeholder="https://…" />
+        </div>
+        <div class="campo">
+          <label for="o-tags">Etiquetas <span class="pista">(separadas por coma)</span></label>
+          <input id="o-tags" placeholder="Género, Economía popular" />
+        </div>
+      </div>
+      <div class="dos-columnas">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;">
+          <input type="checkbox" id="o-aprobado" style="width:18px;height:18px;" />
+          Aprobada (visible en el sitio)
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;">
+          <input type="checkbox" id="o-destacado" style="width:18px;height:18px;" />
+          Destacada
+        </label>
+      </div>
+      <div id="editor-org-error" class="aviso error oculto"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="boton-fantasma" id="btn-cancelar-org">Cancelar</button>
+        <button type="submit" class="boton-verde" id="btn-guardar-org">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Estado central (Observer simple): se modifica acá y se re-renderiza ── */
+      var estado = {
+        grupos: { ruta: [], transversales: [], matriz: [], proximas: [] },
+        organizaciones: [],
+        modulos: [],           // módulos del curso que se está editando
+        resultados: [],
+        resumen: [],
+        editando: null,        // curso en edición, o null si es nuevo
+        seccionNueva: 'ruta',
+        editandoOrg: null,     // organización en edición, o null si es nueva
+        editandoModulo: null   // módulo en edición, o null si es nuevo
+      };
+
+      var NOMBRE_TIPO_ORG = {
+        Asociacion: 'Asociación', Cooperativa: 'Cooperativa', Produccion: 'Producción',
+        Emprendimiento: 'Emprendimiento', Mutual: 'Mutual'
+      };
+
+      var SECCIONES = [
+        { clave: 'ruta',          titulo: 'Ruta del emprendedor' },
+        { clave: 'transversales', titulo: 'Cursos transversales' },
+        { clave: 'matriz',        titulo: 'Matriz Semilla · Tercer sector' },
+        { clave: 'proximas',      titulo: 'Próximas capacitaciones · Tercer sector' }
+      ];
+      var NOMBRE_ESTADO = {
+        disponible: 'Disponible', proximamente: 'Próximamente',
+        preparacion: 'En preparación', externo: 'Externo'
+      };
+      var CLASE_ESTADO = {
+        disponible: 'badge-verde', proximamente: 'badge-prox',
+        preparacion: 'badge-prox', externo: 'badge-ext'
+      };
+
+      var $ = function (id) { return document.getElementById(id); };
+      function esc(t) {
+        var d = document.createElement('div');
+        d.textContent = t == null ? '' : String(t);
+        return d.innerHTML;
+      }
+      // Para insertar dentro de un atributo HTML ("..."): además de &<> escapa las comillas.
+      function escAttr(t) { return esc(t).replace(/"/g, '&quot;'); }
+      function avisar(texto, tipo) {
+        var caja = $('aviso-global');
+        caja.textContent = texto;
+        caja.className = 'aviso ' + (tipo || 'ok');
+        clearTimeout(avisar._t);
+        avisar._t = setTimeout(function () { caja.className = 'aviso oculto'; }, 4000);
+      }
+
+      // Tarjeta de confirmación reutilizable. Devuelve una promesa que resuelve true/false.
+      // Reemplaza a los confirm() del navegador para guardar y eliminar (todo el CRUD).
+      function confirmar(opts) {
+        return new Promise(function (resolver) {
+          $('confirmar-titulo').textContent = opts.titulo || '¿Confirmás?';
+          $('confirmar-mensaje').textContent = opts.mensaje || '';
+          var ok = $('confirmar-ok'), cancelar = $('confirmar-cancelar'), dlg = $('confirmar');
+          ok.textContent = opts.textoOk || 'Confirmar';
+          ok.className = opts.peligro ? 'boton-peligro' : 'boton-verde';
+          function cerrar(valor) {
+            dlg.close(); ok.onclick = null; cancelar.onclick = null; resolver(valor);
+          }
+          ok.onclick = function () { cerrar(true); };
+          cancelar.onclick = function () { cerrar(false); };
+          dlg.showModal();
+        });
+      }
+
+      /* ── Sesión ── */
+      function mostrarLogin() {
+        $('vista-login').classList.remove('oculto');
+        $('vista-panel').classList.add('oculto');
+        $('btn-salir').classList.add('oculto');
+      }
+      function mostrarPanel(admin) {
+        $('vista-login').classList.add('oculto');
+        $('vista-panel').classList.remove('oculto');
+        $('btn-salir').classList.remove('oculto');
+        if (admin && admin.nombre) $('saludo').textContent = 'Hola, ' + admin.nombre;
+        cargarCursos();
+        cargarOrganizaciones();
+        cargarResultados();
+      }
+
+      $('form-login').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var errorCaja = $('login-error');
+        errorCaja.classList.add('oculto');
+        Api.sesion.entrar($('login-email').value, $('login-clave').value)
+          .then(mostrarPanel)
+          .catch(function (err) {
+            errorCaja.textContent = err.message;
+            errorCaja.classList.remove('oculto');
+          });
+      });
+
+      $('btn-salir').addEventListener('click', function () {
+        Api.sesion.salir();
+        mostrarLogin();
+      });
+
+      /* ── Pestañas ── */
+      $('tab-cursos').addEventListener('click', function () { elegirTab('cursos'); });
+      $('tab-organizaciones').addEventListener('click', function () { elegirTab('organizaciones'); });
+      $('tab-resultados').addEventListener('click', function () { elegirTab('resultados'); });
+      function elegirTab(cual) {
+        $('seccion-cursos').classList.toggle('oculto', cual !== 'cursos');
+        $('seccion-organizaciones').classList.toggle('oculto', cual !== 'organizaciones');
+        $('seccion-resultados').classList.toggle('oculto', cual !== 'resultados');
+        $('tab-cursos').classList.toggle('activa', cual === 'cursos');
+        $('tab-organizaciones').classList.toggle('activa', cual === 'organizaciones');
+        $('tab-resultados').classList.toggle('activa', cual === 'resultados');
+      }
+
+      /* ── Cursos ── */
+      function cargarCursos() {
+        Api.cursos.listar()
+          .then(function (grupos) {
+            estado.grupos = grupos;
+            pintarCursos();
+          })
+          .catch(function (err) { avisar('No se pudieron cargar los cursos: ' + err.message, 'error'); });
+      }
+
+      function pintarCursos() {
+        var cont = $('seccion-cursos');
+        cont.innerHTML = SECCIONES.map(function (seccion) {
+          var cursos = estado.grupos[seccion.clave] || [];
+          var filas = cursos.map(function (curso, i) {
+            return '<div class="fila-curso" data-id="' + curso.id + '">' +
+              '<button class="boton-icono js-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+              '<button class="boton-icono js-bajar" title="Bajar"' + (i === cursos.length - 1 ? ' disabled' : '') + '>↓</button>' +
+              '<span class="titulo-fila">' + esc(curso.titulo) +
+                '<small>' + esc(curso.etiqueta || '—') + '</small></span>' +
+              '<span class="badge ' + CLASE_ESTADO[curso.estado] + '">' + esc(curso.insignia || NOMBRE_ESTADO[curso.estado]) + '</span>' +
+              '<button class="boton-fantasma js-editar">Editar</button>' +
+              '<button class="boton-peligro js-borrar">Eliminar</button>' +
+            '</div>';
+          }).join('');
+          return '<div class="panel-caja" data-seccion="' + seccion.clave + '">' +
+            '<div class="grupo-cab">' +
+              '<h3 class="titulo-bloque" style="font-size:20px;">' + seccion.titulo + '</h3>' +
+              '<button class="boton-verde js-agregar" style="padding:9px 18px;font-size:14px;">＋ Agregar curso</button>' +
+            '</div>' +
+            (filas || '<p class="bajada">No hay cursos en esta sección todavía.</p>') +
+          '</div>';
+        }).join('');
+      }
+
+      // Delegación de eventos para toda la pestaña de cursos.
+      $('seccion-cursos').addEventListener('click', function (e) {
+        var boton = e.target.closest('button');
+        if (!boton) return;
+        var caja = e.target.closest('[data-seccion]');
+        var seccion = caja.getAttribute('data-seccion');
+        var fila = e.target.closest('[data-id]');
+        var id = fila ? Number(fila.getAttribute('data-id')) : null;
+        var lista = estado.grupos[seccion] || [];
+        var indice = lista.findIndex(function (c) { return c.id === id; });
+
+        if (boton.classList.contains('js-agregar')) return abrirEditor(null, seccion);
+        if (boton.classList.contains('js-editar')) return abrirEditor(lista[indice], seccion);
+        if (boton.classList.contains('js-borrar')) {
+          var curso = lista[indice];
+          confirmar({
+            titulo: 'Eliminar curso', peligro: true, textoOk: 'Eliminar',
+            mensaje: '¿Eliminar «' + curso.titulo + '»? Se borran también sus módulos. Esta acción no se puede deshacer.'
+          }).then(function (ok) {
+            if (!ok) return;
+            Api.cursos.eliminar(id)
+              .then(function () { avisar('Curso eliminado'); cargarCursos(); })
+              .catch(function (err) { avisar(err.message, 'error'); });
+          });
+        }
+        if (boton.classList.contains('js-subir') || boton.classList.contains('js-bajar')) {
+          var destino = boton.classList.contains('js-subir') ? indice - 1 : indice + 1;
+          if (destino < 0 || destino >= lista.length) return;
+          var copia = lista.slice();
+          copia.splice(indice, 1);
+          copia.splice(destino, 0, lista[indice]);
+          estado.grupos[seccion] = copia;
+          pintarCursos(); // primero se actualiza la vista (Observer), después se persiste
+          Api.cursos.reordenar(copia.map(function (c) { return c.id; }))
+            .catch(function (err) { avisar(err.message, 'error'); cargarCursos(); });
+        }
+      });
+
+      /* ── Editor (alta y edición) ── */
+      // Un curso es interno (se arma con módulos) salvo que sea externo (tiene enlace).
+      function esInterno(curso) { return !curso || (!curso.enlace && curso.interno !== false); }
+
+      function abrirEditor(curso, seccion) {
+        estado.editando = curso;
+        estado.seccionNueva = seccion;
+        $('editor-titulo').textContent = curso ? 'Editar curso' : 'Nuevo curso';
+        $('c-seccion').value = curso ? curso.seccion : seccion;
+        $('c-estado').value = curso ? curso.estado : 'disponible';
+        $('c-titulo').value = curso ? curso.titulo : '';
+        $('c-etiqueta').value = curso ? curso.etiqueta : '';
+        $('c-descripcion').value = curso ? curso.descripcion : '';
+        $('c-insignia').value = curso ? curso.insignia : '';
+        $('c-destacado').checked = curso ? Boolean(curso.destacado) : false;
+        $('editor-error').classList.add('oculto');
+        irAPaso(1);
+        $('editor').showModal();
+      }
+
+      // Alterna entre el paso 1 (datos) y el paso 2 (módulos) dentro del mismo modal.
+      function irAPaso(n) {
+        var interno = esInterno(estado.editando);
+        $('paso-datos').classList.toggle('oculto', n !== 1);
+        $('paso-modulos').classList.toggle('oculto', n !== 2);
+        $('pie-paso1').classList.toggle('oculto', n !== 1);
+        $('pie-paso2').classList.toggle('oculto', n !== 2);
+        $('editor-paso-ind').textContent = interno
+          ? 'Paso ' + n + ' de 2 · ' + (n === 1 ? 'Datos del curso' : 'Contenido (módulos)')
+          : 'Datos del curso';
+        // Para cursos externos no hay módulos: el paso 1 guarda directamente.
+        $('btn-siguiente').textContent = interno ? 'Siguiente: agregar módulos →' : 'Guardar curso ✓';
+        if (n === 2) {
+          $('nota-externo').classList.toggle('oculto', interno);
+          $('btn-agregar-modulo').classList.toggle('oculto', !interno);
+          if (interno && estado.editando) cargarModulos(estado.editando.id);
+          else pintarModulos();
+        }
+      }
+
+      function datosDelFormulario() {
+        return {
+          seccion: $('c-seccion').value,
+          estado: $('c-estado').value,
+          titulo: $('c-titulo').value,
+          etiqueta: $('c-etiqueta').value,
+          descripcion: $('c-descripcion').value,
+          insignia: $('c-insignia').value,
+          destacado: $('c-destacado').checked
+        };
+      }
+
+      // Guarda los datos del curso (crea si es nuevo, actualiza si existe) y devuelve el curso.
+      function guardarDatosCurso() {
+        var datos = datosDelFormulario();
+        $('editor-error').classList.add('oculto');
+        var p = estado.editando
+          ? Api.cursos.actualizar(estado.editando.id, datos)
+          : Api.cursos.crear(datos);
+        return p.then(function (curso) {
+          estado.editando = curso; // a partir de acá ya tiene id (no se duplica)
+          $('editor-titulo').textContent = 'Editar curso';
+          cargarCursos();
+          return curso;
+        }).catch(function (err) {
+          var caja = $('editor-error');
+          caja.textContent = err.message;
+          caja.classList.remove('oculto');
+          throw err;
+        });
+      }
+
+      $('btn-cancelar').addEventListener('click', function () { $('editor').close(); });
+      $('btn-atras').addEventListener('click', function () { irAPaso(1); });
+
+      // Paso 1 → guarda los datos y, si es interno, pasa a los módulos; si es externo, confirma y cierra.
+      $('btn-siguiente').addEventListener('click', function () {
+        if (!$('c-titulo').value.trim()) {
+          var caja = $('editor-error');
+          caja.textContent = 'El título es obligatorio.';
+          caja.classList.remove('oculto');
+          return;
+        }
+        if (esInterno(estado.editando)) {
+          guardarDatosCurso().then(function () { irAPaso(2); }).catch(function () {});
+        } else {
+          confirmar({ titulo: 'Guardar curso', mensaje: '¿Guardar los cambios de este curso?', textoOk: 'Guardar' })
+            .then(function (ok) {
+              if (!ok) return;
+              guardarDatosCurso().then(function () { avisar('Curso guardado'); $('editor').close(); }).catch(function () {});
+            });
+        }
+      });
+
+      // Paso 2 → guardado final del curso (con confirmación).
+      $('form-curso').addEventListener('submit', function (e) {
+        e.preventDefault();
+        confirmar({ titulo: 'Guardar curso', mensaje: '¿Guardar «' + ($('c-titulo').value || 'este curso') + '» y sus módulos?', textoOk: 'Guardar' })
+          .then(function (ok) {
+            if (!ok) return;
+            guardarDatosCurso().then(function () { avisar('Curso guardado'); $('editor').close(); }).catch(function () {});
+          });
+      });
+
+      /* ── Módulos de un curso (dentro del editor de curso) ── */
+      function cargarModulos(cursoId) {
+        Api.modulos.listar(cursoId)
+          .then(function (mods) { estado.modulos = mods; pintarModulos(); })
+          .catch(function (err) { avisar('No se pudieron cargar los módulos: ' + err.message, 'error'); });
+      }
+
+      function pintarModulos() {
+        var cont = $('lista-modulos');
+        if (!estado.modulos.length) {
+          cont.innerHTML = '<p class="pista">Todavía no hay módulos. Agregá el primero con el botón de arriba.</p>';
+          return;
+        }
+        cont.innerHTML = estado.modulos.map(function (m, i) {
+          return '<div class="fila-curso" data-id="' + m.id + '">' +
+            '<button type="button" class="boton-icono js-mod-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+            '<button type="button" class="boton-icono js-mod-bajar" title="Bajar"' + (i === estado.modulos.length - 1 ? ' disabled' : '') + '>↓</button>' +
+            '<span class="titulo-fila">' + esc(m.titulo) +
+              '<small>' + (m.palabras || 0) + ' palabras · ~' + Math.max(1, Math.ceil((m.palabras || 0) / 200)) + ' min de lectura</small></span>' +
+            '<button type="button" class="boton-fantasma js-mod-editar">Editar</button>' +
+            '<button type="button" class="boton-peligro js-mod-borrar">Eliminar</button>' +
+          '</div>';
+        }).join('');
+      }
+
+      $('lista-modulos').addEventListener('click', function (e) {
+        var boton = e.target.closest('button');
+        if (!boton) return;
+        var fila = e.target.closest('[data-id]');
+        var id = fila ? Number(fila.getAttribute('data-id')) : null;
+        var indice = estado.modulos.findIndex(function (m) { return m.id === id; });
+        var modulo = estado.modulos[indice];
+        var cursoId = estado.editando.id;
+
+        if (boton.classList.contains('js-mod-editar')) return abrirEditorModulo(modulo);
+        if (boton.classList.contains('js-mod-borrar')) {
+          confirmar({
+            titulo: 'Eliminar módulo', peligro: true, textoOk: 'Eliminar',
+            mensaje: '¿Eliminar el módulo «' + modulo.titulo + '»?'
+          }).then(function (ok) {
+            if (!ok) return;
+            Api.modulos.eliminar(id)
+              .then(function () { avisar('Módulo eliminado'); cargarModulos(cursoId); cargarCursos(); })
+              .catch(function (err) { avisar(err.message, 'error'); });
+          });
+        }
+        if (boton.classList.contains('js-mod-subir') || boton.classList.contains('js-mod-bajar')) {
+          var destino = boton.classList.contains('js-mod-subir') ? indice - 1 : indice + 1;
+          if (destino < 0 || destino >= estado.modulos.length) return;
+          var copia = estado.modulos.slice();
+          copia.splice(indice, 1);
+          copia.splice(destino, 0, modulo);
+          estado.modulos = copia;
+          pintarModulos();
+          Api.modulos.reordenar(cursoId, copia.map(function (m) { return m.id; }))
+            .catch(function (err) { avisar(err.message, 'error'); cargarModulos(cursoId); });
+        }
+      });
+
+      /* ── Editor de un módulo (bloques de contenido) ── */
+      $('btn-agregar-modulo').addEventListener('click', function () { abrirEditorModulo(null); });
+      $('btn-cancelar-modulo').addEventListener('click', function () { $('editor-modulo').close(); });
+
+      // Convierte el formato viejo (lista de bloques) a HTML, por si se edita un módulo antiguo.
+      function contenidoAHtml(contenido) {
+        if (typeof contenido === 'string') return contenido;
+        if (!Array.isArray(contenido)) return '';
+        return contenido.map(function (b) {
+          if (b.t === 'sub') return '<h3>' + esc(b.v) + '</h3>';
+          if (b.t === 'lista') {
+            return '<ul>' + String(b.v).split('\n').filter(function (l) { return l.trim(); })
+              .map(function (i) { return '<li>' + esc(i.trim()) + '</li>'; }).join('') + '</ul>';
+          }
+          return '<p>' + esc(b.v) + '</p>';
+        }).join('');
+      }
+
+      function abrirEditorModulo(modulo) {
+        estado.editandoModulo = modulo;
+        $('editor-modulo-titulo').textContent = modulo ? 'Editar módulo' : 'Nuevo módulo';
+        $('m-titulo').value = modulo ? modulo.titulo : '';
+        $('m-contenido').innerHTML = modulo ? contenidoAHtml(modulo.contenido) : '';
+        $('editor-modulo-error').classList.add('oculto');
+        $('editor-modulo').showModal();
+        $('m-titulo').focus();
+      }
+
+      // Barra de formato tipo "compose": aplica el comando al texto seleccionado.
+      // mousedown + preventDefault mantiene la selección dentro del editor al hacer clic.
+      $('barra-formato').addEventListener('mousedown', function (e) {
+        var boton = e.target.closest('.bf');
+        if (!boton) return;
+        e.preventDefault();
+        $('m-contenido').focus();
+        document.execCommand(boton.getAttribute('data-cmd'), false, boton.getAttribute('data-val') || null);
+      });
+
+      $('form-modulo').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var datos = { titulo: $('m-titulo').value, contenido: $('m-contenido').innerHTML };
+        var cursoId = estado.editando.id;
+        var promesa = estado.editandoModulo
+          ? Api.modulos.actualizar(estado.editandoModulo.id, datos)
+          : Api.modulos.crear(cursoId, datos);
+        promesa
+          .then(function () {
+            $('editor-modulo').close();
+            avisar(estado.editandoModulo ? 'Módulo actualizado' : 'Módulo agregado');
+            cargarModulos(cursoId);
+            cargarCursos(); // refresca las metas (N módulos · ~min) en la lista
+          })
+          .catch(function (err) {
+            var caja = $('editor-modulo-error');
+            caja.textContent = err.message;
+            caja.classList.remove('oculto');
+          });
+      });
+
+      /* ── Resultados ── */
+      function cargarResultados() {
+        var curso = $('filtro-curso').value;
+        Promise.all([Api.resultados.listar(curso), Api.resultados.resumen()])
+          .then(function (respuestas) {
+            estado.resultados = respuestas[0];
+            estado.resumen = respuestas[1];
+            pintarResultados();
+          })
+          .catch(function (err) { avisar('No se pudieron cargar los resultados: ' + err.message, 'error'); });
+      }
+
+      function pintarResultados() {
+        // Resumen
+        $('resumen').innerHTML = estado.resumen.length
+          ? estado.resumen.map(function (r) {
+              return '<div class="stat">' +
+                '<div class="rotulo">' + esc(r.curso) + '</div>' +
+                '<div class="valor">' + r.intentos + '</div>' +
+                '<div class="pista" style="font-size:12.5px;color:var(--musgo);">' +
+                  r.aprobados + ' aprobados · promedio ' + r.promedio + '%</div>' +
+              '</div>';
+            }).join('')
+          : '<p class="bajada">Todavía no hay evaluaciones registradas.</p>';
+
+        // Selector de filtro (mantiene la opción elegida)
+        var filtro = $('filtro-curso');
+        var elegido = filtro.value;
+        filtro.innerHTML = '<option value="">Todos los cursos</option>' +
+          estado.resumen.map(function (r) {
+            return '<option value="' + escAttr(r.curso) + '">' + esc(r.curso) + '</option>';
+          }).join('');
+        filtro.value = elegido;
+
+        // Tabla
+        var cuerpo = $('tabla-resultados');
+        cuerpo.innerHTML = estado.resultados.map(function (r) {
+          var fecha = new Date(r.fecha).toLocaleString('es-AR', {
+            day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+          return '<tr>' +
+            '<td>' + fecha + '</td>' +
+            '<td>' + esc(r.apellido) + '</td>' +
+            '<td>' + esc(r.nombre) + '</td>' +
+            '<td>' + esc(r.curso) + '</td>' +
+            '<td>' + r.aciertos + ' / ' + r.total + '</td>' +
+            '<td>' + r.porcentaje + '%</td>' +
+            '<td class="' + (r.aprobado ? 'marca-aprobado' : 'marca-desaprobado') + '">' +
+              (r.aprobado ? 'Aprobado' : 'No aprobado') + '</td>' +
+          '</tr>';
+        }).join('');
+        $('sin-resultados').classList.toggle('oculto', estado.resultados.length > 0);
+      }
+
+      $('filtro-curso').addEventListener('change', cargarResultados);
+      $('btn-recargar').addEventListener('click', cargarResultados);
+
+      $('btn-csv').addEventListener('click', function () {
+        var filas = [['Fecha', 'Apellido', 'Nombre', 'Curso', 'Aciertos', 'Total', 'Porcentaje', 'Aprobado', 'Modo']];
+        estado.resultados.forEach(function (r) {
+          filas.push([new Date(r.fecha).toISOString(), r.apellido, r.nombre, r.curso,
+                      r.aciertos, r.total, r.porcentaje, r.aprobado ? 'SI' : 'NO', r.modo || '']);
+        });
+        var csv = filas.map(function (fila) {
+          return fila.map(function (celda) {
+            return '"' + String(celda).replace(/"/g, '""') + '"';
+          }).join(',');
+        }).join('\r\n');
+        var enlace = document.createElement('a');
+        enlace.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+        enlace.download = 'resultados-evaluaciones.csv';
+        enlace.click();
+        URL.revokeObjectURL(enlace.href);
+      });
+
+      /* ── Organizaciones ── */
+      function cargarOrganizaciones() {
+        Api.organizaciones.listarTodas()
+          .then(function (orgs) { estado.organizaciones = orgs; pintarOrganizaciones(); })
+          .catch(function (err) { avisar('No se pudieron cargar las organizaciones: ' + err.message, 'error'); });
+      }
+
+      function pintarOrganizaciones() {
+        var cont = $('lista-organizaciones');
+        if (!estado.organizaciones.length) {
+          cont.innerHTML = '<p class="bajada">Todavía no hay organizaciones cargadas.</p>';
+          return;
+        }
+        cont.innerHTML = estado.organizaciones.map(function (org) {
+          var ubicada = org.lat != null && org.lng != null;
+          var estadoBadge = org.aprobado
+            ? '<span class="badge badge-verde">Aprobada</span>'
+            : '<span class="badge badge-prox">Borrador</span>';
+          var avisoUbic = (org.aprobado && !ubicada)
+            ? '<span class="badge badge-ext" title="No aparece en el mapa hasta cargar lat/lng">Sin ubicación</span>' : '';
+          return '<div class="fila-curso" data-id="' + org.id + '">' +
+            '<span class="titulo-fila">' + esc(org.nombre) +
+              '<small>' + esc(NOMBRE_TIPO_ORG[org.tipo] || org.tipo) +
+                (org.localidad ? ' · ' + esc(org.localidad) : '') + '</small></span>' +
+            estadoBadge + avisoUbic +
+            '<button class="boton-fantasma js-editar-org">Editar</button>' +
+            '<button class="boton-peligro js-borrar-org">Eliminar</button>' +
+          '</div>';
+        }).join('');
+      }
+
+      $('lista-organizaciones').addEventListener('click', function (e) {
+        var boton = e.target.closest('button');
+        if (!boton) return;
+        var fila = e.target.closest('[data-id]');
+        var id = fila ? Number(fila.getAttribute('data-id')) : null;
+        var org = estado.organizaciones.find(function (o) { return o.id === id; });
+        if (boton.classList.contains('js-editar-org')) return abrirEditorOrg(org);
+        if (boton.classList.contains('js-borrar-org')) {
+          confirmar({
+            titulo: 'Eliminar organización', peligro: true, textoOk: 'Eliminar',
+            mensaje: '¿Eliminar «' + org.nombre + '»? Esta acción no se puede deshacer.'
+          }).then(function (ok) {
+            if (!ok) return;
+            Api.organizaciones.eliminar(id)
+              .then(function () { avisar('Organización eliminada'); cargarOrganizaciones(); })
+              .catch(function (err) { avisar(err.message, 'error'); });
+          });
+        }
+      });
+
+      $('btn-agregar-org').addEventListener('click', function () { abrirEditorOrg(null); });
+      $('btn-cancelar-org').addEventListener('click', function () { $('editor-org').close(); });
+
+      function abrirEditorOrg(org) {
+        estado.editandoOrg = org;
+        $('editor-org-titulo').textContent = org ? 'Editar organización' : 'Agregar organización';
+        $('o-nombre').value = org ? org.nombre : '';
+        $('o-tipo').value = org ? org.tipo : 'Emprendimiento';
+        $('o-zona').value = org ? org.zona : '';
+        $('o-localidad').value = org ? org.localidad : '';
+        $('o-descripcion').value = org ? org.descripcion : '';
+        $('o-lat').value = org && org.lat != null ? org.lat : '';
+        $('o-lng').value = org && org.lng != null ? org.lng : '';
+        $('o-contacto').value = org ? org.contacto : '';
+        $('o-tags').value = org && org.tags ? org.tags.join(', ') : '';
+        $('o-aprobado').checked = org ? Boolean(org.aprobado) : false;
+        $('o-destacado').checked = org ? Boolean(org.destacado) : false;
+        $('editor-org-error').classList.add('oculto');
+        $('editor-org').showModal();
+      }
+
+      $('form-org').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var datos = {
+          nombre: $('o-nombre').value,
+          tipo: $('o-tipo').value,
+          zona: $('o-zona').value,
+          localidad: $('o-localidad').value,
+          descripcion: $('o-descripcion').value,
+          lat: $('o-lat').value.trim(),
+          lng: $('o-lng').value.trim(),
+          contacto: $('o-contacto').value,
+          aprobado: $('o-aprobado').checked,
+          destacado: $('o-destacado').checked,
+          tags: $('o-tags').value.split(',').map(function (t) { return t.trim(); }).filter(Boolean)
+        };
+        confirmar({ titulo: 'Guardar organización', textoOk: 'Guardar',
+          mensaje: '¿Guardar «' + (datos.nombre || 'esta organización') + '»?' +
+            (datos.aprobado ? ' Va a quedar visible en el sitio.' : ' Queda como borrador (no visible).') })
+          .then(function (ok) {
+            if (!ok) return;
+            var promesa = estado.editandoOrg
+              ? Api.organizaciones.actualizar(estado.editandoOrg.id, datos)
+              : Api.organizaciones.crear(datos);
+            promesa
+              .then(function () {
+                $('editor-org').close();
+                avisar(estado.editandoOrg ? 'Organización actualizada' : 'Organización creada');
+                cargarOrganizaciones();
+              })
+              .catch(function (err) {
+                var caja = $('editor-org-error');
+                caja.textContent = err.message;
+                caja.classList.remove('oculto');
+              });
+          });
+      });
+
+      /* ── Arranque: si hay un token guardado, validarlo contra la API ── */
+      if (Api.sesion.activa()) {
+        Api.sesion.quien()
+          .then(mostrarPanel)
+          .catch(function () { Api.sesion.salir(); mostrarLogin(); });
+      } else {
+        mostrarLogin();
+      }
+    })();
+  </script>
+</body>
+</html>

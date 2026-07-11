@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finanzas para emprendedores · EPJA 753</title>
+<meta name="description" content="Curso completo gratuito sobre finanzas personales y del emprendimiento. EPJA 753 Rawson, Chubut.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+.intro-hero {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  padding: 80px 0 100px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.intro-hero::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 280px;
+  height: 280px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.intro-hero-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+}
+.intro-hero-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+.intro-hero-crumb a {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.85;
+}
+.intro-hero-crumb a:hover { opacity: 1; }
+.intro-hero-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.intro-hero-step .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.intro-hero h1 {
+  font-size: clamp(36px, 6vw, 58px);
+  font-weight: 700;
+  margin: 0 0 20px;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  color: #fff;
+}
+.intro-hero h1 em {
+  font-style: normal;
+  color: #fff;
+  display: block;
+  opacity: 0.9;
+}
+.intro-hero-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin: 0 0 32px;
+  max-width: 640px;
+}
+.intro-hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  opacity: 0.9;
+}
+.intro-hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.intro-hero-meta span::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+}
+
+/* Puertas */
+.puertas-seccion {
+  background: var(--hueso-2);
+  padding: 80px 0;
+}
+.puertas-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.puertas-titulo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.puertas-titulo-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.puertas-titulo h2 {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.6px;
+}
+.puertas-titulo h2 em {
+  font-style: italic;
+  color: var(--azul);
+}
+.puertas-titulo p {
+  font-size: 16px;
+  color: var(--gris-4);
+  max-width: 600px;
+  margin: 14px auto 0;
+  line-height: 1.65;
+}
+.puertas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+@media (max-width: 760px) { .puertas-grid { grid-template-columns: 1fr; } }
+.puerta-card {
+  background: #fff;
+  border: 2px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-family: var(--sans);
+  position: relative;
+  overflow: hidden;
+}
+.puerta-card:hover {
+  border-color: var(--azul);
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-media);
+}
+.puerta-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--azul);
+}
+.puerta-card.b::before { background: var(--verde); }
+.puerta-icono {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--azul-soft);
+  color: var(--azul);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.puerta-card.b .puerta-icono {
+  background: var(--verde-3);
+  color: var(--verde);
+}
+.puerta-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--azul);
+  margin-bottom: 6px;
+}
+.puerta-card.b .puerta-eyebrow { color: var(--verde); }
+.puerta-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+.puerta-card p {
+  color: var(--gris-4);
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0 0 18px;
+}
+.puerta-features {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.puerta-features li {
+  font-size: 13.5px;
+  color: var(--tinta);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.55;
+}
+.puerta-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+  font-weight: 700;
+}
+.puerta-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--azul);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.puerta-card.b .puerta-cta { background: var(--verde); }
+.puerta-cta:hover { transform: translateX(2px); }
+
+/* Recorrido */
+.recorrido {
+  padding: 80px 0;
+  background: #fff;
+}
+.recorrido-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.recorrido-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.recorrido h2 {
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.5px;
+  max-width: 620px;
+}
+.recorrido h2 em { font-style: italic; color: var(--azul); }
+.recorrido > p {
+  color: var(--gris-4);
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 640px;
+  margin: 0 0 36px;
+}
+.recorrido-modulos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+.recorrido-mod {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  position: relative;
+}
+.recorrido-mod-num {
+  display: inline-block;
+  background: var(--azul-soft);
+  color: var(--azul);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.recorrido-mod h4 {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--tinta);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+.recorrido-mod p {
+  font-size: 13.5px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Cita ESS */
+.cita-ess {
+  background: linear-gradient(135deg, var(--verde-3) 0%, var(--crema) 100%);
+  padding: 64px 0;
+  border-top: 1px solid var(--verde-2);
+  border-bottom: 1px solid var(--verde-2);
+}
+.cita-ess-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+.cita-ess-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+.cita-ess blockquote {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--tinta);
+  line-height: 1.5;
+  margin: 0 0 20px;
+  font-style: italic;
+  letter-spacing: -0.3px;
+}
+.cita-ess-autor {
+  font-size: 13px;
+  color: var(--verde);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* CTA final */
+.cta-final {
+  background: var(--azul);
+  padding: 64px 0;
+  color: #fff;
+  text-align: center;
+}
+.cta-final h2 {
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.cta-final h2 em { font-style: italic; opacity: 0.85; }
+.cta-final p {
+  font-size: 16px;
+  opacity: 0.95;
+  margin: 0 auto 24px;
+  max-width: 560px;
+  line-height: 1.65;
+}
+.cta-final-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--azul);
+  padding: 14px 28px;
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.cta-final-btn:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="intro-hero">
+  <div class="intro-hero-inner">
+    <div class="intro-hero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <span>Finanzas para emprendedores</span>
+    </div>
+    <span class="intro-hero-step">
+      <span class="dot"></span>
+      Paso 03 · Ruta del emprendedor
+    </span>
+    <h1>Finanzas <em>para emprendedoras y emprendedores</em></h1>
+    <p class="intro-hero-lead">Aprendé a manejar mejor la plata de tu negocio y la tuya. Cómo separar lo personal de lo laboral, hacer un presupuesto realista, cuándo conviene endeudarse, y los primeros pasos en inversiones simples. Todo adaptado a la realidad argentina.</p>
+    <div class="intro-hero-meta">
+      <span>6 módulos</span>
+      <span>~12 horas</span>
+      <span>Gratuito · A tu ritmo</span>
+      <span>Con constancia</span>
+    </div>
+  </div>
+</section>
+
+<section class="puertas-seccion">
+  <div class="puertas-inner">
+    <div class="puertas-titulo">
+      <div class="puertas-titulo-eyebrow">Antes de empezar</div>
+      <h2>Elegí <em>tu punto de partida</em></h2>
+      <p>El curso es el mismo, pero los ejemplos y la forma de explicar se adapta. Decinos en qué momento estás y vamos a usar referencias que tengan sentido para vos.</p>
+    </div>
+    
+    <div class="puertas-grid">
+      <button class="puerta-card" onclick="elegirPuerta('arranco')">
+        <div class="puerta-icono">🌱</div>
+        <div class="puerta-eyebrow">Puerta 1</div>
+        <h3>Recién empiezo</h3>
+        <p>Estás dando los primeros pasos. Tal vez vendiste algo a conocidos, hiciste pruebas. Todavía no separás bien la plata personal del negocio.</p>
+        <ul class="puerta-features">
+          <li>Ejemplos con montos pequeños</li>
+          <li>Foco en hábitos básicos</li>
+          <li>Sin jerga financiera</li>
+          <li>Lo esencial primero</li>
+        </ul>
+        <span class="puerta-cta">Empezar con este enfoque →</span>
+      </button>
+      
+      <button class="puerta-card b" onclick="elegirPuerta('andando')">
+        <div class="puerta-icono">🚀</div>
+        <div class="puerta-eyebrow">Puerta 2</div>
+        <h3>Ya tengo el negocio andando</h3>
+        <p>Vendés con regularidad, manejás un volumen estable, ya separás algunas cosas. Querés profesionalizar el manejo del dinero y dar el siguiente paso.</p>
+        <ul class="puerta-features">
+          <li>Ejemplos con números reales</li>
+          <li>Foco en optimización</li>
+          <li>Indicadores y proyecciones</li>
+          <li>Decisiones de inversión</li>
+        </ul>
+        <span class="puerta-cta">Empezar con este enfoque →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="recorrido">
+  <div class="recorrido-inner">
+    <div class="recorrido-eyebrow">El recorrido</div>
+    <h2>6 módulos para <em>entender la plata</em> de tu negocio</h2>
+    <p>Empezamos por lo fundamental (qué es ahorrar y qué no) y vamos avanzando hasta tomar primeras decisiones de inversión simples. Todos los conceptos están aplicados a la realidad argentina: inflación, billeteras virtuales, créditos del Banco Nación, plazo fijo UVA.</p>
+    
+    <div class="recorrido-modulos">
+      <div class="recorrido-mod">
+        <span class="recorrido-mod-num">01</span>
+        <h4>¿Para qué sirven las finanzas?</h4>
+        <p>Diferencia entre ahorrar, atesorar e invertir. El valor del dinero en el tiempo cuando hay inflación.</p>
+      </div>
+      <div class="recorrido-mod">
+        <span class="recorrido-mod-num">02</span>
+        <h4>Presupuesto personal y del negocio</h4>
+        <p>Cómo separar la plata personal del negocio. El método 50-30-20 adaptado a Argentina.</p>
+      </div>
+      <div class="recorrido-mod">
+        <span class="recorrido-mod-num">03</span>
+        <h4>Cuentas y billeteras virtuales</h4>
+        <p>Cajas de ahorro, Mercado Pago, Ualá, Naranja X. Cuál elegir según para qué la usás.</p>
+      </div>
+      <div class="recorrido-mod">
+        <span class="recorrido-mod-num">04</span>
+        <h4>Crédito y endeudamiento</h4>
+        <p>Cómo funcionan las tasas. Cuándo conviene endeudarse y cuándo no. Programas para emprendedores.</p>
+      </div>
+      <div class="recorrido-mod">
+        <span class="recorrido-mod-num">05</span>
+        <h4>Estafas y decisiones inteligentes</h4>
+        <p>Esquemas Ponzi, piramidales, "oportunidades únicas". Cómo identificarlas y protegerse.</p>
+      </div>
+      <div class="recorrido-mod">
+        <span class="recorrido-mod-num">06</span>
+        <h4>Primeros pasos en inversiones</h4>
+        <p>Plazo fijo tradicional o UVA, cuentas remuneradas, FCI básicos. Qué conviene en cada caso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cita-ess">
+  <div class="cita-ess-inner">
+    <div class="cita-ess-icon">🤝</div>
+    <blockquote>"La economía no es solo un asunto entre empresas y consumidores. También es lo que pasa entre personas y comunidades cuando deciden con sentido lo que hacen con su dinero."</blockquote>
+    <div class="cita-ess-autor">Enfoque del curso · Economía social</div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <h2>Cuando <em>quieras</em>, donde quieras</h2>
+  <p>El curso es completamente gratuito. Lo hacés a tu ritmo, en cualquier momento. Al terminar y aprobar la autoevaluación final, descargás tu constancia.</p>
+  <a href="modulo-01.html" class="cta-final-btn">Empezar el módulo 01 →</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+function elegirPuerta(tipo) {
+  try { localStorage.setItem('epja753_fin_puerta', tipo); } catch (e) {}
+  window.location.href = 'modulo-01.html';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Presupuesto · Finanzas · EPJA 753</title>
+<meta name="description" content="Módulo 2: cómo separar la plata personal del negocio y armar un presupuesto realista.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Dos cuentas, dos universos */
+.dos-cuentas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .dos-cuentas { grid-template-columns: 1fr; } }
+.cuenta-card {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.cuenta-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.cuenta-card.personal::before { background: var(--azul); }
+.cuenta-card.negocio::before { background: var(--verde); }
+.cuenta-icono {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 26px;
+}
+.cuenta-card.personal .cuenta-icono { background: var(--azul-3); }
+.cuenta-card.negocio .cuenta-icono { background: var(--verde-3); }
+.cuenta-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.cuenta-card.personal .cuenta-eyebrow { color: var(--azul); }
+.cuenta-card.negocio .cuenta-eyebrow { color: var(--verde); }
+.cuenta-card h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.cuenta-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.cuenta-tipo {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gris-4);
+  margin: 14px 0 6px;
+}
+.cuenta-card ul {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.cuenta-card li {
+  font-size: 13.5px;
+  color: var(--tinta);
+  padding: 4px 0 4px 22px;
+  position: relative;
+  line-height: 1.55;
+}
+.cuenta-card.personal li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--azul);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 0.7;
+}
+.cuenta-card.negocio li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 0.7;
+}
+
+/* Visual de mezcla */
+.mezcla-visual {
+  background: linear-gradient(135deg, #fef3c7 0%, var(--crema) 100%);
+  border: 1px solid #fde68a;
+  border-left: 5px solid var(--coral);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.mezcla-visual-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.mezcla-visual-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--coral);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.mezcla-visual-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--coral);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.mezcla-visual h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #92400e;
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.mezcla-visual p {
+  font-size: 14.5px;
+  color: #78350f;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Método 50-30-20 */
+.metodo {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.metodo::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.metodo-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.metodo h3 {
+  font-size: 24px;
+  margin: 0 0 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.metodo > p {
+  position: relative;
+  font-size: 15px;
+  opacity: 0.95;
+  line-height: 1.65;
+  margin: 0 0 22px;
+}
+.metodo-pasos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  position: relative;
+}
+@media (max-width: 600px) { .metodo-pasos { grid-template-columns: 1fr; } }
+.metodo-paso {
+  background: rgba(255,255,255,0.1);
+  padding: 20px 18px;
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.metodo-pct {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.metodo-paso-nombre {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.metodo-paso-desc {
+  font-size: 12.5px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Banner puerta */
+.mode-banner {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  display: none;
+}
+.mode-banner-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Calculadora interactiva de presupuesto */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.editor-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+.form-seccion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.form-seccion-titulo {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.form-seccion-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-field input {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.form-field input:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.form-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Vista previa del presupuesto */
+.preview-presup {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin-top: 24px;
+  border: 1px solid var(--azul-3);
+}
+.preview-presup-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.preview-presup-card {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(28,25,23,0.04);
+}
+.preview-presup-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 16px;
+  letter-spacing: -0.3px;
+}
+.preview-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 10px 0;
+  border-top: 1px solid var(--gris-2);
+  font-size: 14px;
+  color: var(--tinta);
+  gap: 12px;
+}
+.preview-row:first-child { border-top: none; padding-top: 0; }
+.preview-row.total {
+  border-top: 2px solid var(--azul);
+  padding-top: 14px;
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--azul);
+  font-size: 16px;
+}
+.preview-row.warning {
+  color: var(--coral);
+  border-top-color: var(--coral);
+}
+.preview-row .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+.preview-distribucion {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+@media (max-width: 600px) { .preview-distribucion { grid-template-columns: 1fr; } }
+.preview-dist-box {
+  background: var(--gris-1);
+  border-radius: var(--r-sm);
+  padding: 14px;
+  text-align: center;
+}
+.preview-dist-pct {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--azul);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.preview-dist-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--gris-4);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.preview-dist-monto {
+  font-size: 14px;
+  color: var(--tinta);
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.preview-mensaje {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: var(--verde-3);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  color: #14532d;
+  line-height: 1.6;
+}
+.preview-mensaje.warning {
+  background: #fef2f2;
+  border-left-color: var(--rojo);
+  color: #7f1d1d;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html" class="active">02</a>
+      <a href="modulo-03.html">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Finanzas</a>
+      <span>›</span>
+      <span>Módulo 02</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 2 de 6
+    </span>
+    <h1>Presupuesto: <em>poner orden</em> a tu plata</h1>
+    <p>El primer paso práctico de las finanzas: separar la plata personal de la del negocio, y armar un presupuesto que refleje cómo entra y sale el dinero. Sin esto, todo lo demás es a ciegas.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 33%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 02 / 06</span>
+      <span>33% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">El error más común entre emprendedoras y emprendedores que recién arrancan no es ni el precio ni el producto: es <strong>mezclar la plata personal con la del negocio</strong>. Cuando todo entra y sale del mismo bolsillo, nunca sabés si tu emprendimiento da ganancia o si te estás autoengañando consumiendo tu capital de trabajo. Lo bueno: tiene una solución simple. Separar.</p>
+
+    <h2>Dos cuentas, <em>dos universos</em></h2>
+
+    <div class="dos-cuentas">
+      <div class="cuenta-card personal">
+        <div class="cuenta-icono">👤</div>
+        <div class="cuenta-eyebrow">Tu plata</div>
+        <h3>Cuenta personal</h3>
+        <p>La plata que usás para vivir vos y tu familia. Sale de un sueldo (o de tu emprendimiento) en forma de "retiro".</p>
+        
+        <div class="cuenta-tipo">Entradas</div>
+        <ul>
+          <li>Tu sueldo (si trabajás en relación de dependencia)</li>
+          <li>El retiro mensual que te hacés del negocio</li>
+          <li>Ingresos adicionales (rentas, ayuda familiar)</li>
+        </ul>
+        
+        <div class="cuenta-tipo">Salidas</div>
+        <ul>
+          <li>Alquiler o expensas</li>
+          <li>Supermercado, comida</li>
+          <li>Servicios (luz, gas, internet)</li>
+          <li>Transporte, salud, ocio</li>
+          <li>Ahorro personal</li>
+        </ul>
+      </div>
+
+      <div class="cuenta-card negocio">
+        <div class="cuenta-icono">🏪</div>
+        <div class="cuenta-eyebrow">La plata del negocio</div>
+        <h3>Cuenta del emprendimiento</h3>
+        <p>La plata que entra por las ventas y sale por los costos. Funciona como si tu emprendimiento fuera una empresa, aunque seas vos solo/a.</p>
+        
+        <div class="cuenta-tipo">Entradas</div>
+        <ul>
+          <li>Las ventas que hacés</li>
+          <li>Cobros pendientes que se concretan</li>
+          <li>Aportes de capital (cuando metés plata personal)</li>
+        </ul>
+        
+        <div class="cuenta-tipo">Salidas</div>
+        <ul>
+          <li>Insumos y materia prima</li>
+          <li>Servicios para el negocio (transporte, packaging)</li>
+          <li>Aportes (monotributo, impuestos)</li>
+          <li>Tu retiro (lo que te llevás)</li>
+          <li>Inversiones (herramientas, marketing)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>Tu emprendimiento no es vos: <em>es un proyecto al que vos le aportás tu tiempo y se lleva tu retiro</em>. Si vendés una torta a $10.000 y comprás el supermercado con esa plata, te estás "pagando" sin saber si el negocio fue rentable.</p>
+    </div>
+
+    <div class="mezcla-visual">
+      <div class="mezcla-visual-header">
+        <span class="mezcla-visual-icon">⚠️</span>
+        <span class="mezcla-visual-label">El error que se paga caro</span>
+      </div>
+      <h4>Mezclar las dos cuentas es perder el control</h4>
+      <p>Cuando no separás, pueden pasar dos cosas dañinas: 1) Pensás que ganás más de lo que ganás (porque ves plata en mano pero no descontaste costos). 2) Consumís el capital del negocio sin darte cuenta, y un día no tenés con qué comprar los insumos. La gran mayoría de emprendimientos que cierran lo hacen por este motivo, no porque "el producto sea malo".</p>
+    </div>
+
+    <h2>Cómo separar <em>en la práctica</em></h2>
+
+    <p>No hace falta tener dos bancos distintos ni una sociedad anónima. Hay formas simples de separar las cuentas, incluso si recién empezás. Te paso las tres más comunes:</p>
+
+    <ul>
+      <li style="margin-bottom:10px;"><strong>Opción 1 · Dos billeteras virtuales.</strong> Una para tu plata personal (ej: Mercado Pago) y otra para el negocio (ej: Ualá). Pasás entre ellas el "retiro" mensual.</li>
+      <li style="margin-bottom:10px;"><strong>Opción 2 · Una caja de ahorro y una virtual.</strong> Tu sueldo cae en el banco. La plata del emprendimiento queda en Mercado Pago. Cuando te pagás retiro, lo transferís al banco.</li>
+      <li><strong>Opción 3 · Si todavía no podés separar cuentas:</strong> al menos hacé un registro escrito (Excel, cuaderno, app). Anotá cada venta y cada gasto del negocio. Es lo mínimo: ver con tus propios ojos cuánto entra y cuánto sale.</li>
+    </ul>
+
+    <h2>El método <em>50-30-20</em> adaptado</h2>
+
+    <p>Una regla clásica de las finanzas personales que se puede aplicar también a tu plata personal y a tu retiro del emprendimiento. Es solo una <strong>guía</strong>, no una fórmula mágica: cada realidad es distinta, sobre todo en Argentina donde la inflación cambia los números todo el tiempo.</p>
+
+    <div class="metodo">
+      <div class="metodo-label">Regla simple</div>
+      <h3>Distribuir lo que entra en tres partes</h3>
+      <p>Para cada peso que ingresa a tu cuenta personal, una distribución posible es:</p>
+      <div class="metodo-pasos">
+        <div class="metodo-paso">
+          <div class="metodo-pct">50%</div>
+          <div class="metodo-paso-nombre">Necesidades</div>
+          <div class="metodo-paso-desc">Alquiler, comida, servicios, transporte, salud.</div>
+        </div>
+        <div class="metodo-paso">
+          <div class="metodo-pct">30%</div>
+          <div class="metodo-paso-nombre">Deseos</div>
+          <div class="metodo-paso-desc">Ocio, viajes, ropa nueva, salidas, suscripciones.</div>
+        </div>
+        <div class="metodo-paso">
+          <div class="metodo-pct">20%</div>
+          <div class="metodo-paso-nombre">Ahorro</div>
+          <div class="metodo-paso-desc">Colchón de emergencia y futuro.</div>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>En Argentina hay que adaptarlo.</strong> Si la inflación está alta, "necesidades" puede subir al 70% y "ahorro" bajar al 10%. La idea no es seguir los porcentajes exactos, sino tener conciencia de dónde va cada peso y decidir activamente, no por inercia.</p>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>Primero registrá, después optimizá</h4>
+      <p>Hay una tentación clásica de "armar el presupuesto perfecto" antes de empezar. Pero un presupuesto sin datos reales es un papel pintado. El enfoque incremental sugiere algo distinto: <strong>primero registrá durante 30 días qué entra y qué sale</strong> (sin juicio, sin metas). Recién después armás un presupuesto realista, basado en TU realidad, no en un manual.</p>
+      <p>Lo que se mide se puede mejorar. Lo que se proyecta sin haber medido, casi siempre falla. Empezá registrando, no presupuestando.</p>
+      <div class="mirada-inc-cita">
+        "Antes de planificar es necesario observar. Los buenos planes vienen de la realidad observada, no de los deseos."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-presup">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">📊</div>
+          <h3>Tu primer presupuesto</h3>
+        </div>
+        <span class="editor-tool-tag">Herramienta · Paso 1</span>
+      </div>
+      <p class="editor-tool-desc">Empezá por lo más simple: cargá tus ingresos y gastos mensuales aproximados (no pasa nada si no son exactos al peso). Te muestro al instante cómo se distribuye tu plata y si te queda algo para ahorrar.</p>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Ingresos mensuales</div>
+        <p class="form-seccion-desc">Toda la plata que te entra cada mes (sueldo + retiro del emprendimiento + otros). Si tus ingresos varían mes a mes, poné un promedio realista.</p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="ing-sueldo">Sueldo / relación de dependencia</label>
+            <input type="number" id="ing-sueldo" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field">
+            <label for="ing-retiro">Retiro del emprendimiento</label>
+            <input type="number" id="ing-retiro" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field full">
+            <label for="ing-otros">Otros ingresos (rentas, ayudas)</label>
+            <input type="number" id="ing-otros" placeholder="0" min="0" step="1000">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Gastos mensuales fijos (necesidades)</div>
+        <p class="form-seccion-desc">Lo que tenés que pagar sí o sí cada mes para vivir.</p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="gas-vivienda">Alquiler / expensas</label>
+            <input type="number" id="gas-vivienda" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field">
+            <label for="gas-servicios">Servicios (luz, gas, internet)</label>
+            <input type="number" id="gas-servicios" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field">
+            <label for="gas-comida">Comida y supermercado</label>
+            <input type="number" id="gas-comida" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field">
+            <label for="gas-transporte">Transporte</label>
+            <input type="number" id="gas-transporte" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field full">
+            <label for="gas-salud">Salud (obra social, medicamentos)</label>
+            <input type="number" id="gas-salud" placeholder="0" min="0" step="1000">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Gastos variables (deseos)</div>
+        <p class="form-seccion-desc">Lo que NO es estrictamente necesario pero hace tu vida más linda.</p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="gas-ocio">Ocio (salidas, streaming)</label>
+            <input type="number" id="gas-ocio" placeholder="0" min="0" step="1000">
+          </div>
+          <div class="form-field">
+            <label for="gas-ropa">Ropa, regalos, otros</label>
+            <input type="number" id="gas-ropa" placeholder="0" min="0" step="1000">
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-presup">
+        <div class="preview-presup-label">Tu presupuesto del mes</div>
+        <div class="preview-presup-card" id="preview-presup-card">
+          <div style="text-align:center; color:var(--gris-3); font-style:italic; padding:30px 20px;">A medida que completés los campos, tu presupuesto va a aparecer acá.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>El presupuesto no es un corset, es un mapa</h3>
+      <p>No se trata de privarse de todo ni de seguir una regla rígida. El presupuesto te dice <em>dónde estás parado</em> para que después decidas con criterio: si querés ahorrar más, dónde podés recortar; si necesitás más ingreso, cuánto te falta. Lo importante es tener visibilidad. En el próximo módulo vamos a ver qué cuentas y billeteras virtuales conviene usar para mover esa plata con criterio.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-01.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">01 · ¿Para qué sirven las finanzas?</span>
+    </a>
+    <a href="modulo-03.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">03 · Cuentas y billeteras</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var FIN_KEY = 'epja753_fin_datos';
+
+function leerFin() {
+  try { return JSON.parse(localStorage.getItem(FIN_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarFin(d) {
+  try { localStorage.setItem(FIN_KEY, JSON.stringify(d)); } catch (e) {}
+}
+function formatear(n) {
+  if (!n) return '$0';
+  return '$' + Math.round(n).toLocaleString('es-AR');
+}
+function getNum(id) {
+  var el = document.getElementById(id);
+  if (!el) return 0;
+  var v = parseFloat(el.value);
+  return isNaN(v) ? 0 : v;
+}
+
+function getPresup() {
+  return {
+    ingSueldo: getNum('ing-sueldo'),
+    ingRetiro: getNum('ing-retiro'),
+    ingOtros: getNum('ing-otros'),
+    gasVivienda: getNum('gas-vivienda'),
+    gasServicios: getNum('gas-servicios'),
+    gasComida: getNum('gas-comida'),
+    gasTransporte: getNum('gas-transporte'),
+    gasSalud: getNum('gas-salud'),
+    gasOcio: getNum('gas-ocio'),
+    gasRopa: getNum('gas-ropa')
+  };
+}
+
+function setPresup(d) {
+  ['ingSueldo','ingRetiro','ingOtros','gasVivienda','gasServicios','gasComida','gasTransporte','gasSalud','gasOcio','gasRopa'].forEach(function(k) {
+    var id = k.replace(/([A-Z])/g, '-$1').toLowerCase();
+    var el = document.getElementById(id);
+    if (el && d[k]) el.value = d[k];
+  });
+}
+
+function actualizarPreview() {
+  var d = getPresup();
+  var totalIngresos = d.ingSueldo + d.ingRetiro + d.ingOtros;
+  var totalNecesidades = d.gasVivienda + d.gasServicios + d.gasComida + d.gasTransporte + d.gasSalud;
+  var totalDeseos = d.gasOcio + d.gasRopa;
+  var totalGastos = totalNecesidades + totalDeseos;
+  var balance = totalIngresos - totalGastos;
+  
+  var preview = document.getElementById('preview-presup-card');
+  
+  if (totalIngresos === 0 && totalGastos === 0) {
+    preview.innerHTML = '<div style="text-align:center; color:var(--gris-3); font-style:italic; padding:30px 20px;">A medida que completés los campos, tu presupuesto va a aparecer acá.</div>';
+    return;
+  }
+  
+  var html = '';
+  html += '<div class="preview-presup-titulo">Resumen mensual</div>';
+  html += '<div class="preview-row"><span>Ingresos totales</span><span class="num">' + formatear(totalIngresos) + '</span></div>';
+  html += '<div class="preview-row"><span>Necesidades</span><span class="num">' + formatear(totalNecesidades) + '</span></div>';
+  html += '<div class="preview-row"><span>Deseos</span><span class="num">' + formatear(totalDeseos) + '</span></div>';
+  html += '<div class="preview-row"><span>Total de gastos</span><span class="num">' + formatear(totalGastos) + '</span></div>';
+  html += '<div class="preview-row total ' + (balance < 0 ? 'warning' : '') + '"><span>Te queda para ahorrar / invertir</span><span class="num">' + formatear(balance) + '</span></div>';
+  
+  // Distribución porcentual
+  if (totalIngresos > 0) {
+    var pctNec = Math.round(totalNecesidades / totalIngresos * 100);
+    var pctDes = Math.round(totalDeseos / totalIngresos * 100);
+    var pctAho = Math.max(0, 100 - pctNec - pctDes);
+    
+    html += '<div class="preview-distribucion">';
+    html += '<div class="preview-dist-box"><div class="preview-dist-pct">' + pctNec + '%</div><div class="preview-dist-label">Necesidades</div><div class="preview-dist-monto">' + formatear(totalNecesidades) + '</div></div>';
+    html += '<div class="preview-dist-box"><div class="preview-dist-pct">' + pctDes + '%</div><div class="preview-dist-label">Deseos</div><div class="preview-dist-monto">' + formatear(totalDeseos) + '</div></div>';
+    html += '<div class="preview-dist-box"><div class="preview-dist-pct">' + pctAho + '%</div><div class="preview-dist-label">Disponible</div><div class="preview-dist-monto">' + formatear(balance) + '</div></div>';
+    html += '</div>';
+    
+    // Mensaje según situación
+    if (balance < 0) {
+      html += '<div class="preview-mensaje warning">⚠️ <strong>Atención:</strong> tus gastos superan tus ingresos por ' + formatear(Math.abs(balance)) + '. Necesitás revisar dónde podés recortar o cómo aumentar tus ingresos.</div>';
+    } else if (pctAho >= 20) {
+      html += '<div class="preview-mensaje">✓ <strong>Muy buena distribución.</strong> Te queda más del 20% para ahorrar o invertir. Estás en posición de empezar a generar un colchón financiero.</div>';
+    } else if (pctAho >= 10) {
+      html += '<div class="preview-mensaje">✓ <strong>Vas bien.</strong> Te queda algo para ahorrar. Si podés reducir un poco "deseos" o aumentar ingresos, llegás al 20% recomendado.</div>';
+    } else if (pctAho > 0) {
+      html += '<div class="preview-mensaje">📝 <strong>Apenas alcanza.</strong> Te queda muy poco margen. Conviene revisar gastos no esenciales o pensar formas de aumentar ingresos del negocio.</div>';
+    } else {
+      html += '<div class="preview-mensaje warning">⚠️ <strong>No queda margen.</strong> Estás justo: cualquier imprevisto te complica. Es momento de revisar tu estructura de gastos.</div>';
+    }
+  }
+  
+  preview.innerHTML = html;
+}
+
+function guardar() {
+  var datos = leerFin();
+  Object.assign(datos, getPresup());
+  guardarFin(datos);
+  actualizarPreview();
+}
+
+['ing-sueldo','ing-retiro','ing-otros','gas-vivienda','gas-servicios','gas-comida','gas-transporte','gas-salud','gas-ocio','gas-ropa'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardar);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerFin();
+  setPresup(datos);
+  actualizarPreview();
+  
+  // Banner de puerta
+  var puerta;
+  try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && puerta) {
+    if (puerta === 'arranco') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Recién empiezo</strong></span><span style="opacity:0.8;">Ejemplos con montos pequeños y foco en hábitos básicos</span></div>';
+      banner.style.display = 'block';
+    } else if (puerta === 'andando') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Negocio andando</strong></span><span style="opacity:0.8;">Ejemplos con números reales y foco en optimización</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

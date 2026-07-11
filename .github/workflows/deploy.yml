@@ -1,0 +1,47 @@
+name: Deploy a Vercel
+
+# Despliegue automático al hacer push a main, SOLO si el CI pasó.
+# Requiere cargar estos secrets en el repo (Settings → Secrets and variables → Actions):
+#   VERCEL_TOKEN         — token personal de Vercel (Account Settings → Tokens)
+#   VERCEL_ORG_ID        — id de la organización/cuenta (aparece en .vercel/project.json)
+#   VERCEL_PROJECT_ID    — id del proyecto de Vercel
+# Si no cargás los secrets, el job no hace nada (no falla): podés seguir usando la
+# integración Git nativa de Vercel, que despliega sola en cada push.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy producción
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: ¿Hay credenciales de Vercel?
+        id: check
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "Sin VERCEL_TOKEN: se omite el deploy (lo maneja la integración Git de Vercel)."
+            echo "correr=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "correr=si" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.correr == 'si'
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.correr == 'si'
+        with:
+          node-version: 20
+      - name: Desplegar con Vercel CLI
+        if: steps.check.outputs.correr == 'si'
+        run: |
+          npm i -g vercel@latest
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"

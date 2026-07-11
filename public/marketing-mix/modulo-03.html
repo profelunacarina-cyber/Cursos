@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Producto y Precio · Marketing Mix · EPJA 753</title>
+<meta name="description" content="Módulo 3: las dos primeras P del marketing mix: producto y precio.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Características vs Beneficios */
+.car-ben {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+@media (max-width: 760px) { .car-ben { grid-template-columns: 1fr; } }
+.cb-card {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cb-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.cb-card.car::before { background: var(--gris-3); }
+.cb-card.ben::before { background: var(--verde); }
+.cb-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+.cb-card.car .cb-card-icon { background: var(--gris-1); }
+.cb-card.ben .cb-card-icon { background: var(--verde-3); }
+.cb-card-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.cb-card.car .cb-card-eyebrow { color: var(--gris-4); }
+.cb-card.ben .cb-card-eyebrow { color: var(--verde); }
+.cb-card h3 {
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+.cb-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.cb-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cb-card li {
+  padding: 8px 0 8px 22px;
+  position: relative;
+  font-size: 13.5px;
+  color: var(--tinta);
+  line-height: 1.5;
+  border-top: 1px dashed var(--gris-2);
+}
+.cb-card li:first-child { border-top: none; }
+.cb-card li::before {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-weight: 700;
+}
+.cb-card.car li::before { content: "·"; color: var(--gris-3); font-size: 22px; line-height: 0.7; }
+.cb-card.ben li::before { content: "→"; color: var(--verde); }
+
+/* Tabla de conversión */
+.tabla-conversion {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: 24px 0 32px;
+}
+.tabla-conversion-header {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  background: var(--azul);
+  color: #fff;
+  padding: 14px 18px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.tabla-conversion-header > div { text-align: center; }
+.tabla-conversion-header > div:first-child { text-align: left; }
+.tabla-conversion-header > div:last-child { text-align: right; }
+.tabla-conversion-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  padding: 14px 18px;
+  border-top: 1px solid var(--gris-2);
+  font-size: 14px;
+  align-items: center;
+}
+.tabla-conversion-row:first-child { border-top: none; }
+.tabla-conversion-car { color: var(--gris-4); }
+.tabla-conversion-flecha {
+  text-align: center;
+  color: var(--azul);
+  font-size: 18px;
+  font-weight: 700;
+}
+.tabla-conversion-ben {
+  color: var(--tinta);
+  font-weight: 500;
+  text-align: right;
+}
+@media (max-width: 600px) {
+  .tabla-conversion-header,
+  .tabla-conversion-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .tabla-conversion-header > div,
+  .tabla-conversion-row > div {
+    text-align: left !important;
+  }
+  .tabla-conversion-flecha { display: none; }
+  .tabla-conversion-ben::before { content: "→ "; color: var(--azul); font-weight: 700; }
+}
+
+/* Ciclo de vida */
+.ciclo {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 28px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.ciclo::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.ciclo-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+  position: relative;
+}
+.ciclo h3 {
+  font-size: 24px;
+  margin: 0 0 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.ciclo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  position: relative;
+}
+@media (max-width: 760px) { .ciclo-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .ciclo-grid { grid-template-columns: 1fr; } }
+.ciclo-fase {
+  background: rgba(255,255,255,0.1);
+  padding: 14px 14px;
+  border-radius: var(--r-sm);
+  position: relative;
+}
+.ciclo-fase-num {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: 6px;
+}
+.ciclo-fase-nombre {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.ciclo-fase-desc {
+  font-size: 12px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Estrategias de precio */
+.estrategias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 24px 0 32px;
+}
+@media (max-width: 760px) { .estrategias { grid-template-columns: 1fr; } }
+.estrategia {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  transition: all 0.2s;
+}
+.estrategia:hover {
+  border-color: var(--azul);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-suave);
+}
+.estrategia-num {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.estrategia h4 {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--tinta);
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+.estrategia > p {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+.estrategia-cuando {
+  font-size: 12px;
+  color: var(--azul);
+  background: var(--azul-soft);
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  line-height: 1.5;
+}
+.estrategia-cuando strong { font-weight: 700; }
+
+/* Conexión con curso de costos */
+.conexion {
+  background: var(--verde-3);
+  border: 1px solid var(--verde-2);
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.conexion-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.conexion-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--verde);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.conexion-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.conexion h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.conexion p {
+  font-size: 14.5px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.conexion p:last-child { margin-bottom: 0; }
+.conexion a {
+  color: var(--verde);
+  font-weight: 600;
+  text-decoration: none;
+}
+.conexion a:hover { text-decoration: underline; }
+
+/* Editor producto/precio */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.editor-tool-title { display: flex; align-items: center; gap: 14px; }
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.editor-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.editor-tool-tag {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: var(--hueso);
+  color: var(--azul);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+.form-seccion {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.form-seccion-titulo {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+}
+.form-seccion-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  color: var(--tinta);
+  transition: border-color 0.15s;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 70px;
+  line-height: 1.55;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.form-field small {
+  font-size: 11px;
+  color: var(--gris-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Lista dinámica de beneficios */
+.beneficios-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.beneficio-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.beneficio-input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+}
+.beneficio-input:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.beneficio-del {
+  background: var(--gris-1);
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--gris-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.beneficio-del:hover { color: var(--rojo); border-color: var(--rojo); }
+.beneficio-add {
+  background: #fff;
+  border: 1.5px dashed var(--gris-2);
+  color: var(--azul);
+  padding: 10px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: var(--sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.beneficio-add:hover { border-color: var(--azul); background: var(--azul-soft); }
+
+/* Vista previa */
+.preview-prod {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin-top: 24px;
+  border: 1px solid var(--azul-3);
+}
+.preview-prod-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.preview-prod-card {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(28,25,23,0.04);
+}
+.preview-prod-nombre {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0 0 4px;
+  letter-spacing: -0.4px;
+}
+.preview-prod-tipo {
+  font-size: 13px;
+  color: var(--gris-4);
+  margin-bottom: 16px;
+}
+.preview-prod-seccion {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gris-2);
+}
+.preview-prod-seccion:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+.preview-prod-titulo {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--verde);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.preview-prod-seccion p {
+  font-size: 14px;
+  color: var(--tinta);
+  line-height: 1.55;
+  margin: 0 0 4px;
+}
+.preview-prod-seccion ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+.preview-prod-seccion li {
+  font-size: 14px;
+  color: var(--tinta);
+  padding: 4px 0 4px 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.preview-prod-seccion li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+  font-weight: 700;
+}
+.preview-prod-precio {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.preview-prod-precio strong {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--azul);
+}
+.preview-vacio {
+  text-align: center;
+  color: var(--gris-3);
+  font-style: italic;
+  padding: 30px 20px;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Marketing Mix · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Marketing Mix</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html" class="active">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Marketing Mix</a>
+      <span>›</span>
+      <span>Módulo 03</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 3 de 6
+    </span>
+    <h1>Producto y <em>precio</em></h1>
+    <p>Las dos primeras P del marketing mix. Acá decidís qué ofrecés y a cuánto lo vendés. Son las dos decisiones más importantes porque definen tu negocio: lo que el cliente recibe, y lo que vos cobrás.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 50%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 03 / 06</span>
+      <span>50% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Llegamos a la primera P: el <strong>Producto</strong>. Pero acá hay una trampa pedagógica importante. Muchos emprendedores describen su producto en términos de qué <em>es</em> (los ingredientes, los materiales, las dimensiones). Y eso a tu cliente le importa poco. Lo que le importa es qué <em>resuelve para él</em>. Esa diferencia entre "lo que es" y "lo que resuelve" se llama, en marketing, características vs beneficios. Y entenderla cambia tu forma de comunicar el producto, y de fijarle precio.</p>
+
+    <h2><em>Características</em> vs <em>beneficios</em></h2>
+
+    <div class="car-ben">
+      <div class="cb-card car">
+        <div class="cb-card-icon">📋</div>
+        <div class="cb-card-eyebrow">Lo que es</div>
+        <h3>Características</h3>
+        <p>Hechos objetivos sobre tu producto o servicio. Lo que cualquier persona vería o mediría si lo examina.</p>
+        <ul>
+          <li>Torta de 24 cm de diámetro</li>
+          <li>3 capas de bizcochuelo de chocolate</li>
+          <li>Decorada con fondant</li>
+          <li>Lleva 4 horas hacerla</li>
+        </ul>
+      </div>
+      <div class="cb-card ben">
+        <div class="cb-card-icon">✨</div>
+        <div class="cb-card-eyebrow">Lo que resuelve</div>
+        <h3>Beneficios</h3>
+        <p>Lo que el cliente realmente compra. Cómo se siente, qué problema le resolvés, qué le permite hacer.</p>
+        <ul>
+          <li>Que el cumpleaños del nene sea inolvidable</li>
+          <li>No tener que pasar el día cocinando</li>
+          <li>Llegar con algo lindo y prolijo a la fiesta</li>
+          <li>Quedar bien con la familia y los invitados</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>Una característica es algo verificable. Un beneficio es <strong>lo que esa característica significa para el cliente</strong>. Una pista útil: si pudieras agregar la frase <em>"...lo que te permite..."</em> después de una afirmación, lo que viene después es el beneficio.</p>
+
+    <div class="tabla-conversion">
+      <div class="tabla-conversion-header">
+        <div>Característica</div>
+        <div>→</div>
+        <div>Beneficio</div>
+      </div>
+      <div class="tabla-conversion-row">
+        <div class="tabla-conversion-car">Corte de pelo en 30 minutos</div>
+        <div class="tabla-conversion-flecha">→</div>
+        <div class="tabla-conversion-ben">Salís rápido y volvés al trabajo</div>
+      </div>
+      <div class="tabla-conversion-row">
+        <div class="tabla-conversion-car">Empanadas con masa casera</div>
+        <div class="tabla-conversion-flecha">→</div>
+        <div class="tabla-conversion-ben">Sabor a comida de la abuela</div>
+      </div>
+      <div class="tabla-conversion-row">
+        <div class="tabla-conversion-car">Plomero con 15 años de oficio</div>
+        <div class="tabla-conversion-flecha">→</div>
+        <div class="tabla-conversion-ben">Tranquilidad: lo arregla bien la primera vez</div>
+      </div>
+      <div class="tabla-conversion-row">
+        <div class="tabla-conversion-car">Curso online con certificación</div>
+        <div class="tabla-conversion-flecha">→</div>
+        <div class="tabla-conversion-ben">Algo concreto para sumar al CV</div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>El cliente no compra tu producto: compra <em>lo que tu producto le permite ser, tener o sentir</em>. Hablale de eso, no de los ingredientes.</p>
+    </div>
+
+    <h2>El ciclo de vida de un producto</h2>
+
+    <p>Todo producto pasa por cuatro etapas en el tiempo. Saber en qué etapa está el tuyo te ayuda a tomar decisiones distintas: no es lo mismo lanzar algo nuevo que sostener algo maduro. Cada etapa requiere un tipo de esfuerzo distinto.</p>
+
+    <div class="ciclo">
+      <div class="ciclo-label">Las cuatro etapas</div>
+      <h3>Ciclo de vida del producto</h3>
+      <div class="ciclo-grid">
+        <div class="ciclo-fase">
+          <div class="ciclo-fase-num">01</div>
+          <div class="ciclo-fase-nombre">Introducción</div>
+          <div class="ciclo-fase-desc">Recién lanzado. Pocos lo conocen. Hay que invertir en darse a conocer.</div>
+        </div>
+        <div class="ciclo-fase">
+          <div class="ciclo-fase-num">02</div>
+          <div class="ciclo-fase-nombre">Crecimiento</div>
+          <div class="ciclo-fase-desc">Empieza a ganar clientes. Hay que ampliar producción y mejorar.</div>
+        </div>
+        <div class="ciclo-fase">
+          <div class="ciclo-fase-num">03</div>
+          <div class="ciclo-fase-nombre">Madurez</div>
+          <div class="ciclo-fase-desc">Ventas estables. Hay competencia. Hay que diferenciarse.</div>
+        </div>
+        <div class="ciclo-fase">
+          <div class="ciclo-fase-num">04</div>
+          <div class="ciclo-fase-nombre">Declive</div>
+          <div class="ciclo-fase-desc">Las ventas bajan. Hay que innovar, renovar o cambiar de rubro.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>La segunda P: <em>precio</em></h2>
+
+    <p>El precio es la cantidad de dinero que el cliente paga por tu producto o servicio. Pero es mucho más que un número: es la principal señal que mandás al mercado sobre lo que ofrecés. Un precio muy bajo dice "esto es básico". Un precio alto dice "esto es de calidad". Y el precio justo es el que cubre tus costos, te deja ganancia y el cliente está dispuesto a pagar.</p>
+
+    <div class="conexion">
+      <div class="conexion-header">
+        <span class="conexion-icon">🔗</span>
+        <span class="conexion-label">Conexión con costos</span>
+      </div>
+      <h4>El precio empieza por tus costos</h4>
+      <p>Antes de elegir una estrategia de precio, tenés que saber <strong>cuánto te cuesta producir</strong>. Si no lo sabés, cualquier precio que elijas es a ciegas. En el curso de <a href="../costos/index.html">Estructura de costos</a> trabajamos esto en detalle: costos fijos, costos variables, margen de contribución y punto de equilibrio.</p>
+      <p>La regla básica: el precio nunca puede ser menor a tu costo unitario (porque perdés plata en cada venta). El precio mínimo realista es <strong>costo + margen de contribución mínimo</strong>. Desde ahí, podés subir según la estrategia que elijas.</p>
+    </div>
+
+    <h2>Tres estrategias de precio</h2>
+
+    <p>Una vez que conocés tu costo, podés elegir entre tres estrategias clásicas. Cada una tiene su lógica y conviene en momentos distintos.</p>
+
+    <div class="estrategias">
+      <div class="estrategia">
+        <div class="estrategia-num">Estrategia 01</div>
+        <h4>Precio de penetración</h4>
+        <p>Empezás con un precio bajo, apenas arriba del costo, para ganar clientes rápido y darte a conocer. Después podés subir.</p>
+        <div class="estrategia-cuando">
+          <strong>Conviene cuando:</strong> estás arrancando, hay competencia, querés probar el mercado o conseguir tus primeros clientes.
+        </div>
+      </div>
+      <div class="estrategia">
+        <div class="estrategia-num">Estrategia 02</div>
+        <h4>Precio de paridad</h4>
+        <p>Cobrás lo mismo (o casi) que tu competencia. La diferencia la marcás con otras cosas: trato, calidad, rapidez, ubicación.</p>
+        <div class="estrategia-cuando">
+          <strong>Conviene cuando:</strong> tu producto es similar al de otros, ya hay un precio "normal" en el rubro, y querés competir por servicio.
+        </div>
+      </div>
+      <div class="estrategia">
+        <div class="estrategia-num">Estrategia 03</div>
+        <h4>Precio descreme</h4>
+        <p>Empezás con un precio alto, dirigido a clientes que valoran lo exclusivo o lo único. Después podés bajar para llegar a más gente.</p>
+        <div class="estrategia-cuando">
+          <strong>Conviene cuando:</strong> tu producto es nuevo, distinto, artesanal, exclusivo, o tiene una calidad que justifica pagar más.
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>El precio no se "decide": se va ajustando</h4>
+      <p>El marketing clásico te lleva a pensar que tenés que "elegir tu estrategia de precio" como una decisión definitiva. La realidad de un emprendimiento es otra: <strong>el precio se descubre vendiendo</strong>. Vas a probar un precio, ver qué pasa, ajustarlo. Los primeros clientes te van a dar señales (¿les pareció caro?, ¿les pareció regalado?, ¿pidieron descuento?, ¿pagaron sin chistar?).</p>
+      <p>Por eso, además de elegir una estrategia, conviene tener una <em>mentalidad de prueba</em>: poné un precio inicial, observá cómo responde el mercado, ajustá. No es indecisión, es aprendizaje.</p>
+      <div class="mirada-inc-cita">
+        "La recomendación es 'desarrollar el cliente', incluirlo en el diseño del producto, validar la oferta y la demanda al mismo tiempo, maximizando el aprendizaje con la menor inversión posible."
+        <strong>Luna y Gallo (2018), Incremental, p. 104</strong>
+      </div>
+    </div>
+
+    <div class="editor-tool" id="editor-prod">
+      <div class="editor-tool-header">
+        <div class="editor-tool-title">
+          <div class="editor-tool-icon">📦</div>
+          <h3>Definí tu producto y precio</h3>
+        </div>
+        <span class="editor-tool-tag">Tu plan · Paso 2</span>
+      </div>
+      <p class="editor-tool-desc">Vamos a definir el producto o servicio principal de tu emprendimiento, sus beneficios para el cliente, y la estrategia de precio que te conviene. Recordá: <strong>esto es una primera versión.</strong> Vas a ajustarlo cuando salgas a vender.</p>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Tu producto o servicio</div>
+        <p class="form-seccion-desc">Datos básicos de lo que vendés. Si tenés varios, elegí el principal.</p>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="pp-nombre">Nombre del producto o servicio</label>
+            <input type="text" id="pp-nombre" maxlength="80" placeholder="Ej: Tortas decoradas para cumpleaños / Servicio de plomería">
+          </div>
+          <div class="form-field full">
+            <label for="pp-descripcion">Descripción en una frase</label>
+            <input type="text" id="pp-descripcion" maxlength="120" placeholder="Ej: Tortas a pedido con personajes, hechas en 48 horas">
+            <small>Cómo lo presentarías en una palabra clave</small>
+          </div>
+          <div class="form-field">
+            <label for="pp-ciclo">¿En qué etapa está?</label>
+            <select id="pp-ciclo">
+              <option value="">Elegir...</option>
+              <option value="introduccion">Introducción: recién arranco</option>
+              <option value="crecimiento">Crecimiento: tengo algunos clientes</option>
+              <option value="madurez">Madurez: ya estoy hace tiempo</option>
+              <option value="declive">Declive: las ventas bajan</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="pp-diferencial">¿Qué te diferencia?</label>
+            <input type="text" id="pp-diferencial" maxlength="100" placeholder="Ej: Personajes pedidos, rapidez, trato personal">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Los 3 principales beneficios para tu cliente</div>
+        <p class="form-seccion-desc">No las características, sino lo que tu cliente <em>recibe en su vida</em>. Pensá en tu buyer persona del módulo anterior.</p>
+        <div class="beneficios-lista" id="beneficios-lista">
+          <div class="beneficio-row">
+            <input type="text" class="beneficio-input" maxlength="100" placeholder="Beneficio 1 (ej: Quedan bien en la fiesta)">
+            <button type="button" class="beneficio-del" onclick="quitarBeneficio(this)" title="Quitar">×</button>
+          </div>
+          <div class="beneficio-row">
+            <input type="text" class="beneficio-input" maxlength="100" placeholder="Beneficio 2 (ej: No tienen que cocinar)">
+            <button type="button" class="beneficio-del" onclick="quitarBeneficio(this)" title="Quitar">×</button>
+          </div>
+          <div class="beneficio-row">
+            <input type="text" class="beneficio-input" maxlength="100" placeholder="Beneficio 3 (ej: Sus hijos se ponen contentos)">
+            <button type="button" class="beneficio-del" onclick="quitarBeneficio(this)" title="Quitar">×</button>
+          </div>
+        </div>
+        <button type="button" class="beneficio-add" onclick="agregarBeneficio()">+ Agregar otro beneficio</button>
+      </div>
+
+      <div class="form-seccion">
+        <div class="form-seccion-titulo">Tu estrategia de precio</div>
+        <p class="form-seccion-desc">Elegí la estrategia que mejor se adapta a tu situación actual y un precio inicial a probar.</p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="pp-estrategia">Estrategia</label>
+            <select id="pp-estrategia">
+              <option value="">Elegir...</option>
+              <option value="penetracion">Penetración (precio bajo para ganar mercado)</option>
+              <option value="paridad">Paridad (precio similar a la competencia)</option>
+              <option value="descreme">Descreme (precio alto por exclusividad)</option>
+              <option value="indecisa">Todavía no decido</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="pp-precio">Precio inicial (en pesos)</label>
+            <input type="text" id="pp-precio" maxlength="20" placeholder="Ej: 15000">
+            <small>Es solo una primera versión, podés ajustarlo</small>
+          </div>
+          <div class="form-field full">
+            <label for="pp-porque">¿Por qué este precio?</label>
+            <textarea id="pp-porque" maxlength="200" placeholder="Ej: porque me cubre los costos y deja un margen, y es parecido a lo que cobra la competencia"></textarea>
+            <small>Pensá en tus costos y en lo que cobran otros</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-prod">
+        <div class="preview-prod-label">Tu producto y precio</div>
+        <div class="preview-prod-card" id="preview-prod-card">
+          <div class="preview-vacio">A medida que completés los campos, tu producto va a aparecer acá.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Producto y precio son dos caras de lo mismo</h3>
+      <p>El producto es lo que ofrecés, el precio es la señal que mandás al mercado sobre lo que ofrecés. Si los dos están alineados (un buen producto a un precio justo), el cliente entiende rápido qué le estás vendiendo. Si están desalineados (producto malo a precio caro, o producto excelente a precio regalado), el cliente se confunde, duda y muchas veces no compra. En el próximo módulo vemos la tercera P: dónde se hace todo esto, o sea, los canales por donde vendés.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-02.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">02 · Conocé a tu cliente</span>
+    </a>
+    <a href="modulo-04.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">04 · Plaza (canales)</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Marketing Mix" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Qué es el marketing?</a></li>
+          <li><a href="modulo-02.html">02 · Conocé a tu cliente</a></li>
+          <li><a href="modulo-03.html">03 · Producto y precio</a></li>
+          <li><a href="modulo-04.html">04 · Plaza</a></li>
+          <li><a href="modulo-05.html">05 · Promoción</a></li>
+          <li><a href="modulo-06.html">06 · Tu plan de marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var MKT_KEY = 'epja753_mkt_datos';
+
+function leerMkt() {
+  try { return JSON.parse(localStorage.getItem(MKT_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarMkt(d) {
+  try { localStorage.setItem(MKT_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function getBeneficios() {
+  var inputs = document.querySelectorAll('.beneficio-input');
+  return Array.from(inputs).map(function(i) { return i.value.trim(); }).filter(function(v) { return v; });
+}
+
+function agregarBeneficio() {
+  var lista = document.getElementById('beneficios-lista');
+  var row = document.createElement('div');
+  row.className = 'beneficio-row';
+  row.innerHTML = '<input type="text" class="beneficio-input" maxlength="100" placeholder="Otro beneficio para el cliente">' +
+                  '<button type="button" class="beneficio-del" onclick="quitarBeneficio(this)" title="Quitar">×</button>';
+  lista.appendChild(row);
+  var input = row.querySelector('input');
+  input.addEventListener('input', guardarProducto);
+  input.focus();
+}
+
+function quitarBeneficio(btn) {
+  var inputs = document.querySelectorAll('.beneficio-input');
+  if (inputs.length <= 1) return;
+  btn.parentElement.remove();
+  guardarProducto();
+}
+
+function getProducto() {
+  return {
+    ppNombre: document.getElementById('pp-nombre').value.trim(),
+    ppDescripcion: document.getElementById('pp-descripcion').value.trim(),
+    ppCiclo: document.getElementById('pp-ciclo').value,
+    ppDiferencial: document.getElementById('pp-diferencial').value.trim(),
+    ppBeneficios: getBeneficios(),
+    ppEstrategia: document.getElementById('pp-estrategia').value,
+    ppPrecio: document.getElementById('pp-precio').value.trim(),
+    ppPorque: document.getElementById('pp-porque').value.trim()
+  };
+}
+
+function setProducto(d) {
+  if (d.ppNombre) document.getElementById('pp-nombre').value = d.ppNombre;
+  if (d.ppDescripcion) document.getElementById('pp-descripcion').value = d.ppDescripcion;
+  if (d.ppCiclo) document.getElementById('pp-ciclo').value = d.ppCiclo;
+  if (d.ppDiferencial) document.getElementById('pp-diferencial').value = d.ppDiferencial;
+  if (d.ppEstrategia) document.getElementById('pp-estrategia').value = d.ppEstrategia;
+  if (d.ppPrecio) document.getElementById('pp-precio').value = d.ppPrecio;
+  if (d.ppPorque) document.getElementById('pp-porque').value = d.ppPorque;
+  
+  if (Array.isArray(d.ppBeneficios) && d.ppBeneficios.length) {
+    var lista = document.getElementById('beneficios-lista');
+    lista.innerHTML = '';
+    d.ppBeneficios.forEach(function(b, idx) {
+      var row = document.createElement('div');
+      row.className = 'beneficio-row';
+      row.innerHTML = '<input type="text" class="beneficio-input" maxlength="100" value="">' +
+                      '<button type="button" class="beneficio-del" onclick="quitarBeneficio(this)" title="Quitar">×</button>';
+      var inp = row.querySelector('input');
+      inp.value = b;
+      inp.addEventListener('input', guardarProducto);
+      lista.appendChild(row);
+    });
+    // garantizar al menos 3 inputs visibles
+    while (document.querySelectorAll('.beneficio-input').length < 3) {
+      var rowExtra = document.createElement('div');
+      rowExtra.className = 'beneficio-row';
+      rowExtra.innerHTML = '<input type="text" class="beneficio-input" maxlength="100" placeholder="Otro beneficio">' +
+                           '<button type="button" class="beneficio-del" onclick="quitarBeneficio(this)" title="Quitar">×</button>';
+      rowExtra.querySelector('input').addEventListener('input', guardarProducto);
+      lista.appendChild(rowExtra);
+    }
+  }
+}
+
+function cicloTexto(v) {
+  var map = {
+    'introduccion': 'En etapa de introducción',
+    'crecimiento': 'En crecimiento',
+    'madurez': 'En etapa madura',
+    'declive': 'En declive'
+  };
+  return map[v] || '';
+}
+function estrategiaTexto(v) {
+  var map = {
+    'penetracion': 'Estrategia de penetración',
+    'paridad': 'Estrategia de paridad',
+    'descreme': 'Estrategia de descreme',
+    'indecisa': 'Estrategia por definir'
+  };
+  return map[v] || '';
+}
+
+function actualizarPreview() {
+  var d = getProducto();
+  var preview = document.getElementById('preview-prod-card');
+  if (!d.ppNombre && !d.ppDescripcion && d.ppBeneficios.length === 0) {
+    preview.innerHTML = '<div class="preview-vacio">A medida que completés los campos, tu producto va a aparecer acá.</div>';
+    return;
+  }
+  var html = '';
+  html += '<div class="preview-prod-nombre">' + (d.ppNombre || 'Tu producto') + '</div>';
+  
+  var datosBasicos = [];
+  if (d.ppDescripcion) datosBasicos.push(d.ppDescripcion);
+  if (d.ppCiclo) datosBasicos.push(cicloTexto(d.ppCiclo));
+  if (datosBasicos.length) html += '<div class="preview-prod-tipo">' + datosBasicos.join(' · ') + '</div>';
+  
+  if (d.ppBeneficios.length) {
+    html += '<div class="preview-prod-seccion">';
+    html += '<div class="preview-prod-titulo">Lo que recibe tu cliente</div>';
+    html += '<ul>';
+    d.ppBeneficios.forEach(function(b) { html += '<li>' + b + '</li>'; });
+    html += '</ul>';
+    html += '</div>';
+  }
+  
+  if (d.ppDiferencial) {
+    html += '<div class="preview-prod-seccion">';
+    html += '<div class="preview-prod-titulo">Qué te diferencia</div>';
+    html += '<p>' + d.ppDiferencial + '</p>';
+    html += '</div>';
+  }
+  
+  if (d.ppPrecio || d.ppEstrategia) {
+    html += '<div class="preview-prod-seccion">';
+    html += '<div class="preview-prod-titulo">Precio</div>';
+    if (d.ppPrecio) {
+      html += '<div class="preview-prod-precio"><strong>$' + d.ppPrecio + '</strong>';
+      if (d.ppEstrategia) html += '<span style="font-size:13px; color:var(--gris-4);">· ' + estrategiaTexto(d.ppEstrategia) + '</span>';
+      html += '</div>';
+    } else if (d.ppEstrategia) {
+      html += '<p>' + estrategiaTexto(d.ppEstrategia) + '</p>';
+    }
+    if (d.ppPorque) html += '<p style="margin-top:6px; font-size:13px; color:var(--gris-4); font-style:italic;">' + d.ppPorque + '</p>';
+    html += '</div>';
+  }
+  
+  preview.innerHTML = html;
+}
+
+function guardarProducto() {
+  var datos = leerMkt();
+  Object.assign(datos, getProducto());
+  guardarMkt(datos);
+  actualizarPreview();
+}
+
+['pp-nombre', 'pp-descripcion', 'pp-diferencial', 'pp-precio', 'pp-porque'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardarProducto);
+});
+['pp-ciclo', 'pp-estrategia'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('change', guardarProducto);
+});
+document.querySelectorAll('.beneficio-input').forEach(function(i) {
+  i.addEventListener('input', guardarProducto);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerMkt();
+  setProducto(datos);
+  actualizarPreview();
+  
+  var tipo;
+  try { tipo = localStorage.getItem('epja753_mkt_tipo'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && tipo) {
+    if (tipo === 'fisico') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Producto físico</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a productos tangibles</span></div>';
+      banner.style.display = 'block';
+    } else if (tipo === 'servicio') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tipo: <strong>Servicio</strong></span><span style="opacity:0.8;">Los ejemplos se adaptan a servicios</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

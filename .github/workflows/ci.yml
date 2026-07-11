@@ -1,0 +1,39 @@
+name: CI
+
+# Corre en cada push y en cada pull request: valida la API y el sitio
+# antes de que nada se despliegue. Un solo proyecto (API + sitio en el mismo repo).
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  api:
+    name: API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Chequear sintaxis de todos los módulos
+        run: npm run ci:sintaxis
+      - name: Arranque de la API (/api/salud, sin base)
+        run: npm run ci:boot
+        env:
+          JWT_SECRET: prueba-de-ci
+          DATABASE_URL: postgres://ci@localhost/ci
+
+  sitio:
+    name: Sitio (frontend)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validar páginas (sintaxis de scripts y referencias locales)
+        run: node scripts/check-frontend.js public

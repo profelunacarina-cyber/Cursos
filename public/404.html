@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página no encontrada · Prof. Carina Luna</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="tema.css" />
+  <style>
+    .pagina-404 { min-height: 100vh; display: flex; flex-direction: column; }
+    .cuerpo-404 { flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
+    .caja-404 { max-width: 560px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+    .numero-404 { position: relative; width: 220px; height: 150px; }
+    .numero-404 img {
+      position: absolute; top: 50%; left: 50%; width: 280px; max-width: none;
+      transform: translate(-50%, -50%) rotate(-8deg); opacity: .55;
+    }
+    .numero-404 span {
+      position: relative; display: block;
+      font-family: var(--serif); font-weight: 700; font-size: 88px; line-height: 150px; color: var(--verde-oscuro);
+    }
+    .h1-404 {
+      margin: 0; font-family: var(--serif); font-weight: 700;
+      font-size: clamp(26px, 4vw, 34px); line-height: 1.2; color: var(--tinta); text-wrap: balance;
+    }
+    .p-404 { margin: 0; max-width: 440px; font-size: 16px; line-height: 1.65; color: var(--texto-suave); text-wrap: pretty; }
+    .acciones-404 { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; }
+    .btn-404, .btn-404-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; font-weight: 700; font-size: 15px;
+      padding: 13px 26px; border-radius: 999px; transition: all .18s ease;
+    }
+    .btn-404 { background: var(--verde-oscuro); color: var(--claro-2); }
+    .btn-404:hover { background: var(--verde-noche); color: var(--claro-2); transform: translateY(-2px); }
+    .btn-404-ghost { background: transparent; color: var(--verde); border: 1px solid var(--borde-verde); }
+    .btn-404-ghost:hover { border-color: var(--verde); background: var(--panel-verde); color: var(--verde); }
+  </style>
+</head>
+<body>
+  <div class="pagina-404">
+
+    <header class="cabecera">
+      <div class="cabecera-int">
+        <a href="index.html" class="marca">
+          <span class="logo-cl">CL</span>
+          <span class="marca-textos">
+            <strong>Capacitaciones</strong>
+            <span>Prof. Carina Luna</span>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <main class="cuerpo-404">
+      <div class="caja-404">
+        <div class="numero-404">
+          <img src="assets/laurel-garland.svg" alt="" aria-hidden="true" />
+          <span>404</span>
+        </div>
+
+        <span class="antetitulo">Módulo no encontrado</span>
+        <h1 class="h1-404">Esta página todavía no existe</h1>
+        <p class="p-404">Puede que el curso esté en preparación para el próximo ciclo, o que el enlace tenga un error. Volvé al inicio para elegir tu espacio de capacitación.</p>
+
+        <div class="acciones-404">
+          <a href="index.html" class="btn-404">Volver al inicio</a>
+          <a href="index.html#elegi" class="btn-404-ghost">Ver los cursos</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="pie">
+      <p class="lema">Que el saber sea un bien común, no un privilegio.</p>
+      <p class="datos">Rawson · Chubut · Prof. Carina Luna</p>
+    </footer>
+
+  </div>
+</body>
+</html>

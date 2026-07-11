@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Cuentas y billeteras · Finanzas · EPJA 753</title>
+<meta name="description" content="Módulo 3: cómo elegir entre caja de ahorro, billeteras virtuales y cuentas remuneradas.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<style>
+/* Tipos de cuentas */
+.cuentas-tipos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 28px 0 32px;
+}
+.tipo-card {
+  background: #fff;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.tipo-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.tipo-card.banco::before { background: var(--azul); }
+.tipo-card.virtual::before { background: var(--coral); }
+.tipo-card.remunerada::before { background: var(--verde); }
+.tipo-icono {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 24px;
+}
+.tipo-card.banco .tipo-icono { background: var(--azul-3); }
+.tipo-card.virtual .tipo-icono { background: var(--coral-soft); }
+.tipo-card.remunerada .tipo-icono { background: var(--verde-3); }
+.tipo-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.tipo-card.banco .tipo-eyebrow { color: var(--azul); }
+.tipo-card.virtual .tipo-eyebrow { color: var(--coral); }
+.tipo-card.remunerada .tipo-eyebrow { color: var(--verde); }
+.tipo-card h3 {
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--tinta);
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+.tipo-card > p {
+  font-size: 14px;
+  color: var(--gris-4);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.tipo-pros-cons {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--gris-2);
+}
+.tipo-pros, .tipo-cons {
+  margin-bottom: 8px;
+}
+.tipo-pros-label, .tipo-cons-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: block;
+}
+.tipo-pros-label { color: var(--verde); }
+.tipo-cons-label { color: var(--coral); }
+.tipo-pros span, .tipo-cons span {
+  font-size: 13px;
+  color: var(--tinta);
+  display: block;
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+  margin: 2px 0;
+}
+.tipo-pros span::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+  font-weight: 700;
+}
+.tipo-cons span::before {
+  content: "−";
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-weight: 700;
+}
+
+/* Apps populares */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 24px 0 32px;
+}
+.app-card {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 18px;
+  text-align: left;
+}
+.app-nombre {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--tinta);
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.app-tipo {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--gris-4);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.app-desc {
+  font-size: 13px;
+  color: var(--gris-4);
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+.app-feature {
+  font-size: 12px;
+  color: var(--azul);
+  background: var(--azul-soft);
+  padding: 4px 8px;
+  border-radius: var(--r-sm);
+  display: inline-block;
+  font-weight: 600;
+}
+
+/* Tabla comparativa */
+.tabla-comp {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: 24px 0 32px;
+}
+.tabla-comp-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  background: var(--azul);
+  color: #fff;
+  padding: 14px 18px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.tabla-comp-header > div { text-align: center; }
+.tabla-comp-header > div:first-child { text-align: left; }
+.tabla-comp-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 14px 18px;
+  border-top: 1px solid var(--gris-2);
+  align-items: center;
+  font-size: 14px;
+}
+.tabla-comp-row > div { text-align: center; }
+.tabla-comp-row > div:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--tinta);
+}
+.tabla-comp-check { color: var(--verde); font-weight: 700; }
+.tabla-comp-x { color: var(--gris-3); }
+@media (max-width: 700px) {
+  .tabla-comp-header, .tabla-comp-row {
+    grid-template-columns: 1fr 60px 60px 60px;
+    padding: 12px;
+    font-size: 12.5px;
+    gap: 8px;
+  }
+}
+
+/* Recomendación */
+.recomendacion {
+  background: linear-gradient(135deg, var(--verde-3) 0%, #fff 100%);
+  border: 1px solid var(--verde-3);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.recomendacion-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.recomendacion-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--verde);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.recomendacion-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.recomendacion h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.recomendacion-opciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+@media (max-width: 600px) { .recomendacion-opciones { grid-template-columns: 1fr; } }
+.rec-opcion {
+  background: #fff;
+  border: 1px solid var(--verde-3);
+  border-radius: var(--r-sm);
+  padding: 16px;
+}
+.rec-opcion-titulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--verde);
+  margin-bottom: 8px;
+}
+.rec-opcion-desc {
+  font-size: 13px;
+  color: var(--tinta);
+  line-height: 1.55;
+}
+
+/* Banner puerta */
+.mode-banner {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  display: none;
+}
+.mode-banner-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Mirada cierre */
+.mirada {
+  background: linear-gradient(135deg, var(--hueso-2) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 32px 0;
+  border: 1px solid var(--hueso);
+}
+.mirada-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--verde);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+  border: 1px solid var(--verde-3);
+}
+.mirada-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--verde);
+  border-radius: 50%;
+}
+.mirada h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  letter-spacing: -0.4px;
+}
+.mirada p {
+  font-size: 15px;
+  color: var(--gris-4);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Editor de cuentas */
+.editor-tool {
+  background: #fff;
+  border: 1px solid var(--gris-2);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: var(--sombra-suave);
+}
+@media (max-width: 600px) {
+  .editor-tool { padding: 24px; border-radius: var(--r-lg); }
+}
+.editor-tool-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.editor-tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--verde-3);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.editor-tool h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--tinta);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.editor-tool-desc {
+  color: var(--gris-4);
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+.cuentas-elector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 20px 0;
+}
+@media (max-width: 600px) { .cuentas-elector { grid-template-columns: 1fr; } }
+.cuenta-tipo-form {
+  background: var(--gris-1);
+  border-radius: var(--r-md);
+  padding: 20px;
+}
+.cuenta-tipo-form h4 {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.cuenta-tipo-form input,
+.cuenta-tipo-form select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: #fff;
+  margin-bottom: 10px;
+}
+.cuenta-tipo-form input:focus,
+.cuenta-tipo-form select:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(67,56,202,0.1);
+}
+.cuenta-tipo-form label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gris-4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+.preview-cuentas {
+  background: linear-gradient(135deg, var(--azul-soft) 0%, var(--crema) 100%);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  margin-top: 20px;
+  border: 1px solid var(--azul-3);
+}
+.preview-cuentas-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.preview-cuentas-card {
+  background: #fff;
+  border-radius: var(--r-md);
+  padding: 20px;
+}
+.preview-cuenta-item {
+  padding: 10px 0;
+  border-top: 1px solid var(--gris-2);
+  font-size: 14px;
+  color: var(--tinta);
+}
+.preview-cuenta-item:first-child { border-top: none; padding-top: 0; }
+.preview-cuenta-item strong { color: var(--azul); }
+.preview-vacio-cuentas {
+  text-align: center;
+  color: var(--gris-3);
+  font-style: italic;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-dot"></span>
+      <span>EPJA N° 753 · Rawson · Chubut</span>
+    </div>
+    <div class="topbar-right">Finanzas para emprendedores · Prof. Luna · Ciclo 2026</div>
+  </div>
+</div>
+
+<div id="mode-banner" class="mode-banner"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <div class="brand-mark">753</div>
+      <div class="brand-text">
+        <strong>Finanzas para emprendedores</strong>
+        <span>Curso completo</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="modulo-01.html">01</a>
+      <a href="modulo-02.html">02</a>
+      <a href="modulo-03.html" class="active">03</a>
+      <a href="modulo-04.html">04</a>
+      <a href="modulo-05.html">05</a>
+      <a href="modulo-06.html">06</a>
+      <a href="evaluacion.html" class="nav-cta">Evaluación</a>
+    </nav>
+    <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="subhero-inner">
+    <div class="subhero-crumb">
+      <a href="../index.html">Capacitaciones</a>
+      <span>›</span>
+      <a href="index.html">Finanzas</a>
+      <span>›</span>
+      <span>Módulo 03</span>
+    </div>
+    <span class="subhero-step">
+      <span class="dot"></span>
+      Paso 3 de 6
+    </span>
+    <h1>Cuentas y <em>billeteras virtuales</em></h1>
+    <p>El mapa de las opciones para guardar y mover plata en Argentina. Caja de ahorro, billeteras virtuales como Mercado Pago, Ualá, Naranja X. Cómo elegir según para qué la usás.</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 50%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>MÓDULO 03 / 06</span>
+      <span>50% del recorrido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <p class="intro">Hoy hay muchas opciones para guardar y mover plata en Argentina: bancos tradicionales, billeteras virtuales, cuentas remuneradas. <strong>Todas hacen cosas parecidas, pero no son iguales</strong>. Entender las diferencias te permite elegir bien según lo que necesitás: cobrar a clientes, pagar servicios, guardar el "colchón", manejar la plata del día a día.</p>
+
+    <h2>Tres tipos principales de cuentas</h2>
+
+    <div class="cuentas-tipos">
+      <div class="tipo-card banco">
+        <div class="tipo-icono">🏦</div>
+        <div class="tipo-eyebrow">Tradicional</div>
+        <h3>Caja de ahorro en banco</h3>
+        <p>La cuenta clásica del banco. Tiene tarjeta de débito, te permite recibir tu sueldo y operar online.</p>
+        <div class="tipo-pros-cons">
+          <div class="tipo-pros">
+            <span class="tipo-pros-label">A favor</span>
+            <span>Acceso a cajeros automáticos</span>
+            <span>Cobertura nacional</span>
+            <span>Te permite operar con plazo fijo</span>
+          </div>
+          <div class="tipo-cons">
+            <span class="tipo-cons-label">En contra</span>
+            <span>No rinde nada (la plata "duerme")</span>
+            <span>Comisiones por mantenimiento</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-card virtual">
+        <div class="tipo-icono">📱</div>
+        <div class="tipo-eyebrow">Fintech</div>
+        <h3>Billetera virtual</h3>
+        <p>Apps como Mercado Pago, Ualá, Naranja X o Brubank. No tienen sucursales físicas, todo es digital.</p>
+        <div class="tipo-pros-cons">
+          <div class="tipo-pros">
+            <span class="tipo-pros-label">A favor</span>
+            <span>Sin comisiones de mantenimiento</span>
+            <span>Cobrás con QR / link</span>
+            <span>Rapidez para abrir y operar</span>
+          </div>
+          <div class="tipo-cons">
+            <span class="tipo-cons-label">En contra</span>
+            <span>Soporte solo digital (sin sucursal)</span>
+            <span>Algunas tienen límites por mes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-card remunerada">
+        <div class="tipo-icono">💸</div>
+        <div class="tipo-eyebrow">La plata rinde</div>
+        <h3>Cuenta remunerada</h3>
+        <p>Una opción especial de algunas billeteras virtuales: la plata que dejás ahí <strong>gana interés todos los días</strong> automáticamente.</p>
+        <div class="tipo-pros-cons">
+          <div class="tipo-pros">
+            <span class="tipo-pros-label">A favor</span>
+            <span>Rinde mientras tenés la plata quieta</span>
+            <span>Podés sacar cuando quieras</span>
+            <span>Sin comisiones</span>
+          </div>
+          <div class="tipo-cons">
+            <span class="tipo-cons-label">En contra</span>
+            <span>Tasa puede variar</span>
+            <span>Generalmente está dentro de Fondos Comunes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="principio verde">
+      <div class="principio-label">Idea para recordar</div>
+      <p>No hay UNA cuenta correcta: hay <em>combinaciones</em> que funcionan mejor según para qué uses cada una. La mayoría de emprendedores usa al menos 2: una para movimiento diario, otra para guardar el colchón que rinde.</p>
+    </div>
+
+    <h2>Apps populares <em>en Argentina</em></h2>
+
+    <p>Para que tengas un mapa práctico, te paso las apps más usadas (datos generales, las condiciones específicas cambian seguido y conviene chequear en cada app antes de elegir):</p>
+
+    <div class="apps-grid">
+      <div class="app-card">
+        <div class="app-nombre">📲 Mercado Pago</div>
+        <div class="app-tipo">Billetera virtual</div>
+        <div class="app-desc">La más usada para cobrar. Tiene QR, link de pago, tarjeta prepaga. Permite tener la plata en una cuenta que rinde.</div>
+        <span class="app-feature">Ideal para cobrar a clientes</span>
+      </div>
+      <div class="app-card">
+        <div class="app-nombre">🟪 Ualá</div>
+        <div class="app-tipo">Billetera virtual</div>
+        <div class="app-desc">Buena opción como "segunda cuenta" del emprendimiento. Tarjeta prepaga gratis, sin comisiones.</div>
+        <span class="app-feature">Separar plata sin abrir banco</span>
+      </div>
+      <div class="app-card">
+        <div class="app-nombre">🟠 Naranja X</div>
+        <div class="app-tipo">Billetera virtual</div>
+        <div class="app-desc">De Naranja (la tarjeta de Córdoba). Cuenta remunerada, tarjeta de débito, y plazo fijo desde la app.</div>
+        <span class="app-feature">Cuenta + inversiones</span>
+      </div>
+      <div class="app-card">
+        <div class="app-nombre">🏦 Brubank</div>
+        <div class="app-tipo">Banco 100% digital</div>
+        <div class="app-desc">Es un banco real (no solo billetera). Caja de ahorro, plazo fijo, tarjeta de crédito sin ir a sucursal.</div>
+        <span class="app-feature">Banco sin sucursales</span>
+      </div>
+      <div class="app-card">
+        <div class="app-nombre">🏦 Banco tradicional</div>
+        <div class="app-tipo">Banco con sucursales</div>
+        <div class="app-desc">Banco Nación, Provincia, Galicia, Macro. Sirve si necesitás sucursal física o tenés sueldo en relación de dependencia.</div>
+        <span class="app-feature">Acceso físico + online</span>
+      </div>
+    </div>
+
+    <h2>Comparativa rápida</h2>
+
+    <div class="tabla-comp">
+      <div class="tabla-comp-header">
+        <div>Característica</div>
+        <div>Banco</div>
+        <div>Billetera</div>
+        <div>Remunerada</div>
+      </div>
+      <div class="tabla-comp-row">
+        <div>Cobrás con QR / link</div>
+        <div class="tabla-comp-x">−</div>
+        <div class="tabla-comp-check">✓</div>
+        <div class="tabla-comp-check">✓</div>
+      </div>
+      <div class="tabla-comp-row">
+        <div>Rinde interés automáticamente</div>
+        <div class="tabla-comp-x">−</div>
+        <div class="tabla-comp-x">−</div>
+        <div class="tabla-comp-check">✓</div>
+      </div>
+      <div class="tabla-comp-row">
+        <div>Acceso a cajeros automáticos</div>
+        <div class="tabla-comp-check">✓</div>
+        <div class="tabla-comp-check">✓</div>
+        <div class="tabla-comp-check">✓</div>
+      </div>
+      <div class="tabla-comp-row">
+        <div>Tiene comisiones por mantenimiento</div>
+        <div class="tabla-comp-check" style="color:var(--coral);">✓</div>
+        <div class="tabla-comp-x">−</div>
+        <div class="tabla-comp-x">−</div>
+      </div>
+      <div class="tabla-comp-row">
+        <div>Apto para sueldo en blanco</div>
+        <div class="tabla-comp-check">✓</div>
+        <div class="tabla-comp-x">parcial</div>
+        <div class="tabla-comp-x">parcial</div>
+      </div>
+      <div class="tabla-comp-row">
+        <div>Conviene para "guardar plata"</div>
+        <div class="tabla-comp-x">−</div>
+        <div class="tabla-comp-x">−</div>
+        <div class="tabla-comp-check">✓</div>
+      </div>
+    </div>
+
+    <div class="recomendacion">
+      <div class="recomendacion-header">
+        <span class="recomendacion-icon">💡</span>
+        <span class="recomendacion-label">Una combinación simple que funciona</span>
+      </div>
+      <h4>Setup recomendado para empezar</h4>
+      <p style="font-size: 14.5px; color: var(--gris-4); margin: 0 0 14px; line-height: 1.6;">No necesitás tener todas las apps. Con dos te alcanza para separar y organizar bien. Esta combinación funciona para la mayoría:</p>
+      <div class="recomendacion-opciones">
+        <div class="rec-opcion">
+          <div class="rec-opcion-titulo">📱 Una para movimiento diario</div>
+          <div class="rec-opcion-desc">Mercado Pago o equivalente. Acá entra y sale plata del negocio: cobros, pagos a proveedores.</div>
+        </div>
+        <div class="rec-opcion">
+          <div class="rec-opcion-titulo">💸 Otra para guardar (que rinda)</div>
+          <div class="rec-opcion-desc">Cuenta remunerada o Brubank. Acá pasás el "colchón" que no necesitás tocar, y rinde mientras tanto.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Lo que <em>tenés que saber</em> antes de elegir</h2>
+
+    <p>Hay tres cosas importantes a chequear cuando elegís dónde poner tu plata (sobre todo si es la del negocio):</p>
+
+    <ul>
+      <li style="margin-bottom:10px;"><strong>¿Está regulada?</strong> Bancos y billeteras autorizadas por el BCRA están reguladas y tu plata tiene cierta protección. Apps no reguladas (sobre todo "billeteras cripto" que prometen rendimientos altos) NO tienen esa garantía.</li>
+      <li style="margin-bottom:10px;"><strong>¿Cómo es el soporte?</strong> Si tenés un problema, ¿podés hablar con alguien? Las billeteras 100% digitales suelen tener soporte solo por chat. Si necesitás resolver algo urgente con plata del negocio, eso puede ser problemático.</li>
+      <li><strong>¿Qué pasa si pierdo el celular?</strong> ¿Cómo recuperás el acceso? ¿Tenés una clave de seguridad? La plata digital depende de poder acceder a la app, así que pensá esto antes de necesitar resolverlo de urgencia.</li>
+    </ul>
+
+    <div class="mirada-inc">
+      <div class="mirada-inc-header">
+        <span class="mirada-inc-icon">💡</span>
+        <span class="mirada-inc-label">Mirada incremental</span>
+      </div>
+      <h4>No persigas la app perfecta: empezá con lo que funciona</h4>
+      <p>Cada mes aparecen apps nuevas, beneficios, cashbacks y promesas. Si te ponés a comparar todo, no arrancás nunca. <strong>Mejor estrategia: arrancá con lo que tenés (o con la más usada de tu zona), y si más adelante descubrís algo mejor, migrás</strong>.</p>
+      <p>Lo importante no es elegir la app "perfecta" desde el día uno. Lo importante es <em>tener separada la plata del negocio de la personal, en alguna app que funcione</em>. Eso ya es 80% del beneficio. El 20% restante es optimización que llega con el tiempo.</p>
+      <div class="mirada-inc-cita">
+        "La perfección es enemiga de lo bueno. En la incertidumbre, vale más una decisión imperfecta tomada hoy que una decisión perfecta tomada nunca."
+        <strong>Síntesis de Luna y Gallo (2018), Incremental</strong>
+      </div>
+    </div>
+
+    <div class="editor-tool">
+      <div class="editor-tool-header">
+        <div class="editor-tool-icon">🗂️</div>
+        <h3>Mapa de tus cuentas</h3>
+      </div>
+      <p class="editor-tool-desc">Definí cuáles son las cuentas que vas a usar y para qué. Tener esto claro te ayuda a no mezclar la plata.</p>
+
+      <div class="cuentas-elector">
+        <div class="cuenta-tipo-form">
+          <h4>Cuenta personal</h4>
+          <label for="cta-pers-nombre">¿Cuál usás (o vas a usar)?</label>
+          <input type="text" id="cta-pers-nombre" placeholder="Ej: Banco Nación, Mercado Pago" maxlength="40">
+          <label for="cta-pers-uso">¿Para qué la usás?</label>
+          <input type="text" id="cta-pers-uso" placeholder="Ej: cobrar sueldo, gastos personales" maxlength="60">
+        </div>
+        <div class="cuenta-tipo-form">
+          <h4>Cuenta del negocio</h4>
+          <label for="cta-neg-nombre">¿Cuál vas a usar?</label>
+          <input type="text" id="cta-neg-nombre" placeholder="Ej: Ualá, Mercado Pago" maxlength="40">
+          <label for="cta-neg-uso">¿Para qué la usás?</label>
+          <input type="text" id="cta-neg-uso" placeholder="Ej: cobrar ventas, pagar insumos" maxlength="60">
+        </div>
+      </div>
+
+      <div class="cuentas-elector" style="margin-top: 8px;">
+        <div class="cuenta-tipo-form">
+          <h4>Cuenta de ahorro / colchón</h4>
+          <label for="cta-aho-nombre">¿Dónde guardás lo que no usás?</label>
+          <input type="text" id="cta-aho-nombre" placeholder="Ej: cuenta remunerada Brubank" maxlength="40">
+          <label for="cta-aho-meta">Tu objetivo de colchón</label>
+          <input type="text" id="cta-aho-meta" placeholder="Ej: 3 meses de gastos fijos" maxlength="60">
+        </div>
+        <div class="cuenta-tipo-form" style="background: var(--azul-soft);">
+          <h4 style="color: var(--azul);">💡 Tip</h4>
+          <p style="font-size: 13.5px; color: var(--tinta); line-height: 1.6; margin: 0;">
+            No pasa nada si recién estás definiéndolo. Lo importante es <strong>tener al menos dos cuentas separadas</strong>: una para tu plata personal y otra para el negocio. La tercera (la de colchón que rinde) la sumás más adelante.
+          </p>
+        </div>
+      </div>
+
+      <div class="preview-cuentas">
+        <div class="preview-cuentas-label">Tu mapa de cuentas</div>
+        <div class="preview-cuentas-card" id="preview-cuentas-card">
+          <div class="preview-vacio-cuentas">A medida que cargués, tu mapa de cuentas va a aparecer acá.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mirada">
+      <span class="mirada-label">Para cerrar el módulo</span>
+      <h3>Tener las cuentas claras es tener la cabeza clara</h3>
+      <p>Cuando sabés exactamente dónde está tu plata y para qué la usás, las decisiones financieras se vuelven mucho más fáciles. No es que tengas más plata: es que la administrás con más conciencia. En el próximo módulo vamos a hablar del crédito: cuándo conviene endeudarse, cómo funcionan las tasas, y cómo evitar el sobreendeudamiento.</p>
+    </div>
+
+  </div>
+</section>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <a href="modulo-02.html" class="prev">
+      <span class="label">← Anterior</span>
+      <span class="title">02 · Presupuesto</span>
+    </a>
+    <a href="modulo-04.html" class="next">
+      <span class="label">Siguiente →</span>
+      <span class="title">04 · Crédito y endeudamiento</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>EPJA N° 753</h4>
+        <p>Escuela para Jóvenes y Adultos N° 753, Rawson, Chubut. Curso "Finanzas para emprendedores" · Prof. Carina Luna · Ciclo lectivo 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos</h5>
+        <ul>
+          <li><a href="modulo-01.html">01 · ¿Para qué sirven las finanzas?</a></li>
+          <li><a href="modulo-02.html">02 · Presupuesto</a></li>
+          <li><a href="modulo-03.html">03 · Cuentas y billeteras</a></li>
+          <li><a href="modulo-04.html">04 · Crédito</a></li>
+          <li><a href="modulo-05.html">05 · Estafas</a></li>
+          <li><a href="modulo-06.html">06 · Primeros pasos en inversiones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Cierre</h5>
+        <ul>
+          <li><a href="evaluacion.html">Autoevaluación</a></li>
+          <li><a href="../index.html">Volver al portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Material educativo de uso libre · 2026</span>
+      <span>Diseñado con asistencia de IA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../comun.js"></script>
+<script>
+var FIN_KEY = 'epja753_fin_datos';
+
+function leerFin() {
+  try { return JSON.parse(localStorage.getItem(FIN_KEY)) || {}; } catch (e) { return {}; }
+}
+function guardarFin(d) {
+  try { localStorage.setItem(FIN_KEY, JSON.stringify(d)); } catch (e) {}
+}
+
+function getCuentas() {
+  return {
+    ctaPersNombre: document.getElementById('cta-pers-nombre').value.trim(),
+    ctaPersUso: document.getElementById('cta-pers-uso').value.trim(),
+    ctaNegNombre: document.getElementById('cta-neg-nombre').value.trim(),
+    ctaNegUso: document.getElementById('cta-neg-uso').value.trim(),
+    ctaAhoNombre: document.getElementById('cta-aho-nombre').value.trim(),
+    ctaAhoMeta: document.getElementById('cta-aho-meta').value.trim()
+  };
+}
+
+function setCuentas(d) {
+  if (d.ctaPersNombre) document.getElementById('cta-pers-nombre').value = d.ctaPersNombre;
+  if (d.ctaPersUso) document.getElementById('cta-pers-uso').value = d.ctaPersUso;
+  if (d.ctaNegNombre) document.getElementById('cta-neg-nombre').value = d.ctaNegNombre;
+  if (d.ctaNegUso) document.getElementById('cta-neg-uso').value = d.ctaNegUso;
+  if (d.ctaAhoNombre) document.getElementById('cta-aho-nombre').value = d.ctaAhoNombre;
+  if (d.ctaAhoMeta) document.getElementById('cta-aho-meta').value = d.ctaAhoMeta;
+}
+
+function actualizarPreview() {
+  var d = getCuentas();
+  var preview = document.getElementById('preview-cuentas-card');
+  var algoCargado = d.ctaPersNombre || d.ctaNegNombre || d.ctaAhoNombre;
+  
+  if (!algoCargado) {
+    preview.innerHTML = '<div class="preview-vacio-cuentas">A medida que cargués, tu mapa de cuentas va a aparecer acá.</div>';
+    return;
+  }
+  
+  var html = '';
+  if (d.ctaPersNombre) {
+    html += '<div class="preview-cuenta-item">👤 <strong>Personal:</strong> ' + d.ctaPersNombre;
+    if (d.ctaPersUso) html += ' · <em style="color:var(--gris-4);">' + d.ctaPersUso + '</em>';
+    html += '</div>';
+  }
+  if (d.ctaNegNombre) {
+    html += '<div class="preview-cuenta-item">🏪 <strong>Negocio:</strong> ' + d.ctaNegNombre;
+    if (d.ctaNegUso) html += ' · <em style="color:var(--gris-4);">' + d.ctaNegUso + '</em>';
+    html += '</div>';
+  }
+  if (d.ctaAhoNombre) {
+    html += '<div class="preview-cuenta-item">💸 <strong>Ahorro:</strong> ' + d.ctaAhoNombre;
+    if (d.ctaAhoMeta) html += ' · <em style="color:var(--gris-4);">Meta: ' + d.ctaAhoMeta + '</em>';
+    html += '</div>';
+  }
+  
+  preview.innerHTML = html;
+}
+
+function guardar() {
+  var datos = leerFin();
+  Object.assign(datos, getCuentas());
+  guardarFin(datos);
+  actualizarPreview();
+}
+
+['cta-pers-nombre','cta-pers-uso','cta-neg-nombre','cta-neg-uso','cta-aho-nombre','cta-aho-meta'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', guardar);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var datos = leerFin();
+  setCuentas(datos);
+  actualizarPreview();
+  
+  // Banner puerta
+  var puerta;
+  try { puerta = localStorage.getItem('epja753_fin_puerta'); } catch (e) {}
+  var banner = document.getElementById('mode-banner');
+  if (banner && puerta) {
+    if (puerta === 'arranco') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Recién empiezo</strong></span><span style="opacity:0.8;">Ejemplos con montos pequeños y foco en hábitos básicos</span></div>';
+      banner.style.display = 'block';
+    } else if (puerta === 'andando') {
+      banner.innerHTML = '<div class="mode-banner-inner"><span>Tu enfoque: <strong>Negocio andando</strong></span><span style="opacity:0.8;">Ejemplos con números reales y foco en optimización</span></div>';
+      banner.style.display = 'block';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
