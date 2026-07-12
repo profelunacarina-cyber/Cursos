@@ -99,7 +99,11 @@
       .map-layout { grid-template-columns: 1fr; height: auto; }
       #map { height: 60vw; min-height: 280px; border-radius: var(--radius) var(--radius) 0 0; }
       .org-list { border-left: 1px solid var(--clr-border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); max-height: 300px; }
-      .nav-links li:not(:last-child):not(.sep) { display: none; }
+      /* Nav: se acomoda en varias líneas en vez de ocultar links */
+      nav { height: auto; flex-wrap: wrap; padding: 10px 16px; gap: 8px 14px; }
+      .nav-links { flex-wrap: wrap; gap: 6px 14px; }
+      .nav-links .sep { display: none; }
+      .nav-brand span { display: none; }
     }
   </style>
 </head>
