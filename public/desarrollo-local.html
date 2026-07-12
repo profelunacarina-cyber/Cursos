@@ -171,10 +171,10 @@
 
     /* ── Responsive ── */
     @media (max-width: 680px) {
-      /* Nav: ocultar links, mostrar solo brand y CTA */
-      .nav-links li:not(:last-child):not(.nav-sep) { display: none; }
+      /* Nav: se acomoda en varias líneas en vez de ocultar links */
+      nav { height: auto; flex-wrap: wrap; padding: 10px 16px; gap: 8px 14px; }
+      .nav-links { flex-wrap: wrap; gap: 6px 14px; }
       .nav-links .nav-sep { display: none; }
-      nav { padding: 0 16px; gap: 10px; }
       .nav-brand span { display: none; }
 
       /* Hero más compacto */
