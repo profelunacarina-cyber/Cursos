@@ -33,7 +33,7 @@
     .editor-int { padding: 26px; display: flex; flex-direction: column; gap: 14px; }
     .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 520px) { .dos-columnas { grid-template-columns: 1fr; } }
-    .resumen-grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .resumen-grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; }
     .stat { background: var(--crema); border: 1px solid var(--borde-suave); border-radius: 12px; padding: 14px 16px; }
     .stat .valor { font-family: var(--serif); font-weight: 700; font-size: 26px; color: var(--tinta); }
     .stat .rotulo { font-size: 12.5px; color: var(--musgo); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
@@ -65,6 +65,32 @@
     .editor-rico h3 { font-family: var(--serif); font-size: 17px; color: var(--verde); margin: 12px 0 4px; }
     .editor-rico p { margin: 0 0 8px; }
     .editor-rico ul { margin: 0 0 8px; padding-left: 22px; }
+
+    /* ── Panel en mobile ── */
+    @media (max-width: 680px) {
+      /* Pestañas a todo el ancho, repartidas y con texto más chico para que entren las 3 */
+      .tabs-admin { width: 100%; gap: 4px; padding: 4px; }
+      .tabs-admin .tab { flex: 1; padding: 9px 6px; font-size: 12.5px; text-align: center; }
+
+      /* Filas de cursos/módulos/organizaciones: el título ocupa una línea y los
+         botones (editar, eliminar, reordenar) bajan y se acomodan abajo */
+      .fila-curso { flex-wrap: wrap; gap: 8px; padding: 12px; }
+      .fila-curso .titulo-fila { flex: 1 1 100%; }
+      .fila-curso .boton-fantasma,
+      .fila-curso .boton-peligro { flex: 1 1 auto; text-align: center; }
+
+      /* Encabezados de sección: el botón "Agregar" a lo ancho */
+      .grupo-cab .boton-verde { flex: 1 1 100%; }
+
+      /* Editor de curso/módulo a pantalla casi completa y con scroll interno */
+      dialog.editor { width: calc(100vw - 16px) !important; max-height: calc(100vh - 24px); }
+      .editor-int { padding: 20px 18px; }
+      .barra-formato { position: sticky; top: 0; z-index: 1; }
+      .editor-rico { min-height: 150px; }
+
+      /* Filtro + descargar CSV de resultados, a lo ancho */
+      #filtro-curso, #btn-csv { flex: 1 1 100%; }
+    }
   </style>
 </head>
 <body>
