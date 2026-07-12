@@ -15,12 +15,14 @@
     }
     .login-caja { max-width: 420px; margin: clamp(40px, 10vw, 96px) auto; }
     .fila-curso {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       padding: 12px 14px; border: 1px solid var(--borde-suave); border-radius: 12px;
       background: var(--crema);
     }
-    .fila-curso .titulo-fila { flex: 1; font-weight: 600; color: var(--tinta); min-width: 0; }
+    .fila-info { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; flex-wrap: wrap; }
+    .fila-curso .titulo-fila { flex: 1; font-weight: 600; color: var(--tinta); min-width: 130px; }
     .fila-curso .titulo-fila small { display: block; font-weight: 400; color: var(--musgo); font-size: 12.5px; }
+    .fila-acciones { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .grupo-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .tabs-admin { display: flex; gap: 8px; background: var(--pergamino); padding: 6px; border-radius: 999px; width: fit-content; }
     .tabs-admin .tab { color: var(--texto-suave); padding: 10px 20px; font-size: 14.5px; }
@@ -72,12 +74,11 @@
       .tabs-admin { width: 100%; gap: 4px; padding: 4px; }
       .tabs-admin .tab { flex: 1; padding: 9px 6px; font-size: 12.5px; text-align: center; }
 
-      /* Filas de cursos/módulos/organizaciones: el título ocupa una línea y los
-         botones (editar, eliminar, reordenar) bajan y se acomodan abajo */
-      .fila-curso { flex-wrap: wrap; gap: 8px; padding: 12px; }
-      .fila-curso .titulo-fila { flex: 1 1 100%; }
-      .fila-curso .boton-fantasma,
-      .fila-curso .boton-peligro { flex: 1 1 auto; text-align: center; }
+      /* Filas como tarjeta: info arriba (título + estado), acciones abajo a la derecha */
+      .fila-curso { flex-direction: column; align-items: stretch; gap: 10px; padding: 14px; }
+      .fila-info { width: 100%; }
+      .fila-curso .titulo-fila { flex: 1 1 100%; min-width: 0; }
+      .fila-acciones { width: 100%; justify-content: flex-end; }
 
       /* Encabezados de sección: el botón "Agregar" a lo ancho */
       .grupo-cab .boton-verde { flex: 1 1 100%; }
@@ -525,13 +526,17 @@
           var cursos = estado.grupos[seccion.clave] || [];
           var filas = cursos.map(function (curso, i) {
             return '<div class="fila-curso" data-id="' + curso.id + '">' +
-              '<button class="boton-icono js-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
-              '<button class="boton-icono js-bajar" title="Bajar"' + (i === cursos.length - 1 ? ' disabled' : '') + '>↓</button>' +
-              '<span class="titulo-fila">' + esc(curso.titulo) +
-                '<small>' + esc(curso.etiqueta || '—') + '</small></span>' +
-              '<span class="badge ' + CLASE_ESTADO[curso.estado] + '">' + esc(curso.insignia || NOMBRE_ESTADO[curso.estado]) + '</span>' +
-              '<button class="boton-fantasma js-editar">Editar</button>' +
-              '<button class="boton-peligro js-borrar">Eliminar</button>' +
+              '<div class="fila-info">' +
+                '<span class="titulo-fila">' + esc(curso.titulo) +
+                  '<small>' + esc(curso.etiqueta || '—') + '</small></span>' +
+                '<span class="badge ' + CLASE_ESTADO[curso.estado] + '">' + esc(curso.insignia || NOMBRE_ESTADO[curso.estado]) + '</span>' +
+              '</div>' +
+              '<div class="fila-acciones">' +
+                '<button class="boton-icono js-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+                '<button class="boton-icono js-bajar" title="Bajar"' + (i === cursos.length - 1 ? ' disabled' : '') + '>↓</button>' +
+                '<button class="boton-fantasma js-editar">Editar</button>' +
+                '<button class="boton-peligro js-borrar">Eliminar</button>' +
+              '</div>' +
             '</div>';
           }).join('');
           return '<div class="panel-caja" data-seccion="' + seccion.clave + '">' +
@@ -701,12 +706,16 @@
         }
         cont.innerHTML = estado.modulos.map(function (m, i) {
           return '<div class="fila-curso" data-id="' + m.id + '">' +
-            '<button type="button" class="boton-icono js-mod-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
-            '<button type="button" class="boton-icono js-mod-bajar" title="Bajar"' + (i === estado.modulos.length - 1 ? ' disabled' : '') + '>↓</button>' +
-            '<span class="titulo-fila">' + esc(m.titulo) +
-              '<small>' + (m.palabras || 0) + ' palabras · ~' + Math.max(1, Math.ceil((m.palabras || 0) / 200)) + ' min de lectura</small></span>' +
-            '<button type="button" class="boton-fantasma js-mod-editar">Editar</button>' +
-            '<button type="button" class="boton-peligro js-mod-borrar">Eliminar</button>' +
+            '<div class="fila-info">' +
+              '<span class="titulo-fila">' + esc(m.titulo) +
+                '<small>' + (m.palabras || 0) + ' palabras · ~' + Math.max(1, Math.ceil((m.palabras || 0) / 200)) + ' min de lectura</small></span>' +
+            '</div>' +
+            '<div class="fila-acciones">' +
+              '<button type="button" class="boton-icono js-mod-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+              '<button type="button" class="boton-icono js-mod-bajar" title="Bajar"' + (i === estado.modulos.length - 1 ? ' disabled' : '') + '>↓</button>' +
+              '<button type="button" class="boton-fantasma js-mod-editar">Editar</button>' +
+              '<button type="button" class="boton-peligro js-mod-borrar">Eliminar</button>' +
+            '</div>' +
           '</div>';
         }).join('');
       }
@@ -900,12 +909,16 @@
           var avisoUbic = (org.aprobado && !ubicada)
             ? '<span class="badge badge-ext" title="No aparece en el mapa hasta cargar lat/lng">Sin ubicación</span>' : '';
           return '<div class="fila-curso" data-id="' + org.id + '">' +
-            '<span class="titulo-fila">' + esc(org.nombre) +
-              '<small>' + esc(NOMBRE_TIPO_ORG[org.tipo] || org.tipo) +
-                (org.localidad ? ' · ' + esc(org.localidad) : '') + '</small></span>' +
-            estadoBadge + avisoUbic +
-            '<button class="boton-fantasma js-editar-org">Editar</button>' +
-            '<button class="boton-peligro js-borrar-org">Eliminar</button>' +
+            '<div class="fila-info">' +
+              '<span class="titulo-fila">' + esc(org.nombre) +
+                '<small>' + esc(NOMBRE_TIPO_ORG[org.tipo] || org.tipo) +
+                  (org.localidad ? ' · ' + esc(org.localidad) : '') + '</small></span>' +
+              estadoBadge + avisoUbic +
+            '</div>' +
+            '<div class="fila-acciones">' +
+              '<button class="boton-fantasma js-editar-org">Editar</button>' +
+              '<button class="boton-peligro js-borrar-org">Eliminar</button>' +
+            '</div>' +
           '</div>';
         }).join('');
       }
