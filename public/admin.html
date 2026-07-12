@@ -15,12 +15,14 @@
     }
     .login-caja { max-width: 420px; margin: clamp(40px, 10vw, 96px) auto; }
     .fila-curso {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       padding: 12px 14px; border: 1px solid var(--borde-suave); border-radius: 12px;
       background: var(--crema);
     }
-    .fila-curso .titulo-fila { flex: 1; font-weight: 600; color: var(--tinta); min-width: 0; }
+    .fila-info { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; flex-wrap: wrap; }
+    .fila-curso .titulo-fila { flex: 1; font-weight: 600; color: var(--tinta); min-width: 130px; }
     .fila-curso .titulo-fila small { display: block; font-weight: 400; color: var(--musgo); font-size: 12.5px; }
+    .fila-acciones { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .grupo-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .tabs-admin { display: flex; gap: 8px; background: var(--pergamino); padding: 6px; border-radius: 999px; width: fit-content; }
     .tabs-admin .tab { color: var(--texto-suave); padding: 10px 20px; font-size: 14.5px; }
@@ -33,7 +35,7 @@
     .editor-int { padding: 26px; display: flex; flex-direction: column; gap: 14px; }
     .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 520px) { .dos-columnas { grid-template-columns: 1fr; } }
-    .resumen-grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .resumen-grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; }
     .stat { background: var(--crema); border: 1px solid var(--borde-suave); border-radius: 12px; padding: 14px 16px; }
     .stat .valor { font-family: var(--serif); font-weight: 700; font-size: 26px; color: var(--tinta); }
     .stat .rotulo { font-size: 12.5px; color: var(--musgo); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
@@ -65,6 +67,31 @@
     .editor-rico h3 { font-family: var(--serif); font-size: 17px; color: var(--verde); margin: 12px 0 4px; }
     .editor-rico p { margin: 0 0 8px; }
     .editor-rico ul { margin: 0 0 8px; padding-left: 22px; }
+
+    /* ── Panel en mobile ── */
+    @media (max-width: 680px) {
+      /* Pestañas a todo el ancho, repartidas y con texto más chico para que entren las 3 */
+      .tabs-admin { width: 100%; gap: 4px; padding: 4px; }
+      .tabs-admin .tab { flex: 1; padding: 9px 6px; font-size: 12.5px; text-align: center; }
+
+      /* Filas como tarjeta: info arriba (título + estado), acciones abajo a la derecha */
+      .fila-curso { flex-direction: column; align-items: stretch; gap: 10px; padding: 14px; }
+      .fila-info { width: 100%; }
+      .fila-curso .titulo-fila { flex: 1 1 100%; min-width: 0; }
+      .fila-acciones { width: 100%; justify-content: flex-end; }
+
+      /* Encabezados de sección: el botón "Agregar" a lo ancho */
+      .grupo-cab .boton-verde { flex: 1 1 100%; }
+
+      /* Editor de curso/módulo a pantalla casi completa y con scroll interno */
+      dialog.editor { width: calc(100vw - 16px) !important; max-height: calc(100vh - 24px); }
+      .editor-int { padding: 20px 18px; }
+      .barra-formato { position: sticky; top: 0; z-index: 1; }
+      .editor-rico { min-height: 150px; }
+
+      /* Filtro + descargar CSV de resultados, a lo ancho */
+      #filtro-curso, #btn-csv { flex: 1 1 100%; }
+    }
   </style>
 </head>
 <body>
@@ -499,13 +526,17 @@
           var cursos = estado.grupos[seccion.clave] || [];
           var filas = cursos.map(function (curso, i) {
             return '<div class="fila-curso" data-id="' + curso.id + '">' +
-              '<button class="boton-icono js-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
-              '<button class="boton-icono js-bajar" title="Bajar"' + (i === cursos.length - 1 ? ' disabled' : '') + '>↓</button>' +
-              '<span class="titulo-fila">' + esc(curso.titulo) +
-                '<small>' + esc(curso.etiqueta || '—') + '</small></span>' +
-              '<span class="badge ' + CLASE_ESTADO[curso.estado] + '">' + esc(curso.insignia || NOMBRE_ESTADO[curso.estado]) + '</span>' +
-              '<button class="boton-fantasma js-editar">Editar</button>' +
-              '<button class="boton-peligro js-borrar">Eliminar</button>' +
+              '<div class="fila-info">' +
+                '<span class="titulo-fila">' + esc(curso.titulo) +
+                  '<small>' + esc(curso.etiqueta || '—') + '</small></span>' +
+                '<span class="badge ' + CLASE_ESTADO[curso.estado] + '">' + esc(curso.insignia || NOMBRE_ESTADO[curso.estado]) + '</span>' +
+              '</div>' +
+              '<div class="fila-acciones">' +
+                '<button class="boton-icono js-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+                '<button class="boton-icono js-bajar" title="Bajar"' + (i === cursos.length - 1 ? ' disabled' : '') + '>↓</button>' +
+                '<button class="boton-fantasma js-editar">Editar</button>' +
+                '<button class="boton-peligro js-borrar">Eliminar</button>' +
+              '</div>' +
             '</div>';
           }).join('');
           return '<div class="panel-caja" data-seccion="' + seccion.clave + '">' +
@@ -675,12 +706,16 @@
         }
         cont.innerHTML = estado.modulos.map(function (m, i) {
           return '<div class="fila-curso" data-id="' + m.id + '">' +
-            '<button type="button" class="boton-icono js-mod-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
-            '<button type="button" class="boton-icono js-mod-bajar" title="Bajar"' + (i === estado.modulos.length - 1 ? ' disabled' : '') + '>↓</button>' +
-            '<span class="titulo-fila">' + esc(m.titulo) +
-              '<small>' + (m.palabras || 0) + ' palabras · ~' + Math.max(1, Math.ceil((m.palabras || 0) / 200)) + ' min de lectura</small></span>' +
-            '<button type="button" class="boton-fantasma js-mod-editar">Editar</button>' +
-            '<button type="button" class="boton-peligro js-mod-borrar">Eliminar</button>' +
+            '<div class="fila-info">' +
+              '<span class="titulo-fila">' + esc(m.titulo) +
+                '<small>' + (m.palabras || 0) + ' palabras · ~' + Math.max(1, Math.ceil((m.palabras || 0) / 200)) + ' min de lectura</small></span>' +
+            '</div>' +
+            '<div class="fila-acciones">' +
+              '<button type="button" class="boton-icono js-mod-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+              '<button type="button" class="boton-icono js-mod-bajar" title="Bajar"' + (i === estado.modulos.length - 1 ? ' disabled' : '') + '>↓</button>' +
+              '<button type="button" class="boton-fantasma js-mod-editar">Editar</button>' +
+              '<button type="button" class="boton-peligro js-mod-borrar">Eliminar</button>' +
+            '</div>' +
           '</div>';
         }).join('');
       }
@@ -874,12 +909,16 @@
           var avisoUbic = (org.aprobado && !ubicada)
             ? '<span class="badge badge-ext" title="No aparece en el mapa hasta cargar lat/lng">Sin ubicación</span>' : '';
           return '<div class="fila-curso" data-id="' + org.id + '">' +
-            '<span class="titulo-fila">' + esc(org.nombre) +
-              '<small>' + esc(NOMBRE_TIPO_ORG[org.tipo] || org.tipo) +
-                (org.localidad ? ' · ' + esc(org.localidad) : '') + '</small></span>' +
-            estadoBadge + avisoUbic +
-            '<button class="boton-fantasma js-editar-org">Editar</button>' +
-            '<button class="boton-peligro js-borrar-org">Eliminar</button>' +
+            '<div class="fila-info">' +
+              '<span class="titulo-fila">' + esc(org.nombre) +
+                '<small>' + esc(NOMBRE_TIPO_ORG[org.tipo] || org.tipo) +
+                  (org.localidad ? ' · ' + esc(org.localidad) : '') + '</small></span>' +
+              estadoBadge + avisoUbic +
+            '</div>' +
+            '<div class="fila-acciones">' +
+              '<button class="boton-fantasma js-editar-org">Editar</button>' +
+              '<button class="boton-peligro js-borrar-org">Eliminar</button>' +
+            '</div>' +
           '</div>';
         }).join('');
       }
