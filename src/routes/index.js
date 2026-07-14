@@ -41,7 +41,8 @@ const esquemaOrg = {
   localidad:   { tipo: 'texto', max: 80 },
   descripcion: { tipo: 'texto', max: 800 },
   contacto:    { tipo: 'texto', max: 300 },
-  tags:        { tipo: 'lista' }
+  tags:        { tipo: 'lista' },
+  rooms:       { tipo: 'lista' }
 };
 
 const esquemaLogin = {
