@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mapa · Organizaciones · Chubut · Prof. Carina Luna</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2/dist/tabler-icons.min.css" />
   <style>
     /* Paleta del sistema de diseño de profeluna.ar (ver tema.css) */
     @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Instrument+Sans:wght@400;500;600;700&display=swap');
@@ -95,7 +96,37 @@
     footer { border-top: 1px solid var(--clr-border); padding: 14px 24px; text-align: center; }
     footer p { font-size: 12px; color: var(--clr-muted); }
 
+    /* ── Visita guiada ── */
+    .popup-visita { display:inline-block; margin-top:4px; background:#2E5638; color:#F0EFE2; border:none; border-radius:999px; padding:8px 16px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; }
+    .popup-visita:hover { background:#1E3A28; }
+    .visita { max-width: 640px; margin: 24px auto 40px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 18px; padding: clamp(24px, 4vw, 40px); position: relative; }
+    .visita-cerrar { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-muted); cursor: pointer; font-size: 16px; }
+    .visita-cerrar:hover { color: var(--clr-coral); border-color: var(--clr-coral); }
+    .visita-path { display: flex; gap: 6px; justify-content: center; margin-bottom: 22px; }
+    .visita-path span { width: 26px; height: 5px; border-radius: 999px; background: #E0DDCB; transition: background .2s; }
+    .visita-path span.done { background: #2E5638; }
+    .room { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+    .room-icon { width: 64px; height: 64px; border-radius: 50%; background: #E9EFE3; color: #2E5638; display: grid; place-items: center; font-size: 30px; margin-bottom: 6px; }
+    .room-title { font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(20px, 3vw, 26px); color: #1F2E22; }
+    .room-sub { font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--clr-coral); }
+    .room-body { font-size: 16.5px; line-height: 1.7; color: var(--clr-muted); max-width: 480px; margin: 8px 0; }
+    .quiz-question { font-size: 17px; font-weight: 600; color: #1F2E22; margin: 10px 0 6px; max-width: 480px; }
+    .quiz-options { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 440px; margin: 6px 0; }
+    .quiz-opt { background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: 12px; padding: 12px 16px; font-size: 15px; color: var(--clr-text); cursor: pointer; font-family: inherit; text-align: left; transition: all .15s; }
+    .quiz-opt:hover:not(:disabled) { border-color: #2E5638; }
+    .quiz-opt.ok { background: #E9EFE3; border-color: #2E5638; color: #2E5638; font-weight: 600; }
+    .quiz-opt.mal { background: #F9E8DE; border-color: #B05C33; color: #8C3D1B; }
+    .quiz-feedback { display: none; font-size: 15px; line-height: 1.55; max-width: 460px; margin: 10px 0 0; padding: 12px 16px; border-radius: 12px; }
+    .quiz-feedback.correct { display: block; background: #E9EFE3; color: #2E5638; }
+    .quiz-feedback.wrong { display: block; background: #F9E8DE; color: #8C3D1B; }
+    .room-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+    .visita .nav { background: #2E5638; color: #F0EFE2; border: none; border-radius: 999px; padding: 12px 26px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .visita .nav:hover { background: #1E3A28; }
+    .visita .nav:disabled { opacity: .45; cursor: default; }
+    .visita .nav.secondary { background: transparent; color: #2E5638; border: 1px solid var(--clr-border); }
+
     @media (max-width: 768px) {
+      .visita { margin: 16px 12px 28px; }
       .map-layout { grid-template-columns: 1fr; height: auto; }
       #map { height: 60vw; min-height: 280px; border-radius: var(--radius) var(--radius) 0 0; }
       .org-list { border-left: 1px solid var(--clr-border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); max-height: 300px; }
@@ -161,6 +192,13 @@
     <div class="org-list-header">Lista</div>
     <div id="lista"></div>
   </div>
+</div>
+
+<!-- Panel de la visita guiada (se muestra al iniciar una visita desde un pin) -->
+<div id="visita" class="visita" style="display:none;">
+  <button id="btn-cerrar-visita" class="visita-cerrar" aria-label="Cerrar la visita">✕</button>
+  <div class="visita-path" id="visita-path"></div>
+  <div id="visita-stage"></div>
 </div>
 
 <footer>
@@ -251,6 +289,7 @@ function renderMarcadores(datos) {
         <div class="popup-loc">📍 ${org.localidad}</div>
         <div class="popup-desc">${org.descripcion}</div>
         <div class="popup-tags">${tags}</div>
+        ${(org.rooms && org.rooms.length) ? `<button class="popup-visita" onclick="abrirVisita('${org.id}')">▶ Comenzar visita guiada</button>` : ''}
         ${org.contacto ? `<a class="popup-link" href="${org.contacto}" target="_blank">Ver más →</a>` : ''}
       </div>
     `, { maxWidth: 280 });
@@ -303,6 +342,86 @@ function resetFiltros() {
   document.getElementById('filtro-zona').value = '';
   document.getElementById('filtro-tipo').value = '';
   filtrar();
+}
+
+// ═══════════════════════════════════════
+// VISITA GUIADA (recorrido inmersivo)
+// ═══════════════════════════════════════
+function escVisita(t) { const d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
+
+let visitaOrg = null, visitaIdx = 0, visitaResp = false;
+
+// Global (la llama el onclick del popup): abre el recorrido de una organización.
+function abrirVisita(id) {
+  const org = todosLosDatos.find(o => String(o.id) === String(id));
+  if (!org || !org.rooms || !org.rooms.length) return;
+  visitaOrg = org; visitaIdx = 0; visitaResp = false;
+  map.closePopup();
+  const panel = document.getElementById('visita');
+  panel.style.display = 'block';
+  renderRoom();
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function cerrarVisita() { document.getElementById('visita').style.display = 'none'; visitaOrg = null; }
+document.getElementById('btn-cerrar-visita').addEventListener('click', cerrarVisita);
+
+function renderVisitaPath() {
+  document.getElementById('visita-path').innerHTML = visitaOrg.rooms
+    .map((_, i) => '<span class="' + (i <= visitaIdx ? 'done' : '') + '"></span>').join('');
+}
+
+function renderRoom() {
+  const rooms = visitaOrg.rooms;
+  if (visitaIdx >= rooms.length) return cerrarVisita();
+  renderVisitaPath();
+  const room = rooms[visitaIdx];
+  const icon = /^ti-[a-z0-9-]+$/.test(room.icon || '') ? room.icon : 'ti-message-2';
+
+  let html = '<div class="room">';
+  html += '<div class="room-icon"><i class="ti ' + icon + '" aria-hidden="true"></i></div>';
+  if (room.subtitulo) html += '<p class="room-sub">' + escVisita(room.subtitulo) + '</p>';
+  html += '<p class="room-title">' + escVisita(room.titulo || '') + '</p>';
+
+  if (room.tipo === 'quiz') {
+    html += '<p class="quiz-question">' + escVisita(room.pregunta) + '</p>';
+    html += '<div class="quiz-options">';
+    room.opciones.forEach((op, oi) => { html += '<button class="quiz-opt" data-oi="' + oi + '">' + escVisita(op.texto) + '</button>'; });
+    html += '</div><div class="quiz-feedback" id="quiz-feedback"></div>';
+  } else {
+    html += '<p class="room-body">' + escVisita(room.cuerpo || '') + '</p>';
+  }
+
+  html += '<div class="room-actions">';
+  if (room.tipo === 'cierre') html += '<button class="nav secondary" id="btn-otra">Cerrar</button>';
+  else html += '<button class="nav" id="btn-sig"' + (room.tipo === 'quiz' ? ' disabled' : '') + '>' + escVisita(room.cta || 'Continuar') + '</button>';
+  html += '</div></div>';
+
+  const stage = document.getElementById('visita-stage');
+  stage.innerHTML = html;
+
+  if (room.tipo === 'quiz') {
+    const opts = stage.querySelectorAll('.quiz-opt');
+    opts.forEach(btn => btn.addEventListener('click', () => {
+      if (visitaResp) return;
+      visitaResp = true;
+      const op = room.opciones[Number(btn.dataset.oi)];
+      opts.forEach(b => b.disabled = true);
+      btn.classList.add(op.correcta ? 'ok' : 'mal');
+      if (!op.correcta) {
+        const okIdx = room.opciones.findIndex(o => o.correcta);
+        if (okIdx >= 0 && opts[okIdx]) opts[okIdx].classList.add('ok');
+      }
+      const fb = document.getElementById('quiz-feedback');
+      fb.className = 'quiz-feedback ' + (op.correcta ? 'correct' : 'wrong');
+      fb.textContent = op.correcta ? (room.feedbackCorrecta || '¡Correcto!') : (room.feedbackIncorrecta || 'No era esa.');
+      document.getElementById('btn-sig').removeAttribute('disabled');
+    }));
+  }
+
+  const sig = document.getElementById('btn-sig');
+  if (sig) sig.addEventListener('click', () => { visitaIdx++; visitaResp = false; renderRoom(); });
+  const otra = document.getElementById('btn-otra');
+  if (otra) otra.addEventListener('click', cerrarVisita);
 }
 
 document.getElementById('filtro-zona').addEventListener('change', filtrar);

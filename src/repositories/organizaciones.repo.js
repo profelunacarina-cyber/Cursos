@@ -16,12 +16,13 @@ function aOrg(fila) {
     contacto: fila.contacto,
     aprobado: fila.aprobado,
     destacado: fila.destacado,
+    rooms: fila.rooms,
     orden: fila.orden
   };
 }
 
 const CAMPOS = `id, nombre, tipo, zona, localidad, descripcion, tags,
-                lat, lng, contacto, aprobado, destacado, orden`;
+                lat, lng, contacto, aprobado, destacado, rooms, orden`;
 
 export const organizacionesRepo = {
   // soloAprobadas = true para el sitio público (mapa y vitrina).
@@ -43,12 +44,12 @@ export const organizacionesRepo = {
   async crear(o) {
     const { rows } = await getPool().query(
       `INSERT INTO organizaciones (nombre, tipo, zona, localidad, descripcion, tags,
-                                   lat, lng, contacto, aprobado, destacado, orden)
-       VALUES ($1, $2, $3, $4, $5, $6::jsonb, $7, $8, $9, $10, $11,
+                                   lat, lng, contacto, aprobado, destacado, rooms, orden)
+       VALUES ($1, $2, $3, $4, $5, $6::jsonb, $7, $8, $9, $10, $11, $12::jsonb,
                COALESCE((SELECT MAX(orden) + 1 FROM organizaciones), 1))
        RETURNING ${CAMPOS}`,
       [o.nombre, o.tipo, o.zona, o.localidad, o.descripcion, JSON.stringify(o.tags),
-       o.lat, o.lng, o.contacto, o.aprobado, o.destacado]
+       o.lat, o.lng, o.contacto, o.aprobado, o.destacado, JSON.stringify(o.rooms)]
     );
     return aOrg(rows[0]);
   },
@@ -58,11 +59,11 @@ export const organizacionesRepo = {
       `UPDATE organizaciones SET
           nombre = $2, tipo = $3, zona = $4, localidad = $5, descripcion = $6,
           tags = $7::jsonb, lat = $8, lng = $9, contacto = $10,
-          aprobado = $11, destacado = $12, actualizado_en = now()
+          aprobado = $11, destacado = $12, rooms = $13::jsonb, actualizado_en = now()
         WHERE id = $1
        RETURNING ${CAMPOS}`,
       [id, o.nombre, o.tipo, o.zona, o.localidad, o.descripcion, JSON.stringify(o.tags),
-       o.lat, o.lng, o.contacto, o.aprobado, o.destacado]
+       o.lat, o.lng, o.contacto, o.aprobado, o.destacado, JSON.stringify(o.rooms)]
     );
     return rows[0] ? aOrg(rows[0]) : null;
   },

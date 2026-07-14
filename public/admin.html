@@ -383,10 +383,82 @@
           Destacada
         </label>
       </div>
+      <!-- Recorrido guiado (visita virtual del mapa) -->
+      <div style="border-top:1px solid var(--borde-suave);padding-top:16px;display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <h4 style="margin:0;font-family:var(--serif);font-size:18px;color:var(--tinta);">Recorrido guiado <span class="pista">(opcional)</span></h4>
+          <p class="pista" style="margin-top:2px;">La visita virtual que se abre al tocar el pin en el mapa. Orden sugerido: Bienvenida → 2-3 Relatos → Pregunta → Cierre.</p>
+        </div>
+        <div id="lista-rooms" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="boton-fantasma js-add-room" data-tipo="portal">＋ Bienvenida</button>
+          <button type="button" class="boton-fantasma js-add-room" data-tipo="narrativa">＋ Relato</button>
+          <button type="button" class="boton-fantasma js-add-room" data-tipo="quiz">＋ Pregunta</button>
+          <button type="button" class="boton-fantasma js-add-room" data-tipo="cierre">＋ Cierre</button>
+        </div>
+      </div>
+
       <div id="editor-org-error" class="aviso error oculto"></div>
       <div style="display:flex;gap:10px;justify-content:flex-end;">
         <button type="button" class="boton-fantasma" id="btn-cancelar-org">Cancelar</button>
         <button type="submit" class="boton-verde" id="btn-guardar-org">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ── Editor de un paso del recorrido (modal anidado) ── -->
+  <dialog id="editor-room" class="editor">
+    <form id="form-room" class="editor-int" method="dialog">
+      <h3 class="titulo-bloque" style="font-size:20px;" id="editor-room-titulo">Paso del recorrido</h3>
+      <div class="dos-columnas">
+        <div class="campo">
+          <label for="r-titulo">Título</label>
+          <input id="r-titulo" maxlength="120" placeholder="La llegada" />
+        </div>
+        <div class="campo">
+          <label for="r-subtitulo">Subtítulo <span class="pista">(opcional)</span></label>
+          <input id="r-subtitulo" maxlength="160" placeholder="El taller de costura" />
+        </div>
+      </div>
+
+      <!-- Campos de texto (bienvenida / relato / cierre) -->
+      <div id="room-campos-texto">
+        <div class="campo">
+          <label for="r-cuerpo">Texto</label>
+          <textarea id="r-cuerpo" maxlength="900" rows="4" placeholder="Escribí el relato en primera persona, como si alguien de la organización te hablara."></textarea>
+        </div>
+      </div>
+
+      <!-- Campos de pregunta (quiz) -->
+      <div id="room-campos-quiz" class="oculto" style="display:flex;flex-direction:column;gap:12px;">
+        <div class="campo">
+          <label for="r-pregunta">Pregunta</label>
+          <textarea id="r-pregunta" maxlength="400" rows="2" placeholder="¿Cuántos votos tiene cada socia en la asamblea?"></textarea>
+        </div>
+        <div class="campo">
+          <label>Opciones <span class="pista">(marcá la correcta)</span></label>
+          <div id="room-opciones" style="display:flex;flex-direction:column;gap:8px;"></div>
+          <button type="button" class="boton-fantasma" id="btn-add-opcion" style="align-self:flex-start;margin-top:4px;">＋ Opción</button>
+        </div>
+        <div class="campo">
+          <label for="r-fb-ok">Devolución si acierta</label>
+          <textarea id="r-fb-ok" maxlength="400" rows="2"></textarea>
+        </div>
+        <div class="campo">
+          <label for="r-fb-mal">Devolución si se equivoca</label>
+          <textarea id="r-fb-mal" maxlength="400" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="campo" id="room-campo-cta">
+        <label for="r-cta">Texto del botón</label>
+        <input id="r-cta" maxlength="40" placeholder="Seguir el recorrido" />
+      </div>
+
+      <div id="editor-room-error" class="aviso error oculto"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" class="boton-fantasma" id="btn-cancelar-room">Cancelar</button>
+        <button type="submit" class="boton-verde" id="btn-guardar-room">Guardar paso</button>
       </div>
     </form>
   </dialog>
@@ -407,7 +479,10 @@
         editando: null,        // curso en edición, o null si es nuevo
         seccionNueva: 'ruta',
         editandoOrg: null,     // organización en edición, o null si es nueva
-        editandoModulo: null   // módulo en edición, o null si es nuevo
+        editandoModulo: null,  // módulo en edición, o null si es nuevo
+        editandoOrgRooms: [],  // recorrido de la organización que se está editando
+        editandoRoom: null,    // índice del paso en edición, o null si es nuevo
+        roomTipo: null         // tipo del paso que se está editando
       };
 
       var NOMBRE_TIPO_ORG = {
@@ -960,9 +1035,137 @@
         $('o-tags').value = org && org.tags ? org.tags.join(', ') : '';
         $('o-aprobado').checked = org ? Boolean(org.aprobado) : false;
         $('o-destacado').checked = org ? Boolean(org.destacado) : false;
+        // Copia del recorrido para editar en memoria; se guarda junto con la organización.
+        estado.editandoOrgRooms = org && Array.isArray(org.rooms) ? JSON.parse(JSON.stringify(org.rooms)) : [];
+        pintarRooms();
         $('editor-org-error').classList.add('oculto');
         $('editor-org').showModal();
       }
+
+      /* ── Recorrido guiado (pasos de la organización, en memoria) ── */
+      var NOMBRE_ROOM = { portal: 'Bienvenida', narrativa: 'Relato', quiz: 'Pregunta', cierre: 'Cierre' };
+
+      function pintarRooms() {
+        var cont = $('lista-rooms');
+        var rooms = estado.editandoOrgRooms;
+        if (!rooms.length) {
+          cont.innerHTML = '<p class="pista">Sin recorrido. Si no agregás pasos, el pin muestra solo los datos (como antes).</p>';
+          return;
+        }
+        cont.innerHTML = rooms.map(function (r, i) {
+          var resumen = r.tipo === 'quiz' ? (r.pregunta || 'Pregunta') : (r.titulo || NOMBRE_ROOM[r.tipo]);
+          return '<div class="fila-curso" data-i="' + i + '">' +
+            '<div class="fila-info">' +
+              '<span class="titulo-fila">' + esc(r.titulo || NOMBRE_ROOM[r.tipo]) +
+                '<small>' + NOMBRE_ROOM[r.tipo] + ' · ' + esc((resumen || '').slice(0, 50)) + '</small></span>' +
+            '</div>' +
+            '<div class="fila-acciones">' +
+              '<button type="button" class="boton-icono js-room-subir" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+              '<button type="button" class="boton-icono js-room-bajar" title="Bajar"' + (i === rooms.length - 1 ? ' disabled' : '') + '>↓</button>' +
+              '<button type="button" class="boton-fantasma js-room-editar">Editar</button>' +
+              '<button type="button" class="boton-peligro js-room-borrar">Quitar</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+
+      // Botones "＋ Bienvenida/Relato/Pregunta/Cierre"
+      Array.prototype.forEach.call(document.querySelectorAll('.js-add-room'), function (btn) {
+        btn.addEventListener('click', function () { abrirEditorRoom(null, btn.getAttribute('data-tipo')); });
+      });
+
+      $('lista-rooms').addEventListener('click', function (e) {
+        var boton = e.target.closest('button');
+        if (!boton) return;
+        var fila = e.target.closest('[data-i]');
+        var i = Number(fila.getAttribute('data-i'));
+        var rooms = estado.editandoOrgRooms;
+        if (boton.classList.contains('js-room-editar')) return abrirEditorRoom(rooms[i], rooms[i].tipo, i);
+        if (boton.classList.contains('js-room-borrar')) { rooms.splice(i, 1); pintarRooms(); return; }
+        if (boton.classList.contains('js-room-subir') && i > 0) {
+          rooms.splice(i - 1, 0, rooms.splice(i, 1)[0]); pintarRooms();
+        }
+        if (boton.classList.contains('js-room-bajar') && i < rooms.length - 1) {
+          rooms.splice(i + 1, 0, rooms.splice(i, 1)[0]); pintarRooms();
+        }
+      });
+
+      function filaOpcion(op) {
+        var fila = document.createElement('div');
+        fila.className = 'fila-opcion';
+        fila.style.cssText = 'display:flex;gap:8px;align-items:center;';
+        fila.innerHTML =
+          '<input type="radio" name="op-correcta" class="op-correcta" title="Correcta" style="width:18px;height:18px;flex-shrink:0;">' +
+          '<input type="text" class="op-texto" maxlength="200" style="flex:1;font-family:var(--sans);font-size:14px;border:1px solid var(--borde);border-radius:8px;padding:8px;">' +
+          '<button type="button" class="boton-icono js-quitar-opcion" title="Quitar">✕</button>';
+        fila.querySelector('.op-texto').value = (op && op.texto) || '';
+        if (op && op.correcta) fila.querySelector('.op-correcta').checked = true;
+        $('room-opciones').appendChild(fila);
+      }
+
+      function abrirEditorRoom(room, tipo, indice) {
+        estado.editandoRoom = (indice === undefined) ? null : indice;
+        estado.roomTipo = tipo;
+        $('editor-room-titulo').textContent = (room ? 'Editar ' : 'Nueva ') + NOMBRE_ROOM[tipo].toLowerCase();
+        $('r-titulo').value = room ? (room.titulo || '') : '';
+        $('r-subtitulo').value = room ? (room.subtitulo || '') : '';
+        $('r-cuerpo').value = room ? (room.cuerpo || '') : '';
+        $('r-cta').value = room ? (room.cta || '') : '';
+        var esQuiz = tipo === 'quiz';
+        $('room-campos-texto').classList.toggle('oculto', esQuiz);
+        $('room-campos-quiz').classList.toggle('oculto', !esQuiz);
+        $('room-campo-cta').classList.toggle('oculto', tipo === 'cierre');
+        if (esQuiz) {
+          $('r-pregunta').value = room ? (room.pregunta || '') : '';
+          $('r-fb-ok').value = room ? (room.feedbackCorrecta || '') : '';
+          $('r-fb-mal').value = room ? (room.feedbackIncorrecta || '') : '';
+          $('room-opciones').innerHTML = '';
+          var ops = (room && room.opciones) || [{ texto: '', correcta: true }, { texto: '', correcta: false }];
+          ops.forEach(filaOpcion);
+        }
+        $('editor-room-error').classList.add('oculto');
+        $('editor-room').showModal();
+      }
+
+      $('btn-add-opcion').addEventListener('click', function () { filaOpcion(null); });
+      $('room-opciones').addEventListener('click', function (e) {
+        if (e.target.classList.contains('js-quitar-opcion')) {
+          if ($('room-opciones').children.length > 2) e.target.closest('.fila-opcion').remove();
+        }
+      });
+      $('btn-cancelar-room').addEventListener('click', function () { $('editor-room').close(); });
+
+      $('form-room').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var tipo = estado.roomTipo;
+        var room = { tipo: tipo, titulo: $('r-titulo').value.trim(), subtitulo: $('r-subtitulo').value.trim() };
+        try {
+          if (tipo === 'quiz') {
+            room.pregunta = $('r-pregunta').value.trim();
+            room.feedbackCorrecta = $('r-fb-ok').value.trim();
+            room.feedbackIncorrecta = $('r-fb-mal').value.trim();
+            room.cta = $('r-cta').value.trim();
+            room.opciones = Array.prototype.map.call($('room-opciones').children, function (fila) {
+              return { texto: fila.querySelector('.op-texto').value.trim(), correcta: fila.querySelector('.op-correcta').checked };
+            }).filter(function (o) { return o.texto; });
+            if (room.opciones.length < 2) throw new Error('Cargá al menos 2 opciones.');
+            if (!room.opciones.some(function (o) { return o.correcta; })) throw new Error('Marcá cuál es la opción correcta.');
+            if (!room.pregunta) throw new Error('Escribí la pregunta.');
+          } else {
+            room.cuerpo = $('r-cuerpo').value.trim();
+            if (tipo !== 'cierre') room.cta = $('r-cta').value.trim();
+            if (!room.cuerpo) throw new Error('Escribí el texto del paso.');
+          }
+        } catch (err) {
+          var caja = $('editor-room-error');
+          caja.textContent = err.message; caja.classList.remove('oculto');
+          return;
+        }
+        if (estado.editandoRoom === null) estado.editandoOrgRooms.push(room);
+        else estado.editandoOrgRooms[estado.editandoRoom] = room;
+        $('editor-room').close();
+        pintarRooms();
+      });
 
       $('form-org').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -977,7 +1180,8 @@
           contacto: $('o-contacto').value,
           aprobado: $('o-aprobado').checked,
           destacado: $('o-destacado').checked,
-          tags: $('o-tags').value.split(',').map(function (t) { return t.trim(); }).filter(Boolean)
+          tags: $('o-tags').value.split(',').map(function (t) { return t.trim(); }).filter(Boolean),
+          rooms: estado.editandoOrgRooms
         };
         confirmar({ titulo: 'Guardar organización', textoOk: 'Guardar',
           mensaje: '¿Guardar «' + (datos.nombre || 'esta organización') + '»?' +

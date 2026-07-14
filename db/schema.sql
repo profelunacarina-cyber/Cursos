@@ -77,12 +77,15 @@ CREATE TABLE IF NOT EXISTS organizaciones (
   contacto       TEXT NOT NULL DEFAULT '',
   aprobado       BOOLEAN NOT NULL DEFAULT false,
   destacado      BOOLEAN NOT NULL DEFAULT false,
+  rooms          JSONB NOT NULL DEFAULT '[]',       -- recorrido guiado (pasos: portal/narrativa/quiz/cierre)
   orden          INT  NOT NULL DEFAULT 0,
   creado_en      TIMESTAMPTZ NOT NULL DEFAULT now(),
   actualizado_en TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_org_aprobado ON organizaciones (aprobado, orden);
+-- Para la tabla que ya existía antes de agregar el recorrido guiado:
+ALTER TABLE organizaciones ADD COLUMN IF NOT EXISTS rooms JSONB NOT NULL DEFAULT '[]';
 
 CREATE TABLE IF NOT EXISTS admins (
   id            SERIAL PRIMARY KEY,
