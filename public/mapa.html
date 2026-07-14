@@ -280,17 +280,18 @@ function renderMarcadores(datos) {
   datos.forEach(org => {
     if (!org.lat || !org.lng) return;
     const m = L.marker([org.lat, org.lng], { icon: iconoPin(org.tipo, org.destacado) });
-    const tags = (org.tags || []).map(t => `<span class="popup-tag">${t}</span>`).join('');
+    const tags = (org.tags || []).map(t => `<span class="popup-tag">${esc(t)}</span>`).join('');
+    const contacto = contactoSeguro(org.contacto);
     m.bindPopup(`
       <div>
         ${org.destacado ? '<div class="popup-badge">★ Destacada</div>' : ''}
-        <div class="popup-type">${org.tipo} · ${org.zona}</div>
-        <div class="popup-name">${org.nombre}</div>
-        <div class="popup-loc">📍 ${org.localidad}</div>
-        <div class="popup-desc">${org.descripcion}</div>
+        <div class="popup-type">${esc(org.tipo)} · ${esc(org.zona)}</div>
+        <div class="popup-name">${esc(org.nombre)}</div>
+        <div class="popup-loc">📍 ${esc(org.localidad)}</div>
+        <div class="popup-desc">${esc(org.descripcion)}</div>
         <div class="popup-tags">${tags}</div>
-        ${(org.rooms && org.rooms.length) ? `<button class="popup-visita" onclick="abrirVisita('${org.id}')">▶ Comenzar visita guiada</button>` : ''}
-        ${org.contacto ? `<a class="popup-link" href="${org.contacto}" target="_blank">Ver más →</a>` : ''}
+        ${(org.rooms && org.rooms.length) ? `<button class="popup-visita" onclick="abrirVisita('${esc(org.id)}')">▶ Comenzar visita guiada</button>` : ''}
+        ${contacto ? `<a class="popup-link" href="${esc(contacto)}" target="_blank" rel="noopener">Ver más →</a>` : ''}
       </div>
     `, { maxWidth: 280 });
     m.on('click', () => activarOrg(org.id));
@@ -307,11 +308,11 @@ function renderLista(datos) {
     return;
   }
   lista.innerHTML = datos.map(org => `
-    <div class="org-item ${activoId === org.id ? 'active' : ''}" onclick="activarOrg('${org.id}')">
-      <div class="org-item-type">${org.tipo} · ${org.zona}</div>
-      <div class="org-item-name">${org.nombre}</div>
-      <div class="org-item-loc">📍 ${org.localidad}</div>
-      <div class="org-item-tags">${(org.tags||[]).map(t=>`<span class="org-item-tag">${t}</span>`).join('')}</div>
+    <div class="org-item ${activoId === org.id ? 'active' : ''}" onclick="activarOrg('${esc(org.id)}')">
+      <div class="org-item-type">${esc(org.tipo)} · ${esc(org.zona)}</div>
+      <div class="org-item-name">${esc(org.nombre)}</div>
+      <div class="org-item-loc">📍 ${esc(org.localidad)}</div>
+      <div class="org-item-tags">${(org.tags||[]).map(t=>`<span class="org-item-tag">${esc(t)}</span>`).join('')}</div>
     </div>
   `).join('');
 }
@@ -347,7 +348,15 @@ function resetFiltros() {
 // ═══════════════════════════════════════
 // VISITA GUIADA (recorrido inmersivo)
 // ═══════════════════════════════════════
-function escVisita(t) { const d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
+// Escapa texto para insertarlo en el DOM sin riesgo de inyección de HTML.
+function esc(t) { const d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
+// Solo deja pasar enlaces http(s)/mailto para el botón de contacto; lo demás se descarta.
+function contactoSeguro(v) {
+  v = String(v || '').trim();
+  if (/^(https?:\/\/|mailto:)/i.test(v)) return v;
+  if (v.indexOf('@') > 0 && !/\s/.test(v)) return 'mailto:' + v;
+  return '';
+}
 
 let visitaOrg = null, visitaIdx = 0, visitaResp = false;
 
@@ -379,21 +388,21 @@ function renderRoom() {
 
   let html = '<div class="room">';
   html += '<div class="room-icon"><i class="ti ' + icon + '" aria-hidden="true"></i></div>';
-  if (room.subtitulo) html += '<p class="room-sub">' + escVisita(room.subtitulo) + '</p>';
-  html += '<p class="room-title">' + escVisita(room.titulo || '') + '</p>';
+  if (room.subtitulo) html += '<p class="room-sub">' + esc(room.subtitulo) + '</p>';
+  html += '<p class="room-title">' + esc(room.titulo || '') + '</p>';
 
   if (room.tipo === 'quiz') {
-    html += '<p class="quiz-question">' + escVisita(room.pregunta) + '</p>';
+    html += '<p class="quiz-question">' + esc(room.pregunta) + '</p>';
     html += '<div class="quiz-options">';
-    room.opciones.forEach((op, oi) => { html += '<button class="quiz-opt" data-oi="' + oi + '">' + escVisita(op.texto) + '</button>'; });
+    room.opciones.forEach((op, oi) => { html += '<button class="quiz-opt" data-oi="' + oi + '">' + esc(op.texto) + '</button>'; });
     html += '</div><div class="quiz-feedback" id="quiz-feedback"></div>';
   } else {
-    html += '<p class="room-body">' + escVisita(room.cuerpo || '') + '</p>';
+    html += '<p class="room-body">' + esc(room.cuerpo || '') + '</p>';
   }
 
   html += '<div class="room-actions">';
   if (room.tipo === 'cierre') html += '<button class="nav secondary" id="btn-otra">Cerrar</button>';
-  else html += '<button class="nav" id="btn-sig"' + (room.tipo === 'quiz' ? ' disabled' : '') + '>' + escVisita(room.cta || 'Continuar') + '</button>';
+  else html += '<button class="nav" id="btn-sig"' + (room.tipo === 'quiz' ? ' disabled' : '') + '>' + esc(room.cta || 'Continuar') + '</button>';
   html += '</div></div>';
 
   const stage = document.getElementById('visita-stage');
