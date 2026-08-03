@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["frontend/src/*"]
+    },
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": [
+    "backend/src/**/*.ts",
+    "frontend/src/**/*.ts",
+    "frontend/src/**/*.vue"
+  ]
+}

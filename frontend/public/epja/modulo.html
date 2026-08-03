@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Módulo EPJA</title>
+  <link rel="icon" href="../favicon.png" />
+  <link rel="stylesheet" href="../tema.css" />
+  <link rel="stylesheet" href="epja.css" />
+</head>
+<body class="epja-body">
+  <div class="epja-shell">
+    <aside class="epja-sidebar">
+      <div class="epja-brand">
+        <span class="badge">EPJA</span>
+        <strong>Módulo</strong>
+        <span>Lectura y seguimiento</span>
+      </div>
+      <button id="epja-menu-toggle" class="epja-menu-toggle" type="button" aria-controls="epja-nav" aria-expanded="false" aria-label="Abrir menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <nav id="epja-nav" class="epja-nav"></nav>
+    </aside>
+
+    <main class="epja-main">
+      <div class="epja-topbar">
+        <div>
+          <div class="antetitulo" id="kicker">Módulo</div>
+          <h1 class="titulo-bloque" id="titulo">Cargando…</h1>
+        </div>
+        <span id="estado" class="epja-pill warn">Pendiente</span>
+      </div>
+
+      <div class="epja-content">
+        <section class="epja-panel">
+          <p class="bajada" id="resumen"></p>
+          <div id="contenido" class="epja-module-body" style="margin-top:18px;"></div>
+        </section>
+        <section class="epja-panel">
+          <div class="epja-actions" id="acciones"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../config.js"></script>
+  <script src="api-epja.js"></script>
+  <script>
+    (function () {
+      function salir() {
+        EPJAApi.sesion.salir();
+      }
+      function mostrarError(error) {
+        document.getElementById('titulo').textContent = 'No se pudo abrir el módulo';
+        document.getElementById('resumen').textContent = error.message || 'No tenés acceso a este módulo.';
+        document.getElementById('contenido').textContent = '';
+        document.getElementById('acciones').textContent = '';
+      }
+      var id = Number(new URLSearchParams(location.search).get('id'));
+      if (!id) {
+        salir();
+        return;
+      }
+
+      function pintar(modulo) {
+        document.title = modulo.titulo + ' · EPJA';
+        document.getElementById('kicker').textContent = modulo.materiaNombre;
+        document.getElementById('titulo').textContent = modulo.titulo;
+        document.getElementById('resumen').textContent = modulo.resumen || '';
+        document.getElementById('contenido').innerHTML = modulo.contenido || '<p>Sin contenido.</p>';
+        var estado = document.getElementById('estado');
+        estado.className = 'epja-pill ' + (modulo.completado ? 'ok' : 'warn');
+        estado.textContent = modulo.completado ? 'Completado' : 'Pendiente';
+
+        var acciones = document.getElementById('acciones');
+        acciones.textContent = '';
+        if (!modulo.completado) {
+          var completar = document.createElement('button');
+          completar.className = 'epja-btn';
+          completar.id = 'btn-completar';
+          completar.type = 'button';
+          completar.textContent = 'Marcar como completado ✓';
+          acciones.appendChild(completar);
+        }
+        if (modulo.anterior) {
+          var anterior = document.createElement('a');
+          anterior.className = 'epja-btn-outline';
+          anterior.style.textDecoration = 'none';
+          anterior.href = 'modulo.html?id=' + encodeURIComponent(modulo.anterior.id);
+          anterior.textContent = '← ' + modulo.anterior.titulo;
+          acciones.appendChild(anterior);
+        }
+        if (modulo.siguiente) {
+          var siguiente = document.createElement('a');
+          siguiente.className = 'epja-btn-outline';
+          siguiente.style.textDecoration = 'none';
+          siguiente.href = 'modulo.html?id=' + encodeURIComponent(modulo.siguiente.id);
+          siguiente.textContent = modulo.siguiente.titulo + ' →';
+          acciones.appendChild(siguiente);
+        }
+        var volver = document.createElement('a');
+        volver.className = 'epja-btn-outline';
+        volver.style.textDecoration = 'none';
+        volver.href = 'materia.html?codigo=' + encodeURIComponent(modulo.materiaCodigo);
+        volver.textContent = 'Volver a la materia';
+        acciones.appendChild(volver);
+
+        var btn = document.getElementById('btn-completar');
+        if (btn) {
+          btn.addEventListener('click', function () {
+            EPJAApi.alumno.completar(modulo.id).then(function () {
+              location.reload();
+            }).catch(function (err) {
+              alert(err.message);
+            });
+          });
+        }
+      }
+
+      Promise.all([EPJAApi.alumno.modulo(id), EPJAApi.alumno.materias()]).then(function (res) {
+        var modulo = res[0];
+        var materias = res[1];
+        EPJAApi.ui.pintarNavMaterias(document.getElementById('epja-nav'), materias, { activaCodigo: modulo.materiaCodigo });
+        pintar(modulo);
+      }).catch(function (error) {
+        if (error.estado === 401) salir();
+        else mostrarError(error);
+      });
+    })();
+  </script>
+</body>
+</html>

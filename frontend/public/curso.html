@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curso · Prof. Carina Luna</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="tema.css" />
+  <style>
+    /* Estilos propios de la página de curso (contenido de los módulos) */
+    .curso-cuerpo { max-width: 760px; margin: 0 auto; padding: clamp(32px,5vw,56px) 24px; display: flex; flex-direction: column; gap: 28px; }
+    .modulo { background: var(--papel); border: 1px solid var(--borde); border-radius: 16px; padding: clamp(22px,4vw,34px); }
+    .modulo-num { font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--terracota); }
+    .modulo h2 { margin: 4px 0 16px; font-family: var(--serif); font-weight: 700; font-size: clamp(22px,3vw,28px); color: var(--tinta); }
+    .modulo h3 { margin: 20px 0 8px; font-family: var(--serif); font-weight: 600; font-size: 19px; color: var(--verde); }
+    .modulo p { margin: 0 0 12px; font-size: 16.5px; line-height: 1.7; color: var(--texto-suave); }
+    .modulo ul { margin: 0 0 12px; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+    .modulo li { font-size: 16px; line-height: 1.6; color: var(--texto-suave); }
+    .indice { background: var(--papel); border: 1px solid var(--borde); border-radius: 16px; padding: 22px 26px; }
+    .indice h2 { margin: 0 0 12px; font-family: var(--serif); font-size: 18px; color: var(--tinta); }
+    .indice ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .indice a { font-size: 15px; color: var(--texto-suave); }
+    .indice a:hover { color: var(--terracota); }
+    .cargando, .vacio { text-align: center; color: var(--gris-verde); padding: 64px 24px; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+  <header class="cabecera">
+    <div class="cabecera-int">
+      <a href="index.html" class="marca">
+        <span class="logo-cl">CL</span>
+        <span class="marca-textos">
+          <strong>Capacitaciones</strong>
+          <span>Prof. Carina Luna</span>
+        </span>
+      </a>
+      <nav class="nav-principal">
+        <a href="index.html">← Volver a los cursos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Héroe: se completa con los datos del curso -->
+  <section class="heroe" id="heroe" style="display:none;">
+    <div class="heroe-int">
+      <span class="insignia-pill" id="h-etiqueta"></span>
+      <h1 id="h-titulo"></h1>
+      <p class="bajada-heroe" id="h-descripcion"></p>
+      <div class="chips" id="h-metas"></div>
+    </div>
+  </section>
+
+  <main class="curso-cuerpo">
+    <div id="cargando" class="cargando">Cargando el curso…</div>
+    <nav class="indice oculto" id="indice" aria-label="Índice de módulos">
+      <h2>En este curso</h2>
+      <ol id="indice-lista"></ol>
+    </nav>
+    <div id="modulos"></div>
+  </main>
+
+  <footer class="pie">
+    <p class="lema">Que el saber sea un bien común, no un privilegio.</p>
+    <p class="datos">© 2026 Carina Luna · profeluna.ar · Todos los derechos reservados y los izquierdos bien puestos.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      function esc(t) {
+        var d = document.createElement('div');
+        d.textContent = t == null ? '' : String(t);
+        return d.innerHTML;
+      }
+
+      // El contenido de un módulo es HTML ya sanitizado en el servidor (whitelist de
+      // etiquetas, sin scripts). Formato viejo (lista de bloques): se arma el HTML acá.
+      function contenidoHTML(contenido) {
+        if (typeof contenido === 'string') return contenido;
+        if (!Array.isArray(contenido)) return '';
+        return contenido.map(function (b) {
+          if (b.t === 'sub') return '<h3>' + esc(b.v) + '</h3>';
+          if (b.t === 'lista') {
+            return '<ul>' + String(b.v).split('\n').map(function (l) { return l.trim(); })
+              .filter(Boolean).map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+          }
+          return String(b.v).split('\n').map(function (l) { return l.trim(); }).filter(Boolean)
+            .map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+        }).join('');
+      }
+
+      var params = new URLSearchParams(location.search);
+      var cursoId = Number(params.get('c'));
+
+      function mostrarVacio(mensaje) {
+        document.getElementById('cargando').className = 'vacio';
+        document.getElementById('cargando').textContent = mensaje;
+      }
+
+      if (!cursoId) { mostrarVacio('No se indicó qué curso mostrar.'); return; }
+
+      // Trae el curso (de la lista agrupada) y sus módulos en paralelo.
+      Promise.all([Api.cursos.listar(), Api.modulos.listar(cursoId)])
+        .then(function (res) {
+          var grupos = res[0], modulos = res[1];
+          var curso = null;
+          Object.keys(grupos).forEach(function (k) {
+            (grupos[k] || []).forEach(function (c) { if (c.id === cursoId) curso = c; });
+          });
+          if (!curso) { mostrarVacio('Este curso no existe o todavía no está publicado.'); return; }
+
+          document.title = curso.titulo + ' · Prof. Carina Luna';
+
+          // Héroe
+          document.getElementById('heroe').style.display = '';
+          if (curso.etiqueta) document.getElementById('h-etiqueta').textContent = curso.etiqueta;
+          else document.getElementById('h-etiqueta').style.display = 'none';
+          document.getElementById('h-titulo').textContent = curso.titulo;
+          document.getElementById('h-descripcion').textContent = curso.descripcion;
+          document.getElementById('h-metas').innerHTML = (curso.metas || [])
+            .map(function (m) { return '<span class="chip">' + esc(m) + '</span>'; }).join('');
+
+          document.getElementById('cargando').style.display = 'none';
+
+          if (!modulos.length) {
+            mostrarVacio('Este curso todavía no tiene contenido cargado.');
+            document.getElementById('cargando').style.display = '';
+            return;
+          }
+
+          // Índice
+          if (modulos.length > 1) {
+            document.getElementById('indice').classList.remove('oculto');
+            document.getElementById('indice-lista').innerHTML = modulos.map(function (m, i) {
+              return '<li><a href="#modulo-' + (i + 1) + '">' + esc(m.titulo) + '</a></li>';
+            }).join('');
+          }
+
+          // Módulos
+          document.getElementById('modulos').innerHTML = modulos.map(function (m, i) {
+            var cuerpo = contenidoHTML(m.contenido);
+            return '<article class="modulo" id="modulo-' + (i + 1) + '">' +
+              '<div class="modulo-num">Módulo ' + String(i + 1).padStart(2, '0') + '</div>' +
+              '<h2>' + esc(m.titulo) + '</h2>' + cuerpo +
+            '</article>';
+          }).join('');
+        })
+        .catch(function () {
+          mostrarVacio('No se pudo conectar con el servidor. Intentá de nuevo en un rato.');
+        });
+    })();
+  </script>
+</body>
+</html>

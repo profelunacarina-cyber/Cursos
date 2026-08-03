@@ -1,0 +1,79 @@
+name: Preview dev
+
+# La rama dev tiene una URL de prueba propia. No toca producción.
+# Requiere estos secrets en GitHub Actions:
+#   VERCEL_TOKEN
+#   VERCEL_ORG_ID
+#   VERCEL_PROJECT_ID
+#
+# En Vercel configurá variables separadas:
+#   Preview:    DATABASE_URL de dev + JWT_SECRET de dev
+#   Production: DATABASE_URL real + JWT_SECRET real
+on:
+  workflow_run:
+    workflows: [Checks]
+    types: [completed]
+    branches: [dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-dev
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    name: Deploy dev preview
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment:
+      name: dev
+      url: ${{ steps.deploy.outputs.url }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Verificar credenciales de Vercel
+        id: check
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "Faltan secrets de Vercel; se omite el preview."
+            echo "correr=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "correr=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.correr == 'si'
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.correr == 'si'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        if: steps.check.outputs.correr == 'si'
+        run: npm ci
+
+      - name: Validar API
+        if: steps.check.outputs.correr == 'si'
+        run: npm run ci:sintaxis
+
+      - name: Preparar build preview
+        if: steps.check.outputs.correr == 'si'
+        run: |
+          npx vercel@latest pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          npx vercel@latest build --token="$VERCEL_TOKEN"
+
+      - name: Desplegar preview
+        id: deploy
+        if: steps.check.outputs.correr == 'si'
+        run: |
+          url="$(npx vercel@latest deploy --prebuilt --token="$VERCEL_TOKEN")"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "$url"

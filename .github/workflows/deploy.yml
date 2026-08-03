@@ -1,6 +1,6 @@
 name: Deploy a Vercel
 
-# Despliegue automático al hacer push a main, SOLO si el CI pasó.
+# Despliegue automático al hacer push a main, SOLO si Checks pasó.
 # Requiere cargar estos secrets en el repo (Settings → Secrets and variables → Actions):
 #   VERCEL_TOKEN         — token personal de Vercel (Account Settings → Tokens)
 #   VERCEL_ORG_ID        — id de la organización/cuenta (aparece en .vercel/project.json)
@@ -9,7 +9,7 @@ name: Deploy a Vercel
 # integración Git nativa de Vercel, que despliega sola en cada push.
 on:
   workflow_run:
-    workflows: [CI]
+    workflows: [Checks]
     types: [completed]
     branches: [main]
 
@@ -18,6 +18,12 @@ jobs:
     name: Deploy producción
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    concurrency:
+      group: vercel-production
+      cancel-in-progress: false
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -34,14 +40,18 @@ jobs:
           fi
       - uses: actions/checkout@v4
         if: steps.check.outputs.correr == 'si'
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - uses: actions/setup-node@v4
         if: steps.check.outputs.correr == 'si'
         with:
-          node-version: 20
+          node-version: 22
       - name: Desplegar con Vercel CLI
+        id: deploy
         if: steps.check.outputs.correr == 'si'
         run: |
-          npm i -g vercel@latest
-          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-          vercel build --prod --token="$VERCEL_TOKEN"
-          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+          npx vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx vercel@latest build --prod --token="$VERCEL_TOKEN"
+          url="$(npx vercel@latest deploy --prebuilt --prod --token="$VERCEL_TOKEN")"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "$url"

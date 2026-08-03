@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bibliografía EPJA</title>
+  <link rel="icon" href="../favicon.png" />
+  <link rel="stylesheet" href="../tema.css" />
+  <link rel="stylesheet" href="epja.css" />
+</head>
+<body class="epja-body">
+  <div class="epja-shell">
+    <aside class="epja-sidebar">
+      <div class="epja-brand">
+        <span class="badge">EPJA</span>
+        <strong>Bibliografía</strong>
+        <span>Materiales de apoyo</span>
+      </div>
+      <button id="epja-menu-toggle" class="epja-menu-toggle" type="button" aria-controls="epja-nav" aria-expanded="false" aria-label="Abrir menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <nav id="epja-nav" class="epja-nav"></nav>
+    </aside>
+
+    <main class="epja-main">
+      <div class="epja-topbar">
+        <div>
+          <div class="antetitulo">Bibliografía</div>
+          <h1 class="titulo-bloque">Materiales de apoyo para tus materias</h1>
+        </div>
+      </div>
+
+      <div class="epja-content">
+        <section id="bibliografia-materias" class="epja-grid">
+        </section>
+        <section class="epja-panel">
+          <h2 class="titulo-bloque" style="font-size:22px;">Cómo usar esta sección</h2>
+          <p class="bajada">La bibliografía queda preparada como espacio de apoyo. A medida que Carina cargue documentos, guías o enlaces, van a aparecer acá ordenados por materia.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="../config.js"></script>
+  <script src="api-epja.js"></script>
+  <script>
+    (function () {
+      function salir() {
+        EPJAApi.sesion.salir();
+      }
+
+      function pintar(materias) {
+        EPJAApi.ui.pintarNavMaterias(document.getElementById('epja-nav'), materias, { activa: 'bibliografia' });
+        var contenedor = document.getElementById('bibliografia-materias');
+        contenedor.textContent = '';
+        materias.forEach(function (materia) {
+          var card = document.createElement('article');
+          card.className = 'epja-card';
+          var codigo = document.createElement('span');
+          codigo.className = 'kicker';
+          codigo.textContent = String(materia.codigo || '').toUpperCase();
+          var titulo = document.createElement('h3');
+          titulo.textContent = materia.nombre || '';
+          var descripcion = document.createElement('p');
+          descripcion.textContent = materia.descripcion || 'Materiales de apoyo disponibles para esta materia.';
+          card.appendChild(codigo);
+          card.appendChild(titulo);
+          card.appendChild(descripcion);
+          contenedor.appendChild(card);
+        });
+      }
+
+      EPJAApi.alumno.materias().then(pintar).catch(function (error) {
+        if (error.estado === 401) salir();
+        else document.getElementById('bibliografia-materias').textContent = error.message || 'No se pudo cargar la bibliografía.';
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Materia EPJA</title>
+  <link rel="icon" href="../favicon.png" />
+  <link rel="stylesheet" href="../tema.css" />
+  <link rel="stylesheet" href="epja.css" />
+</head>
+<body class="epja-body">
+  <div class="epja-shell">
+    <aside class="epja-sidebar">
+      <div class="epja-brand">
+        <span class="badge">EPJA</span>
+        <strong>Materias</strong>
+        <span>Recorrido del estudiante</span>
+      </div>
+      <button id="epja-menu-toggle" class="epja-menu-toggle" type="button" aria-controls="epja-nav" aria-expanded="false" aria-label="Abrir menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <nav id="epja-nav" class="epja-nav"></nav>
+    </aside>
+
+    <main class="epja-main">
+      <div class="epja-topbar">
+        <div>
+          <div class="antetitulo">Materia</div>
+          <h1 class="titulo-bloque" id="titulo">Cargando…</h1>
+        </div>
+        <a class="epja-btn-outline" href="index.html" style="text-decoration:none;"><span aria-hidden="true">&larr;</span><span>Volver</span></a>
+      </div>
+
+      <div class="epja-content">
+        <section class="epja-panel">
+          <p class="bajada" id="descripcion"></p>
+        </section>
+        <section class="epja-panel">
+          <span class="antetitulo">Módulos</span>
+          <div id="modulos" class="epja-list" style="margin-top:16px;"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../config.js"></script>
+  <script src="api-epja.js"></script>
+  <script>
+    (function () {
+      function salir() {
+        EPJAApi.sesion.salir();
+      }
+      function mostrarError(error) {
+        document.getElementById('titulo').textContent = 'No se pudo abrir la materia';
+        document.getElementById('descripcion').textContent = error.message || 'No tenés acceso a esta materia.';
+        document.getElementById('modulos').textContent = '';
+      }
+      var codigo = new URLSearchParams(location.search).get('codigo') || 'foi';
+
+      Promise.all([EPJAApi.alumno.materia(codigo), EPJAApi.alumno.materias()])
+        .then(function (res) {
+          var materia = res[0];
+          var materias = res[1];
+          document.title = materia.nombre + ' · EPJA';
+          document.getElementById('titulo').textContent = materia.nombre;
+          document.getElementById('descripcion').textContent = materia.descripcion || '';
+          EPJAApi.ui.pintarNavMaterias(document.getElementById('epja-nav'), materias, { activaCodigo: materia.codigo });
+          var lista = document.getElementById('modulos');
+          lista.textContent = '';
+          materia.modulos.forEach(function (m) {
+            var item = document.createElement('article');
+            item.className = 'epja-list-item';
+
+            var cuerpo = document.createElement('div');
+            var titulo = document.createElement('h4');
+            titulo.textContent = m.titulo;
+            var resumen = document.createElement('p');
+            resumen.textContent = m.resumen || 'Sin resumen todavía.';
+            cuerpo.appendChild(titulo);
+            cuerpo.appendChild(resumen);
+
+            var acciones = document.createElement('div');
+            acciones.className = 'epja-actions';
+            var estado = document.createElement('span');
+            estado.className = 'epja-pill ' + (m.completado ? 'ok' : 'warn');
+            estado.textContent = m.completado ? 'Completado' : 'Pendiente';
+            var abrir = document.createElement('a');
+            abrir.className = 'epja-btn epja-btn-mini';
+            abrir.style.textDecoration = 'none';
+            abrir.href = 'modulo.html?id=' + encodeURIComponent(m.id);
+            abrir.textContent = 'Abrir';
+            acciones.appendChild(estado);
+            acciones.appendChild(abrir);
+
+            item.appendChild(cuerpo);
+            item.appendChild(acciones);
+            lista.appendChild(item);
+          });
+        })
+        .catch(function (error) {
+          if (error.estado === 401) salir();
+          else mostrarError(error);
+        });
+    })();
+  </script>
+</body>
+</html>
