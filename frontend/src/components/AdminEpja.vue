@@ -31,6 +31,7 @@ const modulosMateria = ref([]);
 const moduloForm = ref(null);
 const estudianteCert = ref('');
 const recorrido = ref([]);
+const certificadoDescargando = ref(null);
 
 const headers = () => ({
   Authorization: `Bearer ${token}`,
@@ -164,6 +165,12 @@ async function cargar() {
     fetch('/api/epja/estudiantes', { headers: headers() }),
     fetch('/api/epja/materias', { headers: headers() })
   ]);
+  if ([a.status, b.status].some(estado => estado === 401 || estado === 403)) {
+    sessionStorage.removeItem('profeluna_token');
+    dispatchEvent(new Event('admin-session'));
+    location.hash = '#admin';
+    return;
+  }
   const [da, db] = await Promise.all([a.json(), b.json()]);
   if (!a.ok) throw new Error(mensajeError(da, 'No se pudieron cargar estudiantes.'));
   if (!b.ok) throw new Error(mensajeError(db, 'No se pudieron cargar materias.'));
@@ -361,6 +368,115 @@ async function aprobar(modulo) {
   aviso.value = `Certificado emitido para “${modulo.titulo}”.`;
 }
 
+function dniFormateado(dni) {
+  return String(dni || '').replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function nombreArchivo(valor) {
+  return String(valor || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80);
+}
+
+async function descargarCertificado(modulo) {
+  const estudiante = estudiantes.value.find(e => Number(e.id) === Number(estudianteCert.value));
+  if (!estudiante || !modulo.certificado) {
+    error.value = 'No se encontraron los datos necesarios para generar el certificado.';
+    return;
+  }
+
+  certificadoDescargando.value = modulo.certificado.id;
+  error.value = '';
+  aviso.value = '';
+  try {
+    const { jsPDF } = await import('jspdf');
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    const ancho = pdf.internal.pageSize.getWidth();
+    const alto = pdf.internal.pageSize.getHeight();
+    const nombreCompleto = `${estudiante.nombre} ${estudiante.apellido}`.trim();
+    const fecha = new Date(modulo.certificado.emitidoEn);
+    const fechaTexto = new Intl.DateTimeFormat('es-AR', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    }).format(Number.isNaN(fecha.getTime()) ? new Date() : fecha);
+
+    pdf.setProperties({
+      title: `Certificado de aprobación - ${nombreCompleto}`,
+      subject: modulo.titulo,
+      author: 'Prof. Carina Luna'
+    });
+    pdf.setFillColor(246, 241, 231);
+    pdf.rect(0, 0, ancho, alto, 'F');
+    pdf.setDrawColor(64, 98, 78);
+    pdf.setLineWidth(1);
+    pdf.roundedRect(12, 12, ancho - 24, alto - 24, 3, 3);
+    pdf.setDrawColor(222, 162, 59);
+    pdf.setLineWidth(0.35);
+    pdf.roundedRect(16, 16, ancho - 32, alto - 32, 2, 2);
+
+    pdf.setTextColor(190, 90, 60);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(11);
+    pdf.text('EPJA N° 753 · RAWSON · CHUBUT', ancho / 2, 31, { align: 'center' });
+
+    pdf.setTextColor(42, 39, 35);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(27);
+    pdf.text('Constancia de aprobación', ancho / 2, 47, { align: 'center' });
+
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(12);
+    pdf.text('Se deja constancia de que', ancho / 2, 62, { align: 'center' });
+    pdf.setTextColor(64, 98, 78);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(24);
+    pdf.text(nombreCompleto, ancho / 2, 76, { align: 'center' });
+    pdf.setTextColor(93, 88, 80);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(11);
+    pdf.text(`DNI ${dniFormateado(estudiante.dni)}`, ancho / 2, 84, { align: 'center' });
+
+    pdf.setTextColor(42, 39, 35);
+    pdf.setFontSize(12);
+    pdf.text('cursó y aprobó el módulo', ancho / 2, 97, { align: 'center' });
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(17);
+    const tituloModulo = pdf.splitTextToSize(`“${modulo.titulo}”`, 220);
+    pdf.text(tituloModulo, ancho / 2, 108, { align: 'center' });
+    const yMateria = 108 + (tituloModulo.length * 7);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(11);
+    pdf.setTextColor(93, 88, 80);
+    pdf.text(`${modulo.materia.codigo.toUpperCase()} · ${modulo.materia.nombre}`, ancho / 2, yMateria, { align: 'center' });
+    pdf.text(`Emitido en Rawson, Chubut, el ${fechaTexto}.`, ancho / 2, yMateria + 11, { align: 'center' });
+
+    pdf.setDrawColor(64, 98, 78);
+    pdf.setLineWidth(0.4);
+    pdf.line(103, 163, 194, 163);
+    pdf.setTextColor(42, 39, 35);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(11);
+    pdf.text('Prof. Carina Luna', ancho / 2, 170, { align: 'center' });
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(9);
+    pdf.setTextColor(93, 88, 80);
+    pdf.text('Economía y Administración · EPJA N° 753', ancho / 2, 176, { align: 'center' });
+    pdf.setFontSize(8);
+    pdf.text(`Código de certificado: ${modulo.certificado.codigo}`, ancho / 2, 190, { align: 'center' });
+
+    const archivo = nombreArchivo(`certificado-${estudiante.apellido}-${estudiante.nombre}-${modulo.titulo}`);
+    pdf.save(`${archivo || 'certificado-epja'}.pdf`);
+    aviso.value = `Certificado descargado para ${nombreCompleto}.`;
+  } catch (e) {
+    error.value = e.message || 'No se pudo generar el certificado.';
+  } finally {
+    certificadoDescargando.value = null;
+  }
+}
+
 async function revocar(certificado) {
   if (!confirm('¿Revocar este certificado?')) return;
   const r = await fetch(`/api/epja/certificados/${certificado.id}`, { method: 'DELETE', headers: headers() });
@@ -556,9 +672,14 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
             <span v-else-if="m.certificado?.revocadoEn" class="revoked">Certificado revocado</span>
             <span v-else>{{ m.aprobado ? 'Aprobado sin certificado' : 'Pendiente de aprobación' }}</span>
           </div>
-          <div>
+          <div class="certificate-actions">
             <button v-if="!m.certificado || m.certificado.revocadoEn" class="button" @click="aprobar(m)">Aprobar y emitir</button>
-            <button v-else class="row-action danger" @click="revocar(m.certificado)">Revocar</button>
+            <template v-else>
+              <button class="row-action" :disabled="certificadoDescargando === m.certificado.id" @click="descargarCertificado(m)">
+                <Download :size="15" />{{ certificadoDescargando === m.certificado.id ? 'Generando…' : 'Descargar PDF' }}
+              </button>
+              <button class="row-action danger" @click="revocar(m.certificado)">Revocar</button>
+            </template>
           </div>
         </article>
         <p v-if="!recorrido.length" class="empty-copy">Este estudiante aún no tiene módulos asignados.</p>
@@ -698,6 +819,9 @@ legend { padding:0 5px; font-size:13px; font-weight:700; }
 .student-select select { padding:11px; border:1px solid var(--borde); border-radius:8px; background:#fff; font:inherit; }
 .certificate-list { border-top:1px solid var(--borde); }
 .certificate-row small { color:#746D62; }
+.certificate-actions { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.certificate-actions .row-action { margin:0; }
+.certificate-actions .row-action:disabled { opacity:.55; cursor:wait; }
 .empty-copy { color:#746D62; }
 .modal-backdrop { position:fixed; z-index:2000; inset:0; display:grid; place-items:center; padding:22px; background:rgba(38,34,29,.48); }
 .modal-panel { width:min(720px,100%); max-height:min(88vh,840px); overflow:auto; display:grid; gap:17px; padding:clamp(22px,4vw,34px); border:1px solid var(--borde); border-radius:14px; background:var(--crema); box-shadow:0 24px 80px rgba(33,29,24,.32); }

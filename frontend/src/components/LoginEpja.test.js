@@ -43,4 +43,21 @@ describe('LoginEpja', () => {
     await wrapper.get('.password-toggle').trigger('click');
     expect(input().attributes('type')).toBe('password');
   });
+
+  test('muestra un mensaje claro cuando la API responde sin JSON', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      json: async () => { throw new SyntaxError('Unexpected end of JSON input'); }
+    });
+    const wrapper = mount(LoginEpja);
+
+    await wrapper.get('input[autocomplete="username"]').setValue('41041037');
+    await wrapper.get('input[autocomplete="current-password"]').setValue('clave-segura');
+    await wrapper.get('form').trigger('submit.prevent');
+    await flushPromises();
+
+    expect(wrapper.get('.error').text()).toBe('No se pudo conectar con el aula. Intentá nuevamente en unos minutos.');
+    expect(wrapper.text()).not.toContain('JSON');
+    expect(wrapper.text()).not.toContain('Unexpected end');
+  });
 });

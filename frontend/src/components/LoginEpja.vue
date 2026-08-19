@@ -18,6 +18,25 @@ const recuperacionCodigo = ref('');
 const recuperacionToken = ref('');
 const nuevaPassword = ref('');
 const repetirPassword = ref('');
+const MENSAJE_CONEXION = 'No se pudo conectar con el aula. Intentá nuevamente en unos minutos.';
+
+async function leerRespuesta(respuesta, mensajeError) {
+  let datos;
+  try {
+    datos = await respuesta.json();
+  } catch {
+    throw new Error(MENSAJE_CONEXION);
+  }
+  if (!respuesta.ok) throw new Error(datos?.error || mensajeError);
+  return datos;
+}
+
+function mensajeVisible(errorActual, mensajePredeterminado) {
+  const mensaje = errorActual instanceof Error ? errorActual.message : '';
+  if (!mensaje) return mensajePredeterminado;
+  if (/failed to fetch|networkerror|load failed/i.test(mensaje)) return MENSAJE_CONEXION;
+  return mensaje;
+}
 
 const tituloRecuperacion = computed(() => ({
   email: 'Recuperar contraseña',
@@ -44,13 +63,13 @@ async function entrar() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dni: dni.value, password: password.value })
     });
-    const datos = await respuesta.json();
-    if (!respuesta.ok) throw new Error(datos.error || 'No se pudo ingresar al aula.');
+    const datos = await leerRespuesta(respuesta, 'No se pudo ingresar al aula.');
+    if (!datos?.token) throw new Error(MENSAJE_CONEXION);
     sessionStorage.setItem('profeluna_epja_token', datos.token);
     dispatchEvent(new Event('epja-session'));
     location.hash = '#aula';
   } catch (e) {
-    error.value = e.message;
+    error.value = mensajeVisible(e, 'No se pudo ingresar al aula.');
   } finally {
     enviando.value = false;
   }
@@ -78,8 +97,7 @@ async function pedirCodigo() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: recuperacionEmail.value })
   });
-  const datos = await respuesta.json().catch(() => ({}));
-  if (!respuesta.ok) throw new Error(datos.error || 'No se pudo enviar el código.');
+  const datos = await leerRespuesta(respuesta, 'No se pudo enviar el código.');
   aviso.value = datos.mensaje || 'Si el correo está registrado, te enviamos un código para restablecer tu contraseña.';
   recuperacionPaso.value = 'codigo';
 }
@@ -90,8 +108,7 @@ async function verificarCodigo() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: recuperacionEmail.value, codigo: recuperacionCodigo.value })
   });
-  const datos = await respuesta.json().catch(() => ({}));
-  if (!respuesta.ok) throw new Error(datos.error || 'El código es inválido o venció.');
+  const datos = await leerRespuesta(respuesta, 'El código es inválido o venció.');
   recuperacionToken.value = datos.resetToken || '';
   recuperacionPaso.value = 'nueva';
   aviso.value = '';
@@ -106,8 +123,7 @@ async function guardarNuevaClave() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ resetToken: recuperacionToken.value, passwordNueva: nuevaPassword.value })
   });
-  const datos = await respuesta.json().catch(() => ({}));
-  if (!respuesta.ok) throw new Error(datos.error || 'No se pudo guardar la nueva contraseña.');
+  await leerRespuesta(respuesta, 'No se pudo guardar la nueva contraseña.');
   aviso.value = 'Contraseña actualizada. Ya podés ingresar con tu nueva clave.';
   mostrarRecuperacion.value = false;
   password.value = '';
@@ -122,7 +138,7 @@ async function enviarRecuperacion() {
     else if (recuperacionPaso.value === 'codigo') await verificarCodigo();
     else await guardarNuevaClave();
   } catch (e) {
-    error.value = e.message;
+    error.value = mensajeVisible(e, 'No se pudo completar la recuperación.');
   } finally {
     recuperando.value = false;
   }
