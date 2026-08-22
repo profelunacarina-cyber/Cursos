@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aula EPJA</title>
+  <link rel="icon" href="../favicon.png" />
+  <link rel="stylesheet" href="../tema.css" />
+  <link rel="stylesheet" href="epja.css" />
+</head>
+<body class="epja-body">
+  <div class="epja-shell">
+    <aside class="epja-sidebar">
+      <div class="epja-brand">
+        <span class="badge">EPJA</span>
+        <strong>Aula virtual</strong>
+        <span id="nombre-side">Cargando…</span>
+      </div>
+      <button id="epja-menu-toggle" class="epja-menu-toggle" type="button" aria-controls="epja-nav" aria-expanded="false" aria-label="Abrir menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <nav id="epja-nav" class="epja-nav"></nav>
+    </aside>
+
+    <main class="epja-main">
+      <div class="epja-topbar">
+        <div>
+          <div class="antetitulo">Aula EPJA</div>
+          <h1 class="titulo-bloque" id="titulo">Bienvenida/o</h1>
+        </div>
+        <a class="epja-btn-outline" href="/#inicio" style="text-decoration:none;">Sitio público</a>
+      </div>
+
+      <div class="epja-content">
+        <section class="epja-hero">
+          <div class="epja-panel">
+            <span class="antetitulo">Tu recorrido</span>
+            <h2 class="titulo-bloque">Tus materias en un camino claro</h2>
+            <p class="bajada">Entrá a la materia asignada, seguí los módulos en orden y retomá donde te quedaste. El objetivo es que el aula sea simple y amena.</p>
+          </div>
+          <div class="epja-panel">
+            <span class="antetitulo">Acceso rápido</span>
+            <div id="accesos-materias" class="epja-actions" style="margin-top:10px;">
+              <a class="epja-btn-outline" href="bibliografia.html" style="text-decoration:none;">Ver bibliografía</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="epja-panel">
+          <span class="antetitulo">Materias asignadas</span>
+          <div id="materias" class="epja-grid" style="margin-top:14px;"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../config.js"></script>
+  <script src="api-epja.js"></script>
+  <script>
+    (function () {
+      function salir() {
+        EPJAApi.sesion.salir();
+      }
+
+      function mostrarError(error) {
+        document.getElementById('materias').textContent = error.message || 'No se pudo cargar el aula.';
+      }
+
+      function configurarAccesos(materias) {
+        EPJAApi.ui.pintarNavMaterias(document.getElementById('epja-nav'), materias, { activa: 'inicio' });
+
+        var contenedor = document.getElementById('accesos-materias');
+        contenedor.textContent = '';
+        materias.forEach(function (m) {
+          var link = document.createElement('a');
+          link.className = 'epja-btn';
+          link.style.textDecoration = 'none';
+          link.href = 'materia.html?codigo=' + encodeURIComponent(m.codigo);
+          link.textContent = 'Ir a ' + String(m.codigo || '').toUpperCase();
+          contenedor.appendChild(link);
+        });
+        var bibliografia = document.createElement('a');
+        bibliografia.className = 'epja-btn-outline';
+        bibliografia.style.textDecoration = 'none';
+        bibliografia.href = 'bibliografia.html';
+        bibliografia.textContent = 'Ver bibliografía';
+        contenedor.appendChild(bibliografia);
+      }
+
+      function pintarMaterias(materias) {
+        var contenedor = document.getElementById('materias');
+        contenedor.textContent = '';
+        materias.forEach(function (m) {
+          var total = m.totalModulos || 0;
+          var hechos = m.modulosCompletados || 0;
+          var clase = hechos === total && total ? 'ok' : 'warn';
+          var texto = total ? (hechos + ' de ' + total + ' módulos') : 'Sin módulos cargados';
+
+          var card = document.createElement('article');
+          card.className = 'epja-card';
+
+          var codigo = document.createElement('span');
+          codigo.className = 'kicker';
+          codigo.textContent = String(m.codigo || '').toUpperCase();
+          var titulo = document.createElement('h3');
+          titulo.textContent = m.nombre || '';
+          var descripcion = document.createElement('p');
+          descripcion.textContent = m.descripcion || '';
+          var estado = document.createElement('span');
+          estado.className = 'epja-pill ' + clase;
+          estado.textContent = texto;
+          var abrir = document.createElement('a');
+          abrir.className = 'epja-btn';
+          abrir.style.textDecoration = 'none';
+          abrir.style.textAlign = 'center';
+          abrir.style.marginTop = 'auto';
+          abrir.href = 'materia.html?codigo=' + encodeURIComponent(m.codigo);
+          abrir.textContent = 'Abrir materia';
+
+          card.appendChild(codigo);
+          card.appendChild(titulo);
+          card.appendChild(descripcion);
+          card.appendChild(estado);
+          card.appendChild(abrir);
+          contenedor.appendChild(card);
+        });
+      }
+
+      Promise.all([EPJAApi.sesion.yo(), EPJAApi.alumno.materias()])
+        .then(function (res) {
+          var yo = res[0];
+          var materias = res[1];
+          document.getElementById('titulo').textContent = 'Hola, ' + yo.nombre;
+          document.getElementById('nombre-side').textContent = yo.apellido + ', ' + yo.nombre;
+          configurarAccesos(materias);
+          pintarMaterias(materias);
+        })
+        .catch(function (error) {
+          if (error.estado === 401) salir();
+          else mostrarError(error);
+        });
+    })();
+  </script>
+</body>
+</html>
