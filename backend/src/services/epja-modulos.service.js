@@ -6,8 +6,26 @@ import { epjaModulosRepo } from '../repositories/epja-modulos.repo.js';
 const OPCIONES_SANITIZADO = {
   whiteList: {
     h2: [], h3: [], h4: [], p: [], ul: [], ol: [], li: [],
-    strong: [], em: [], b: [], i: [], u: [], br: [], hr: [], blockquote: [],
-    a: ['href', 'title']
+    strong: [], em: [], b: [], i: [], u: [], small: [], br: [], hr: [], blockquote: [],
+    figure: ['class', 'data-url', 'data-name', 'data-type', 'data-size', 'data-src', 'data-media-align', 'data-media-layout'],
+    span: ['class'],
+    a: ['href', 'title', 'class'],
+    iframe: ['class', 'src', 'frameborder', 'allowfullscreen', 'title']
+  },
+  onTagAttr(tag, nombre, valor) {
+    if (tag === 'iframe' && nombre === 'src' && !/^https:\/\/www\.youtube(?:-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]+(?:\?[^"'<>]*)?$/.test(valor)) {
+      return '';
+    }
+    if (tag === 'figure' && nombre === 'class' && !/^ql-(?:attachment|youtube)$/.test(valor)) return '';
+    if (tag === 'figure' && nombre === 'data-url' && !/^\/api\/epja\/archivos\/[0-9a-f-]{36}$/i.test(valor)) return '';
+    if (tag === 'figure' && nombre === 'data-src' && !/^https:\/\/www\.youtube(?:-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]+(?:\?[^"'<>]*)?$/.test(valor)) return '';
+    if (tag === 'figure' && nombre === 'data-type' && !/^[a-z0-9.+-]+\/[a-z0-9.+-]+$/i.test(valor)) return '';
+    if (tag === 'figure' && nombre === 'data-size' && !/^\d{1,8}$/.test(valor)) return '';
+    if (tag === 'figure' && nombre === 'data-media-align' && !/^(?:left|center|right)$/.test(valor)) return '';
+    if (tag === 'figure' && nombre === 'data-media-layout' && !/^(?:compact|medium|wide)$/.test(valor)) return '';
+    if (tag === 'a' && nombre === 'class' && valor !== 'attachment-card') return '';
+    if (tag === 'span' && nombre === 'class' && !/^(?:attachment-(?:visual|info|action)|media-select-handle)$/.test(valor)) return '';
+    return undefined;
   },
   stripIgnoreTag: true,
   stripIgnoreTagBody: ['script', 'style']

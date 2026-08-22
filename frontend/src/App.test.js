@@ -58,4 +58,20 @@ describe('protección de rutas administrativas', () => {
     expect(wrapper.find('[data-testid="admin-epja"]').exists()).toBe(false);
     wrapper.unmount();
   });
+
+  test('permite volver al aula desde la portada con una sesión de estudiante', () => {
+    sessionStorage.setItem('profeluna_epja_token', 'token-estudiante');
+    const wrapper = mount(App, { global: { stubs } });
+
+    expect(wrapper.get('a[href="#aula"]').text()).toContain('Volver al aula EPJA');
+    wrapper.unmount();
+  });
+
+  test('permite volver al panel desde la portada con una sesión administrativa', () => {
+    sessionStorage.setItem('profeluna_token', tokenAdmin());
+    const wrapper = mount(App, { global: { stubs } });
+
+    expect(wrapper.get('a[href="#admin"]').text()).toContain('Volver al panel admin');
+    wrapper.unmount();
+  });
 });

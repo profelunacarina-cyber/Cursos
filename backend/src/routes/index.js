@@ -1,6 +1,6 @@
 // Rutas (MVC): el mapa completo de la API en una sola pantalla.
 // Cada ruta arma su cadena: [validación / autenticación] → controlador.
-import { Router } from 'express';
+import express, { Router } from 'express';
 import { authController } from '../controllers/auth.controller.js';
 import { cursosController } from '../controllers/cursos.controller.js';
 import { resultadosController } from '../controllers/resultados.controller.js';
@@ -13,8 +13,9 @@ import { epjaEstudiantesController } from '../controllers/epja-estudiantes.contr
 import { epjaMateriasController } from '../controllers/epja-materias.controller.js';
 import { epjaModulosController } from '../controllers/epja-modulos.controller.js';
 import { epjaCertificadosController } from '../controllers/epja-certificados.controller.js';
+import { epjaArchivosController } from '../controllers/epja-archivos.controller.js';
 import { TIPOS } from '../services/organizaciones.service.js';
-import { requiereAdmin, requiereEstudiante } from '../middlewares/auth.js';
+import { requiereAdmin, requiereEstudiante, requiereSesion } from '../middlewares/auth.js';
 import { validarCuerpo } from '../middlewares/validar.js';
 import { limitar } from '../middlewares/limitar.js';
 import { SECCIONES, ESTADOS } from '../services/cursos.service.js';
@@ -194,6 +195,14 @@ rutas.get('/epja/estudiantes/:id/recorrido', requiereAdmin, epjaCertificadosCont
 rutas.post('/epja/estudiantes/:id/modulos/:moduloId/aprobar', requiereAdmin, epjaCertificadosController.aprobarYEmitir);
 rutas.get('/epja/certificados', requiereAdmin, epjaCertificadosController.listar);
 rutas.delete('/epja/certificados/:id', requiereAdmin, epjaCertificadosController.revocar);
+
+rutas.post(
+  '/epja/archivos',
+  requiereAdmin,
+  express.raw({ type: '*/*', limit: '4mb' }),
+  epjaArchivosController.crear
+);
+rutas.get('/epja/archivos/:id', requiereSesion, epjaArchivosController.descargar);
 
 rutas.get('/epja/materias', requiereAdmin, epjaMateriasController.listar);
 rutas.post('/epja/materias', requiereAdmin, validarCuerpo(esquemaEpjaMateria), epjaMateriasController.crear);

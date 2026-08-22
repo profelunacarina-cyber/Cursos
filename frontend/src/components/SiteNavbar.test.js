@@ -23,4 +23,34 @@ describe('SiteNavbar', () => {
     expect(wrapper.text()).not.toContain('Logout');
     expect(wrapper.text()).not.toContain('Mi perfil');
   });
+
+  test('ofrece volver al aula desde la portada si hay sesión de estudiante', () => {
+    sessionStorage.setItem('profeluna_epja_token', 'token-alumno');
+    const wrapper = mount(SiteNavbar);
+
+    expect(wrapper.get('a[href="#aula"]').text()).toBe('Volver al aula');
+  });
+
+  test('ofrece volver al panel desde la portada si hay sesión administrativa', () => {
+    sessionStorage.setItem('profeluna_token', 'token-admin');
+    const wrapper = mount(SiteNavbar);
+
+    expect(wrapper.get('a[href="#admin"]').text()).toBe('Volver al panel admin');
+  });
+
+  test('oculta volver al aula cuando el estudiante ya está dentro', () => {
+    sessionStorage.setItem('profeluna_epja_token', 'token-alumno');
+    location.hash = '#aula';
+    const wrapper = mount(SiteNavbar);
+
+    expect(wrapper.text()).not.toContain('Volver al aula');
+  });
+
+  test.each(['#admin', '#admin-epja'])('oculta volver al panel dentro de %s', hash => {
+    sessionStorage.setItem('profeluna_token', 'token-admin');
+    location.hash = hash;
+    const wrapper = mount(SiteNavbar);
+
+    expect(wrapper.find('a[href="#admin"]').exists()).toBe(false);
+  });
 });

@@ -39,6 +39,8 @@ const vista = ref(vistaPermitida(hashInicial));
 if (vista.value !== hashInicial) reemplazarHash(vista.value);
 const organizaciones = ref([]);
 const cargando = ref(false);
+const sesionEpjaActiva = ref(Boolean(sessionStorage.getItem('profeluna_epja_token')));
+const sesionAdminActiva = ref(sesionAdminLocalActiva());
 const respaldo = [{
   nombre: 'Accionar', tipo: 'Asociación civil', localidad: 'Rawson', zona: 'VIRCH',
   descripcion: 'Asociación civil sin fines de lucro con base en Rawson que trabaja en la intersección entre economía del cuidado, género y economía popular. Acompaña a mujeres y personas en situación de vulnerabilidad con talleres, capacitaciones y articulación con políticas públicas, desde una perspectiva de derechos y autonomía.',
@@ -70,6 +72,8 @@ async function cargarVitrina() {
 }
 
 function cambiarVista() {
+  sesionEpjaActiva.value = Boolean(sessionStorage.getItem('profeluna_epja_token'));
+  sesionAdminActiva.value = sesionAdminLocalActiva();
   const solicitada = location.hash || '#inicio';
   vista.value = vistaPermitida(solicitada);
   if (vista.value !== solicitada) reemplazarHash(vista.value);
@@ -78,11 +82,13 @@ function cambiarVista() {
 
 onMounted(() => {
   addEventListener('hashchange', cambiarVista);
+  addEventListener('epja-session', cambiarVista);
   addEventListener('admin-session', cambiarVista);
   cambiarVista();
 });
 onUnmounted(() => {
   removeEventListener('hashchange', cambiarVista);
+  removeEventListener('epja-session', cambiarVista);
   removeEventListener('admin-session', cambiarVista);
 });
 </script>
@@ -164,7 +170,15 @@ onUnmounted(() => {
       <h2>Para estudiantes de la EPJA N° 753 de Rawson</h2>
       <p>Fichas didácticas con actividades y trabajos prácticos complementarios a las clases presenciales o semipresenciales, con criterios de accesibilidad para acompañar la trayectoria de cada estudiante.</p>
       <div class="chips"><span>A tu ritmo</span><span>Desde el celular</span><span>Autoevaluación</span><span>Con constancia de aprobación descargable</span></div>
-      <a class="button button-icon" href="#login">Ingresar al aula EPJA <ArrowRight :size="16" aria-hidden="true" /></a>
+      <div class="home-session-actions">
+        <a class="button button-icon" :href="sesionEpjaActiva ? '#aula' : '#login'">
+          {{ sesionEpjaActiva ? 'Volver al aula EPJA' : 'Ingresar al aula EPJA' }}
+          <ArrowRight :size="16" aria-hidden="true" />
+        </a>
+        <a v-if="sesionAdminActiva" class="button secondary button-icon" href="#admin">
+          Volver al panel admin <ArrowRight :size="16" aria-hidden="true" />
+        </a>
+      </div>
     </section>
 
     <section class="about about-summary">
@@ -205,4 +219,5 @@ onUnmounted(() => {
 .sociales a { display:grid; place-items:center; width:40px; height:40px; color:var(--crema); }
 .sociales svg { width:25px; height:25px; stroke:none; }
 .sociales a:hover { color:var(--ocre); }
+.home-session-actions { display:flex; flex-wrap:wrap; gap:10px; }
 </style>

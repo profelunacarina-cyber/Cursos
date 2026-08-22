@@ -35,6 +35,23 @@
     });
   }
 
+  function descargarArchivo(ruta) {
+    var destino = /^https?:\/\//i.test(ruta) ? ruta : new URL(ruta, location.origin).href;
+    return fetch(destino, { headers: token ? { Authorization: 'Bearer ' + token } : {} })
+      .then(function (respuesta) {
+        if (respuesta.ok) {
+          return respuesta.blob().then(function (contenido) {
+            return { contenido: contenido, disposicion: respuesta.headers.get('Content-Disposition') || '' };
+          });
+        }
+        return respuesta.json().catch(function () { return {}; }).then(function (datos) {
+          var error = new Error(datos.error || 'No se pudo descargar el archivo');
+          error.estado = respuesta.status;
+          throw error;
+        });
+      });
+  }
+
   function salir() {
     token = '';
     try { sessionStorage.removeItem(CLAVE); } catch (e) {}
@@ -123,7 +140,8 @@
       materias: function () { return pedir('/epja/alumno/materias'); },
       materia: function (codigo) { return pedir('/epja/alumno/materias/' + encodeURIComponent(codigo)); },
       modulo: function (id) { return pedir('/epja/alumno/modulos/' + id); },
-      completar: function (id) { return pedir('/epja/alumno/modulos/' + id + '/completar', { metodo: 'POST' }); }
+      completar: function (id) { return pedir('/epja/alumno/modulos/' + id + '/completar', { metodo: 'POST' }); },
+      descargarArchivo: descargarArchivo
     },
     ui: {
       pintarNavMaterias: pintarNavMaterias
