@@ -745,7 +745,15 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
           <div class="module-modal-body">
             <label>Título<input v-model="moduloForm.titulo" required></label>
             <label>Resumen<input v-model="moduloForm.resumen"></label>
-            <label class="module-editor-field">Contenido<RichTextEditor v-model="moduloForm.contenido" /></label>
+            <div class="module-editor-field">
+              <span class="module-editor-label">Contenido</span>
+              <RichTextEditor
+                v-model="moduloForm.contenido"
+                allow-youtube
+                upload-url="/api/epja/archivos"
+                :auth-token="token"
+              />
+            </div>
             <label class="subject-check"><input v-model="moduloForm.publicado" type="checkbox">Publicar para estudiantes</label>
           </div>
 
@@ -828,6 +836,7 @@ legend { padding:0 5px; font-size:13px; font-weight:700; }
 .module-modal { width:min(860px,100%); max-height:min(92vh,900px); grid-template-rows:auto minmax(0,1fr) auto; overflow:hidden; }
 .module-modal-body { min-height:0; overflow:auto; display:grid; gap:17px; padding-right:6px; scrollbar-gutter:stable; }
 .module-editor-field { min-height:0; }
+.module-editor-label { display:block; margin-bottom:6px; font-size:14px; font-weight:700; }
 .module-modal :deep(.rich-text-editor) { min-width:0; }
 .module-modal :deep(.ql-container.ql-snow) { min-height:260px; max-height:42vh; overflow:hidden; }
 .module-modal :deep(.ql-editor) { min-height:260px; max-height:42vh; overflow-y:auto; }

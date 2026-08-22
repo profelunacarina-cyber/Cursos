@@ -69,6 +69,23 @@
         document.getElementById('titulo').textContent = modulo.titulo;
         document.getElementById('resumen').textContent = modulo.resumen || '';
         document.getElementById('contenido').innerHTML = modulo.contenido || '<p>Sin contenido.</p>';
+        document.querySelectorAll('#contenido .ql-attachment[data-type^="image/"]').forEach(function (adjunto) {
+          var ruta = adjunto.getAttribute('data-url');
+          var visual = adjunto.querySelector('.attachment-visual');
+          if (!ruta || !visual || visual.querySelector('img')) return;
+          EPJAApi.alumno.descargarArchivo(ruta).then(function (archivo) {
+            adjunto._archivoAdjunto = archivo;
+            var urlPreview = URL.createObjectURL(archivo.contenido);
+            adjunto._urlPreview = urlPreview;
+            var imagen = document.createElement('img');
+            imagen.src = urlPreview;
+            imagen.alt = '';
+            visual.textContent = '';
+            visual.appendChild(imagen);
+          }).catch(function () {
+            // Si falla la miniatura, se conserva la tarjeta y su descarga normal.
+          });
+        });
         var estado = document.getElementById('estado');
         estado.className = 'epja-pill ' + (modulo.completado ? 'ok' : 'warn');
         estado.textContent = modulo.completado ? 'Completado' : 'Pendiente';
@@ -117,6 +134,40 @@
           });
         }
       }
+
+      document.getElementById('contenido').addEventListener('click', function (evento) {
+        var enlace = evento.target.closest && evento.target.closest('a[href^="/api/epja/archivos/"]');
+        if (!enlace) return;
+        evento.preventDefault();
+        enlace.classList.add('descargando');
+        var adjunto = enlace.closest('.ql-attachment');
+        var pedido = adjunto && adjunto._archivoAdjunto
+          ? Promise.resolve(adjunto._archivoAdjunto)
+          : EPJAApi.alumno.descargarArchivo(enlace.getAttribute('href'));
+        pedido.then(function (archivo) {
+          var coincidencia = archivo.disposicion.match(/filename\*=UTF-8''([^;]+)/i);
+          var nombre = coincidencia ? decodeURIComponent(coincidencia[1]) : enlace.textContent.trim() || 'archivo';
+          var url = URL.createObjectURL(archivo.contenido);
+          var descarga = document.createElement('a');
+          descarga.href = url;
+          descarga.download = nombre;
+          document.body.appendChild(descarga);
+          descarga.click();
+          descarga.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        }).catch(function (error) {
+          if (error.estado === 401) salir();
+          else alert(error.message);
+        }).finally(function () {
+          enlace.classList.remove('descargando');
+        });
+      });
+
+      window.addEventListener('beforeunload', function () {
+        document.querySelectorAll('#contenido .ql-attachment').forEach(function (adjunto) {
+          if (adjunto._urlPreview) URL.revokeObjectURL(adjunto._urlPreview);
+        });
+      });
 
       Promise.all([EPJAApi.alumno.modulo(id), EPJAApi.alumno.materias()]).then(function (res) {
         var modulo = res[0];

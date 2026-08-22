@@ -34,6 +34,31 @@ export function requiereAdmin(req, _res, next) {
   }
 }
 
+// Los adjuntos del aula pueden descargarlos tanto administradores como estudiantes
+// autenticados. Para estudiantes también se comprueba que la cuenta siga activa.
+export async function requiereSesion(req, _res, next) {
+  try {
+    const datos = verificar(req);
+    if (datos?.tipo === 'estudiante') {
+      const id = Number(datos.sub);
+      if (!Number.isInteger(id)) throw new ErrorApp(401, 'La sesión venció, volvé a iniciar sesión');
+      const estudiante = await epjaEstudiantesRepo.obtener(id);
+      if (!estudiante) throw new ErrorApp(401, 'La sesión venció, volvé a iniciar sesión');
+      if (!estudiante.activo) throw new ErrorApp(403, 'Este usuario está inactivo');
+      req.estudiante = { ...datos, sub: estudiante.id };
+    } else if (datos?.tipo && datos.tipo !== 'admin') {
+      throw new ErrorApp(403, 'No tenés acceso a este archivo');
+    } else {
+      req.admin = datos;
+    }
+    next();
+  } catch (e) {
+    if (e instanceof ErrorApp) return next(e);
+    if (esErrorJwt(e)) return next(new ErrorApp(401, 'La sesión venció, volvé a iniciar sesión'));
+    next(e);
+  }
+}
+
 export async function requiereEstudiante(req, _res, next) {
   try {
     const datos = verificar(req);

@@ -8,6 +8,8 @@ const hashActual = ref(location.hash || '#inicio');
 const menuAbierto = ref(false);
 const activo = computed(() => activoEpja.value || activoAdmin.value);
 const esLogin = computed(() => hashActual.value === '#login');
+const estaEnAula = computed(() => hashActual.value === '#aula');
+const estaEnPanelAdmin = computed(() => ['#admin', '#admin-epja'].includes(hashActual.value));
 const mostrarSesionActiva = computed(() => activo.value && !esLogin.value);
 const destino = computed(() => activoEpja.value && !esLogin.value ? '#aula' : '#login');
 
@@ -72,6 +74,8 @@ onUnmounted(() => {
       <a href="#inicio" @click="cerrarMenu">Inicio</a>
       <a href="#vitrina" @click="cerrarMenu">Vitrina</a>
       <a href="#sobre-mi" @click="cerrarMenu">Sobre mí</a>
+      <a v-if="activoEpja && !esLogin && !estaEnAula" href="#aula" @click="cerrarMenu">Volver al aula</a>
+      <a v-if="activoAdmin && !esLogin && !estaEnPanelAdmin" href="#admin" @click="cerrarMenu">Volver al panel admin</a>
       <a v-if="activoEpja && !esLogin" href="#perfil" @click="cerrarMenu">Mi perfil</a>
       <a :href="destino" @click="salir">{{ mostrarSesionActiva ? 'Logout' : 'Login' }}</a>
     </nav>
