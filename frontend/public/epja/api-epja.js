@@ -75,7 +75,7 @@
     (materias || []).forEach(function (materia) {
       var codigo = String(materia.codigo || '').toLowerCase();
       contenedor.appendChild(enlaceNav(
-        String(materia.codigo || '').toUpperCase(),
+        String(materia.campo || materia.codigo || '').toUpperCase() + ' · ' + String(materia.nombre || ''),
         'materia.html?codigo=' + encodeURIComponent(materia.codigo),
         opciones.activaCodigo && String(opciones.activaCodigo).toLowerCase() === codigo
       ));

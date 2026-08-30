@@ -58,7 +58,7 @@
           card.className = 'epja-card';
           var codigo = document.createElement('span');
           codigo.className = 'kicker';
-          codigo.textContent = String(materia.codigo || '').toUpperCase();
+          codigo.textContent = String(materia.campo || materia.codigo || '').toUpperCase();
           var titulo = document.createElement('h3');
           titulo.textContent = materia.nombre || '';
           var descripcion = document.createElement('p');

@@ -97,9 +97,9 @@ async function main() {
     } else {
       for (const m of epjaMaterias) {
         await pool.query(
-          `INSERT INTO epja_materias (codigo, nombre, descripcion, color, orden)
-           VALUES ($1, $2, $3, $4, $5)`,
-          [m.codigo, m.nombre, m.descripcion, m.color, m.orden]
+          `INSERT INTO epja_materias (codigo, campo, nombre, descripcion, color, orden)
+           VALUES ($1, $2, $3, $4, $5, $6)`,
+          [m.codigo, m.campo, m.nombre, m.descripcion, m.color, m.orden]
         );
       }
       console.log(`✓ ${epjaMaterias.length} materias EPJA cargadas`);

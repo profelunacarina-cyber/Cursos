@@ -182,6 +182,7 @@ export const semillas = [
 export const epjaMaterias = [
   {
     codigo: 'foi',
+    campo: 'foi',
     nombre: 'FOI · Formación Orientada I',
     descripcion: 'Materia de ingreso para estudiantes EPJA. Ordena el recorrido, presenta la misión del aula y trabaja fundamentos de la economía social, comunitaria y solidaria.',
     color: '#2E5638',
@@ -189,10 +190,27 @@ export const epjaMaterias = [
   },
   {
     codigo: 'foii',
-    nombre: 'FOII · Formación Orientada II',
-    descripcion: 'Administración y liquidación de sueldos, economía social y desarrollo sustentable, recursos humanos y relaciones laborales.',
+    campo: 'foii',
+    nombre: 'Recursos Humanos y Relaciones Laborales',
+    descripcion: 'Capacidades, habilidades y competencias; descripción de puestos, selección, contratación y evaluación de desempeño.',
     color: '#B05C33',
     orden: 2
+  },
+  {
+    codigo: 'foiiadministracionsueldos',
+    campo: 'foii',
+    nombre: 'Administración y liquidación de sueldos',
+    descripcion: 'Administración laboral, registración y liquidación de haberes.',
+    color: '#B05C33',
+    orden: 3
+  },
+  {
+    codigo: 'foiieconomiasocial',
+    campo: 'foii',
+    nombre: 'Economía social y desarrollo sustentable',
+    descripcion: 'Economía social, formas de cooperación y desarrollo sustentable en el territorio.',
+    color: '#B05C33',
+    orden: 4
   }
 ];
 
@@ -234,7 +252,7 @@ export const epjaModulos = [
     publicado: true
   },
   {
-    materiaCodigo: 'foii',
+    materiaCodigo: 'foiiadministracionsueldos',
     titulo: 'Administración y liquidación de sueldos',
     resumen: 'Primer acercamiento a nociones administrativas y a la liquidación básica de haberes.',
     contenido: `
@@ -251,7 +269,7 @@ export const epjaModulos = [
     publicado: true
   },
   {
-    materiaCodigo: 'foii',
+    materiaCodigo: 'foiieconomiasocial',
     titulo: 'Economía social, desarrollo sustentable y relaciones laborales',
     resumen: 'Trabajo, vínculos laborales, territorio y desarrollo sustentable en clave EPJA.',
     contenido: `

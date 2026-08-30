@@ -77,7 +77,7 @@
           link.className = 'epja-btn';
           link.style.textDecoration = 'none';
           link.href = 'materia.html?codigo=' + encodeURIComponent(m.codigo);
-          link.textContent = 'Ir a ' + String(m.codigo || '').toUpperCase();
+          link.textContent = 'Ir a ' + String(m.campo || m.codigo || '').toUpperCase() + ' · ' + String(m.nombre || '');
           contenedor.appendChild(link);
         });
         var bibliografia = document.createElement('a');
@@ -102,7 +102,7 @@
 
           var codigo = document.createElement('span');
           codigo.className = 'kicker';
-          codigo.textContent = String(m.codigo || '').toUpperCase();
+          codigo.textContent = String(m.campo || m.codigo || '').toUpperCase();
           var titulo = document.createElement('h3');
           titulo.textContent = m.nombre || '';
           var descripcion = document.createElement('p');

@@ -54,9 +54,17 @@ async function resolverMaterias(materias) {
   if (!codigos.length) throw new ErrorApp(400, 'Asigná al menos una materia');
   const disponibles = await epjaMateriasRepo.listar();
   const porCodigo = new Map(disponibles.map(m => [m.codigo, m]));
-  const faltantes = codigos.filter(c => !porCodigo.has(c));
+  const porCampo = new Map();
+  disponibles.forEach(m => {
+    const grupo = porCampo.get(m.campo) || [];
+    grupo.push(m);
+    porCampo.set(m.campo, grupo);
+  });
+  const faltantes = codigos.filter(c => !porCodigo.has(c) && !porCampo.has(c));
   if (faltantes.length) throw new ErrorApp(400, `Materias inválidas: ${faltantes.join(', ')}`);
-  return codigos.map(c => porCodigo.get(c).id);
+  return [...new Set(codigos.flatMap(c =>
+    porCampo.has(c) ? porCampo.get(c).map(m => m.id) : [porCodigo.get(c).id]
+  ))];
 }
 
 function claveInicial(valor, dni) {

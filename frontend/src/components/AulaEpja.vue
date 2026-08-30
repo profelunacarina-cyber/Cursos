@@ -42,7 +42,7 @@ onMounted(() => cargar().catch(e => { error.value = e.message || 'No se pudo car
     <p v-if="error" class="error">{{ error }}</p>
     <div class="org-grid">
       <a v-for="materia in materias" :key="materia.id" class="org-card aula-card" :href="rutaMateria(materia)">
-        <small>{{ materia.codigo }}</small><h2>{{ materia.nombre }}</h2><p>{{ materia.descripcion }}</p>
+        <small>{{ (materia.campo || materia.codigo).toUpperCase() }}</small><h2>{{ materia.nombre }}</h2><p>{{ materia.descripcion }}</p>
         <strong>{{ materia.modulosCompletados || 0 }} de {{ materia.totalModulos || 0 }} módulos completados</strong>
       </a>
     </div>

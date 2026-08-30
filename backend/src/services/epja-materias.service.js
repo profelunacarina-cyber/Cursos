@@ -21,7 +21,9 @@ export const epjaMateriasService = {
   },
 
   async crear(datos) {
-    const codigo = normalizarCodigo(datos.codigo || datos.nombre);
+    const campo = normalizarCodigo(datos.campo || datos.codigo);
+    if (!campo) throw new ErrorApp(400, 'La materia necesita un campo');
+    const codigo = normalizarCodigo(datos.codigo || `${campo}-${datos.nombre}`);
     if (!codigo) throw new ErrorApp(400, 'La materia necesita un código');
     if (await epjaMateriasRepo.obtenerPorCodigo(codigo)) {
       throw new ErrorApp(409, 'Ya existe una materia con ese código');
@@ -32,6 +34,7 @@ export const epjaMateriasService = {
 
     return epjaMateriasRepo.crear({
       codigo,
+      campo,
       nombre,
       descripcion: String(datos.descripcion || '').trim().slice(0, 600),
       color: colorSeguro(datos.color),
@@ -47,6 +50,7 @@ export const epjaMateriasService = {
 
     const materia = {
       nombre: String(datos.nombre || '').trim().slice(0, 120) || previa.nombre,
+      campo: normalizarCodigo(datos.campo || previa.campo),
       descripcion: String(datos.descripcion || '').trim().slice(0, 600),
       color: colorSeguro(datos.color || previa.color),
       orden: Number.isInteger(datos.orden) ? datos.orden : previa.orden,

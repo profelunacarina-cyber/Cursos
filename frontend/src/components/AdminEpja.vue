@@ -45,6 +45,16 @@ const estudiantesFiltrados = computed(() => {
     : estudiantes.value.filter(e => `${e.apellido} ${e.nombre} ${e.dni}`.toLowerCase().includes(q));
 });
 
+const materiasPorCampo = computed(() => {
+  const grupos = new Map();
+  materias.value.forEach(materia => {
+    const campo = materia.campo || materia.codigo;
+    if (!grupos.has(campo)) grupos.set(campo, { campo, materias: [] });
+    grupos.get(campo).materias.push(materia);
+  });
+  return [...grupos.values()];
+});
+
 const estudianteVacio = () => ({
   dni: '',
   nombre: '',
@@ -55,8 +65,8 @@ const estudianteVacio = () => ({
   materias: []
 });
 
-const materiaVacia = () => ({
-  codigo: '',
+const materiaVacia = (campo = '') => ({
+  campo,
   nombre: '',
   descripcion: '',
   color: '#2E5638',
@@ -153,11 +163,6 @@ function normalizarCodigoMateria(valor) {
     .toLowerCase()
     .replace(/[^a-z0-9]/g, '')
     .slice(0, 40);
-}
-
-function completarCodigoMateria() {
-  if (materiaForm.value?.id || materiaForm.value?.codigo) return;
-  materiaForm.value.codigo = normalizarCodigoMateria(materiaForm.value.nombre);
 }
 
 async function cargar() {
@@ -260,8 +265,8 @@ function descargarPlantilla() {
   URL.revokeObjectURL(a.href);
 }
 
-function nuevaMateria() {
-  materiaForm.value = materiaVacia();
+function nuevaMateria(campo = '') {
+  materiaForm.value = materiaVacia(campo);
   error.value = '';
 }
 
@@ -276,8 +281,8 @@ function cerrarMateriaModal() {
 }
 
 async function guardarMateria() {
-  completarCodigoMateria();
   const m = materiaForm.value;
+  m.campo = normalizarCodigoMateria(m.campo);
   const esNueva = !m.id;
   const r = await fetch(esNueva ? '/api/epja/materias' : `/api/epja/materias/${m.id}`, {
     method: esNueva ? 'POST' : 'PUT',
@@ -450,7 +455,7 @@ async function descargarCertificado(modulo) {
     pdf.setFont('helvetica', 'normal');
     pdf.setFontSize(11);
     pdf.setTextColor(93, 88, 80);
-    pdf.text(`${modulo.materia.codigo.toUpperCase()} · ${modulo.materia.nombre}`, ancho / 2, yMateria, { align: 'center' });
+    pdf.text(`${(modulo.materia.campo || modulo.materia.codigo).toUpperCase()} · ${modulo.materia.nombre}`, ancho / 2, yMateria, { align: 'center' });
     pdf.text(`Emitido en Rawson, Chubut, el ${fechaTexto}.`, ancho / 2, yMateria + 11, { align: 'center' });
 
     pdf.setDrawColor(64, 98, 78);
@@ -540,8 +545,9 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
         </div>
         <fieldset>
           <legend>Materias asignadas</legend>
-          <label v-for="m in materias" :key="m.id" class="subject-check">
-            <input v-model="formulario.materias" type="checkbox" :value="m.codigo">{{ m.codigo.toUpperCase() }} · {{ m.nombre }}
+          <label v-for="grupo in materiasPorCampo" :key="grupo.campo" class="subject-check">
+            <input v-model="formulario.materias" type="checkbox" :value="grupo.campo">
+            <span><strong>{{ grupo.campo.toUpperCase() }}</strong> · {{ grupo.materias.map(m => m.nombre).join(' / ') }}</span>
           </label>
         </fieldset>
         <label class="subject-check"><input v-model="formulario.activo" type="checkbox">Acceso activo al aula</label>
@@ -600,16 +606,23 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
             <PlusCircle :size="19" />
           </button>
         </div>
-        <button
-          v-for="m in materias"
-          :key="m.id"
-          class="materia-choice"
-          :class="{ selected: materiaSeleccionada?.id === m.id }"
-          @click="abrirMateria(m)"
-        >
-          <strong>{{ m.codigo.toUpperCase() }}</strong>
-          <span>{{ m.nombre }}</span>
-        </button>
+        <div v-for="grupo in materiasPorCampo" :key="grupo.campo" class="materia-group">
+          <div class="materia-group-head">
+            <strong>{{ grupo.campo.toUpperCase() }}</strong>
+            <button class="icon-button small" :aria-label="`Agregar materia a ${grupo.campo.toUpperCase()}`" @click="nuevaMateria(grupo.campo)">
+              <PlusCircle :size="16" />
+            </button>
+          </div>
+          <button
+            v-for="m in grupo.materias"
+            :key="m.id"
+            class="materia-choice"
+            :class="{ selected: materiaSeleccionada?.id === m.id }"
+            @click="abrirMateria(m)"
+          >
+            <span>{{ m.nombre }}</span>
+          </button>
+        </div>
       </aside>
 
       <section class="admin-card class-workspace">
@@ -622,7 +635,7 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
         <template v-else>
           <div class="workspace-head">
             <div>
-              <span class="section-label">{{ materiaSeleccionada.codigo }}</span>
+              <span class="section-label">{{ (materiaSeleccionada.campo || materiaSeleccionada.codigo).toUpperCase() }}</span>
               <h2>{{ materiaSeleccionada.nombre }}</h2>
               <p>{{ materiaSeleccionada.descripcion || 'Sin descripción cargada.' }}</p>
             </div>
@@ -666,7 +679,7 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
       <div v-if="estudianteCert" class="certificate-list">
         <article v-for="m in recorrido" :key="m.id" class="certificate-row">
           <div>
-            <small>{{ m.materia.codigo.toUpperCase() }} · {{ m.materia.nombre }}</small>
+            <small>{{ (m.materia.campo || m.materia.codigo).toUpperCase() }} · {{ m.materia.nombre }}</small>
             <strong>{{ m.titulo }}</strong>
             <span v-if="m.certificado && !m.certificado.revocadoEn" class="certificate-code">Certificado {{ m.certificado.codigo }}</span>
             <span v-else-if="m.certificado?.revocadoEn" class="revoked">Certificado revocado</span>
@@ -699,8 +712,11 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
 
           <div class="materia-form-grid">
             <label>
-              Código
-              <input v-model="materiaForm.codigo" :disabled="Boolean(materiaForm.id)" required @blur="materiaForm.codigo = normalizarCodigoMateria(materiaForm.codigo)">
+              Campo
+              <input v-model="materiaForm.campo" list="campos-materia" placeholder="Por ejemplo: FOII" required @blur="materiaForm.campo = normalizarCodigoMateria(materiaForm.campo)">
+              <datalist id="campos-materia">
+                <option v-for="grupo in materiasPorCampo" :key="grupo.campo" :value="grupo.campo.toUpperCase()" />
+              </datalist>
             </label>
             <label>
               Color
@@ -708,7 +724,7 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
             </label>
             <label class="field-full">
               Nombre
-              <input v-model="materiaForm.nombre" required @blur="completarCodigoMateria">
+              <input v-model="materiaForm.nombre" required>
             </label>
             <label class="field-full">
               Descripción
@@ -816,6 +832,9 @@ legend { padding:0 5px; font-size:13px; font-weight:700; }
 .materias-layout { display:grid; grid-template-columns:270px minmax(0,1fr); gap:20px; }
 .materia-list { align-self:start; }
 .materia-list-head { margin-bottom:10px; }
+.materia-group { margin-top:14px; }
+.materia-group-head { display:flex; align-items:center; justify-content:space-between; padding:0 8px 5px 12px; color:var(--verde); }
+.icon-button.small { width:30px; height:30px; }
 .materia-choice { display:grid; width:100%; gap:3px; padding:12px; border:0; border-left:3px solid transparent; background:transparent; text-align:left; cursor:pointer; font:inherit; }
 .materia-choice.selected,.materia-choice:hover { background:var(--salvia); border-left-color:var(--verde); }
 .materia-choice span { font-size:13px; color:#746D62; }

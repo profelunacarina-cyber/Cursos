@@ -16,7 +16,7 @@ function aEstudiante(fila) {
 
 const CAMPOS = `e.id, e.dni, e.nombre, e.apellido, e.email, e.activo,
                 COALESCE(
-                  array_agg(m.codigo ORDER BY m.orden) FILTER (WHERE m.codigo IS NOT NULL),
+                  array_agg(DISTINCT m.campo ORDER BY m.campo) FILTER (WHERE m.campo IS NOT NULL),
                   '{}'
                 ) AS materias`;
 
@@ -65,7 +65,7 @@ export const epjaEstudiantesRepo = {
     const { rows } = await getPool().query(
       `SELECT e.id, e.dni, e.nombre, e.apellido, e.email, e.activo, e.password_hash,
               COALESCE(
-                array_agg(m.codigo ORDER BY m.orden) FILTER (WHERE m.codigo IS NOT NULL),
+                array_agg(DISTINCT m.campo ORDER BY m.campo) FILTER (WHERE m.campo IS NOT NULL),
                 '{}'
               ) AS materias
          FROM epja_estudiantes e
@@ -88,7 +88,7 @@ export const epjaEstudiantesRepo = {
     const { rows } = await getPool().query(
       `SELECT e.id, e.dni, e.nombre, e.apellido, e.email, e.activo, e.password_hash,
               COALESCE(
-                array_agg(m.codigo ORDER BY m.orden) FILTER (WHERE m.codigo IS NOT NULL),
+                array_agg(DISTINCT m.campo ORDER BY m.campo) FILTER (WHERE m.campo IS NOT NULL),
                 '{}'
               ) AS materias
          FROM epja_estudiantes e

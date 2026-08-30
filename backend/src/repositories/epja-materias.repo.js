@@ -4,6 +4,7 @@ function aMateria(fila) {
   return {
     id: fila.id,
     codigo: fila.codigo,
+    campo: fila.campo,
     nombre: fila.nombre,
     descripcion: fila.descripcion,
     color: fila.color,
@@ -14,7 +15,7 @@ function aMateria(fila) {
   };
 }
 
-const CAMPOS = 'id, codigo, nombre, descripcion, color, orden, activa';
+const CAMPOS = 'id, codigo, campo, nombre, descripcion, color, orden, activa';
 
 export const epjaMateriasRepo = {
   async listar({ soloActivas = false } = {}) {
@@ -45,19 +46,19 @@ export const epjaMateriasRepo = {
 
   async crear(materia) {
     const { rows } = await getPool().query(
-      `INSERT INTO epja_materias (codigo, nombre, descripcion, color, orden, activa)
-       VALUES ($1, $2, $3, $4,
-               COALESCE($5, (SELECT COALESCE(MAX(orden), 0) + 1 FROM epja_materias)),
-               $6)
+      `INSERT INTO epja_materias (codigo, campo, nombre, descripcion, color, orden, activa)
+       VALUES ($1, $2, $3, $4, $5,
+               COALESCE($6, (SELECT COALESCE(MAX(orden), 0) + 1 FROM epja_materias)),
+               $7)
        RETURNING ${CAMPOS}`,
-      [materia.codigo, materia.nombre, materia.descripcion, materia.color, materia.orden, materia.activa]
+      [materia.codigo, materia.campo, materia.nombre, materia.descripcion, materia.color, materia.orden, materia.activa]
     );
     return rows[0] ? aMateria(rows[0]) : null;
   },
 
   async listarDeEstudiante(estudianteId) {
     const { rows } = await getPool().query(
-      `SELECT m.id, m.codigo, m.nombre, m.descripcion, m.color, m.orden, m.activa,
+      `SELECT m.id, m.codigo, m.campo, m.nombre, m.descripcion, m.color, m.orden, m.activa,
               COUNT(mod.id)::int                                            AS total_modulos,
               COUNT(pm.modulo_id) FILTER (WHERE pm.completado = true)::int  AS modulos_completados
          FROM epja_materias m
@@ -71,7 +72,7 @@ export const epjaMateriasRepo = {
            ON pm.modulo_id = mod.id
           AND pm.estudiante_id = $1
         WHERE m.activa = true
-        GROUP BY m.id, m.codigo, m.nombre, m.descripcion, m.color, m.orden, m.activa
+        GROUP BY m.id, m.codigo, m.campo, m.nombre, m.descripcion, m.color, m.orden, m.activa
         ORDER BY m.orden, m.id`,
       [estudianteId]
     );
@@ -93,14 +94,15 @@ export const epjaMateriasRepo = {
     const { rows } = await getPool().query(
       `UPDATE epja_materias
           SET nombre = $2,
-              descripcion = $3,
-              color = $4,
-              orden = $5,
-              activa = $6,
+              campo = $3,
+              descripcion = $4,
+              color = $5,
+              orden = $6,
+              activa = $7,
               actualizado_en = now()
         WHERE id = $1
     RETURNING ${CAMPOS}`,
-      [id, materia.nombre, materia.descripcion, materia.color, materia.orden, materia.activa]
+      [id, materia.nombre, materia.campo, materia.descripcion, materia.color, materia.orden, materia.activa]
     );
     return rows[0] ? aMateria(rows[0]) : null;
   }

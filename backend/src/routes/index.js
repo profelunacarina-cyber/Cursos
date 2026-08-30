@@ -90,6 +90,7 @@ const esquemaCambiarClaveEpja = {
 
 const esquemaEpjaMateria = {
   codigo:      { tipo: 'texto', max: 40 },
+  campo:       { tipo: 'texto', max: 40 },
   nombre:      { requerido: true, tipo: 'texto', max: 120 },
   descripcion: { tipo: 'texto', max: 600 },
   color:       { tipo: 'texto', max: 20 },
