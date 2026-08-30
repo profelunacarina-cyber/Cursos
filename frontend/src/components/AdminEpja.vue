@@ -31,6 +31,7 @@ const materiaForm = ref(null);
 const modulosMateria = ref([]);
 const moduloForm = ref(null);
 const errorModulo = ref('');
+const seccionModulo = ref('contenido');
 const estudianteCert = ref('');
 const recorrido = ref([]);
 const certificadoDescargando = ref(null);
@@ -314,6 +315,7 @@ async function abrirMateria(m) {
 function nuevoModulo() {
   if (!materiaSeleccionada.value?.id) return;
   errorModulo.value = '';
+  seccionModulo.value = 'contenido';
   moduloForm.value = {
     titulo: '',
     resumen: '',
@@ -326,6 +328,7 @@ function nuevoModulo() {
 
 function editarModulo(m) {
   errorModulo.value = '';
+  seccionModulo.value = 'contenido';
   moduloForm.value = {
     ...m,
     contenido: typeof m.contenido === 'string' ? m.contenido : '',
@@ -781,7 +784,14 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
             <p v-if="errorModulo" class="error module-save-error" role="alert">{{ errorModulo }}</p>
             <label>Título<input v-model="moduloForm.titulo" required></label>
             <label>Resumen<input v-model="moduloForm.resumen"></label>
-            <div class="module-editor-field">
+            <nav class="module-form-tabs" aria-label="Secciones de la clase">
+              <button type="button" :class="{ active: seccionModulo === 'contenido' }" @click="seccionModulo = 'contenido'">Contenido y archivos</button>
+              <button type="button" :class="{ active: seccionModulo === 'autoevaluacion' }" @click="seccionModulo = 'autoevaluacion'">
+                Autoevaluación
+                <span>{{ moduloForm.autoevaluacion.activa ? `${moduloForm.autoevaluacion.preguntas.length}/15` : 'Desactivada' }}</span>
+              </button>
+            </nav>
+            <div v-if="seccionModulo === 'contenido'" class="module-editor-field">
               <span class="module-editor-label">Contenido</span>
               <RichTextEditor
                 v-model="moduloForm.contenido"
@@ -790,7 +800,11 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
                 :auth-token="token"
               />
             </div>
-            <section class="module-evaluation-settings">
+            <section v-else class="module-evaluation-settings">
+              <div>
+                <span class="section-label">Actividad de cierre</span>
+                <h3>Autoevaluación del módulo</h3>
+              </div>
               <label class="subject-check"><input v-model="moduloForm.autoevaluacion.activa" type="checkbox">Cerrar este módulo con una autoevaluación</label>
               <p>La aprobación requiere 9 respuestas correctas de 15 (60 %). Los intentos quedan registrados.</p>
               <template v-if="moduloForm.autoevaluacion.activa">
@@ -891,7 +905,12 @@ legend { padding:0 5px; font-size:13px; font-weight:700; }
 .module-save-error { position:sticky; z-index:3; top:0; margin:0; }
 .module-editor-field { min-height:0; }
 .module-editor-label { display:block; margin-bottom:6px; font-size:14px; font-weight:700; }
+.module-form-tabs { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:5px; border:1px solid var(--borde); border-radius:11px; background:#eee9dd; }
+.module-form-tabs button { display:flex; align-items:center; justify-content:center; gap:8px; min-height:42px; padding:9px 12px; border:0; border-radius:8px; background:transparent; color:#746D62; font:700 14px 'Work Sans',sans-serif; cursor:pointer; }
+.module-form-tabs button.active { background:#fffdf7; color:var(--verde); box-shadow:0 1px 4px rgba(40,35,29,.1); }
+.module-form-tabs span { padding:2px 7px; border-radius:999px; background:var(--salvia); font-size:11px; }
 .module-evaluation-settings { display:grid; gap:13px; padding:17px; border:1px solid var(--borde); border-radius:12px; background:#fffdf7; }
+.module-evaluation-settings h3 { margin:3px 0 0; }
 .module-evaluation-settings>p { margin:0; color:#746D62; font-size:14px; }
 .module-evaluation-settings select { width:100%; padding:11px; border:1px solid var(--borde); border-radius:8px; background:#fff; font:inherit; }
 .module-modal :deep(.rich-text-editor) { min-width:0; }
@@ -916,5 +935,6 @@ legend { padding:0 5px; font-size:13px; font-weight:700; }
   .preview-row { grid-template-columns:1fr; }
   .modal-backdrop { place-items:end center; padding:14px; }
   .modal-panel { max-height:92vh; }
+  .module-form-tabs { grid-template-columns:1fr; }
 }
 </style>
