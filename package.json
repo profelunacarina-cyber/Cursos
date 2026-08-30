@@ -17,6 +17,7 @@
     "start:local": "node --env-file=.env.local backend/server.js",
     "start:prod": "node --env-file=.env.production backend/server.js",
     "db:init": "node --env-file=.env.local backend/scripts/init-db.js",
+    "db:migrate": "node backend/scripts/init-db.js",
     "db:init:local": "node --env-file=.env.local backend/scripts/init-db.js",
     "db:init:prod": "node --env-file=.env.production backend/scripts/init-db.js",
     "cursos:migrar": "node --env-file=.env.local backend/scripts/migrar-cursos-html.js",

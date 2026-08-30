@@ -98,6 +98,7 @@ Después de eso, cada push a `dev` usa la base de prueba y `main` sigue usando l
 1. Vercel → **Add New → Project** → importás el repo (Root Directory: la **raíz**).
 2. Variables de entorno: `DATABASE_URL`, `JWT_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM` (y opcional `NOTA_APROBACION`).
 3. Deploy. Vercel construye `frontend/dist` y usa `api/` como función:
+   - antes de compilar, aplica automáticamente las migraciones pendientes sobre la `DATABASE_URL` del ambiente;
    - `profeluna.ar/` → el sitio.
    - `profeluna.ar/api/…` → la API (por el `rewrite` de `vercel.json`).
 4. Verificá `https://<tu-dominio>/api/salud` → debe devolver `{"ok":true}`.
