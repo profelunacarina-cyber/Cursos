@@ -12,9 +12,23 @@ export const epjaCertificadosRepo = {
     const { rows } = await getPool().query(`SELECT ${CAMPOS} FROM epja_certificados c JOIN epja_estudiantes e ON e.id=c.estudiante_id JOIN epja_modulos mod ON mod.id=c.modulo_id JOIN epja_materias mat ON mat.id=mod.materia_id ${estudianteId ? 'WHERE c.estudiante_id=$1' : ''} ORDER BY c.emitido_en DESC`, estudianteId ? [estudianteId] : []);
     return rows.map(certificado);
   },
+  async obtenerDeEstudiante(estudianteId, moduloId) {
+    const { rows } = await getPool().query(
+      `SELECT ${CAMPOS}
+         FROM epja_certificados c
+         JOIN epja_estudiantes e ON e.id = c.estudiante_id
+         JOIN epja_modulos mod ON mod.id = c.modulo_id
+         JOIN epja_materias mat ON mat.id = mod.materia_id
+         JOIN epja_estudiantes_materias em
+           ON em.estudiante_id = e.id AND em.materia_id = mat.id
+        WHERE c.estudiante_id = $1 AND c.modulo_id = $2`,
+      [estudianteId, moduloId]
+    );
+    return rows[0] ? certificado(rows[0]) : null;
+  },
   async recorrido(estudianteId) {
-    const { rows } = await getPool().query(`SELECT mod.id, mod.titulo, mod.resumen, mod.publicado, mat.id AS materia_id, mat.codigo AS materia_codigo, mat.campo AS materia_campo, mat.nombre AS materia_nombre, COALESCE(p.completado,false) AS completado, COALESCE(p.aprobado,false) AS aprobado, c.id AS certificado_id, c.codigo AS certificado_codigo, c.emitido_en, c.revocado_en FROM epja_modulos mod JOIN epja_materias mat ON mat.id=mod.materia_id JOIN epja_estudiantes_materias em ON em.materia_id=mat.id AND em.estudiante_id=$1 LEFT JOIN epja_progreso_modulos p ON p.estudiante_id=$1 AND p.modulo_id=mod.id LEFT JOIN epja_certificados c ON c.estudiante_id=$1 AND c.modulo_id=mod.id ORDER BY mat.orden, mod.orden, mod.id`, [estudianteId]);
-    return rows.map(r => ({ id:r.id, titulo:r.titulo, resumen:r.resumen, publicado:r.publicado, materia:{ id:r.materia_id, codigo:r.materia_codigo, campo:r.materia_campo, nombre:r.materia_nombre }, completado:r.completado, aprobado:r.aprobado, certificado:r.certificado_id ? { id:r.certificado_id, codigo:r.certificado_codigo, emitidoEn:r.emitido_en, revocadoEn:r.revocado_en } : null }));
+    const { rows } = await getPool().query(`SELECT mod.id, mod.titulo, mod.resumen, mod.publicado, mod.autoevaluacion, mod.certificado_modo, mat.id AS materia_id, mat.codigo AS materia_codigo, mat.campo AS materia_campo, mat.nombre AS materia_nombre, COALESCE(p.completado,false) AS completado, COALESCE(p.aprobado,false) AS aprobado, c.id AS certificado_id, c.codigo AS certificado_codigo, c.emitido_en, c.revocado_en, COALESCE(i.intentos,0)::int AS intentos, COALESCE(i.mejor_porcentaje,0)::int AS mejor_porcentaje, i.ultimo_intento_en FROM epja_modulos mod JOIN epja_materias mat ON mat.id=mod.materia_id JOIN epja_estudiantes_materias em ON em.materia_id=mat.id AND em.estudiante_id=$1 LEFT JOIN epja_progreso_modulos p ON p.estudiante_id=$1 AND p.modulo_id=mod.id LEFT JOIN epja_certificados c ON c.estudiante_id=$1 AND c.modulo_id=mod.id LEFT JOIN LATERAL (SELECT COUNT(*) AS intentos, MAX(porcentaje) AS mejor_porcentaje, MAX(creado_en) AS ultimo_intento_en FROM epja_autoevaluacion_intentos WHERE estudiante_id=$1 AND modulo_id=mod.id) i ON true ORDER BY mat.orden, mod.orden, mod.id`, [estudianteId]);
+    return rows.map(r => ({ id:r.id, titulo:r.titulo, resumen:r.resumen, publicado:r.publicado, autoevaluacionActiva:Boolean(r.autoevaluacion?.activa), certificadoModo:r.certificado_modo, materia:{ id:r.materia_id, codigo:r.materia_codigo, campo:r.materia_campo, nombre:r.materia_nombre }, completado:r.completado, aprobado:r.aprobado, intentos:r.intentos, mejorPorcentaje:r.mejor_porcentaje, ultimoIntentoEn:r.ultimo_intento_en, certificado:r.certificado_id ? { id:r.certificado_id, codigo:r.certificado_codigo, emitidoEn:r.emitido_en, revocadoEn:r.revocado_en } : null }));
   },
   async aprobarYEmitir(estudianteId, moduloId) {
     const db = getPool(); const client = await db.connect();

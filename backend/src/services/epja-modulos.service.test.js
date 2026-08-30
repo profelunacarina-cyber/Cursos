@@ -32,6 +32,35 @@ describe('epjaModulosService y contenido multimedia', () => {
     expect(creado.contenido).toContain(`src="${youtube}"`);
   });
 
+  test('conserva color de texto y resaltado aplicados desde el editor', async () => {
+    epjaMateriasRepo.obtener.mockResolvedValue({ id: 2 });
+    epjaModulosRepo.crear.mockImplementation(async modulo => modulo);
+
+    const creado = await epjaModulosService.crear(2, {
+      titulo: 'Clase con consignas',
+      contenido: '<p><span style="color: rgb(230, 0, 0); background-color: rgb(0, 255, 255);">Consigna 1:</span> Resolver la actividad.</p>'
+    });
+
+    expect(creado.contenido).toContain('color:rgb(230, 0, 0)');
+    expect(creado.contenido).toContain('background-color:rgb(0, 255, 255)');
+    expect(creado.contenido).toContain('Consigna 1:');
+  });
+
+  test('elimina otros estilos que no sean formatos seguros de texto', async () => {
+    epjaMateriasRepo.obtener.mockResolvedValue({ id: 2 });
+    epjaModulosRepo.crear.mockImplementation(async modulo => modulo);
+
+    const creado = await epjaModulosService.crear(2, {
+      titulo: 'Clase segura',
+      contenido: '<p><span style="position: fixed; left: 0; background-image: url(javascript:alert(1)); color: red;">Texto</span></p>'
+    });
+
+    expect(creado.contenido).toContain('Texto');
+    expect(creado.contenido).not.toContain('position');
+    expect(creado.contenido).not.toContain('background-image');
+    expect(creado.contenido).not.toContain('javascript');
+  });
+
   test('elimina la URL de iframes que no sean de YouTube', async () => {
     epjaMateriasRepo.obtener.mockResolvedValue({ id: 2 });
     epjaModulosRepo.crear.mockImplementation(async modulo => modulo);

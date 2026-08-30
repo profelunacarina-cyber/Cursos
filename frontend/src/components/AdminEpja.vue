@@ -13,6 +13,7 @@ import {
   UserPlus
 } from '@primeicons/vue';
 import RichTextEditor from './RichTextEditor.vue';
+import EvaluationBuilder from './EvaluationBuilder.vue';
 
 const token = sessionStorage.getItem('profeluna_token') || '';
 const estudiantes = ref([]);
@@ -29,6 +30,7 @@ const materiaSeleccionada = ref(null);
 const materiaForm = ref(null);
 const modulosMateria = ref([]);
 const moduloForm = ref(null);
+const errorModulo = ref('');
 const estudianteCert = ref('');
 const recorrido = ref([]);
 const certificadoDescargando = ref(null);
@@ -311,19 +313,35 @@ async function abrirMateria(m) {
 
 function nuevoModulo() {
   if (!materiaSeleccionada.value?.id) return;
-  moduloForm.value = { titulo: '', resumen: '', contenido: '', publicado: true };
+  errorModulo.value = '';
+  moduloForm.value = {
+    titulo: '',
+    resumen: '',
+    contenido: '',
+    publicado: true,
+    autoevaluacion: { activa: false, notaAprobacion: 60, preguntas: [] },
+    certificadoModo: 'manual'
+  };
 }
 
 function editarModulo(m) {
-  moduloForm.value = { ...m, contenido: typeof m.contenido === 'string' ? m.contenido : '' };
+  errorModulo.value = '';
+  moduloForm.value = {
+    ...m,
+    contenido: typeof m.contenido === 'string' ? m.contenido : '',
+    autoevaluacion: JSON.parse(JSON.stringify(m.autoevaluacion || { activa: false, notaAprobacion: 60, preguntas: [] })),
+    certificadoModo: m.certificadoModo === 'automatico' ? 'automatico' : 'manual'
+  };
 }
 
 function cerrarModuloModal() {
   moduloForm.value = null;
+  errorModulo.value = '';
 }
 
 async function guardarModulo() {
   const m = moduloForm.value;
+  errorModulo.value = '';
   const r = await fetch(m.id ? `/api/epja/modulos/${m.id}` : `/api/epja/materias/${materiaSeleccionada.value.id}/modulos`, {
     method: m.id ? 'PUT' : 'POST',
     headers: headers(),
@@ -331,7 +349,7 @@ async function guardarModulo() {
   });
   const d = await r.json();
   if (!r.ok) {
-    error.value = mensajeError(d, 'No se pudo guardar la clase.');
+    errorModulo.value = mensajeError(d, 'No se pudo guardar la clase.');
     return;
   }
   moduloForm.value = null;
@@ -648,7 +666,7 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
           <article v-for="m in modulosMateria" :key="m.id" class="class-row">
             <div>
               <strong>{{ m.titulo }}</strong>
-              <small>{{ m.publicado ? 'Publicado' : 'Borrador' }} · {{ m.palabras }} palabras</small>
+              <small>{{ m.publicado ? 'Publicado' : 'Borrador' }} · {{ m.palabras }} palabras · {{ m.autoevaluacion?.activa ? `Autoevaluación de ${m.autoevaluacion.preguntas?.length || 0} preguntas` : 'Sin autoevaluación' }}</small>
             </div>
             <div>
               <button class="row-action" @click="editarModulo(m)"><FileEdit :size="15" />Editar</button>
@@ -684,6 +702,7 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
             <span v-if="m.certificado && !m.certificado.revocadoEn" class="certificate-code">Certificado {{ m.certificado.codigo }}</span>
             <span v-else-if="m.certificado?.revocadoEn" class="revoked">Certificado revocado</span>
             <span v-else>{{ m.aprobado ? 'Aprobado sin certificado' : 'Pendiente de aprobación' }}</span>
+            <small v-if="m.autoevaluacionActiva">Autoevaluación: {{ m.intentos }} intento{{ m.intentos === 1 ? '' : 's' }} · mejor nota {{ m.mejorPorcentaje }} % · certificado {{ m.certificadoModo === 'automatico' ? 'automático' : 'manual' }}</small>
           </div>
           <div class="certificate-actions">
             <button v-if="!m.certificado || m.certificado.revocadoEn" class="button" @click="aprobar(m)">Aprobar y emitir</button>
@@ -759,6 +778,7 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
           </div>
 
           <div class="module-modal-body">
+            <p v-if="errorModulo" class="error module-save-error" role="alert">{{ errorModulo }}</p>
             <label>Título<input v-model="moduloForm.titulo" required></label>
             <label>Resumen<input v-model="moduloForm.resumen"></label>
             <div class="module-editor-field">
@@ -770,6 +790,20 @@ onMounted(() => cargar().catch(e => (error.value = e.message)));
                 :auth-token="token"
               />
             </div>
+            <section class="module-evaluation-settings">
+              <label class="subject-check"><input v-model="moduloForm.autoevaluacion.activa" type="checkbox">Cerrar este módulo con una autoevaluación</label>
+              <p>La aprobación requiere 9 respuestas correctas de 15 (60 %). Los intentos quedan registrados.</p>
+              <template v-if="moduloForm.autoevaluacion.activa">
+                <label>
+                  Emisión del certificado
+                  <select v-model="moduloForm.certificadoModo">
+                    <option value="manual">Manual: aprobar y emitir desde administración</option>
+                    <option value="automatico">Automática: emitir al aprobar la autoevaluación</option>
+                  </select>
+                </label>
+                <EvaluationBuilder v-model="moduloForm.autoevaluacion" :max-questions="15" :exact-questions="15" />
+              </template>
+            </section>
             <label class="subject-check"><input v-model="moduloForm.publicado" type="checkbox">Publicar para estudiantes</label>
           </div>
 
@@ -854,8 +888,12 @@ legend { padding:0 5px; font-size:13px; font-weight:700; }
 .modal-panel { width:min(720px,100%); max-height:min(88vh,840px); overflow:auto; display:grid; gap:17px; padding:clamp(22px,4vw,34px); border:1px solid var(--borde); border-radius:14px; background:var(--crema); box-shadow:0 24px 80px rgba(33,29,24,.32); }
 .module-modal { width:min(860px,100%); max-height:min(92vh,900px); grid-template-rows:auto minmax(0,1fr) auto; overflow:hidden; }
 .module-modal-body { min-height:0; overflow:auto; display:grid; gap:17px; padding-right:6px; scrollbar-gutter:stable; }
+.module-save-error { position:sticky; z-index:3; top:0; margin:0; }
 .module-editor-field { min-height:0; }
 .module-editor-label { display:block; margin-bottom:6px; font-size:14px; font-weight:700; }
+.module-evaluation-settings { display:grid; gap:13px; padding:17px; border:1px solid var(--borde); border-radius:12px; background:#fffdf7; }
+.module-evaluation-settings>p { margin:0; color:#746D62; font-size:14px; }
+.module-evaluation-settings select { width:100%; padding:11px; border:1px solid var(--borde); border-radius:8px; background:#fff; font:inherit; }
 .module-modal :deep(.rich-text-editor) { min-width:0; }
 .module-modal :deep(.ql-container.ql-snow) { min-height:260px; max-height:42vh; overflow:hidden; }
 .module-modal :deep(.ql-editor) { min-height:260px; max-height:42vh; overflow-y:auto; }

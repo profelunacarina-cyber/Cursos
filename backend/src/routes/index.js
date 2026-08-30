@@ -102,7 +102,9 @@ const esquemaEpjaModulo = {
   titulo:    { requerido: true, tipo: 'texto', max: 160 },
   resumen:   { tipo: 'texto', max: 240 },
   contenido: { tipo: 'texto', max: 40000 },
-  publicado: { tipo: 'booleano' }
+  publicado: { tipo: 'booleano' },
+  autoevaluacion: { tipo: 'objeto' },
+  certificadoModo: { valores: ['manual', 'automatico'] }
 };
 
 export const rutas = Router();
@@ -183,6 +185,8 @@ rutas.get('/epja/alumno/materias', requiereEstudiante, epjaAlumnoController.misM
 rutas.get('/epja/alumno/materias/:codigo', requiereEstudiante, epjaAlumnoController.materia);
 rutas.get('/epja/alumno/modulos/:id', requiereEstudiante, epjaAlumnoController.modulo);
 rutas.post('/epja/alumno/modulos/:id/completar', requiereEstudiante, epjaAlumnoController.completar);
+rutas.post('/epja/alumno/modulos/:id/autoevaluacion', requiereEstudiante, limitar({ ventanaMs: 15 * 60_000, maximo: 30 }), epjaAlumnoController.responderAutoevaluacion);
+rutas.get('/epja/alumno/modulos/:id/certificado', requiereEstudiante, epjaAlumnoController.certificado);
 
 // EPJA · administración
 rutas.get('/epja/estudiantes', requiereAdmin, epjaEstudiantesController.listar);

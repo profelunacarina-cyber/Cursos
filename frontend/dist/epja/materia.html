@@ -84,7 +84,7 @@
             acciones.className = 'epja-actions';
             var estado = document.createElement('span');
             estado.className = 'epja-pill ' + (m.completado ? 'ok' : 'warn');
-            estado.textContent = m.completado ? 'Completado' : 'Pendiente';
+            estado.textContent = m.aprobado ? 'Aprobado' : (m.completado ? 'Completado' : 'Pendiente');
             var abrir = document.createElement('a');
             abrir.className = 'epja-btn epja-btn-mini';
             abrir.style.textDecoration = 'none';

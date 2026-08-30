@@ -27,6 +27,9 @@ export function validarCuerpo(esquema) {
       if (reglas.tipo === 'booleano' && typeof valor !== 'boolean') {
         errores.push(`«${campo}» debe ser verdadero o falso`);
       }
+      if (reglas.tipo === 'objeto' && (typeof valor !== 'object' || Array.isArray(valor))) {
+        errores.push(`«${campo}» debe ser un objeto`);
+      }
       if (reglas.max && typeof valor === 'string' && valor.length > reglas.max) {
         errores.push(`«${campo}» supera los ${reglas.max} caracteres`);
       }

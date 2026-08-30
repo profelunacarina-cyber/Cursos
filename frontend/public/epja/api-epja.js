@@ -141,6 +141,8 @@
       materia: function (codigo) { return pedir('/epja/alumno/materias/' + encodeURIComponent(codigo)); },
       modulo: function (id) { return pedir('/epja/alumno/modulos/' + id); },
       completar: function (id) { return pedir('/epja/alumno/modulos/' + id + '/completar', { metodo: 'POST' }); },
+      responderAutoevaluacion: function (id, respuestas) { return pedir('/epja/alumno/modulos/' + id + '/autoevaluacion', { metodo: 'POST', cuerpo: { respuestas: respuestas } }); },
+      certificado: function (id) { return pedir('/epja/alumno/modulos/' + id + '/certificado'); },
       descargarArchivo: descargarArchivo
     },
     ui: {

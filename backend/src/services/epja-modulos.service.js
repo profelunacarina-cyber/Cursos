@@ -8,7 +8,7 @@ const OPCIONES_SANITIZADO = {
     h2: [], h3: [], h4: [], p: [], ul: [], ol: [], li: [],
     strong: [], em: [], b: [], i: [], u: [], small: [], br: [], hr: [], blockquote: [],
     figure: ['class', 'data-url', 'data-name', 'data-type', 'data-size', 'data-src', 'data-media-align', 'data-media-layout'],
-    span: ['class'],
+    span: ['class', 'style'],
     a: ['href', 'title', 'class'],
     iframe: ['class', 'src', 'frameborder', 'allowfullscreen', 'title']
   },
@@ -39,6 +39,53 @@ function normalizarContenido(html) {
   return { contenido: limpio, palabras };
 }
 
+function texto(valor, maximo) {
+  return String(valor || '').replace(/\s+/g, ' ').trim().slice(0, maximo);
+}
+
+function normalizarAutoevaluacion(valor) {
+  const fuente = valor && typeof valor === 'object' ? valor : {};
+  const activa = Boolean(fuente.activa);
+  const preguntas = Array.isArray(fuente.preguntas)
+    ? fuente.preguntas.slice(0, 15).map((pregunta, indice) => {
+        const opcionesFuente = Array.isArray(pregunta?.opciones) ? pregunta.opciones.slice(0, 8) : [];
+        const primeraCorrecta = opcionesFuente.findIndex(opcion => Boolean(opcion?.correcta));
+        return {
+          id: texto(pregunta?.id, 80) || `pregunta-${indice + 1}`,
+          enunciado: texto(pregunta?.enunciado, 2000),
+          tipo: pregunta?.tipo === 'verdadero_falso' ? 'verdadero_falso' : 'opcion_multiple',
+          opciones: opcionesFuente.map((opcion, opcionIndice) => ({
+            texto: texto(opcion?.texto, 500),
+            correcta: opcionIndice === primeraCorrecta
+          }))
+        };
+      })
+    : [];
+
+  if (activa) {
+    if (preguntas.length !== 15) {
+      throw new ErrorApp(400, 'La autoevaluación activa debe tener exactamente 15 preguntas');
+    }
+    if (new Set(preguntas.map(pregunta => pregunta.id)).size !== preguntas.length) {
+      throw new ErrorApp(400, 'Cada pregunta necesita un identificador diferente');
+    }
+    preguntas.forEach((pregunta, indice) => {
+      if (!pregunta.enunciado) throw new ErrorApp(400, `Falta el enunciado de la pregunta ${indice + 1}`);
+      if (pregunta.opciones.length < 2) throw new ErrorApp(400, `La pregunta ${indice + 1} necesita al menos 2 opciones`);
+      if (pregunta.opciones.some(opcion => !opcion.texto)) throw new ErrorApp(400, `Hay una opción vacía en la pregunta ${indice + 1}`);
+      if (pregunta.opciones.filter(opcion => opcion.correcta).length !== 1) {
+        throw new ErrorApp(400, `Marcá una respuesta correcta en la pregunta ${indice + 1}`);
+      }
+    });
+  }
+
+  return { activa, notaAprobacion: 60, preguntas };
+}
+
+function modoCertificado(valor) {
+  return valor === 'automatico' ? 'automatico' : 'manual';
+}
+
 export const epjaModulosService = {
   async listarDeMateria(materiaId) {
     if (!Number.isInteger(materiaId)) throw new ErrorApp(400, 'Id de materia inválido');
@@ -56,13 +103,16 @@ export const epjaModulosService = {
     if (!titulo) throw new ErrorApp(400, 'El módulo necesita un título');
     const resumen = String(datos.resumen || '').trim().slice(0, 240);
     const { contenido, palabras } = normalizarContenido(datos.contenido);
+    const autoevaluacion = normalizarAutoevaluacion(datos.autoevaluacion);
     return epjaModulosRepo.crear({
       materiaId,
       titulo,
       resumen,
       contenido,
       palabras,
-      publicado: typeof datos.publicado === 'boolean' ? datos.publicado : true
+      publicado: typeof datos.publicado === 'boolean' ? datos.publicado : true,
+      autoevaluacion,
+      certificadoModo: modoCertificado(datos.certificadoModo)
     });
   },
 
@@ -75,12 +125,15 @@ export const epjaModulosService = {
     if (!titulo) throw new ErrorApp(400, 'El módulo necesita un título');
     const resumen = String(datos.resumen || '').trim().slice(0, 240);
     const { contenido, palabras } = normalizarContenido(datos.contenido);
+    const autoevaluacion = normalizarAutoevaluacion(datos.autoevaluacion ?? previo.autoevaluacion);
     return epjaModulosRepo.actualizar(id, {
       titulo,
       resumen,
       contenido,
       palabras,
-      publicado: typeof datos.publicado === 'boolean' ? datos.publicado : previo.publicado
+      publicado: typeof datos.publicado === 'boolean' ? datos.publicado : previo.publicado,
+      autoevaluacion,
+      certificadoModo: modoCertificado(datos.certificadoModo ?? previo.certificadoModo)
     });
   },
 

@@ -7,6 +7,7 @@ import AdminEpja from './components/AdminEpja.vue';
 import LoginEpja from './components/LoginEpja.vue';
 import AulaEpja from './components/AulaEpja.vue';
 import PerfilEpja from './components/PerfilEpja.vue';
+import CertificadoEpja from './components/CertificadoEpja.vue';
 import { ArrowRight, Instagram, Linkedin, MapMarker, Whatsapp } from '@primeicons/vue';
 
 function sesionAdminLocalActiva() {
@@ -55,6 +56,7 @@ const esAdminEpja = computed(() => vista.value === '#admin-epja');
 const esLogin = computed(() => vista.value === '#login');
 const esAula = computed(() => vista.value === '#aula');
 const esPerfil = computed(() => vista.value === '#perfil');
+const esCertificadoEpja = computed(() => vista.value.startsWith('#certificado-epja?'));
 const esSobreMi = computed(() => vista.value === '#sobre-mi' || vista.value === '#resena-academica');
 
 async function cargarVitrina() {
@@ -99,6 +101,7 @@ onUnmounted(() => {
   <main v-if="esLogin"><LoginEpja /></main>
   <main v-else-if="esAula"><AulaEpja /></main>
   <main v-else-if="esPerfil"><PerfilEpja /></main>
+  <main v-else-if="esCertificadoEpja"><CertificadoEpja /></main>
   <main v-else-if="esAdminEpja"><AdminEpja /></main>
   <main v-else-if="esAdmin"><AdminCourses /></main>
   <main v-else-if="esSobreMi" class="profile-page">

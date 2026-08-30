@@ -37,6 +37,9 @@
           <p class="bajada" id="resumen"></p>
           <div id="contenido" class="epja-module-body" style="margin-top:18px;"></div>
         </section>
+        <section id="autoevaluacion-panel" class="epja-panel" hidden>
+          <div id="autoevaluacion"></div>
+        </section>
         <section class="epja-panel">
           <div class="epja-actions" id="acciones"></div>
         </section>
@@ -88,11 +91,13 @@
         });
         var estado = document.getElementById('estado');
         estado.className = 'epja-pill ' + (modulo.completado ? 'ok' : 'warn');
-        estado.textContent = modulo.completado ? 'Completado' : 'Pendiente';
+        estado.textContent = modulo.aprobado ? 'Aprobado' : (modulo.completado ? 'Completado' : 'Pendiente');
+
+        pintarAutoevaluacion(modulo);
 
         var acciones = document.getElementById('acciones');
         acciones.textContent = '';
-        if (!modulo.completado) {
+        if (!modulo.completado && !modulo.autoevaluacion.activa) {
           var completar = document.createElement('button');
           completar.className = 'epja-btn';
           completar.id = 'btn-completar';
@@ -133,6 +138,138 @@
             });
           });
         }
+      }
+
+      function enlaceCertificado(moduloId) {
+        var enlace = document.createElement('a');
+        enlace.className = 'epja-btn';
+        enlace.href = '/#certificado-epja?modulo=' + encodeURIComponent(moduloId);
+        enlace.textContent = 'Descargar certificado';
+        return enlace;
+      }
+
+      function pintarAutoevaluacion(modulo) {
+        var panel = document.getElementById('autoevaluacion-panel');
+        var contenedor = document.getElementById('autoevaluacion');
+        contenedor.textContent = '';
+        if (!modulo.autoevaluacion.activa) {
+          panel.hidden = true;
+          return;
+        }
+        panel.hidden = false;
+
+        var cabecera = document.createElement('div');
+        cabecera.className = 'epja-evaluation-head';
+        var textos = document.createElement('div');
+        var kicker = document.createElement('span');
+        kicker.className = 'antetitulo';
+        kicker.textContent = 'Actividad de cierre';
+        var titulo = document.createElement('h2');
+        titulo.textContent = 'Autoevaluación';
+        var ayuda = document.createElement('p');
+        ayuda.textContent = 'Respondé las 15 preguntas. Para aprobar necesitás 9 respuestas correctas (60 %).';
+        textos.appendChild(kicker);
+        textos.appendChild(titulo);
+        textos.appendChild(ayuda);
+        cabecera.appendChild(textos);
+        var historial = document.createElement('span');
+        historial.className = 'epja-pill';
+        historial.textContent = modulo.autoevaluacion.intentos
+          ? modulo.autoevaluacion.intentos + ' intento' + (modulo.autoevaluacion.intentos === 1 ? '' : 's') + ' · mejor ' + modulo.autoevaluacion.mejorPorcentaje + '%'
+          : 'Sin intentos';
+        cabecera.appendChild(historial);
+        contenedor.appendChild(cabecera);
+
+        if (modulo.aprobado) {
+          var aprobado = document.createElement('div');
+          aprobado.className = 'epja-result ok';
+          var mensaje = document.createElement('strong');
+          mensaje.textContent = 'Módulo aprobado';
+          var detalle = document.createElement('p');
+          detalle.textContent = modulo.certificado && !modulo.certificado.revocadoEn
+            ? 'Tu certificado ya está disponible.'
+            : 'La aprobación quedó registrada. El certificado será emitido por la docente.';
+          aprobado.appendChild(mensaje);
+          aprobado.appendChild(detalle);
+          if (modulo.certificado && !modulo.certificado.revocadoEn) aprobado.appendChild(enlaceCertificado(modulo.id));
+          contenedor.appendChild(aprobado);
+          return;
+        }
+
+        var formulario = document.createElement('form');
+        formulario.className = 'epja-evaluation-form';
+        modulo.autoevaluacion.preguntas.forEach(function (pregunta, indice) {
+          var tarjeta = document.createElement('fieldset');
+          tarjeta.className = 'epja-question';
+          var leyenda = document.createElement('legend');
+          leyenda.textContent = (indice + 1) + '. ' + pregunta.enunciado;
+          tarjeta.appendChild(leyenda);
+          pregunta.opciones.forEach(function (opcion, opcionIndice) {
+            var etiqueta = document.createElement('label');
+            etiqueta.className = 'epja-answer';
+            var radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'pregunta-' + indice;
+            radio.value = String(opcionIndice);
+            radio.required = true;
+            var texto = document.createElement('span');
+            texto.textContent = opcion.texto;
+            etiqueta.appendChild(radio);
+            etiqueta.appendChild(texto);
+            tarjeta.appendChild(etiqueta);
+          });
+          formulario.appendChild(tarjeta);
+        });
+        var resultado = document.createElement('div');
+        resultado.className = 'epja-result';
+        resultado.hidden = true;
+        formulario.appendChild(resultado);
+        var entregar = document.createElement('button');
+        entregar.className = 'epja-btn';
+        entregar.type = 'submit';
+        entregar.textContent = 'Entregar autoevaluación';
+        formulario.appendChild(entregar);
+        formulario.addEventListener('submit', function (evento) {
+          evento.preventDefault();
+          if (!formulario.reportValidity()) return;
+          var respuestas = modulo.autoevaluacion.preguntas.map(function (pregunta, indice) {
+            var elegida = formulario.querySelector('input[name="pregunta-' + indice + '"]:checked');
+            return { preguntaId: pregunta.id, opcion: Number(elegida.value) };
+          });
+          entregar.disabled = true;
+          entregar.textContent = 'Corrigiendo…';
+          resultado.hidden = true;
+          EPJAApi.alumno.responderAutoevaluacion(modulo.id, respuestas).then(function (datos) {
+            resultado.hidden = false;
+            resultado.className = 'epja-result ' + (datos.aprobado ? 'ok' : 'retry');
+            resultado.textContent = '';
+            var nota = document.createElement('strong');
+            nota.textContent = datos.aciertos + ' de ' + datos.total + ' correctas · ' + datos.porcentaje + '%';
+            var mensaje = document.createElement('p');
+            mensaje.textContent = datos.mensaje;
+            resultado.appendChild(nota);
+            resultado.appendChild(mensaje);
+            if (datos.certificado) resultado.appendChild(enlaceCertificado(modulo.id));
+            if (datos.aprobado) {
+              formulario.querySelectorAll('input').forEach(function (input) { input.disabled = true; });
+              entregar.remove();
+              var estadoModulo = document.getElementById('estado');
+              estadoModulo.className = 'epja-pill ok';
+              estadoModulo.textContent = 'Aprobado';
+            } else {
+              entregar.disabled = false;
+              entregar.textContent = 'Volver a intentar';
+            }
+            resultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }).catch(function (error) {
+            resultado.hidden = false;
+            resultado.className = 'epja-result retry';
+            resultado.textContent = error.message;
+            entregar.disabled = false;
+            entregar.textContent = 'Entregar autoevaluación';
+          });
+        });
+        contenedor.appendChild(formulario);
       }
 
       document.getElementById('contenido').addEventListener('click', function (evento) {

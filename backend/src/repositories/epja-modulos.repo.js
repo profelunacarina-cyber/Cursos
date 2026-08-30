@@ -12,12 +12,16 @@ function aModulo(fila) {
     palabras: fila.palabras,
     orden: fila.orden,
     publicado: fila.publicado,
-    completado: fila.completado == null ? undefined : fila.completado
+    autoevaluacion: fila.autoevaluacion || { activa: false, notaAprobacion: 60, preguntas: [] },
+    certificadoModo: fila.certificado_modo || 'manual',
+    completado: fila.completado == null ? undefined : fila.completado,
+    aprobado: fila.aprobado == null ? undefined : fila.aprobado
   };
 }
 
 const CAMPOS = `mod.id, mod.materia_id, mat.codigo AS materia_codigo, mat.nombre AS materia_nombre,
-                mod.titulo, mod.resumen, mod.contenido, mod.palabras, mod.orden, mod.publicado`;
+                mod.titulo, mod.resumen, mod.contenido, mod.palabras, mod.orden, mod.publicado,
+                mod.autoevaluacion, mod.certificado_modo`;
 
 export const epjaModulosRepo = {
   async listarDeMateria(materiaId, { soloPublicados = false, estudianteId = null } = {}) {
@@ -31,7 +35,7 @@ export const epjaModulosRepo = {
     const filtroPublicados = soloPublicados ? 'AND mod.publicado = true' : '';
 
     const { rows } = await getPool().query(
-      `SELECT ${CAMPOS}${estudianteId ? ', COALESCE(pm.completado, false) AS completado' : ''}
+      `SELECT ${CAMPOS}${estudianteId ? ', COALESCE(pm.completado, false) AS completado, COALESCE(pm.aprobado, false) AS aprobado' : ''}
          FROM epja_modulos mod
          JOIN epja_materias mat ON mat.id = mod.materia_id
          ${joinProgreso}
@@ -56,7 +60,7 @@ export const epjaModulosRepo = {
 
   async obtenerParaEstudiante(id, estudianteId) {
     const { rows } = await getPool().query(
-      `SELECT ${CAMPOS}, COALESCE(pm.completado, false) AS completado
+      `SELECT ${CAMPOS}, COALESCE(pm.completado, false) AS completado, COALESCE(pm.aprobado, false) AS aprobado
          FROM epja_modulos mod
          JOIN epja_materias mat ON mat.id = mod.materia_id
          JOIN epja_estudiantes_materias em
@@ -74,12 +78,12 @@ export const epjaModulosRepo = {
 
   async crear(modulo) {
     const { rows } = await getPool().query(
-      `INSERT INTO epja_modulos (materia_id, titulo, resumen, contenido, palabras, orden, publicado)
+      `INSERT INTO epja_modulos (materia_id, titulo, resumen, contenido, palabras, orden, publicado, autoevaluacion, certificado_modo)
        VALUES ($1, $2, $3, $4::jsonb, $5,
                COALESCE((SELECT MAX(orden) + 1 FROM epja_modulos WHERE materia_id = $1), 1),
-               $6)
+               $6, $7::jsonb, $8)
        RETURNING id`,
-      [modulo.materiaId, modulo.titulo, modulo.resumen, JSON.stringify(modulo.contenido), modulo.palabras, modulo.publicado]
+      [modulo.materiaId, modulo.titulo, modulo.resumen, JSON.stringify(modulo.contenido), modulo.palabras, modulo.publicado, JSON.stringify(modulo.autoevaluacion), modulo.certificadoModo]
     );
     return rows[0] ? this.obtener(rows[0].id) : null;
   },
@@ -92,9 +96,11 @@ export const epjaModulosRepo = {
               contenido = $4::jsonb,
               palabras = $5,
               publicado = $6,
+              autoevaluacion = $7::jsonb,
+              certificado_modo = $8,
               actualizado_en = now()
         WHERE id = $1`,
-      [id, modulo.titulo, modulo.resumen, JSON.stringify(modulo.contenido), modulo.palabras, modulo.publicado]
+      [id, modulo.titulo, modulo.resumen, JSON.stringify(modulo.contenido), modulo.palabras, modulo.publicado, JSON.stringify(modulo.autoevaluacion), modulo.certificadoModo]
     );
     return rowCount ? this.obtener(id) : null;
   },
